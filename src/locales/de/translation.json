@@ -1,0 +1,28 @@
+{
+  "app": {
+    "name": "MyHome24App"
+  },
+  "navbar": {
+    "home": "Startseite",
+    "dashboard": "Dashboard"
+  },
+  "addListing": {
+    "title": "Anzeige hinzufügen",
+    "fields": {
+      "title": "Titel",
+      "city": "Stadt",
+      "price": "Preis (€)",
+      "apartment": "Wohnung",
+      "house": "Haus",
+      "rent": "Zur Miete",
+      "buy": "Zum Kauf"
+    },
+    "submit": "Einreichen"
+  },
+  "filter": {
+    "city": "Stadt (Filter)",
+    "maxPrice": "Maximaler Preis (€)",
+    "allTypes": "Alle Typen",
+    "allPurposes": "Alle Zwecke"
+  }
+}
