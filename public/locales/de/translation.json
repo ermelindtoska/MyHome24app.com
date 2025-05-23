@@ -1,0 +1,26 @@
+// src/locales/de/translation.json
+{
+  "heroTitle": "Häuser & Wohnungen zur Miete oder zum Verkauf in Deutschland 🇩🇪",
+  "heroSubtitle": "Das beste Portal für Immobilien in Deutschland – Tausende Inserate für Miet- und Kaufobjekte.",
+  "searchPlaceholder": "🔍 Suchbegriff eingeben",
+  "searchType": "🏠 Miete/Verkauf",
+  "searchCity": "📍 Stadt",
+  "searchButton": "Suchen",
+  "filterByRegion": "Wähle ein Bundesland aus, um Inserate zu filtern",
+  "registerButton": "Registrieren und kostenlos inserieren",
+  "latestListings": "Neueste Inserate",
+  "noListings": "Keine Inserate gefunden",
+  "title": "Titel",
+  "description": "Beschreibung",
+  "price": "Preis (€)",
+  "city": "Stadt",
+  "type": "Typ",
+  "category": "Kategorie",
+  "submit": "Einreichen",
+  "forRent": "Zur Miete",
+  "forSale": "Zum Verkauf",
+  "apartment": "Wohnung",
+  "house": "Haus",
+  "office": "Büro",
+  "logout": "Abmelden"
+}
