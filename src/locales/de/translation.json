@@ -24,5 +24,10 @@
     "maxPrice": "Maximaler Preis (€)",
     "allTypes": "Alle Typen",
     "allPurposes": "Alle Zwecke"
+  },
+  "dashboard": {
+    "title": "Ihre Anzeigenübersicht",
+    "noListings": "Keine Anzeigen für Ihr Konto gefunden.",
+    "loading": "Lade Ihre Anzeigen..."
   }
 }

@@ -24,5 +24,10 @@
     "maxPrice": "Max Price (€)",
     "allTypes": "All Types",
     "allPurposes": "All Purposes"
+  },
+  "dashboard": {
+    "title": "Your Listings Overview",
+    "noListings": "No listings found for your account.",
+    "loading": "Loading your listings..."
   }
 }
