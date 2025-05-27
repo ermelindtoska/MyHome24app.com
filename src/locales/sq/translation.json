@@ -1,14 +1,87 @@
 {
+  "app": {
+    "name": "MyHome24App"
+  },
+  "navbar": {
+    "home": "Ballina",
+    "listings": "Shpalljet",
+    "addListing": "Shto Shpallje",
+    "dashboard": "Paneli",
+    "logout": "Dil",
+    "login": "Hyr",
+    "register": "Regjistrohu"
+  },
+  "map": {
+  "title": "Vendndodhja në hartë"
+  },
+  "addListing": {
+    "title": "Shto një Shpallje",
+    "fields": {
+      "title": "Titulli",
+      "city": "Qyteti",
+      "price": "Çmimi (€)",
+      "apartment": "Apartament",
+      "house": "Shtëpi",
+      "rent": "Me Qira",
+      "buy": "Në Shitje"
+    },
+    "submit": "Dërgo"
+  },
+  "filter": {
+    "city": "Qyteti (Filtër)",
+    "maxPrice": "Çmimi Maksimal (€)",
+    "allTypes": "Të gjitha Tipet",
+    "allPurposes": "Të gjitha Qëllimet"
+  },
+  "contact": {
+    "title": "Kontakto Pronarin",
+    "object": "Objekti",
+    "description": "Këtu mund të vendosen të dhëna kontakti ose një formular.",
+    "close": "Mbyll"
+  },
+  "dashboard": {
+    "title": "Përmbledhja e Shpalljeve Tuaja",
+    "noListings": "Asnjë shpallje nuk u gjet për llogarinë tuaj.",
+    "loading": "Po ngarkohen shpalljet...",
+    "addNew": "Shto",
+    "delete": "Fshi",
+    "edit": "Ndrysho",
+    "details": "Detaje",
+    "favorite": "Shto te të preferuarat",
+    "unfavorite": "Hiq nga të preferuarat",
+    "new": "E Re",
+    "contactOwner": "Kontakto Pronarin"
+  },
+  "home": {
+    "heroTitle": "Gjej shtëpinë tënde të përsosur",
+    "heroSubtitle": "Zgjidh një vendndodhje ose filtro sipas preferencave.",
+    "heroButton": "Eksploro tani",
+    "searchPlaceholder": "Kërko sipas qytetit ose adresës...",
+    "categories": "Kategoritë",
+    "apartment": "Apartament",
+    "house": "Shtëpi",
+    "office": "Zyrë",
+    "land": "Tokë",
+    "latest": "Shpalljet më të fundit",
+    "whyTitle": "Pse MyHome24App?",
+    "whyDesc": "Të ndihmojmë të gjesh shtëpinë tënde të përsosur me lehtësi.",
+    "why1": "Zgjedhje e Gjerë",
+    "why1Desc": "Shumë prona nga e gjithë Gjermania.",
+    "why2": "E Sigurt dhe e Shpejtë",
+    "why2Desc": "Ofrues të besueshëm dhe kërkim i shpejtë.",
+    "why3": "E Lehtë për Përdorim",
+    "why3Desc": "Dizajn modern dhe i qartë për çdo pajisje."
+  },
   "breadcrumbs": {
-    "home": "Faqja Kryesore"
+    "home": "Ballina"
   },
   "favorites": {
     "title": "Të preferuarat e mia",
     "total": "Gjithsej",
     "compare": "Krahaso",
-    "entries": "shpallje",
-    "empty": "Nuk u gjet asnjë e preferuar.",
-    "avgRating": "Vlerësimi mesatar",
+    "entries": "Shënime",
+    "empty": "Nuk u gjetën të preferuara.",
+    "avgRating": "Vlerësim mesatar",
     "addToCompare": "Shto për krahasim",
     "removeFromCompare": "Hiq nga krahasimi"
   },

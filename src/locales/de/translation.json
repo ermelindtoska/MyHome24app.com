@@ -4,8 +4,29 @@
   },
   "navbar": {
     "home": "Startseite",
-    "dashboard": "Dashboard"
+    "listings": "Anzeigen",
+    "addListing": "Neue Anzeige",
+    "dashboard": "Dashboard",
+    "logout": "Abmelden",
+    "login": "Login",
+    "register": "Registrieren"
   },
+  "map": {
+    "title": "Standort auf Karte"
+  },
+  "compare": {
+  "title": "Vergleichsansicht",
+  "exportPDF": "PDF exportieren",
+  "minRating": "Mindestbewertung",
+  "resetFilters": "Filter zurücksetzen",
+  "noData": "Keine passenden Einträge gefunden.",
+  "noRating": "Keine Bewertung",
+  "chartTitle": "Preis und Bewertung",
+  "copied": "Zusammenfassung kopiert!",
+  "copy": "Zusammenfassung kopieren",
+  "email": "Per E-Mail senden",
+  "emailSubject": "Immobilienvergleich"
+},
   "addListing": {
     "title": "Anzeige hinzufügen",
     "fields": {
@@ -24,6 +45,12 @@
     "maxPrice": "Maximaler Preis (€)",
     "allTypes": "Alle Typen",
     "allPurposes": "Alle Zwecke"
+  },
+  "contact": {
+    "title": "Kontakt Eigentümer*in",
+    "object": "Objekt",
+    "description": "Hier könnten Kontaktdaten oder ein Formular stehen.",
+    "close": "Schließen"
   },
   "dashboard": {
     "title": "Ihre Anzeigenübersicht",

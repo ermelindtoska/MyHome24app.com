@@ -1,4 +1,77 @@
 {
+  "app": {
+    "name": "MyHome24App"
+  },
+  "navbar": {
+    "home": "Accueil",
+    "listings": "Annonces",
+    "addListing": "Nouvelle annonce",
+    "dashboard": "Tableau de bord",
+    "logout": "Déconnexion",
+    "login": "Connexion",
+    "register": "Inscription"
+  },
+  "map": {
+  "title": "Emplacement sur la carte"
+  },
+  "addListing": {
+    "title": "Ajouter une annonce",
+    "fields": {
+      "title": "Titre",
+      "city": "Ville",
+      "price": "Prix (€)",
+      "apartment": "Appartement",
+      "house": "Maison",
+      "rent": "À louer",
+      "buy": "À vendre"
+    },
+    "submit": "Soumettre"
+  },
+  "filter": {
+    "city": "Ville (Filtre)",
+    "maxPrice": "Prix maximum (€)",
+    "allTypes": "Tous les types",
+    "allPurposes": "Tous les objectifs"
+  },
+  "contact": {
+    "title": "Contacter le propriétaire",
+    "object": "Bien",
+    "description": "Ici, vous pouvez ajouter les coordonnées ou un formulaire.",
+    "close": "Fermer"
+  },
+  "dashboard": {
+    "title": "Vue d’ensemble de vos annonces",
+    "noListings": "Aucune annonce trouvée pour votre compte.",
+    "loading": "Chargement de vos annonces...",
+    "addNew": "Ajouter",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "details": "Détails",
+    "favorite": "Ajouter aux favoris",
+    "unfavorite": "Retirer des favoris",
+    "new": "Nouveau",
+    "contactOwner": "Contacter le propriétaire"
+  },
+  "home": {
+    "heroTitle": "Trouvez votre maison idéale",
+    "heroSubtitle": "Choisissez un lieu ou appliquez un filtre.",
+    "heroButton": "Explorer maintenant",
+    "searchPlaceholder": "Rechercher par ville ou adresse...",
+    "categories": "Catégories",
+    "apartment": "Appartement",
+    "house": "Maison",
+    "office": "Bureau",
+    "land": "Terrain",
+    "latest": "Annonces récentes",
+    "whyTitle": "Pourquoi MyHome24App ?",
+    "whyDesc": "Nous vous aidons à trouver votre maison idéale facilement.",
+    "why1": "Large choix",
+    "why1Desc": "De nombreuses propriétés dans toute l'Allemagne.",
+    "why2": "Sûr & Rapide",
+    "why2Desc": "Fournisseurs fiables et recherche rapide.",
+    "why3": "Facile à utiliser",
+    "why3Desc": "Design propre et moderne sur tous les appareils."
+  },
   "breadcrumbs": {
     "home": "Accueil"
   },
@@ -6,7 +79,7 @@
     "title": "Mes favoris",
     "total": "Total",
     "compare": "Comparer",
-    "entries": "entrées",
+    "entries": "Articles",
     "empty": "Aucun favori trouvé.",
     "avgRating": "Note moyenne",
     "addToCompare": "Ajouter à la comparaison",

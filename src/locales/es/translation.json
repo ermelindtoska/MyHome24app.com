@@ -1,21 +1,94 @@
 {
+  "app": {
+    "name": "MyHome24App"
+  },
+  "navbar": {
+    "home": "Inicio",
+    "listings": "Anuncios",
+    "addListing": "Añadir Anuncio",
+    "dashboard": "Panel",
+    "logout": "Cerrar sesión",
+    "login": "Iniciar sesión",
+    "register": "Registrarse"
+  },
+  "map": {
+  "title":  "Ubicación en el mapa"
+  },
+  "addListing": {
+    "title": "Agregar Anuncio",
+    "fields": {
+      "title": "Título",
+      "city": "Ciudad",
+      "price": "Precio (€)",
+      "apartment": "Apartamento",
+      "house": "Casa",
+      "rent": "En Alquiler",
+      "buy": "En Venta"
+    },
+    "submit": "Enviar"
+  },
+  "filter": {
+    "city": "Ciudad (Filtro)",
+    "maxPrice": "Precio Máximo (€)",
+    "allTypes": "Todos los Tipos",
+    "allPurposes": "Todos los Propósitos"
+  },
+  "dashboard": {
+    "title": "Resumen de tus Anuncios",
+    "noListings": "No se encontraron anuncios para tu cuenta.",
+    "loading": "Cargando tus anuncios...",
+    "addNew": "Nuevo Anuncio",
+    "new": "Nuevo",
+    "details": "Detalles",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "favorite": "Favorito",
+    "unfavorite": "Quitar Favorito",
+    "contactOwner": "Contactar al Propietario"
+  },
+  "home": {
+    "heroTitle": "Encuentra tu hogar perfecto",
+    "heroSubtitle": "Elige una ubicación o filtra según tus preferencias.",
+    "heroButton": "Explorar ahora",
+    "searchPlaceholder": "Buscar por ciudad o dirección...",
+    "categories": "Categorías",
+    "apartment": "Apartamento",
+    "house": "Casa",
+    "office": "Oficina",
+    "land": "Terreno",
+    "latest": "Últimos Anuncios",
+    "whyTitle": "¿Por qué MyHome24App?",
+    "whyDesc": "Te ayudamos a encontrar tu hogar ideal fácilmente.",
+    "why1": "Gran Variedad",
+    "why1Desc": "Muchos inmuebles en toda Alemania.",
+    "why2": "Seguro y Rápido",
+    "why2Desc": "Proveedores confiables y búsqueda rápida.",
+    "why3": "Fácil de Usar",
+    "why3Desc": "Diseño limpio y moderno para todos los dispositivos."
+  },
   "breadcrumbs": {
     "home": "Inicio"
   },
   "favorites": {
-    "title": "Mis favoritos",
+    "title": "Mis Favoritos",
     "total": "Total",
     "compare": "Comparar",
-    "entries": "elementos",
+    "entries": "Entradas",
     "empty": "No se encontraron favoritos.",
-    "avgRating": "Valoración media",
-    "addToCompare": "Agregar a comparar",
-    "removeFromCompare": "Quitar de comparar"
+    "avgRating": "Valoración Media",
+    "addToCompare": "Añadir a Comparación",
+    "removeFromCompare": "Eliminar de Comparación"
   },
   "comments": {
-    "name": "Tu nombre",
-    "text": "Tu comentario",
-    "rating": "Calificación (1–5)",
+    "name": "Tu Nombre",
+    "text": "Tu Comentario",
+    "rating": "Valoración (1–5)",
     "submit": "Enviar"
+  },
+  "contact": {
+    "title": "Contactar al Propietario",
+    "object": "Propiedad",
+    "description": "Aquí pueden ir los datos de contacto o un formulario.",
+    "close": "Cerrar"
   }
 }

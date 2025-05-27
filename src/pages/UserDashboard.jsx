@@ -1,3 +1,4 @@
+// src/pages/UserDashboard.jsx
 import React, { useEffect, useState } from 'react';
 import { collection, query, where, getDocs, deleteDoc, doc, updateDoc, Timestamp } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
@@ -130,10 +131,7 @@ const UserDashboard = () => {
               )}
               <div className="p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <h3
-                    className="text-lg font-semibold text-gray-800 truncate"
-                    title={listing.title}
-                  >
+                  <h3 className="text-lg font-semibold text-gray-800 truncate" title={listing.title}>
                     {listing.title}
                   </h3>
                   {listing.isNew && (
@@ -228,7 +226,7 @@ const UserDashboard = () => {
                 className="inline-flex items-center gap-2 text-sm text-gray-600 hover:underline"
                 onClick={() => setShowMap(selectedListing)}
               >
-                <FiMap /> View Map
+                <FiMap /> {t('dashboard.viewMap')}
               </button>
             </div>
           </div>

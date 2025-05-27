@@ -1,21 +1,94 @@
 {
+  "app": {
+    "name": "MyHome24App"
+  },
+  "navbar": {
+    "home": "Acasă",
+    "listings": "Anunțuri",
+    "addListing": "Adaugă Anunț",
+    "dashboard": "Panou de Control",
+    "logout": "Deconectare",
+    "login": "Autentificare",
+    "register": "Înregistrare"
+  },
+  "map": {
+  "title": "Locație pe hartă"
+ },
+  "addListing": {
+    "title": "Adaugă Anunț",
+    "fields": {
+      "title": "Titlu",
+      "city": "Oraș",
+      "price": "Preț (€)",
+      "apartment": "Apartament",
+      "house": "Casă",
+      "rent": "De Închiriat",
+      "buy": "De Vânzare"
+    },
+    "submit": "Trimite"
+  },
+  "filter": {
+    "city": "Oraș (Filtru)",
+    "maxPrice": "Preț Maxim (€)",
+    "allTypes": "Toate Tipurile",
+    "allPurposes": "Toate Scopurile"
+  },
+  "dashboard": {
+    "title": "Panoul Anunțurilor Tale",
+    "noListings": "Nu s-au găsit anunțuri pentru contul tău.",
+    "loading": "Se încarcă anunțurile...",
+    "addNew": "Adaugă Nou",
+    "new": "Nou",
+    "details": "Detalii",
+    "delete": "Șterge",
+    "edit": "Editează",
+    "favorite": "Adaugă la Favorite",
+    "unfavorite": "Elimină din Favorite",
+    "contactOwner": "Contactează Proprietarul"
+  },
+  "home": {
+    "heroTitle": "Găsește-ți casa perfectă",
+    "heroSubtitle": "Alege o locație sau filtrează după preferințe.",
+    "heroButton": "Descoperă acum",
+    "searchPlaceholder": "Caută după oraș sau adresă...",
+    "categories": "Categorii",
+    "apartment": "Apartament",
+    "house": "Casă",
+    "office": "Birou",
+    "land": "Teren",
+    "latest": "Ultimele Anunțuri",
+    "whyTitle": "De ce MyHome24App?",
+    "whyDesc": "Te ajutăm să găsești casa perfectă cu ușurință.",
+    "why1": "Selecție Variată",
+    "why1Desc": "Multe proprietăți din toată Germania.",
+    "why2": "Sigur & Rapid",
+    "why2Desc": "Furnizori de încredere și căutare rapidă.",
+    "why3": "Ușor de utilizat",
+    "why3Desc": "Design modern și intuitiv pentru toate dispozitivele."
+  },
   "breadcrumbs": {
-    "home": "Главная"
+    "home": "Acasă"
   },
   "favorites": {
-    "title": "Мои избранные",
-    "total": "Всего",
-    "compare": "Сравнить",
-    "entries": "объявлений",
-    "empty": "Избранных не найдено.",
-    "avgRating": "Средняя оценка",
-    "addToCompare": "Добавить для сравнения",
-    "removeFromCompare": "Убрать из сравнения"
+    "title": "Favoritele Mele",
+    "total": "Total",
+    "compare": "Compară",
+    "entries": "Intrări",
+    "empty": "Nu ai anunțuri favorite.",
+    "avgRating": "Evaluare Medie",
+    "addToCompare": "Adaugă la Comparare",
+    "removeFromCompare": "Elimină din Comparare"
   },
   "comments": {
-    "name": "Ваше имя",
-    "text": "Ваш комментарий",
-    "rating": "Оценка (1–5)",
-    "submit": "Отправить"
+    "name": "Numele tău",
+    "text": "Comentariul tău",
+    "rating": "Evaluare (1–5)",
+    "submit": "Trimite"
+  },
+  "contact": {
+    "title": "Contactează Proprietarul",
+    "object": "Obiect",
+    "description": "Aici pot fi afișate datele de contact sau un formular.",
+    "close": "Închide"
   }
 }

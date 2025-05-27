@@ -1,21 +1,94 @@
 {
+  "app": {
+    "name": "MyHome24App"
+  },
+  "navbar": {
+    "home": "Startpagina",
+    "listings": "Advertenties",
+    "addListing": "Nieuwe Advertentie",
+    "dashboard": "Dashboard",
+    "logout": "Uitloggen",
+    "login": "Inloggen",
+    "register": "Registreren"
+  },
+  "map": {
+  "title": "Locatie op kaart"
+  },
+  "addListing": {
+    "title": "Advertentie Toevoegen",
+    "fields": {
+      "title": "Titel",
+      "city": "Stad",
+      "price": "Prijs (€)",
+      "apartment": "Appartement",
+      "house": "Huis",
+      "rent": "Te Huur",
+      "buy": "Te Koop"
+    },
+    "submit": "Verzenden"
+  },
+  "filter": {
+    "city": "Stad (Filter)",
+    "maxPrice": "Maximale Prijs (€)",
+    "allTypes": "Alle Types",
+    "allPurposes": "Alle Doelen"
+  },
+  "dashboard": {
+    "title": "Jouw Advertentieoverzicht",
+    "noListings": "Geen advertenties gevonden voor jouw account.",
+    "loading": "Je advertenties worden geladen...",
+    "addNew": "Nieuwe Advertentie",
+    "new": "Nieuw",
+    "details": "Details",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "favorite": "Favoriet",
+    "unfavorite": "Verwijder Favoriet",
+    "contactOwner": "Neem contact op met eigenaar"
+  },
+  "home": {
+    "heroTitle": "Vind jouw perfecte woning",
+    "heroSubtitle": "Kies een locatie of filter op jouw voorkeur.",
+    "heroButton": "Ontdek nu",
+    "searchPlaceholder": "Zoek op stad of adres...",
+    "categories": "Categorieën",
+    "apartment": "Appartement",
+    "house": "Huis",
+    "office": "Kantoor",
+    "land": "Grond",
+    "latest": "Laatste Advertenties",
+    "whyTitle": "Waarom MyHome24App?",
+    "whyDesc": "Wij helpen je eenvoudig je perfecte woning te vinden.",
+    "why1": "Groot Aanbod",
+    "why1Desc": "Veel vastgoed uit heel Duitsland.",
+    "why2": "Veilig & Snel",
+    "why2Desc": "Betrouwbare aanbieders en snelle zoekresultaten.",
+    "why3": "Gebruiksvriendelijk",
+    "why3Desc": "Eenvoudig en modern ontwerp voor alle apparaten."
+  },
   "breadcrumbs": {
     "home": "Startpagina"
   },
   "favorites": {
-    "title": "Mijn favorieten",
+    "title": "Mijn Favorieten",
     "total": "Totaal",
     "compare": "Vergelijken",
-    "entries": "items",
+    "entries": "Items",
     "empty": "Geen favorieten gevonden.",
-    "avgRating": "Gemiddelde beoordeling",
-    "addToCompare": "Toevoegen aan vergelijking",
-    "removeFromCompare": "Verwijderen uit vergelijking"
+    "avgRating": "Gemiddelde Beoordeling",
+    "addToCompare": "Toevoegen aan Vergelijking",
+    "removeFromCompare": "Verwijderen uit Vergelijking"
   },
   "comments": {
-    "name": "Uw naam",
-    "text": "Uw reactie",
+    "name": "Je Naam",
+    "text": "Je Reactie",
     "rating": "Beoordeling (1–5)",
-    "submit": "Verzenden"
+    "submit": "Versturen"
+  },
+  "contact": {
+    "title": "Contacteer Eigenaar",
+    "object": "Object",
+    "description": "Hier kunnen contactgegevens of een formulier staan.",
+    "close": "Sluiten"
   }
 }
