@@ -29,5 +29,25 @@
     "title": "Your Listings Overview",
     "noListings": "No listings found for your account.",
     "loading": "Loading your listings..."
+  },
+  "home": {
+    "heroTitle": "Find your perfect home",
+    "heroSubtitle": "Choose a location or filter by your preferences.",
+    "heroButton": "Explore now",
+    "searchPlaceholder": "Search by city or address...",
+    "categories": "Categories",
+    "apartment": "Apartment",
+    "house": "House",
+    "office": "Office",
+    "land": "Land",
+    "latest": "Latest Listings",
+    "whyTitle": "Why MyHome24App?",
+    "whyDesc": "We help you find your perfect home easily.",
+    "why1": "Wide Selection",
+    "why1Desc": "Many properties from all over Germany.",
+    "why2": "Safe & Fast",
+    "why2Desc": "Trusted providers and quick search.",
+    "why3": "User Friendly",
+    "why3Desc": "Clean and modern design for all devices."
   }
 }

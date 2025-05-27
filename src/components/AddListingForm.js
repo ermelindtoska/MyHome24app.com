@@ -1,7 +1,9 @@
+// src/components/AddListingForm.jsx
 import React, { useState } from 'react';
 import { storage } from '../firebase-config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
+import FavoriteButton from './FavoriteButton';
 
 const AddListingForm = ({ onSubmit }) => {
   const [title, setTitle] = useState('');
@@ -20,21 +22,33 @@ const AddListingForm = ({ onSubmit }) => {
     e.preventDefault();
     setUploading(true);
 
-    const imageUrls = await Promise.all(
-      images.map(async (image) => {
-        const imageRef = ref(storage, `listings/${uuidv4()}-${image.name}`);
-        await uploadBytes(imageRef, image);
-        return await getDownloadURL(imageRef);
-      })
-    );
+    try {
+      if (!onSubmit || typeof onSubmit !== 'function') {
+        throw new Error('Submit function is not defined or invalid.');
+      }
 
-    onSubmit({ title, city, price, type, purpose, imageUrls });
+      const imageUrls = await Promise.all(
+        images.map(async (image) => {
+          const imageRef = ref(storage, `listings/${uuidv4()}-${image.name}`);
+          await uploadBytes(imageRef, image);
+          return await getDownloadURL(imageRef);
+        })
+      );
 
-    setTitle('');
-    setCity('');
-    setPrice('');
-    setImages([]);
-    setUploading(false);
+      const listing = { title, city, price, type, purpose, imageUrls };
+      console.log('[DEBUG] Submitting listing:', listing);
+      await onSubmit(listing);
+
+      setTitle('');
+      setCity('');
+      setPrice('');
+      setImages([]);
+    } catch (error) {
+      console.error('Error while uploading or submitting:', error);
+      alert('Fehler beim Hochladen oder Speichern.');
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
