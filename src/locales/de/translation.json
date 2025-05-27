@@ -24,5 +24,30 @@
     "maxPrice": "Maximaler Preis (€)",
     "allTypes": "Alle Typen",
     "allPurposes": "Alle Zwecke"
+  },
+  "dashboard": {
+    "title": "Ihre Anzeigenübersicht",
+    "noListings": "Keine Anzeigen für Ihr Konto gefunden.",
+    "loading": "Lade Ihre Anzeigen..."
+  },
+  "home": {
+    "heroTitle": "Finde dein perfektes Zuhause",
+    "heroSubtitle": "Wähle einen Standort oder filtere nach deinem Wunsch.",
+    "heroButton": "Jetzt entdecken",
+    "searchPlaceholder": "Nach Stadt oder Adresse suchen...",
+    "categories": "Kategorien",
+    "apartment": "Wohnung",
+    "house": "Haus",
+    "office": "Büro",
+    "land": "Grundstück",
+    "latest": "Neueste Anzeigen",
+    "whyTitle": "Warum MyHome24App?",
+    "whyDesc": "Wir helfen dir, dein perfektes Zuhause einfach zu finden.",
+    "why1": "Große Auswahl",
+    "why1Desc": "Viele Immobilien aus ganz Deutschland.",
+    "why2": "Sicher & Schnell",
+    "why2Desc": "Vertrauenswürdige Anbieter und schnelle Suche.",
+    "why3": "Benutzerfreundlich",
+    "why3Desc": "Einfaches und modernes Design für alle Geräte."
   }
 }
