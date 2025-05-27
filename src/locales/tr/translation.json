@@ -1,0 +1,21 @@
+{
+  "breadcrumbs": {
+    "home": "Ana Sayfa"
+  },
+  "favorites": {
+    "title": "Favorilerim",
+    "total": "Toplam",
+    "compare": "Karşılaştır",
+    "entries": "ilan",
+    "empty": "Favori bulunamadı.",
+    "avgRating": "Ortalama Puan",
+    "addToCompare": "Karşılaştırmaya ekle",
+    "removeFromCompare": "Karşılaştırmadan çıkar"
+  },
+  "comments": {
+    "name": "Adınız",
+    "text": "Yorumunuz",
+    "rating": "Puan (1–5)",
+    "submit": "Gönder"
+  }
+}

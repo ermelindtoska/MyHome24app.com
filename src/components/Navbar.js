@@ -1,52 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase-config';
-import { signOut } from 'firebase/auth';
-import LanguageSwitcher from './LanguageSwitcher';
+import logo from '../assets/logo.png';
+import LanguageSwitcher from './LanguageSwitcher'; // 👈 Importimi i komponentit
 
 const Navbar = () => {
-  const { t } = useTranslation();
-  const [user] = useAuthState(auth);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
+      setUser(firebaseUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   const handleLogout = async () => {
-    await signOut(auth);
-    navigate('/');
+    await auth.signOut();
+    navigate('/login');
   };
 
   return (
-    <nav className="bg-white shadow-md">
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        <Link to="/" className="text-xl font-bold text-blue-600">
-          {t('Myhome24app')}
-        </Link>
-        <div className="flex items-center space-x-4">
-          <Link to="/" className="text-sm hover:underline">🏠 {t('navbar.home')}</Link>
-          <Link to="/dashboard" className="text-sm hover:underline">📋 {t('navbar.dashboard')}</Link>
-          <Link to="/owner-dashboard" className="text-sm hover:underline">🏘️ My Listings</Link>
+    <header className="bg-white shadow-md p-4 flex items-center justify-between">
+      <Link to="/" className="flex items-center gap-3">
+        <img src={logo} alt="MyHome24App Logo" className="h-10 w-auto" />
+        <span className="text-xl font-bold text-gray-800">MyHome24App</span>
+      </Link>
 
-          {!user && (
-            <>
-              <Link to="/register" className="text-blue-600 hover:underline">Create Account</Link>
-              <Link to="/login" className="text-blue-600 hover:underline">Login</Link>
-            </>
-          )}
+      <nav className="space-x-4 text-sm flex items-center">
+        <Link to="/" className="text-gray-700 hover:text-blue-600">Startseite</Link>
+        <Link to="/listings" className="text-gray-700 hover:text-blue-600">Anzeigen</Link>
+        <Link to="/add" className="text-gray-700 hover:text-blue-600">Neue Anzeige</Link>
 
-          {user && (
-            <button
-              onClick={handleLogout}
-              className="text-red-500 hover:underline text-sm"
-            >
-              Logout
-            </button>
-          )}
+        {user ? (
+          <>
+            <Link to="/dashboard" className="text-gray-700 hover:text-blue-600">Dashboard</Link>
+            <button onClick={handleLogout} className="text-gray-700 hover:text-blue-600">Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="text-gray-700 hover:text-blue-600">Login</Link>
+            <Link to="/register" className="text-gray-700 hover:text-blue-600">Registrieren</Link>
+          </>
+        )}
 
-          <LanguageSwitcher />
-        </div>
-      </div>
-    </nav>
+        <LanguageSwitcher /> {/* 👈 Ky e shton ndryshimin e gjuhës */}
+      </nav>
+    </header>
   );
 };
 

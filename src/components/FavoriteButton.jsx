@@ -1,39 +1,41 @@
 // src/components/FavoriteButton.jsx
 import React, { useEffect, useState } from 'react';
-import { auth, db } from '../firebase-config';
-import { doc, updateDoc, arrayUnion, arrayRemove, getDoc } from 'firebase/firestore';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { db, auth } from '../firebase-config';
 
-const FavoriteButton = ({ listingId, className }) => {
+const FavoriteButton = ({ listingId, className = '' }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    const fetchFavorites = async () => {
-      if (!auth.currentUser) return;
-      const ref = doc(db, 'users', auth.currentUser.uid);
-      const snap = await getDoc(ref);
-      if (snap.exists()) {
-        const data = snap.data();
+    const checkFavorite = async () => {
+      const user = auth.currentUser;
+      if (!user) return;
+      const userRef = doc(db, 'users', user.uid);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        const data = userSnap.data();
         setIsFavorite(data.favorites?.includes(listingId));
       }
     };
-    fetchFavorites();
+    checkFavorite();
   }, [listingId]);
 
   const toggleFavorite = async () => {
-    if (!auth.currentUser) return alert('Bitte zuerst einloggen!');
-    const ref = doc(db, 'users', auth.currentUser.uid);
-    setIsFavorite((prev) => !prev);
-    await updateDoc(ref, {
-      favorites: isFavorite ? arrayRemove(listingId) : arrayUnion(listingId),
-    });
+    const user = auth.currentUser;
+    if (!user) return alert('Bitte loggen Sie sich ein.');
+    const userRef = doc(db, 'users', user.uid);
+    const action = isFavorite ? arrayRemove(listingId) : arrayUnion(listingId);
+    await updateDoc(userRef, { favorites: action });
+    setIsFavorite(!isFavorite);
   };
 
   return (
     <button
       onClick={toggleFavorite}
-      className={`text-xl text-red-500 hover:scale-110 transition ${className}`}
-      aria-label="Favorit umschalten"
+      className={`text-xl text-red-500 hover:text-red-600 ${className}`}
+      aria-label={isFavorite ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen'}
+      title={isFavorite ? 'Aus Favoriten entfernen' : 'Zu Favoriten hinzufügen'}
     >
       {isFavorite ? <FaHeart /> : <FaRegHeart />}
     </button>
