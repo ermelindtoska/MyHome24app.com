@@ -1,17 +1,23 @@
 // src/pages/ComparePage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { FaMapMarkerAlt, FaEuroSign, FaStar, FaHome, FaPrint, FaCheckCircle, FaEnvelope } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaEuroSign, FaStar, FaHome, FaPrint, FaCheckCircle, FaEnvelope, FaSave } from 'react-icons/fa';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const ComparePage = () => {
   const location = useLocation();
-  const allListings = location.state?.listings || [];
-  const [listings, setListings] = useState(allListings);
+  const [listings, setListings] = useState(() => {
+    const stored = localStorage.getItem('compareListings');
+    return stored ? JSON.parse(stored) : location.state?.listings || [];
+  });
   const [cityFilter, setCityFilter] = useState('');
   const [maxPriceFilter, setMaxPriceFilter] = useState('');
   const [minRatingFilter, setMinRatingFilter] = useState('');
   const [copiedText, setCopiedText] = useState(null);
+
+  useEffect(() => {
+    localStorage.setItem('compareListings', JSON.stringify(listings));
+  }, [listings]);
 
   const resetFilters = () => {
     setCityFilter('');
@@ -138,6 +144,21 @@ const ComparePage = () => {
       </div>
 
       {/* pjesa tjetër e faqes (tabela/grafiku) ruhet siç është, do fshihet në print sipas klasës print:hidden */}
+
+      <div className="hidden print:block mt-12">
+        <h2 className="text-xl font-bold mb-4">Zusammenfassung</h2>
+        <ul className="space-y-4">
+          {filteredListings.map((item, index) => (
+            <li key={index} className="border-b pb-2">
+              <div className="font-semibold text-lg">{item.title}</div>
+              <div className="text-sm text-gray-700">{item.city} – {formatPrice(item.price)}</div>
+              {item.avgRating && (
+                <div className="text-sm text-gray-600">Bewertung: {item.avgRating} ★</div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
