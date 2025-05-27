@@ -1,4 +1,71 @@
 {
+  "app": {
+    "name": "MyHome24App"
+  },
+  "navbar": {
+    "home": "Ana Sayfa",
+    "listings": "İlanlar",
+    "addListing": "Yeni İlan",
+    "dashboard": "Kontrol Paneli",
+    "logout": "Çıkış Yap",
+    "login": "Giriş",
+    "register": "Kayıt Ol"
+  },
+  "map": {
+  "title": "Haritadaki Konum"
+  },
+  "addListing": {
+    "title": "İlan Ekle",
+    "fields": {
+      "title": "Başlık",
+      "city": "Şehir",
+      "price": "Fiyat (€)",
+      "apartment": "Daire",
+      "house": "Ev",
+      "rent": "Kiralık",
+      "buy": "Satılık"
+    },
+    "submit": "Gönder"
+  },
+  "filter": {
+    "city": "Şehir (Filtre)",
+    "maxPrice": "Maksimum Fiyat (€)",
+    "allTypes": "Tüm Türler",
+    "allPurposes": "Tüm Amaçlar"
+  },
+  "dashboard": {
+    "title": "İlanlarınızın Özeti",
+    "noListings": "Hesabınıza ait ilan bulunamadı.",
+    "loading": "İlanlarınız yükleniyor...",
+    "addNew": "Yeni Ekle",
+    "new": "Yeni",
+    "details": "Detaylar",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "favorite": "Favorilere ekle",
+    "unfavorite": "Favorilerden çıkar",
+    "contactOwner": "İlan Sahibine Ulaş"
+  },
+  "home": {
+    "heroTitle": "Mükemmel evini bul",
+    "heroSubtitle": "Bir konum seçin veya filtre kullanın.",
+    "heroButton": "Şimdi keşfet",
+    "searchPlaceholder": "Şehir veya adres ara...",
+    "categories": "Kategoriler",
+    "apartment": "Daire",
+    "house": "Ev",
+    "office": "Ofis",
+    "land": "Arsa",
+    "latest": "En Son İlanlar",
+    "whyTitle": "Neden MyHome24App?",
+    "whyDesc": "Hayalinizdeki evi kolayca bulmanıza yardımcı oluyoruz.",
+    "why1": "Geniş Seçenekler",
+    "why1Desc": "Almanya genelinde birçok ilan.",
+    "why2": "Güvenli & Hızlı",
+    "why2Desc": "Güvenilir sağlayıcılar ve hızlı arama.",
+    "why3": "Kullanıcı Dostu",
+    "why3Desc": "Tüm cihazlara uygun modern tasarım."
+  },
   "breadcrumbs": {
     "home": "Ana Sayfa"
   },
@@ -6,8 +73,8 @@
     "title": "Favorilerim",
     "total": "Toplam",
     "compare": "Karşılaştır",
-    "entries": "ilan",
-    "empty": "Favori bulunamadı.",
+    "entries": "İlanlar",
+    "empty": "Hiç favori bulunamadı.",
     "avgRating": "Ortalama Puan",
     "addToCompare": "Karşılaştırmaya ekle",
     "removeFromCompare": "Karşılaştırmadan çıkar"
@@ -17,5 +84,11 @@
     "text": "Yorumunuz",
     "rating": "Puan (1–5)",
     "submit": "Gönder"
+  },
+  "contact": {
+    "title": "İlan Sahibine Ulaş",
+    "object": "İlan",
+    "description": "Burada iletişim bilgileri veya bir form olabilir.",
+    "close": "Kapat"
   }
 }

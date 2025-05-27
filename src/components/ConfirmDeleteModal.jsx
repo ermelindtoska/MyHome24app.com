@@ -1,33 +1,38 @@
+// src/components/ConfirmDeleteModal.jsx
 import React from 'react';
 import { FiX, FiTrash2 } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
 
-const ConfirmDeleteModal = ({ onConfirm, onCancel }) => {
+const ConfirmDeleteModal = ({ onCancel, onConfirm }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm relative">
+      <div className="bg-white rounded-lg p-6 max-w-md w-full relative shadow-lg">
         <button
-          className="absolute top-2 right-2 text-gray-500 hover:text-black"
           onClick={onCancel}
+          className="absolute top-3 right-3 text-gray-600 hover:text-black"
+          aria-label="Close modal"
         >
-          <FiX size={18} />
+          <FiX size={20} />
         </button>
-        <div className="flex items-center justify-center mb-4 text-red-600">
-          <FiTrash2 size={32} />
+        <div className="flex items-center mb-4 gap-3">
+          <FiTrash2 className="text-red-600" size={24} />
+          <h2 className="text-xl font-bold text-gray-800">{t('confirm.title')}</h2>
         </div>
-        <h2 className="text-xl font-semibold text-center mb-3">Are you sure?</h2>
-        <p className="text-center text-gray-600 mb-4">This action cannot be undone.</p>
-        <div className="flex justify-center gap-4">
+        <p className="text-gray-700 mb-6">{t('confirm.message')}</p>
+        <div className="flex justify-end gap-3">
           <button
             onClick={onCancel}
-            className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+            className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
           >
-            Cancel
+            {t('confirm.cancel')}
           </button>
           <button
             onClick={onConfirm}
             className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
           >
-            Delete
+            {t('confirm.confirm')}
           </button>
         </div>
       </div>

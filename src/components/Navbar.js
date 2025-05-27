@@ -1,10 +1,13 @@
+// src/components/Navbar.jsx
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase-config';
 import logo from '../assets/logo.png';
-import LanguageSwitcher from './LanguageSwitcher'; // 👈 Importimi i komponentit
+import LanguageSwitcher from './LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
@@ -28,23 +31,23 @@ const Navbar = () => {
       </Link>
 
       <nav className="space-x-4 text-sm flex items-center">
-        <Link to="/" className="text-gray-700 hover:text-blue-600">Startseite</Link>
-        <Link to="/listings" className="text-gray-700 hover:text-blue-600">Anzeigen</Link>
-        <Link to="/add" className="text-gray-700 hover:text-blue-600">Neue Anzeige</Link>
+        <Link to="/" className="text-gray-700 hover:text-blue-600">{t('navbar.home')}</Link>
+        <Link to="/listings" className="text-gray-700 hover:text-blue-600">{t('navbar.listings')}</Link>
+        <Link to="/add" className="text-gray-700 hover:text-blue-600">{t('navbar.addListing')}</Link>
 
         {user ? (
           <>
-            <Link to="/dashboard" className="text-gray-700 hover:text-blue-600">Dashboard</Link>
-            <button onClick={handleLogout} className="text-gray-700 hover:text-blue-600">Logout</button>
+            <Link to="/dashboard" className="text-gray-700 hover:text-blue-600">{t('navbar.dashboard')}</Link>
+            <button onClick={handleLogout} className="text-gray-700 hover:text-blue-600">{t('navbar.logout')}</button>
           </>
         ) : (
           <>
-            <Link to="/login" className="text-gray-700 hover:text-blue-600">Login</Link>
-            <Link to="/register" className="text-gray-700 hover:text-blue-600">Registrieren</Link>
+            <Link to="/login" className="text-gray-700 hover:text-blue-600">{t('navbar.login')}</Link>
+            <Link to="/register" className="text-gray-700 hover:text-blue-600">{t('navbar.register')}</Link>
           </>
         )}
 
-        <LanguageSwitcher /> {/* 👈 Ky e shton ndryshimin e gjuhës */}
+        <LanguageSwitcher />
       </nav>
     </header>
   );
