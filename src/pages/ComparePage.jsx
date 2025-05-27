@@ -1,7 +1,7 @@
 // src/pages/ComparePage.jsx
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { FaMapMarkerAlt, FaEuroSign, FaStar, FaHome, FaPrint } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaEuroSign, FaStar, FaHome, FaPrint, FaCheckCircle, FaEnvelope } from 'react-icons/fa';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const ComparePage = () => {
@@ -11,6 +11,7 @@ const ComparePage = () => {
   const [cityFilter, setCityFilter] = useState('');
   const [maxPriceFilter, setMaxPriceFilter] = useState('');
   const [minRatingFilter, setMinRatingFilter] = useState('');
+  const [copiedText, setCopiedText] = useState(null);
 
   const resetFilters = () => {
     setCityFilter('');
@@ -52,6 +53,19 @@ const ComparePage = () => {
     window.print();
   };
 
+  const copySummary = () => {
+    const summary = filteredListings.map(item => `${item.title} (${item.city}) – ${formatPrice(item.price)}${item.avgRating ? `, Bewertung: ${item.avgRating}` : ''}`).join('\n');
+    navigator.clipboard.writeText(summary);
+    setCopiedText('Kopiert!');
+    setTimeout(() => setCopiedText(null), 2000);
+  };
+
+  const emailSummary = () => {
+    const body = filteredListings.map(item => `${item.title} (${item.city}) – ${formatPrice(item.price)}${item.avgRating ? `, Bewertung: ${item.avgRating}` : ''}`).join('%0A');
+    const mailto = `mailto:?subject=Immobilienvergleich&body=${body}`;
+    window.location.href = mailto;
+  };
+
   const chartData = filteredListings.map(item => ({ name: item.title, Preis: item.price, Bewertung: parseFloat(item.avgRating) || 0 }));
 
   return (
@@ -60,7 +74,7 @@ const ComparePage = () => {
 
       <div className="flex items-center justify-between mb-6 print:hidden">
         <h1 className="text-3xl font-bold">Vergleich</h1>
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap">
           {filteredListings.length > 0 && (
             <button
               onClick={exportCSV}
@@ -73,11 +87,25 @@ const ComparePage = () => {
           >
             <FaPrint /> Drucken
           </button>
+          <button
+            onClick={copySummary}
+            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm"
+          >
+            Zusammenfassung kopieren
+          </button>
+          <button
+            onClick={emailSummary}
+            className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-sm flex items-center gap-2"
+          >
+            <FaEnvelope /> Per E-Mail senden
+          </button>
         </div>
       </div>
 
-      <div className="mb-4 text-sm text-gray-600 print:hidden">
+      <div className="mb-4 text-sm text-gray-600 print:hidden flex items-center gap-2">
+        <FaCheckCircle className="text-blue-500" />
         {filteredListings.length} Einträge im Vergleich angezeigt
+        {copiedText && <span className="text-green-600 ml-2">{copiedText}</span>}
       </div>
 
       <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4 print:hidden">
