@@ -6,7 +6,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "git add . && git commit -m \"Auto deploy\" || echo \"Nothing to commit\" && git pull --rebase origin main && git push origin main"
   },
   "dependencies": {
     "firebase": "^10.14.1",
