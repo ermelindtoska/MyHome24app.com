@@ -49,5 +49,24 @@
     "why2Desc": "Vertrauenswürdige Anbieter und schnelle Suche.",
     "why3": "Benutzerfreundlich",
     "why3Desc": "Einfaches und modernes Design für alle Geräte."
+  },
+  "breadcrumbs": {
+    "home": "Startseite"
+  },
+  "favorites": {
+    "title": "Meine Favoriten",
+    "total": "Gesamt",
+    "compare": "Vergleiche",
+    "entries": "Einträge",
+    "empty": "Keine Favoriten gefunden.",
+    "avgRating": "Durchschnittliche Bewertung",
+    "addToCompare": "Zum Vergleich hinzufügen",
+    "removeFromCompare": "Aus Vergleich entfernen"
+  },
+  "comments": {
+    "name": "Ihr Name",
+    "text": "Ihr Kommentar",
+    "rating": "Bewertung (1–5)",
+    "submit": "Absenden"
   }
 }

@@ -1,4 +1,3 @@
-// src/components/ListingCard.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FavoriteButton from './FavoriteButton';
@@ -16,7 +15,7 @@ const ListingCard = ({ listing }) => {
         <p className="text-gray-600">{listing.city}</p>
         <p className="text-blue-600 font-bold">{listing.price} €</p>
       </Link>
-      <FavoriteButton listingId={listing.id} className="absolute top-2 right-2" />
+      <FavoriteButton listingId={listing.id} />
     </div>
   );
 };

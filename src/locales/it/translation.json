@@ -1,0 +1,21 @@
+{
+  "breadcrumbs": {
+    "home": "Home"
+  },
+  "favorites": {
+    "title": "I miei preferiti",
+    "total": "Totale",
+    "compare": "Confronta",
+    "entries": "annunci",
+    "empty": "Nessun preferito trovato.",
+    "avgRating": "Valutazione media",
+    "addToCompare": "Aggiungi al confronto",
+    "removeFromCompare": "Rimuovi dal confronto"
+  },
+  "comments": {
+    "name": "Il tuo nome",
+    "text": "Il tuo commento",
+    "rating": "Valutazione (1–5)",
+    "submit": "Invia"
+  }
+}

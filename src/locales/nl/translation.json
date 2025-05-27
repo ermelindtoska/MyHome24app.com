@@ -1,0 +1,21 @@
+{
+  "breadcrumbs": {
+    "home": "Startpagina"
+  },
+  "favorites": {
+    "title": "Mijn favorieten",
+    "total": "Totaal",
+    "compare": "Vergelijken",
+    "entries": "items",
+    "empty": "Geen favorieten gevonden.",
+    "avgRating": "Gemiddelde beoordeling",
+    "addToCompare": "Toevoegen aan vergelijking",
+    "removeFromCompare": "Verwijderen uit vergelijking"
+  },
+  "comments": {
+    "name": "Uw naam",
+    "text": "Uw reactie",
+    "rating": "Beoordeling (1–5)",
+    "submit": "Verzenden"
+  }
+}

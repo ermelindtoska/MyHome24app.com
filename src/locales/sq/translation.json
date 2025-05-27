@@ -1,0 +1,21 @@
+{
+  "breadcrumbs": {
+    "home": "Faqja Kryesore"
+  },
+  "favorites": {
+    "title": "Të preferuarat e mia",
+    "total": "Gjithsej",
+    "compare": "Krahaso",
+    "entries": "shpallje",
+    "empty": "Nuk u gjet asnjë e preferuar.",
+    "avgRating": "Vlerësimi mesatar",
+    "addToCompare": "Shto për krahasim",
+    "removeFromCompare": "Hiq nga krahasimi"
+  },
+  "comments": {
+    "name": "Emri juaj",
+    "text": "Komenti juaj",
+    "rating": "Vlerësimi (1–5)",
+    "submit": "Dërgo"
+  }
+}
