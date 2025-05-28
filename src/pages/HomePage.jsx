@@ -5,7 +5,9 @@ import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import { useTranslation } from 'react-i18next';
 import Slider from 'react-slick';
-import { FaBuilding, FaHome, FaBriefcase, FaTree, FaSearch, FaChartBar, FaStar, FaMapMarkerAlt, FaThumbsUp, FaLock, FaMobileAlt } from 'react-icons/fa';
+import {
+  FaBuilding, FaHome, FaBriefcase, FaTree, FaSearch, FaQuoteLeft, FaHandshake
+} from 'react-icons/fa';
 import ListingCard from '../components/ListingCard';
 
 import 'slick-carousel/slick/slick.css';
@@ -24,7 +26,7 @@ const HomePage = () => {
         const snapshot = await getDocs(q);
         setListings(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
       } catch (err) {
-        console.error('Error loading listings:', err);
+        console.error('Fehler beim Laden der Anzeigen:', err);
       }
     };
     fetchListings();
@@ -71,11 +73,7 @@ const HomePage = () => {
         <Slider {...sliderSettings}>
           {heroImages.map((img, idx) => (
             <div key={idx} className="w-full h-[90vh]">
-              <img
-                src={img}
-                alt={`hero-${idx}`}
-                className="w-full h-full object-cover"
-              />
+              <img src={img} alt={`hero-${idx}`} className="w-full h-full object-cover" />
             </div>
           ))}
         </Slider>
@@ -109,6 +107,80 @@ const HomePage = () => {
         </button>
       </div>
 
+      {/* CATEGORIES */}
+      <section className="max-w-6xl mx-auto py-20 px-4 animate-fade-in">
+        <h2 className="text-4xl font-semibold mb-12 text-center text-gray-800">
+          {t('home.categories')}
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-10">
+          {categories.map((cat, index) => (
+            <Link to={cat.link} key={cat.name} className={`bg-white shadow-xl rounded-2xl p-10 text-center hover:shadow-2xl transition transform hover:-translate-y-1 hover:scale-105 duration-300 delay-${index * 100}`}>
+              <div className="text-6xl mb-4 flex justify-center text-blue-600">{cat.icon}</div>
+              <div className="font-semibold text-lg sm:text-xl text-gray-800">{cat.name}</div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* LATEST LISTINGS */}
+      <section className="max-w-6xl mx-auto py-20 px-4 animate-fade-in">
+        <h2 className="text-4xl font-semibold mb-12 text-center text-gray-800">
+          {t('home.latest')}
+        </h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          {listings.slice(0, 6).map(listing => (
+            <ListingCard key={listing.id} listing={listing} />
+          ))}
+        </div>
+        <div className="text-center mt-12">
+          <Link to="/listings">
+            <button className="px-10 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition text-xl font-semibold">
+              {t('home.viewAll')}
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* FEATURED LISTINGS */}
+      <section className="max-w-6xl mx-auto py-20 px-4 animate-fade-in">
+        <h2 className="text-4xl font-semibold mb-12 text-center text-gray-800">Empfohlene Inserate</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          {listings.filter(listing => listing.isFeatured).map(listing => (
+            <ListingCard key={listing.id} listing={listing} />
+          ))}
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="bg-white py-20 px-4 animate-fade-in">
+        <div className="max-w-5xl mx-auto text-center">
+          <h3 className="text-4xl font-bold mb-12 text-gray-800">Was unsere Nutzer sagen</h3>
+          <Slider {...sliderSettings}>
+            {[1, 2, 3].map(i => (
+              <div key={i} className="p-6 text-center">
+                <FaQuoteLeft className="text-3xl text-blue-600 mx-auto mb-4" />
+                <p className="text-lg italic text-gray-700">„Fantastische Plattform! Ich habe mein neues Zuhause innerhalb einer Woche gefunden.“</p>
+                <p className="mt-4 font-semibold text-blue-700">– Max Mustermann</p>
+              </div>
+            ))}
+          </Slider>
+        </div>
+      </section>
+
+      {/* CTA AGENTEN */}
+      <section className="bg-blue-600 py-20 px-4 text-white text-center animate-fade-in">
+        <div className="max-w-4xl mx-auto">
+          <FaHandshake className="text-5xl mb-6 mx-auto" />
+          <h3 className="text-4xl font-bold mb-4">Sind Sie Immobilienmakler?</h3>
+          <p className="text-lg mb-8">Treten Sie unserer Plattform bei und präsentieren Sie Ihre Angebote einer großen Zielgruppe!</p>
+          <Link to="/register">
+            <button className="bg-white text-blue-600 font-semibold px-8 py-4 rounded-full shadow hover:bg-gray-100 transition text-lg">
+              Jetzt registrieren
+            </button>
+          </Link>
+        </div>
+      </section>
+
       {/* WHY SECTION */}
       <section className="bg-white py-20 px-4 animate-fade-in">
         <div className="max-w-5xl mx-auto text-center">
@@ -116,17 +188,14 @@ const HomePage = () => {
           <p className="text-gray-600 mb-12 text-xl">{t('home.whyDesc')}</p>
           <div className="grid sm:grid-cols-3 gap-12">
             <div className="transition-transform duration-300 hover:scale-105 p-6 bg-gray-50 rounded-xl shadow-sm">
-              <FaThumbsUp className="text-blue-600 text-4xl mb-4 mx-auto" />
               <h4 className="font-semibold text-xl mb-3 text-blue-700">{t('home.why1')}</h4>
               <p className="text-base text-gray-600">{t('home.why1Desc')}</p>
             </div>
             <div className="transition-transform duration-300 hover:scale-105 p-6 bg-gray-50 rounded-xl shadow-sm">
-              <FaLock className="text-blue-600 text-4xl mb-4 mx-auto" />
               <h4 className="font-semibold text-xl mb-3 text-blue-700">{t('home.why2')}</h4>
               <p className="text-base text-gray-600">{t('home.why2Desc')}</p>
             </div>
             <div className="transition-transform duration-300 hover:scale-105 p-6 bg-gray-50 rounded-xl shadow-sm">
-              <FaMobileAlt className="text-blue-600 text-4xl mb-4 mx-auto" />
               <h4 className="font-semibold text-xl mb-3 text-blue-700">{t('home.why3')}</h4>
               <p className="text-base text-gray-600">{t('home.why3Desc')}</p>
             </div>
@@ -134,33 +203,9 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* STATS SECTION */}
-      <section className="bg-blue-50 py-20 px-4">
-        <div className="max-w-5xl mx-auto text-center animate-fade-in">
-          <h3 className="text-4xl font-bold mb-12 text-gray-800">{t('home.statsTitle')}</h3>
-          <div className="grid sm:grid-cols-3 gap-12">
-            <div className="bg-white shadow-md rounded-xl p-6">
-              <FaChartBar size={40} className="text-blue-600 mb-4 mx-auto" />
-              <h4 className="text-3xl font-bold text-gray-800">{listings.length}+</h4>
-              <p className="text-gray-500 mt-2">{t('home.activeListings')}</p>
-            </div>
-            <div className="bg-white shadow-md rounded-xl p-6">
-              <FaStar size={40} className="text-blue-600 mb-4 mx-auto" />
-              <h4 className="text-3xl font-bold text-gray-800">4.9/5</h4>
-              <p className="text-gray-500 mt-2">{t('home.averageRating')}</p>
-            </div>
-            <div className="bg-white shadow-md rounded-xl p-6">
-              <FaMapMarkerAlt size={40} className="text-blue-600 mb-4 mx-auto" />
-              <h4 className="text-3xl font-bold text-gray-800">300+</h4>
-              <p className="text-gray-500 mt-2">{t('home.cities')}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* FOOTER */}
       <footer className="bg-gray-100 py-10 text-center text-base text-gray-500">
-        © {new Date().getFullYear()} MyHome24App. {t('footer.rights')}
+        © {new Date().getFullYear()} MyHome24App. Alle Rechte vorbehalten.
       </footer>
     </div>
   );
