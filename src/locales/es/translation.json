@@ -14,6 +14,120 @@
   "map": {
   "title":  "Ubicación en el mapa"
   },
+  {
+  "app": {
+    "name": "MyHome24App"
+  },
+  "navbar": {
+    "home": "Home",
+    "listings": "Listings",
+    "addListing": "Add Listing",
+    "dashboard": "Dashboard",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register"
+  },
+  "map": {
+    "title": "Location on Map"
+  },
+},
+  "compare": {
+  "title": "Comparación",
+  "resetFilters": "Restablecer filtros",
+  "copied": "¡Copiado!",
+  "emailSubject": "Comparación de propiedades",
+  "noData": "No hay datos para mostrar.",
+  "chartTitle": "Comparación de precios y valoraciones",
+  "minRating": "Valoración mínima",
+  "minSize": "Tamaño mínimo (m²)",
+  "maxSize": "Tamaño máximo (m²)",
+  "lineChart": "Gráfico de líneas",
+  "pieChart": "Gráfico circular",
+  "clearAll": "Borrar todo",
+  "refresh": "Actualizar",
+  "print": "Imprimir",
+  "copy": "Copiar resumen",
+  "email": "Enviar por correo"
+}
+  },
+  "addListing": {
+    "title": "Add Listing",
+    "fields": {
+      "title": "Title",
+      "city": "City",
+      "price": "Price (€)",
+      "apartment": "Apartment",
+      "house": "House",
+      "rent": "For Rent",
+      "buy": "For Sale"
+    },
+    "submit": "Submit"
+  },
+  "filter": {
+    "city": "City (Filter)",
+    "maxPrice": "Max Price (€)",
+    "allTypes": "All Types",
+    "allPurposes": "All Purposes"
+  },
+  "contact": {
+    "title": "Contact Owner",
+    "object": "Property",
+    "description": "This could be contact information or a form.",
+    "close": "Close"
+  },
+  "dashboard": {
+    "title": "Your Listings Overview",
+    "noListings": "No listings found for your account.",
+    "loading": "Loading your listings...",
+    "addNew": "Add New",
+    "delete": "Delete",
+    "edit": "Edit",
+    "details": "Details",
+    "favorite": "Add to Favorites",
+    "unfavorite": "Remove from Favorites",
+    "new": "New",
+    "contactOwner": "Contact Owner"
+  },
+  "home": {
+    "heroTitle": "Find your perfect home",
+    "heroSubtitle": "Choose a location or filter by your preferences.",
+    "heroButton": "Explore now",
+    "searchPlaceholder": "Search by city or address...",
+    "categories": "Categories",
+    "apartment": "Apartment",
+    "house": "House",
+    "office": "Office",
+    "land": "Land",
+    "latest": "Latest Listings",
+    "whyTitle": "Why MyHome24App?",
+    "whyDesc": "We help you find your perfect home easily.",
+    "why1": "Wide Selection",
+    "why1Desc": "Many properties from all over Germany.",
+    "why2": "Safe & Fast",
+    "why2Desc": "Trusted providers and quick search.",
+    "why3": "User Friendly",
+    "why3Desc": "Clean and modern design for all devices."
+  },
+  "breadcrumbs": {
+    "home": "Home"
+  },
+  "favorites": {
+    "title": "My Favorites",
+    "total": "Total",
+    "compare": "Compare",
+    "entries": "Entries",
+    "empty": "No favorites found.",
+    "avgRating": "Average Rating",
+    "addToCompare": "Add to Compare",
+    "removeFromCompare": "Remove from Compare"
+  },
+  "comments": {
+    "name": "Your Name",
+    "text": "Your Comment",
+    "rating": "Rating (1–5)",
+    "submit": "Submit"
+  },
+  },
   "addListing": {
     "title": "Agregar Anuncio",
     "fields": {

@@ -1,11 +1,11 @@
 // src/pages/HomePage.jsx
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import { useTranslation } from 'react-i18next';
 import Slider from 'react-slick';
-import { FaBuilding, FaHome, FaBriefcase, FaTree } from 'react-icons/fa';
+import { FaBuilding, FaHome, FaBriefcase, FaTree, FaSearch, FaChartBar, FaStar, FaMapMarkerAlt, FaThumbsUp, FaLock, FaMobileAlt } from 'react-icons/fa';
 import ListingCard from '../components/ListingCard';
 
 import 'slick-carousel/slick/slick.css';
@@ -13,8 +13,9 @@ import 'slick-carousel/slick/slick-theme.css';
 
 const HomePage = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [listings, setListings] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -23,7 +24,7 @@ const HomePage = () => {
         const snapshot = await getDocs(q);
         setListings(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
       } catch (err) {
-        console.error('Fehler beim Laden der Anzeigen:', err);
+        console.error('Error loading listings:', err);
       }
     };
     fetchListings();
@@ -45,20 +46,27 @@ const HomePage = () => {
   };
 
   const categories = [
-    { name: t('home.apartment'), icon: <FaBuilding /> },
-    { name: t('home.house'), icon: <FaHome /> },
-    { name: t('home.office'), icon: <FaBriefcase /> },
-    { name: t('home.land'), icon: <FaTree /> },
+    { name: t('home.apartment'), icon: <FaBuilding />, link: '/category/apartment' },
+    { name: t('home.house'), icon: <FaHome />, link: '/category/house' },
+    { name: t('home.office'), icon: <FaBriefcase />, link: '/category/office' },
+    { name: t('home.land'), icon: <FaTree />, link: '/category/land' },
   ];
 
-  const filteredListings = listings.filter(listing =>
-    listing.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    listing.city?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleSearch = () => {
+    if (search.trim()) {
+      navigate(`/search?query=${encodeURIComponent(search.trim())}`);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* HERO SECTION WITH SLIDER */}
+      {/* HERO SECTION */}
       <section className="relative w-full h-[90vh] overflow-hidden">
         <Slider {...sliderSettings}>
           {heroImages.map((img, idx) => (
@@ -87,52 +95,19 @@ const HomePage = () => {
       </section>
 
       {/* SEARCH BAR */}
-      <div className="max-w-2xl mx-auto mt-14 px-4">
+      <div className="max-w-3xl mx-auto mt-14 px-4 flex items-center gap-3 animate-fade-in">
         <input
           type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder={t('home.searchPlaceholder')}
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full border border-gray-300 rounded-full py-4 px-6 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"
         />
+        <button onClick={handleSearch} className="p-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">
+          <FaSearch size={20} />
+        </button>
       </div>
-
-      {/* CATEGORIES */}
-      <section className="max-w-6xl mx-auto py-20 px-4 animate-fade-in">
-        <h2 className="text-4xl font-semibold mb-12 text-center text-gray-800">
-          {t('home.categories')}
-        </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-10">
-          {categories.map((cat, index) => (
-            <div
-              key={cat.name}
-              className={`bg-white shadow-xl rounded-2xl p-10 text-center hover:shadow-2xl transition cursor-pointer transform hover:-translate-y-1 hover:scale-105 duration-300 delay-${index * 100}`}
-            >
-              <div className="text-6xl mb-4 flex justify-center text-blue-600">{cat.icon}</div>
-              <div className="font-semibold text-lg sm:text-xl text-gray-800">{cat.name}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* LATEST LISTINGS */}
-      <section className="max-w-6xl mx-auto py-20 px-4 animate-fade-in">
-        <h2 className="text-4xl font-semibold mb-12 text-center text-gray-800">
-          {t('home.latest')}
-        </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {filteredListings.slice(0, 6).map(listing => (
-            <ListingCard key={listing.id} listing={listing} />
-          ))}
-        </div>
-        <div className="text-center mt-12">
-          <Link to="/listings">
-            <button className="px-10 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition text-xl font-semibold">
-              {t('home.viewAll')}
-            </button>
-          </Link>
-        </div>
-      </section>
 
       {/* WHY SECTION */}
       <section className="bg-white py-20 px-4 animate-fade-in">
@@ -141,14 +116,17 @@ const HomePage = () => {
           <p className="text-gray-600 mb-12 text-xl">{t('home.whyDesc')}</p>
           <div className="grid sm:grid-cols-3 gap-12">
             <div className="transition-transform duration-300 hover:scale-105 p-6 bg-gray-50 rounded-xl shadow-sm">
+              <FaThumbsUp className="text-blue-600 text-4xl mb-4 mx-auto" />
               <h4 className="font-semibold text-xl mb-3 text-blue-700">{t('home.why1')}</h4>
               <p className="text-base text-gray-600">{t('home.why1Desc')}</p>
             </div>
             <div className="transition-transform duration-300 hover:scale-105 p-6 bg-gray-50 rounded-xl shadow-sm">
+              <FaLock className="text-blue-600 text-4xl mb-4 mx-auto" />
               <h4 className="font-semibold text-xl mb-3 text-blue-700">{t('home.why2')}</h4>
               <p className="text-base text-gray-600">{t('home.why2Desc')}</p>
             </div>
             <div className="transition-transform duration-300 hover:scale-105 p-6 bg-gray-50 rounded-xl shadow-sm">
+              <FaMobileAlt className="text-blue-600 text-4xl mb-4 mx-auto" />
               <h4 className="font-semibold text-xl mb-3 text-blue-700">{t('home.why3')}</h4>
               <p className="text-base text-gray-600">{t('home.why3Desc')}</p>
             </div>
@@ -156,9 +134,33 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* STATS SECTION */}
+      <section className="bg-blue-50 py-20 px-4">
+        <div className="max-w-5xl mx-auto text-center animate-fade-in">
+          <h3 className="text-4xl font-bold mb-12 text-gray-800">{t('home.statsTitle')}</h3>
+          <div className="grid sm:grid-cols-3 gap-12">
+            <div className="bg-white shadow-md rounded-xl p-6">
+              <FaChartBar size={40} className="text-blue-600 mb-4 mx-auto" />
+              <h4 className="text-3xl font-bold text-gray-800">{listings.length}+</h4>
+              <p className="text-gray-500 mt-2">{t('home.activeListings')}</p>
+            </div>
+            <div className="bg-white shadow-md rounded-xl p-6">
+              <FaStar size={40} className="text-blue-600 mb-4 mx-auto" />
+              <h4 className="text-3xl font-bold text-gray-800">4.9/5</h4>
+              <p className="text-gray-500 mt-2">{t('home.averageRating')}</p>
+            </div>
+            <div className="bg-white shadow-md rounded-xl p-6">
+              <FaMapMarkerAlt size={40} className="text-blue-600 mb-4 mx-auto" />
+              <h4 className="text-3xl font-bold text-gray-800">300+</h4>
+              <p className="text-gray-500 mt-2">{t('home.cities')}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FOOTER */}
-      <footer className="bg-gray-100 py-10 mt-20 text-center text-base text-gray-500">
-        © {new Date().getFullYear()} MyHome24App. Alle Rechte vorbehalten.
+      <footer className="bg-gray-100 py-10 text-center text-base text-gray-500">
+        © {new Date().getFullYear()} MyHome24App. {t('footer.rights')}
       </footer>
     </div>
   );

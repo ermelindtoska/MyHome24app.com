@@ -16,6 +16,12 @@
   },
   "compare": {
   "title": "Vergleichsansicht",
+  "minSize": "Min. Fläche (m²)",
+  "maxSize": "Max. Fläche (m²)",
+  "lineChart": "Liniendiagramm",
+  "pieChart": "Tortendiagramm",
+  "clearAll": "Alle entfernen",
+  "refresh": "Aktualisieren",
   "exportPDF": "PDF exportieren",
   "minRating": "Mindestbewertung",
   "resetFilters": "Filter zurücksetzen",
