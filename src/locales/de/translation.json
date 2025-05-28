@@ -58,6 +58,13 @@
     "description": "Hier könnten Kontaktdaten oder ein Formular stehen.",
     "close": "Schließen"
   },
+    "listing": {
+  "createTitle": "Neue Anzeige erstellen",
+  "success": "Anzeige erfolgreich gespeichert!",
+  "error": "Beim Speichern ist ein Fehler aufgetreten.",
+  "loginRequired": "Bitte melden Sie sich zuerst an."
+
+  },
   "dashboard": {
     "title": "Ihre Anzeigenübersicht",
     "noListings": "Keine Anzeigen für Ihr Konto gefunden.",
@@ -68,6 +75,10 @@
     "heroSubtitle": "Wähle einen Standort oder filtere nach deinem Wunsch.",
     "heroButton": "Jetzt entdecken",
     "searchPlaceholder": "Nach Stadt oder Adresse suchen...",
+    "statsTitle": "Unsere Plattform in Zahlen",
+    "statsListings": "Anzeigen insgesamt",
+    "statsUsers": "Registrierte Nutzer*innen",
+    "statsFeatured": "Empfohlene Inserate",
     "categories": "Kategorien",
     "apartment": "Wohnung",
     "house": "Haus",
@@ -75,6 +86,7 @@
     "land": "Grundstück",
     "latest": "Neueste Anzeigen",
     "whyTitle": "Warum MyHome24App?",
+    "searchButton": "Suchen",
     "whyDesc": "Wir helfen dir, dein perfektes Zuhause einfach zu finden.",
     "why1": "Große Auswahl",
     "why1Desc": "Viele Immobilien aus ganz Deutschland.",
