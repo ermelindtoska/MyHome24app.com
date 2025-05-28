@@ -14,6 +14,24 @@
   "map": {
   "title": "Emplacement sur la carte"
   },
+  "compare": {
+  "title": "Comparaison",
+  "resetFilters": "Réinitialiser les filtres",
+  "copied": "Copié !",
+  "emailSubject": "Comparaison des propriétés",
+  "noData": "Aucune donnée à afficher.",
+  "chartTitle": "Comparaison des prix et évaluations",
+  "minRating": "Note minimale",
+  "minSize": "Superficie min. (m²)",
+  "maxSize": "Superficie max. (m²)",
+  "lineChart": "Graphique en lignes",
+  "pieChart": "Graphique en secteurs",
+  "clearAll": "Tout effacer",
+  "refresh": "Rafraîchir",
+  "print": "Imprimer",
+  "copy": "Copier le résumé",
+  "email": "Envoyer par e-mail",
+  },
   "addListing": {
     "title": "Ajouter une annonce",
     "fields": {

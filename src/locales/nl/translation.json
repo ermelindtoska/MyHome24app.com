@@ -14,6 +14,25 @@
   "map": {
   "title": "Locatie op kaart"
   },
+  "compare": {
+  "title": "Vergelijking",
+  "resetFilters": "Filters resetten",
+  "copied": "Gekopieerd!",
+  "emailSubject": "Eigendom Vergelijking",
+  "noData": "Geen gegevens om weer te geven.",
+  "chartTitle": "Vergelijking van prijzen en beoordelingen",
+  "minRating": "Minimale beoordeling",
+  "minSize": "Minimale grootte (m²)",
+  "maxSize": "Maximale grootte (m²)",
+  "lineChart": "Lijndiagram",
+  "pieChart": "Cirkeldiagram",
+  "clearAll": "Alles wissen",
+  "refresh": "Vernieuwen",
+  "print": "Afdrukken",
+  "copy": "Samenvatting kopiëren",
+  "email": "Verzenden via e-mail"
+}
+  },
   "addListing": {
     "title": "Advertentie Toevoegen",
     "fields": {

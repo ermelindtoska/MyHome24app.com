@@ -14,6 +14,24 @@
   "map": {
   "title": "Vendndodhja në hartë"
   },
+  "compare": {
+  "title": "Krahasim",
+  "resetFilters": "Fshi filtrat",
+  "copied": "Kopjuar!",
+  "emailSubject": "Krahasimi i pronave",
+  "noData": "Asnjë të dhënë për të shfaqur.",
+  "chartTitle": "Krahasim i çmimit dhe vlerësimit",
+  "minRating": "Vlerësimi min.",
+  "minSize": "Sip. minimale (m²)",
+  "maxSize": "Sip. maksimale (m²)",
+  "lineChart": "Grafik me vijë",
+  "pieChart": "Grafik me pica",
+  "clearAll": "Fshi të gjitha",
+  "refresh": "Rifresko",
+  "print": "Printo",
+  "copy": "Kopjo përmbledhjen",
+  "email": "Dërgo me email",
+  },
   "addListing": {
     "title": "Shto një Shpallje",
     "fields": {
