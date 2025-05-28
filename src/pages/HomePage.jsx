@@ -6,8 +6,10 @@ import { db } from '../firebase-config';
 import { useTranslation } from 'react-i18next';
 import { Typewriter } from 'react-simple-typewriter';
 import Slider from 'react-slick';
+import ReactPlayer from 'react-player';
 import {
-  FaBuilding, FaHome, FaBriefcase, FaTree, FaSearch, FaQuoteLeft, FaHandshake, FaEnvelope, FaUserCircle, FaStar
+  FaBuilding, FaHome, FaBriefcase, FaTree, FaSearch, FaQuoteLeft, FaHandshake, FaEnvelope,
+  FaUserCircle, FaStar, FaLightbulb, FaMapMarkerAlt
 } from 'react-icons/fa';
 import ListingCard from '../components/ListingCard';
 
@@ -55,7 +57,6 @@ const HomePage = () => {
   }, [listings]);
 
   const heroImages = ['/images/hero-1.jpg', '/images/hero-2.jpg', '/images/hero-3.jpg'];
-
   const sliderSettings = {
     autoplay: true,
     autoplaySpeed: 4000,
@@ -65,38 +66,31 @@ const HomePage = () => {
     fade: true,
   };
 
-  const categories = [
+  const testimonials = [
+    { name: 'Anna M.', text: t('home.testimonial1') },
+    { name: 'Max K.', text: t('home.testimonial2') },
+    { name: 'Laura W.', text: t('home.testimonial3') },
+  ];
+    const categories = [
     { name: t('home.apartment'), icon: <FaBuilding />, link: '/category/apartment' },
     { name: t('home.house'), icon: <FaHome />, link: '/category/house' },
     { name: t('home.office'), icon: <FaBriefcase />, link: '/category/office' },
     { name: t('home.land'), icon: <FaTree />, link: '/category/land' },
   ];
 
-  const testimonials = [
-    {
-      name: 'Anna M.',
-      text: 'Ich habe mein Traumhaus über MyHome24App gefunden. Einfach genial!',
-    },
-    {
-      name: 'Max K.',
-      text: 'Schnell, einfach und zuverlässig. Sehr empfehlenswert!',
-    },
-    {
-      name: 'Laura W.',
-      text: 'Die Plattform ist super intuitiv und ich habe viele gute Angebote gefunden.',
-    },
+  const locations = [
+    t('home.popularArea1'),
+    t('home.popularArea2'),
+    t('home.popularArea3'),
+    t('home.popularArea4')
   ];
 
   const handleSearch = () => {
-    if (search.trim()) {
-      navigate(`/search?query=${encodeURIComponent(search.trim())}`);
-    }
+    if (search.trim()) navigate(`/search?query=${encodeURIComponent(search.trim())}`);
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
+    if (e.key === 'Enter') handleSearch();
   };
 
   return (
@@ -110,34 +104,22 @@ const HomePage = () => {
             </div>
           ))}
         </Slider>
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/60 to-blue-400/60 flex flex-col items-center justify-center text-white text-center px-4 animate-fade-in">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 drop-shadow-md animate-fade-in-delay">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/60 to-blue-400/60 flex flex-col items-center justify-center text-white text-center px-4">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 drop-shadow-md">
             <Typewriter
-              words={[
-                t('home.heroTitle'),
-                'Wohnungen für jedes Budget',
-                'Finden Sie Ihr neues Zuhause!'
-              ]}
-              loop={true}
-              cursor
-              cursorStyle="|"
-              typeSpeed={80}
-              deleteSpeed={40}
-              delaySpeed={2000}
+              words={[t('home.heroTitle'), t('home.heroTitle2'), t('home.heroTitle3')]}
+              loop cursor cursorStyle="|" typeSpeed={80} deleteSpeed={40} delaySpeed={2000}
             />
           </h1>
-          <p className="text-2xl md:text-3xl mb-8 drop-shadow-sm animate-fade-in-delay">
-            {t('home.heroSubtitle')}
-          </p>
+          <p className="text-2xl md:text-3xl mb-8 drop-shadow-sm">{t('home.heroSubtitle')}</p>
           <Link to="/listings">
-            <button className="bg-white text-blue-600 font-semibold px-8 py-4 rounded-full shadow hover:bg-gray-100 transition text-lg animate-bounce">
+            <button className="bg-white text-blue-600 font-semibold px-8 py-4 rounded-full shadow hover:bg-gray-100 transition text-lg">
               {t('home.heroButton')}
             </button>
           </Link>
         </div>
       </section>
-
-      {/* SEARCH BAR */}
+        {/* SEARCH BAR */}
       <div className="max-w-3xl mx-auto mt-14 px-4 animate-fade-in">
         <div className="relative">
           <span className="absolute inset-y-0 left-0 flex items-center pl-5 text-gray-400">
@@ -160,8 +142,25 @@ const HomePage = () => {
           </button>
         </div>
       </div>
-
-      {/* STATISTICS SECTION */}
+            {/* LATEST LISTINGS */}
+      <section className="max-w-6xl mx-auto py-20 px-4 animate-fade-in">
+        <h2 className="text-4xl font-semibold mb-12 text-center text-gray-800">
+          {t('home.latest')}
+        </h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          {listings.slice(0, 6).map(listing => (
+            <ListingCard key={listing.id} listing={listing} />
+          ))}
+        </div>
+        <div className="text-center mt-12">
+          <Link to="/listings">
+            <button className="px-10 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition text-xl font-semibold">
+              {t('home.viewAll')}
+            </button>
+          </Link>
+        </div>
+      </section>
+            {/* STATISTICS SECTION */}
       <section className="max-w-6xl mx-auto py-20 px-4 animate-fade-in">
         <h2 className="text-4xl font-semibold mb-12 text-center text-gray-800">
           {t('home.statsTitle')}
@@ -179,25 +178,6 @@ const HomePage = () => {
             <h3 className="text-5xl font-bold text-yellow-600">{stats.featured}</h3>
             <p className="mt-2 text-gray-700 text-lg">{t('home.statsFeatured')}</p>
           </div>
-        </div>
-      </section>
-
-      {/* LATEST LISTINGS */}
-      <section className="max-w-6xl mx-auto py-20 px-4 animate-fade-in">
-        <h2 className="text-4xl font-semibold mb-12 text-center text-gray-800">
-          {t('home.latest')}
-        </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {listings.slice(0, 6).map(listing => (
-            <ListingCard key={listing.id} listing={listing} />
-          ))}
-        </div>
-        <div className="text-center mt-12">
-          <Link to="/listings">
-            <button className="px-10 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition text-xl font-semibold">
-              {t('home.viewAll')}
-            </button>
-          </Link>
         </div>
       </section>
 
@@ -237,19 +217,76 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* TESTIMONIALS SECTION */}
+
+      {/* VIDEO SECTION */}
+      <section className="bg-white py-20 px-4 animate-fade-in">
+        <div className="max-w-5xl mx-auto text-center">
+          <h3 className="text-4xl font-bold mb-6 text-blue-900">{t('home.videoTitle')}</h3>
+          <p className="mb-6 text-lg text-gray-600">{t('home.videoSubtitle')}</p>
+          <div className="aspect-w-16 aspect-h-9">
+            <ReactPlayer url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" controls width="100%" height="360px" />
+          </div>
+        </div>
+      </section>
+
+      {/* PARALLAX SECTION */}
+      <section className="relative h-96 bg-fixed bg-center bg-cover bg-no-repeat" style={{ backgroundImage: 'url(/images/parallax.jpg)' }}>
+        <div className="absolute inset-0 bg-blue-900 bg-opacity-60 flex items-center justify-center">
+          <h2 className="text-5xl text-white font-bold text-center px-4">{t('home.parallaxText')}</h2>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section className="bg-gradient-to-r from-blue-50 to-blue-100 py-20 px-4 animate-fade-in">
+        <div className="max-w-6xl mx-auto text-center">
+          <h3 className="text-4xl font-bold mb-12 text-blue-900">{t('home.howItWorksTitle')}</h3>
+          <p className="text-lg text-gray-600 mb-12">{t('home.whyDesc')}</p>
+          <div className="grid sm:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition border border-blue-200">
+              <FaSearch className="text-4xl text-blue-600 mb-4 mx-auto" />
+              <h4 className="text-xl font-semibold mb-2">{t('home.howStep1')}</h4>
+              <p className="text-gray-600">{t('home.howStep1Text')}</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition border border-blue-200">
+              <FaLightbulb className="text-4xl text-blue-600 mb-4 mx-auto" />
+              <h4 className="text-xl font-semibold mb-2">{t('home.howStep2')}</h4>
+              <p className="text-gray-600">{t('home.howStep2Text')}</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition border border-blue-200">
+              <FaEnvelope className="text-4xl text-blue-600 mb-4 mx-auto" />
+              <h4 className="text-xl font-semibold mb-2">{t('home.howStep3')}</h4>
+              <p className="text-gray-600">{t('home.howStep3Text')}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* POPULAR LOCATIONS */}
+      <section className="bg-gray-100 py-20 px-4 animate-fade-in">
+        <div className="max-w-6xl mx-auto text-center">
+          <h3 className="text-4xl font-bold mb-12 text-gray-800">{t('home.popularAreasTitle')}</h3>
+          <div className="grid sm:grid-cols-4 gap-8">
+            {locations.map((city, index) => (
+              <div key={index} className="p-6 bg-white rounded-lg shadow hover:shadow-md transition border border-blue-200">
+                <FaMapMarkerAlt className="text-3xl text-blue-600 mb-2 mx-auto" />
+                <p className="text-lg font-semibold text-gray-800">{city}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
       <section className="bg-blue-50 py-20 px-4 animate-fade-in">
         <div className="max-w-6xl mx-auto text-center">
-          <h3 className="text-4xl font-bold mb-12 text-blue-900">Was unsere Nutzer sagen</h3>
+          <h3 className="text-4xl font-bold mb-12 text-blue-900">{t('home.testimonialsTitle')}</h3>
           <div className="grid sm:grid-cols-3 gap-10">
             {testimonials.map((item, index) => (
-              <div key={index} className="bg-white shadow-lg rounded-xl p-6 transition-transform duration-300 hover:scale-105">
+              <div key={index} className="bg-white shadow-lg rounded-xl p-6 transition-transform duration-300 hover:scale-105 border border-blue-200">
                 <FaQuoteLeft className="text-3xl text-blue-600 mb-4 mx-auto" />
                 <p className="text-gray-700 italic mb-4">"{item.text}"</p>
                 <div className="text-yellow-500 flex justify-center mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <FaStar key={i} />
-                  ))}
+                  {[...Array(5)].map((_, i) => (<FaStar key={i} />))}
                 </div>
                 <div className="text-blue-800 font-semibold flex items-center justify-center gap-2">
                   <FaUserCircle /> <span>{item.name}</span>
@@ -262,12 +299,10 @@ const HomePage = () => {
 
       {/* CONTACT SECTION */}
       <section className="bg-white py-20 px-4 animate-fade-in">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center border border-blue-200 rounded-xl p-10">
           <FaEnvelope className="text-4xl text-blue-600 mb-4 mx-auto" />
-          <h3 className="text-3xl font-bold mb-4 text-gray-800">Kontaktieren Sie uns</h3>
-          <p className="text-lg text-gray-700 mb-2">
-            Haben Sie Fragen, Feedback oder brauchen Sie Hilfe? Schreiben Sie uns gerne eine E-Mail:
-          </p>
+          <h3 className="text-3xl font-bold mb-4 text-gray-800">{t('home.contactTitle')}</h3>
+          <p className="text-lg text-gray-700 mb-2">{t('home.contactText')}</p>
           <a href="mailto:kontakt@myhome24app.com" className="text-blue-600 text-lg font-medium hover:underline">
             kontakt@myhome24app.com
           </a>
