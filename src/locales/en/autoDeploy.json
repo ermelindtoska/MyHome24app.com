@@ -1,0 +1,8 @@
+{
+  "title": "Auto Deployment",
+  "enable": "Enable",
+  "disable": "Disable",
+  "status": "Status",
+  "lastRun": "Last Run",
+  "nextRun": "Next Scheduled Run"
+}

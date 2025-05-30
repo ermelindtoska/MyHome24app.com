@@ -1,0 +1,9 @@
+{
+  "title": "Billing",
+  "currentPlan": "Current Plan",
+  "upgrade": "Upgrade",
+  "billingHistory": "Billing History",
+  "invoice": "Invoice",
+  "date": "Date",
+  "amount": "Amount"
+}

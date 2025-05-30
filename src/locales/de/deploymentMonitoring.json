@@ -1,0 +1,7 @@
+{
+  "title": "Bereitstellungsüberwachung",
+  "currentStatus": "Aktueller Status",
+  "monitoringSince": "Überwachung seit",
+  "incidentsDetected": "Erkannte Vorfälle",
+  "uptime": "Verfügbarkeit"
+}

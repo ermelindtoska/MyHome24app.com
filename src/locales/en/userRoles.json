@@ -1,0 +1,6 @@
+{
+  "admin": "Admin",
+  "agent": "Agent",
+  "user": "User",
+  "moderator": "Moderator"
+}

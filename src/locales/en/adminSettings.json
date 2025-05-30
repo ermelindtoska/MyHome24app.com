@@ -1,0 +1,8 @@
+{
+  "title": "Admin Settings",
+  "siteConfig": "Site Configuration",
+  "userManagement": "User Management",
+  "accessControl": "Access Control",
+  "systemLogs": "System Logs",
+  "saveChanges": "Save Changes"
+}

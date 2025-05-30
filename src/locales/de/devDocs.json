@@ -1,0 +1,7 @@
+{
+  "title": "Entwicklerdokumentation",
+  "overview": "Übersicht über verfügbare Funktionen und Schnittstellen.",
+  "auth": "Authentifizierung",
+  "endpoints": "REST-Endpunkte",
+  "examples": "Beispielanfragen"
+}

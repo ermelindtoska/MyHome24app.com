@@ -1,0 +1,7 @@
+{
+  "title": "Deployment History",
+  "environment": "Environment",
+  "deployedBy": "Deployed by",
+  "deploymentTime": "Deployment time",
+  "status": "Status"
+}

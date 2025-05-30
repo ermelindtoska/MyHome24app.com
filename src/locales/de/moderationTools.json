@@ -1,0 +1,10 @@
+{
+  "title": "Moderationstools",
+  "reportReason": "Meldegrund",
+  "approve": "Genehmigen",
+  "reject": "Ablehnen",
+  "banUser": "Nutzer*in sperren",
+  "unbanUser": "Sperrung aufheben",
+  "flaggedListings": "Gekennzeichnete Anzeigen",
+  "moderationLogs": "Moderationsprotokolle"
+}

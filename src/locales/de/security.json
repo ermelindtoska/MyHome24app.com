@@ -1,0 +1,9 @@
+{
+  "title": "Sicherheit",
+  "changePassword": "Passwort ändern",
+  "twoFactor": "Zwei-Faktor-Authentifizierung",
+  "sessions": "Aktive Sitzungen",
+  "lastLogin": "Letzter Login",
+  "enable2FA": "2FA aktivieren",
+  "disable2FA": "2FA deaktivieren"
+}

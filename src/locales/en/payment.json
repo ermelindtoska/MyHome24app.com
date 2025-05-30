@@ -1,0 +1,11 @@
+{
+  "title": "Payment",
+  "method": "Payment Method",
+  "cardNumber": "Card Number",
+  "expiryDate": "Expiry Date",
+  "cvc": "CVC",
+  "payNow": "Pay Now",
+  "processing": "Processing payment...",
+  "success": "Payment completed successfully",
+  "error": "Payment failed. Please try again."
+}

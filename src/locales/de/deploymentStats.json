@@ -1,0 +1,7 @@
+{
+  "title": "Bereitstellungsstatistiken",
+  "successfulDeployments": "Erfolgreiche Deployments",
+  "failedDeployments": "Fehlgeschlagene Deployments",
+  "averageTime": "Durchschnittliche Bereitstellungszeit",
+  "lastDeployment": "Letztes Deployment"
+}

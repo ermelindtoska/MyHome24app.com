@@ -1,0 +1,7 @@
+{
+  "title": "Maintenance Windows",
+  "startTime": "Start Time",
+  "endTime": "End Time",
+  "impact": "Impact",
+  "status": "Status"
+}

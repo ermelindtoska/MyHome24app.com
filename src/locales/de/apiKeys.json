@@ -1,0 +1,7 @@
+{
+  "title": "API-Schlüssel",
+  "generate": "Neuen Schlüssel erstellen",
+  "copy": "Kopieren",
+  "revoke": "Widerrufen",
+  "noKeys": "Noch keine API-Schlüssel erstellt."
+}

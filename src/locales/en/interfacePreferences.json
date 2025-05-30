@@ -1,0 +1,8 @@
+{
+  "title": "Interface Preferences",
+  "theme": "Theme",
+  "language": "Language",
+  "fontSize": "Font size",
+  "darkMode": "Enable dark mode",
+  "save": "Save settings"
+}

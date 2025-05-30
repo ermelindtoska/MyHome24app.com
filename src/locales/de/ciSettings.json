@@ -1,0 +1,7 @@
+{
+  "title": "CI-Einstellungen",
+  "enablePipeline": "Pipeline aktivieren",
+  "branchTracking": "Branch-Verfolgung",
+  "autoBuild": "Automatischer Build",
+  "save": "Speichern"
+}

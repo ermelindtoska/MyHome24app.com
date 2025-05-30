@@ -1,0 +1,6 @@
+{
+  "title": "Development Environments",
+  "add": "Add New Environment",
+  "envName": "Environment Name",
+  "type": "Type (e.g. dev, staging, production)"
+}

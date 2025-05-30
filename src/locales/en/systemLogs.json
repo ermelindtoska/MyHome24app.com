@@ -1,0 +1,6 @@
+{
+  "title": "System Logs",
+  "description": "View all system events and activity.",
+  "filter": "Filter by date or category",
+  "noLogs": "No logs found."
+}

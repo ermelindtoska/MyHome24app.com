@@ -1,0 +1,8 @@
+{
+  "welcome": "Willkommen zurück, {{name}}!",
+  "myListings": "Meine Inserate",
+  "myMessages": "Meine Nachrichten",
+  "myFavorites": "Meine Favoriten",
+  "accountSettings": "Kontoeinstellungen",
+  "logout": "Abmelden"
+}

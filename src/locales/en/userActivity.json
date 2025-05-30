@@ -1,0 +1,9 @@
+{
+  "title": "Activity Log",
+  "login": "Logged in",
+  "logout": "Logged out",
+  "listingViewed": "Viewed listing",
+  "favoriteAdded": "Added to favorites",
+  "messageSent": "Message sent",
+  "profileUpdated": "Profile updated"
+}

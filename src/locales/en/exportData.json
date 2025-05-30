@@ -1,0 +1,6 @@
+{
+  "title": "Export Data",
+  "description": "Download your data in CSV format.",
+  "downloadButton": "Download Data",
+  "successMessage": "Data exported successfully."
+}

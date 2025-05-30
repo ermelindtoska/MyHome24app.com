@@ -1,0 +1,7 @@
+{
+  "title": "Rollen & Berechtigungen",
+  "admin": "Vollzugriff auf alle Funktionen",
+  "agent": "Kann Anzeigen erstellen und verwalten",
+  "moderator": "Kann Inhalte prüfen und genehmigen",
+  "user": "Kann Anzeigen durchsuchen und speichern"
+}

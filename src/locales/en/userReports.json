@@ -1,0 +1,7 @@
+{
+  "title": "User Reports",
+  "reportReason": "Reason for Report",
+  "reportedUser": "Reported User",
+  "submittedAt": "Submitted At",
+  "reviewStatus": "Review Status"
+}

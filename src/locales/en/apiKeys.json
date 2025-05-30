@@ -1,0 +1,7 @@
+{
+  "title": "API Keys",
+  "generate": "Generate New Key",
+  "copy": "Copy",
+  "revoke": "Revoke",
+  "noKeys": "No API keys have been created yet."
+}

@@ -1,0 +1,9 @@
+{
+  "dashboard": "Dashboard",
+  "users": "Users",
+  "listings": "Listings",
+  "moderation": "Moderation",
+  "settings": "Settings",
+  "logs": "Logs",
+  "analytics": "Analytics"
+}

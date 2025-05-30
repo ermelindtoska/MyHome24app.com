@@ -1,0 +1,7 @@
+{
+  "title": "Bereitstellungsverlauf",
+  "environment": "Umgebung",
+  "deployedBy": "Bereitgestellt von",
+  "deploymentTime": "Zeitpunkt der Bereitstellung",
+  "status": "Status"
+}

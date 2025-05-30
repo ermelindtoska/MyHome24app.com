@@ -1,0 +1,7 @@
+{
+  "title": "Wartungszeiträume",
+  "startTime": "Beginn",
+  "endTime": "Ende",
+  "impact": "Auswirkung",
+  "status": "Status"
+}

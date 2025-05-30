@@ -1,0 +1,7 @@
+{
+  "title": "Analyse-Einstellungen",
+  "description": "Verwalte, wie wir Daten zur Verbesserung der Plattform sammeln",
+  "enableTracking": "Tracking aktivieren",
+  "disableTracking": "Tracking deaktivieren",
+  "save": "Einstellungen speichern"
+}

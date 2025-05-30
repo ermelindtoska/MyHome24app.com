@@ -1,0 +1,7 @@
+{
+  "title": "Bereitstellungsstatus",
+  "currentVersion": "Aktuelle Version",
+  "deployedAt": "Bereitgestellt am",
+  "status": "Status",
+  "uptime": "Verfügbarkeitszeit"
+}

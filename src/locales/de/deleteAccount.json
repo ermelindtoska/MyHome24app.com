@@ -1,0 +1,7 @@
+{
+  "title": "Konto löschen",
+  "warning": "Bist du sicher? Diese Aktion kann nicht rückgängig gemacht werden.",
+  "confirm": "Ja, mein Konto löschen",
+  "cancel": "Abbrechen",
+  "success": "Dein Konto wurde erfolgreich gelöscht."
+}

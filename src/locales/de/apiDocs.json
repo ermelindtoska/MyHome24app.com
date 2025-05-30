@@ -1,0 +1,7 @@
+{
+  "title": "API-Dokumentation",
+  "intro": "Nutze unsere API zur Integration deiner Anwendung.",
+  "authentication": "Authentifizierung",
+  "endpoints": "Verfügbare Endpunkte",
+  "rateLimits": "Anfragelimits"
+}
