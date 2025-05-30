@@ -1,8 +1,15 @@
 {
  "comments":{
     "name": "Your Name",
+    "comments": "Comments",
+     "yourComment": "Your comment",
     "text": "Your Comment",
     "rating": "Rating (1–5)",
-    "submit": "Submit"
+    "submit": "Submit",
+      "title": "Comments",
+  "addComment": "Add a comment",
+  "placeholder": "Write your comment...",
+  "noComments": "No comments yet.",
+  "delete": "Delete"
     }
   }

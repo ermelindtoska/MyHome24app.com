@@ -1,0 +1,11 @@
+{
+  "title": "Create Account",
+  "subtitle": "Start your journey with MyHome24App",
+  "name": "Full Name",
+  "email": "Email Address",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "registerButton": "Register",
+  "alreadyAccount": "Already have an account?",
+  "loginLink": "Log in now"
+}

@@ -1,0 +1,6 @@
+{
+  "denied": "Zugriff verweigert",
+  "adminOnly": "Nur für Administrator*innen zugänglich",
+  "loginRequired": "Bitte einloggen, um fortzufahren",
+  "insufficientPermissions": "Unzureichende Berechtigungen"
+}

@@ -2,6 +2,12 @@
  "dashboard":{ 
     "title": "Ihre Anzeigenübersicht",
     "noListings": "Keine Anzeigen für Ihr Konto gefunden.",
-    "loading": "Lade Ihre Anzeigen..."
+    "loading": "Lade Ihre Anzeigen...",
+      "myListings": "Meine Anzeigen",
+  "addNew": "Neue Anzeige hinzufügen",
+  "edit": "Bearbeiten",
+  "delete": "Löschen",
+  "noListings": "Sie haben noch keine Immobilien veröffentlicht.",
+  "logout": "Abmelden"
     }
   }

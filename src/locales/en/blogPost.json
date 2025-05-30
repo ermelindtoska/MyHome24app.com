@@ -1,0 +1,8 @@
+{
+  "backToBlog": "Back to Blog",
+  "share": "Share",
+  "readTime": "{{minutes}} min read",
+  "postedOn": "Posted on {{date}}",
+  "tags": "Tags",
+  "relatedPosts": "Related Posts"
+}

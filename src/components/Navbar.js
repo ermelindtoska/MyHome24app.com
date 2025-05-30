@@ -1,53 +1,31 @@
-// src/components/Navbar.jsx
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { auth } from '../firebase-config';
-import logo from '../assets/logo.png';
-import LanguageSwitcher from './LanguageSwitcher';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
   const { t } = useTranslation('navbar');
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
-      setUser(firebaseUser);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  const handleLogout = async () => {
-    await auth.signOut();
-    navigate('/login');
-  };
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur bg-white/80 shadow-sm">
-      <Link to="/" className="flex items-center gap-3">
-        <img src={logo} alt="MyHome24App Logo" className="h-10 w-auto" />
-        <span className="text-xl font-bold text-gray-800">MyHome24App</span>
-      </Link>
-
-      <nav className="space-x-4 text-sm flex items-center">
-        <Link to="/" className="text-gray-700 hover:text-blue-600">{t('home')}</Link>
-        <Link to="/listings" className="text-gray-700 hover:text-blue-600">{t('listings')}</Link>
-        <Link to="/add" className="text-gray-700 hover:text-blue-600">{t('addListing')}</Link>
-
-        {user ? (
-          <>
-            <Link to="/dashboard" className="text-gray-700 hover:text-blue-600">{t('dashboard')}</Link>
-            <button onClick={handleLogout} className="text-gray-700 hover:text-blue-600">{t('logout')}</button>
-          </>
-        ) : (
-          <>
-            <Link to="/login" className="text-gray-700 hover:text-blue-600">{t('login')}</Link>
-            <Link to="/register" className="text-gray-700 hover:text-blue-600">{t('register')}</Link>
-          </>
-        )}
-
-        <LanguageSwitcher />
+      <nav className="flex justify-between items-center p-4 max-w-7xl mx-auto">
+        <div className="text-2xl font-bold text-blue-600">MyHome24App</div>
+        <ul className="flex gap-6 text-sm font-medium text-gray-700">
+          <li><Link to="/buy">{t('buy')}</Link></li>
+          <li><Link to="/rent">{t('rent')}</Link></li>
+          <li><Link to="/sell">{t('sell')}</Link></li>
+          <li><Link to="/mortgage">{t('mortgage')}</Link></li>
+          <li><Link to="/agent">{t('findAgent')}</Link></li>
+          <li><Link to="/careers">{t('careers')}</Link></li>  
+          <li><Link to="/newsletter">{t('newsletter')}</Link></li> 
+          <li><Link to="/partners">{t('partners')}</Link></li>
+          <li><Link to="/blog">{t('blog')}</Link></li>
+        </ul>
+        <ul className="flex gap-4 text-sm font-medium text-gray-700">
+          <li><Link to="/manage">{t('manage')}</Link></li>
+          <li><Link to="/advertise">{t('advertise')}</Link></li>
+          <li><Link to="/help">{t('help')}</Link></li>
+          <li><Link to="/login">{t('login')}</Link></li>
+        </ul>
       </nav>
     </header>
   );

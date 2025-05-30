@@ -1,4 +1,9 @@
 {
-  "login": "Login",
-  "logout": "Logout"
+  "title": "Einstellungen",
+  "language": "Sprache",
+  "notifications": "Benachrichtigungen",
+  "privacy": "Datenschutz",
+  "account": "Kontoeinstellungen",
+  "save": "Speichern",
+  "changePassword": "Passwort ändern"
 }

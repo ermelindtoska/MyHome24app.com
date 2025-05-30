@@ -1,0 +1,12 @@
+{
+  "title": "Create Listing",
+  "editTitle": "Edit Listing",
+  "stepDetails": "Details",
+  "stepPhotos": "Photos",
+  "stepPreview": "Preview",
+  "next": "Next",
+  "back": "Back",
+  "submit": "Publish",
+  "success": "Your listing was successfully created!",
+  "error": "Something went wrong. Please try again."
+}

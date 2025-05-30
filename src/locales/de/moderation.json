@@ -1,0 +1,9 @@
+{
+  "pending": "Ausstehend",
+  "approved": "Genehmigt",
+  "rejected": "Abgelehnt",
+  "review": "Zur Überprüfung",
+  "approve": "Genehmigen",
+  "reject": "Ablehnen",
+  "reason": "Grund"
+}

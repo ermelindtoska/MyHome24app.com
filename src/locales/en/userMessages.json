@@ -1,0 +1,10 @@
+{
+  "inbox": "Inbox",
+  "sent": "Sent",
+  "compose": "Compose",
+  "subject": "Subject",
+  "message": "Message",
+  "send": "Send",
+  "noMessages": "No messages available.",
+  "reply": "Reply"
+}

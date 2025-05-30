@@ -3,6 +3,11 @@
     "title": "Kontakt Eigentümer*in",
     "object": "Objekt",
     "description": "Hier könnten Kontaktdaten oder ein Formular stehen.",
-    "close": "Schließen"
+    "close": "Schließen",
+      "contactTitle": "Kontaktieren Sie uns",
+  "contactText": "Haben Sie Fragen? Wir sind für Sie da.",
+  "emailLabel": "Ihre E-Mail-Adresse",
+  "messageLabel": "Ihre Nachricht",
+  "sendButton": "Absenden"
     }
   }

@@ -1,0 +1,7 @@
+{
+  "invalidEmail": "Ungültige E-Mail-Adresse",
+  "minLength": "Mindestens {{count}} Zeichen erforderlich",
+  "maxLength": "Maximal {{count}} Zeichen erlaubt",
+  "passwordMismatch": "Passwörter stimmen nicht überein",
+  "invalidPhone": "Ungültige Telefonnummer"
+}

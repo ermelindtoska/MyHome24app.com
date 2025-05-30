@@ -3,6 +3,12 @@
     "city": "Stadt (Filter)",
     "maxPrice": "Maximaler Preis (€)",
     "allTypes": "Alle Typen",
-    "allPurposes": "Alle Zwecke"
+    "allPurposes": "Alle Zwecke",
+      "title": "Filter",
+  "category": "Kategorie",
+  "priceRange": "Preisbereich",
+  "location": "Ort",
+  "apply": "Anwenden",
+  "reset": "Zurücksetzen"
     }
   }

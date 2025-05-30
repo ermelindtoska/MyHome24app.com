@@ -1,4 +1,6 @@
 {
-  "login": "Login",
-  "logout": "Logout"
+  "title": "Search Results",
+  "noResults": "No results found.",
+  "placeholder": "Enter city, zip code or address...",
+  "button": "Search"
 }

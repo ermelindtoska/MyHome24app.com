@@ -1,4 +1,13 @@
 {
-  "login": "Login",
-  "logout": "Logout"
+  "company": "Company",
+  "about": "About Us",
+  "careers": "Careers",
+  "press": "Press",
+  "legal": "Legal",
+  "privacy": "Privacy Policy",
+  "terms": "Terms of Use",
+  "followUs": "Follow Us",
+  "newsletter": "Subscribe to Newsletter",
+  "subscribe": "Subscribe",
+  "emailPlaceholder": "Your email address"
 }

@@ -1,0 +1,11 @@
+{
+  "title": "Konto erstellen",
+  "subtitle": "Beginnen Sie Ihre Reise mit MyHome24App",
+  "name": "Vollständiger Name",
+  "email": "E-Mail-Adresse",
+  "password": "Passwort",
+  "confirmPassword": "Passwort bestätigen",
+  "registerButton": "Registrieren",
+  "alreadyAccount": "Sie haben bereits ein Konto?",
+  "loginLink": "Jetzt anmelden"
+}
