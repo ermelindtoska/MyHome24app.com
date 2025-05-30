@@ -1,0 +1,7 @@
+{
+  "title": "Deployment Statistics",
+  "successfulDeployments": "Successful Deployments",
+  "failedDeployments": "Failed Deployments",
+  "averageTime": "Average Deployment Time",
+  "lastDeployment": "Last Deployment"
+}

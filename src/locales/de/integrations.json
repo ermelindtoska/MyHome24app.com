@@ -1,0 +1,7 @@
+{
+  "title": "Integrationen",
+  "description": "Verbinde MyHome24App mit deinen bevorzugten Tools und Diensten.",
+  "apiAccess": "API-Zugriff",
+  "thirdParty": "Drittanbieter-Integrationen",
+  "webhooks": "Webhooks"
+}

@@ -1,0 +1,8 @@
+{
+  "title": "Subscription",
+  "currentPlan": "Current Plan",
+  "changePlan": "Change Plan",
+  "cancelSubscription": "Cancel Subscription",
+  "billingCycle": "Billing Cycle",
+  "nextBilling": "Next Billing Date"
+}

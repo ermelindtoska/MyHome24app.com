@@ -1,0 +1,7 @@
+{
+  "title": "System Status",
+  "allSystemsOperational": "All systems are operational",
+  "partialOutage": "Partial outage",
+  "majorOutage": "Major outage",
+  "maintenance": "Scheduled maintenance"
+}

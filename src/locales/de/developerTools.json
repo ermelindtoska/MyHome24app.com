@@ -1,0 +1,7 @@
+{
+  "title": "Entwickler-Tools",
+  "description": "Werkzeuge für Entwickler*innen zur Erweiterung der Plattform.",
+  "sandbox": "Sandbox-Umgebung",
+  "cli": "Befehlszeilentool",
+  "sdk": "SDKs & Dokumentation"
+}

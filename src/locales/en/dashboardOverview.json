@@ -1,0 +1,8 @@
+{
+  "welcome": "Welcome back, {{name}}!",
+  "myListings": "My Listings",
+  "myMessages": "My Messages",
+  "myFavorites": "My Favorites",
+  "accountSettings": "Account Settings",
+  "logout": "Log out"
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Benutzereinladungen",
+  "subtitle": "Lade neue Mitglieder in dein Team ein",
+  "inviteUser": "Benutzer einladen",
+  "emailPlaceholder": "E-Mail-Adresse eingeben",
+  "invitedList": "Eingeladene Benutzer",
+  "sendInvite": "Einladung senden",
+  "pendingInvites": "Ausstehende Einladungen",
+  "statusPending": "Ausstehend",
+  "statusAccepted": "Akzeptiert"
+}

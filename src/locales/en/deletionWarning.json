@@ -1,0 +1,6 @@
+{
+  "title": "Are you sure?",
+  "message": "This action cannot be undone.",
+  "confirm": "Yes, delete",
+  "cancel": "Cancel"
+}

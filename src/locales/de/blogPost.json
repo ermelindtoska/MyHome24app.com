@@ -4,5 +4,7 @@
   "readTime": "{{minutes}} Min. Lesezeit",
   "postedOn": "Veröffentlicht am {{date}}",
   "tags": "Tags",
+  "by": "von",
+  "readNext": "Weiterlesen",
   "relatedPosts": "Verwandte Artikel"
 }

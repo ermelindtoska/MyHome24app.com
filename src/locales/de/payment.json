@@ -1,0 +1,11 @@
+{
+  "title": "Zahlung",
+  "method": "Zahlungsmethode",
+  "cardNumber": "Kartennummer",
+  "expiryDate": "Ablaufdatum",
+  "cvc": "CVC",
+  "payNow": "Jetzt bezahlen",
+  "processing": "Zahlung wird verarbeitet...",
+  "success": "Zahlung erfolgreich abgeschlossen",
+  "error": "Fehler bei der Zahlung. Bitte versuchen Sie es erneut."
+}

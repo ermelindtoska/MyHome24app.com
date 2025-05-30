@@ -1,0 +1,9 @@
+{
+  "title": "Activity Log",
+  "noActivities": "No activities found.",
+  "login": "Login",
+  "logout": "Logout",
+  "listingCreated": "Listing created",
+  "listingUpdated": "Listing updated",
+  "profileUpdated": "Profile updated"
+}

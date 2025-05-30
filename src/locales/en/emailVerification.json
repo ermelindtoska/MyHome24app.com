@@ -1,0 +1,7 @@
+{
+  "title": "Email Verification Required",
+  "message": "Please verify your email address to continue.",
+  "resend": "Resend Verification Email",
+  "success": "Email sent successfully!",
+  "error": "Error sending email."
+}

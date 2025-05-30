@@ -1,0 +1,7 @@
+{
+  "title": "E-Mail-Bestätigung erforderlich",
+  "message": "Bitte bestätige deine E-Mail-Adresse, um fortzufahren.",
+  "resend": "Bestätigungs-E-Mail erneut senden",
+  "success": "E-Mail wurde erfolgreich gesendet!",
+  "error": "Fehler beim Senden der E-Mail."
+}

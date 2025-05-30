@@ -1,0 +1,7 @@
+{
+  "title": "Roles & Permissions",
+  "admin": "Full access to all features",
+  "agent": "Can create and manage listings",
+  "moderator": "Can review and approve content",
+  "user": "Can browse and save listings"
+}

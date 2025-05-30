@@ -1,0 +1,10 @@
+{
+  "title": "Moderation Tools",
+  "reportReason": "Report Reason",
+  "approve": "Approve",
+  "reject": "Reject",
+  "banUser": "Ban User",
+  "unbanUser": "Unban User",
+  "flaggedListings": "Flagged Listings",
+  "moderationLogs": "Moderation Logs"
+}

@@ -1,0 +1,7 @@
+{
+  "title": "CI Settings",
+  "enablePipeline": "Enable Pipeline",
+  "branchTracking": "Branch Tracking",
+  "autoBuild": "Auto Build",
+  "save": "Save"
+}

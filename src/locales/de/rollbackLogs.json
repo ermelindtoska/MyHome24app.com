@@ -1,0 +1,7 @@
+{
+  "title": "Rollback-Protokolle",
+  "rollbackVersion": "Zurückgesetzte Version",
+  "reason": "Grund",
+  "initiatedBy": "Ausgelöst von",
+  "timestamp": "Zeitstempel"
+}

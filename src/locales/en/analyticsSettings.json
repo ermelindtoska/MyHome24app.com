@@ -1,0 +1,7 @@
+{
+  "title": "Analytics Settings",
+  "description": "Control how we collect data to improve the platform",
+  "enableTracking": "Enable tracking",
+  "disableTracking": "Disable tracking",
+  "save": "Save settings"
+}

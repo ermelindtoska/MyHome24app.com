@@ -1,0 +1,6 @@
+{
+  "title": "Systemprotokolle",
+  "description": "Sehen Sie alle Systemereignisse und Aktivitäten.",
+  "filter": "Nach Datum oder Kategorie filtern",
+  "noLogs": "Keine Protokolle gefunden."
+}

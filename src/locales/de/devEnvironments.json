@@ -1,0 +1,6 @@
+{
+  "title": "Entwicklungsumgebungen",
+  "add": "Neue Umgebung hinzufügen",
+  "envName": "Name der Umgebung",
+  "type": "Typ (z. B. Entwicklung, Test, Produktion)"
+}

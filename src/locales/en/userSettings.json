@@ -1,0 +1,10 @@
+{
+  "title": "Account Settings",
+  "profile": "Edit Profile",
+  "email": "Email Address",
+  "password": "Change Password",
+  "notifications": "Notifications",
+  "language": "Language",
+  "save": "Save Changes",
+  "delete": "Delete Account"
+}

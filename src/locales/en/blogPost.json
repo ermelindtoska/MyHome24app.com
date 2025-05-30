@@ -4,5 +4,7 @@
   "readTime": "{{minutes}} min read",
   "postedOn": "Posted on {{date}}",
   "tags": "Tags",
+  "by": "by",
+  "readNext": "Read Next",
   "relatedPosts": "Related Posts"
 }

@@ -1,0 +1,10 @@
+{
+  "filterBy": "Filter by",
+  "priceRange": "Price Range",
+  "propertyType": "Property Type",
+  "bedrooms": "Bedrooms",
+  "bathrooms": "Bathrooms",
+  "location": "Location",
+  "applyFilters": "Apply Filters",
+  "clearAll": "Clear All"
+}

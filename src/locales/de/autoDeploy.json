@@ -1,0 +1,8 @@
+{
+  "title": "Automatische Bereitstellung",
+  "enable": "Aktivieren",
+  "disable": "Deaktivieren",
+  "status": "Status",
+  "lastRun": "Letzter Lauf",
+  "nextRun": "Nächster geplanter Lauf"
+}

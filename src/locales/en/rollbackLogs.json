@@ -1,0 +1,7 @@
+{
+  "title": "Rollback Logs",
+  "rollbackVersion": "Rolled Back Version",
+  "reason": "Reason",
+  "initiatedBy": "Initiated by",
+  "timestamp": "Timestamp"
+}

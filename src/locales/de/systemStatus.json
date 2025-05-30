@@ -1,0 +1,7 @@
+{
+  "title": "Systemstatus",
+  "allSystemsOperational": "Alle Systeme funktionieren einwandfrei",
+  "partialOutage": "Teilweise Ausfall",
+  "majorOutage": "Schwerwiegender Ausfall",
+  "maintenance": "Geplante Wartung"
+}

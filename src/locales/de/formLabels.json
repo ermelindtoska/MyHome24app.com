@@ -1,0 +1,9 @@
+{
+  "firstName": "Vorname",
+  "lastName": "Nachname",
+  "email": "E-Mail",
+  "phone": "Telefon",
+  "message": "Nachricht",
+  "submit": "Absenden",
+  "cancel": "Abbrechen"
+}

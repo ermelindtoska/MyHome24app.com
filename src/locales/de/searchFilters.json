@@ -1,0 +1,10 @@
+{
+  "filterBy": "Filtern nach",
+  "priceRange": "Preisspanne",
+  "propertyType": "Immobilienart",
+  "bedrooms": "Schlafzimmer",
+  "bathrooms": "Badezimmer",
+  "location": "Ort",
+  "applyFilters": "Filter anwenden",
+  "clearAll": "Alle löschen"
+}

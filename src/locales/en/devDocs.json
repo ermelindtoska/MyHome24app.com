@@ -1,0 +1,7 @@
+{
+  "title": "Developer Documentation",
+  "overview": "Overview of available features and APIs.",
+  "auth": "Authentication",
+  "endpoints": "REST Endpoints",
+  "examples": "Example Requests"
+}

@@ -1,0 +1,7 @@
+{
+  "title": "Delete Account",
+  "warning": "Are you sure? This action cannot be undone.",
+  "confirm": "Yes, delete my account",
+  "cancel": "Cancel",
+  "success": "Your account has been successfully deleted."
+}
