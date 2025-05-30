@@ -1,0 +1,7 @@
+{
+  "title": "Deployment Health",
+  "uptime": "Uptime",
+  "failures": "Failures",
+  "lastDeployment": "Last Deployment",
+  "healthStatus": "Health Status"
+}

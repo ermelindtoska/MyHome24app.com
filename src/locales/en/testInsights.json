@@ -1,0 +1,8 @@
+{
+  "title": "Test Insights",
+  "totalTests": "Total Tests",
+  "passedTests": "Passed Tests",
+  "failedTests": "Failed Tests",
+  "coverage": "Coverage",
+  "skippedTests": "Skipped Tests"
+}

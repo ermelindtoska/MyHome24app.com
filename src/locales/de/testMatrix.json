@@ -1,0 +1,7 @@
+{
+  "title": "Test-Matrix",
+  "browsers": "Browser",
+  "platforms": "Plattformen",
+  "coverage": "Abdeckung",
+  "compatibility": "Kompatibilität"
+}

@@ -1,0 +1,7 @@
+{
+  "title": "Testverlauf",
+  "testName": "Testname",
+  "dateRun": "Ausführungsdatum",
+  "status": "Status",
+  "duration": "Dauer"
+}

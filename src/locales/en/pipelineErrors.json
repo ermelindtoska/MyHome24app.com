@@ -1,0 +1,7 @@
+{
+  "title": "Pipeline Errors",
+  "errorCode": "Error Code",
+  "message": "Error Message",
+  "resolved": "Resolved",
+  "timestamp": "Timestamp"
+}

@@ -1,0 +1,7 @@
+{
+  "title": "Testzusammenfassung",
+  "totalTests": "Gesamte Tests",
+  "passedTests": "Bestandene Tests",
+  "failedTests": "Fehlgeschlagene Tests",
+  "coverage": "Abdeckung"
+}

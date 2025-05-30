@@ -1,0 +1,6 @@
+{
+  "title": "CI-Auslöser",
+  "onPush": "Bei Push",
+  "onMerge": "Bei Merge",
+  "manualTrigger": "Manueller Auslöser"
+}

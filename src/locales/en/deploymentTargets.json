@@ -1,0 +1,7 @@
+{
+  "title": "Deployment Targets",
+  "targetName": "Target Name",
+  "status": "Status",
+  "type": "Type",
+  "lastDeployed": "Last Deployed"
+}

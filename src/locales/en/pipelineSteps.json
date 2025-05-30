@@ -1,0 +1,7 @@
+{
+  "title": "Pipeline Steps",
+  "step": "Step",
+  "status": "Status",
+  "startedAt": "Started At",
+  "completedAt": "Completed At"
+}

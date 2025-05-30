@@ -1,0 +1,6 @@
+{
+  "title": "CI Warnings",
+  "type": "Warning Type",
+  "message": "Warning Message",
+  "timestamp": "Timestamp"
+}

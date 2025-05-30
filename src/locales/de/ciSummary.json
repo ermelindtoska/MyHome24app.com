@@ -1,0 +1,6 @@
+{
+  "title": "CI-Zusammenfassung",
+  "totalBuilds": "Gesamtanzahl Builds",
+  "successRate": "Erfolgsquote",
+  "avgDuration": "Durchschnittliche Dauer"
+}

@@ -1,0 +1,6 @@
+{
+  "title": "CI Hooks",
+  "webhookUrl": "Webhook URL",
+  "triggerEvents": "Trigger Events",
+  "addHook": "Add Hook"
+}

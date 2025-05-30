@@ -1,0 +1,6 @@
+{
+  "title": "Pipeline Overview",
+  "totalSteps": "Total Steps",
+  "successfulRuns": "Successful Runs",
+  "failures": "Failures"
+}

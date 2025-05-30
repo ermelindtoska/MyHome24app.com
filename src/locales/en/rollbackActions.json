@@ -1,0 +1,6 @@
+{
+  "title": "Rollback Actions",
+  "rollbackTo": "Rollback to",
+  "confirmRollback": "Confirm Rollback",
+  "rollbackSuccess": "Rollback completed successfully"
+}

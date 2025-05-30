@@ -3,5 +3,8 @@
   "status": "Status",
   "lastUpdated": "Last Updated",
   "currentStage": "Current Stage",
-  "nextStep": "Next Step"
+   "current": "Current Release",
+    "next": "Next Release",
+  "nextStep": "Next Step",
+  "triggeredBy": "Triggered by"
 }

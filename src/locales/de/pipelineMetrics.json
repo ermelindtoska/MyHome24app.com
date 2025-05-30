@@ -1,0 +1,7 @@
+{
+  "title": "Pipeline-Metriken",
+  "successRate": "Erfolgsquote",
+  "avgDuration": "Durchschnittliche Dauer",
+  "failures": "Fehler",
+  "executions": "Ausführungen"
+}

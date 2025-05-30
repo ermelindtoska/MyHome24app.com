@@ -1,0 +1,6 @@
+{
+  "title": "CI Summary",
+  "totalBuilds": "Total Builds",
+  "successRate": "Success Rate",
+  "avgDuration": "Average Duration"
+}

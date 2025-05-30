@@ -1,0 +1,6 @@
+{
+  "title": "CI Triggers",
+  "onPush": "On Push",
+  "onMerge": "On Merge",
+  "manualTrigger": "Manual Trigger"
+}

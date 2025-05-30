@@ -1,0 +1,6 @@
+{
+  "title": "Build-Übersicht",
+  "totalBuilds": "Gesamtanzahl Builds",
+  "successfulBuilds": "Erfolgreiche Builds",
+  "failedBuilds": "Fehlgeschlagene Builds"
+}

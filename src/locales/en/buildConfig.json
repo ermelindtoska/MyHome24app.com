@@ -1,0 +1,6 @@
+{
+  "title": "Build Configuration",
+  "buildTool": "Build Tool",
+  "outputDir": "Output Directory",
+  "optimize": "Optimize"
+}

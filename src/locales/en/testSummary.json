@@ -1,0 +1,7 @@
+{
+  "title": "Test Summary",
+  "totalTests": "Total Tests",
+  "passedTests": "Passed Tests",
+  "failedTests": "Failed Tests",
+  "coverage": "Coverage"
+}
