@@ -1,0 +1,21 @@
+{
+"compare":{
+  "title": "Vergleichsansicht",
+  "minSize": "Min. Fläche (m²)",
+  "maxSize": "Max. Fläche (m²)",
+  "lineChart": "Liniendiagramm",
+  "pieChart": "Tortendiagramm",
+  "clearAll": "Alle entfernen",
+  "refresh": "Aktualisieren",
+  "exportPDF": "PDF exportieren",
+  "minRating": "Mindestbewertung",
+  "resetFilters": "Filter zurücksetzen",
+  "noData": "Keine passenden Einträge gefunden.",
+  "noRating": "Keine Bewertung",
+  "chartTitle": "Preis und Bewertung",
+  "copied": "Zusammenfassung kopiert!",
+  "copy": "Zusammenfassung kopieren",
+  "email": "Per E-Mail senden",
+  "emailSubject": "Immobilienvergleich"
+  }
+}

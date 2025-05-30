@@ -1,0 +1,15 @@
+{
+ "dashboard":{
+    "title": "Resumen de tus Anuncios",
+    "noListings": "No se encontraron anuncios para tu cuenta.",
+    "loading": "Cargando tus anuncios...",
+    "addNew": "Nuevo Anuncio",
+    "new": "Nuevo",
+    "details": "Detalles",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "favorite": "Favorito",
+    "unfavorite": "Quitar Favorito",
+    "contactOwner": "Contactar al Propietario"
+    }
+  }

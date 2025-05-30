@@ -1,0 +1,8 @@
+  {
+  "contact":{
+    "title": "Contact Owner",
+    "object": "Property",
+    "description": "This could be contact information or a form.",
+    "close": "Close"
+    }
+  }

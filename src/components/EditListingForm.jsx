@@ -24,13 +24,13 @@ const EditListingForm = () => {
       if (snapshot.exists()) {
         const data = snapshot.data();
         if (data.userId !== auth.currentUser?.uid) {
-          alert('Nuk keni leje të modifikoni këtë shpallje.');
+          alert('Sie erlauben nicht.');
           navigate('/');
           return;
         }
         setForm(data);
       } else {
-        alert('Shpallja nuk u gjet.');
+        alert('Nicht gefunden');
         navigate('/');
       }
     };
@@ -45,11 +45,11 @@ const EditListingForm = () => {
     e.preventDefault();
     try {
       await updateDoc(doc(db, 'listings', id), form);
-      alert('Shpallja u përditësua me sukses!');
+      alert('Aktualisiert');
       navigate('/listing/' + id);
     } catch (err) {
-      console.error('Gabim gjatë përditësimit:', err);
-      alert('Gabim gjatë përditësimit të shpalljes.');
+      console.error('Fehler', err);
+      alert('Fehler');
     }
   };
 

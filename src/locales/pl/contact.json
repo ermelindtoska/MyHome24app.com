@@ -1,0 +1,8 @@
+ {
+  "contact":{
+    "title": "Kontakt z właścicielem",
+    "object": "Ogłoszenie",
+    "description": "Tutaj mogą znajdować się dane kontaktowe lub formularz.",
+    "close": "Zamknij"
+    }
+  }

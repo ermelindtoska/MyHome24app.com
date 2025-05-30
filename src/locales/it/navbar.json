@@ -1,0 +1,11 @@
+ {
+ "navbar":{
+    "home": "Home",
+    "listings": "Annunci",
+    "addListing": "Nuovo annuncio",
+    "dashboard": "Dashboard",
+    "logout": "Disconnettersi",
+    "login": "Accesso",
+    "register": "Registrati"
+    }
+  }

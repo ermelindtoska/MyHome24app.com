@@ -1,0 +1,22 @@
+{
+"home":{
+    "heroTitle": "Znajdź swój wymarzony dom",
+    "heroSubtitle": "Wybierz lokalizację lub użyj filtru.",
+    "heroButton": "Odkryj teraz",
+    "searchPlaceholder": "Szukaj po mieście lub adresie...",
+    "categories": "Kategorie",
+    "apartment": "Mieszkanie",
+    "house": "Dom",
+    "office": "Biuro",
+    "land": "Działka",
+    "latest": "Najnowsze ogłoszenia",
+    "whyTitle": "Dlaczego MyHome24App?",
+    "whyDesc": "Pomagamy Ci łatwo znaleźć idealny dom.",
+    "why1": "Duży wybór",
+    "why1Desc": "Wiele nieruchomości z całych Niemiec.",
+    "why2": "Bezpiecznie i szybko",
+    "why2Desc": "Zaufani dostawcy i szybkie wyszukiwanie.",
+    "why3": "Przyjazny użytkownikowi",
+    "why3Desc": "Nowoczesny i przejrzysty design na wszystkie urządzenia."
+    }
+  }

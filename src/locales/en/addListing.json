@@ -1,0 +1,15 @@
+{
+"addListing":{
+    "title": "Add Listing",
+    "fields": {
+      "title": "Title",
+      "city": "City",
+      "price": "Price (€)",
+      "apartment": "Apartment",
+      "house": "House",
+      "rent": "For Rent",
+      "buy": "For Sale"
+    },
+    "submit": "Submit"
+    }
+  }

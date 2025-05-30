@@ -1,0 +1,8 @@
+ {
+ "contact":{
+    "title": "Contactar al Propietario",
+    "object": "Propiedad",
+    "description": "Aquí pueden ir los datos de contacto o un formulario.",
+    "close": "Cerrar"
+    }
+  }

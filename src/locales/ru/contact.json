@@ -1,0 +1,8 @@
+{
+  "contact":{
+    "title": "Contactează Proprietarul",
+    "object": "Obiect",
+    "description": "Aici pot fi afișate datele de contact sau un formular.",
+    "close": "Închide"
+    }
+  }

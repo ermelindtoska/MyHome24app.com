@@ -1,0 +1,15 @@
+{
+"addListing":{
+    "title": "Advertentie Toevoegen",
+    "fields": {
+      "title": "Titel",
+      "city": "Stad",
+      "price": "Prijs (€)",
+      "apartment": "Appartement",
+      "house": "Huis",
+      "rent": "Te Huur",
+      "buy": "Te Koop"
+    },
+    "submit": "Verzenden"
+    }
+  }

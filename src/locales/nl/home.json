@@ -1,0 +1,22 @@
+{
+"home":{
+    "heroTitle": "Vind jouw perfecte woning",
+    "heroSubtitle": "Kies een locatie of filter op jouw voorkeur.",
+    "heroButton": "Ontdek nu",
+    "searchPlaceholder": "Zoek op stad of adres...",
+    "categories": "Categorieën",
+    "apartment": "Appartement",
+    "house": "Huis",
+    "office": "Kantoor",
+    "land": "Grond",
+    "latest": "Laatste Advertenties",
+    "whyTitle": "Waarom MyHome24App?",
+    "whyDesc": "Wij helpen je eenvoudig je perfecte woning te vinden.",
+    "why1": "Groot Aanbod",
+    "why1Desc": "Veel vastgoed uit heel Duitsland.",
+    "why2": "Veilig & Snel",
+    "why2Desc": "Betrouwbare aanbieders en snelle zoekresultaten.",
+    "why3": "Gebruiksvriendelijk",
+    "why3Desc": "Eenvoudig en modern ontwerp voor alle apparaten."
+    }
+  }

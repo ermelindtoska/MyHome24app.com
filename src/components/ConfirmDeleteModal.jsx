@@ -18,21 +18,21 @@ const ConfirmDeleteModal = ({ onCancel, onConfirm }) => {
         </button>
         <div className="flex items-center mb-4 gap-3">
           <FiTrash2 className="text-red-600" size={24} />
-          <h2 className="text-xl font-bold text-gray-800">{t('confirm.title')}</h2>
+          <h2 className="text-xl font-bold text-gray-800">{t('title')}</h2>
         </div>
-        <p className="text-gray-700 mb-6">{t('confirm.message')}</p>
+        <p className="text-gray-700 mb-6">{t('message')}</p>
         <div className="flex justify-end gap-3">
           <button
             onClick={onCancel}
             className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
           >
-            {t('confirm.cancel')}
+            {t('cancel')}
           </button>
           <button
             onClick={onConfirm}
             className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
           >
-            {t('confirm.confirm')}
+            {t('confirm')}
           </button>
         </div>
       </div>

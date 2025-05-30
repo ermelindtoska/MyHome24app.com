@@ -1,0 +1,8 @@
+ { 
+  "filter":{
+    "city": "Şehir (Filtre)",
+    "maxPrice": "Maksimum Fiyat (€)",
+    "allTypes": "Tüm Türler",
+    "allPurposes": "Tüm Amaçlar"
+    }
+  }

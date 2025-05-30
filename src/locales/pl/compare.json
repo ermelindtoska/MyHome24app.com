@@ -1,0 +1,20 @@
+{
+"compare":{
+  "title": "Porównanie",
+  "resetFilters": "Zresetuj filtry",
+  "copied": "Skopiowano!",
+  "emailSubject": "Porównanie nieruchomości",
+  "noData": "Brak danych do wyświetlenia.",
+  "chartTitle": "Porównanie cen i ocen",
+  "minRating": "Min. ocena",
+  "minSize": "Min. powierzchnia (m²)",
+  "maxSize": "Maks. powierzchnia (m²)",
+  "lineChart": "Wykres liniowy",
+  "pieChart": "Wykres kołowy",
+  "clearAll": "Wyczyść wszystko",
+  "refresh": "Odśwież",
+  "print": "Drukuj",
+  "copy": "Kopiuj podsumowanie",
+  "email": "Wyślij e-mailem"
+  }
+  }

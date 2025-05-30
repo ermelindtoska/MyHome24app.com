@@ -1,0 +1,12 @@
+  {
+  "favorites":{
+    "title": "Favorilerim",
+    "total": "Toplam",
+    "compare": "Karşılaştır",
+    "entries": "İlanlar",
+    "empty": "Hiç favori bulunamadı.",
+    "avgRating": "Ortalama Puan",
+    "addToCompare": "Karşılaştırmaya ekle",
+    "removeFromCompare": "Karşılaştırmadan çıkar"
+    }
+  }

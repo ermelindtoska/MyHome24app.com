@@ -1,0 +1,12 @@
+{
+  "favorites":{
+    "title": "Избранное",
+    "total": "Всего",
+    "compare": "Сравнить",
+    "entries": "Записи",
+    "empty": "Избранное пусто.",
+    "avgRating": "Средний рейтинг",
+    "addToCompare": "Добавить к сравнению",
+    "removeFromCompare": "Удалить из сравнения"
+    }
+  }

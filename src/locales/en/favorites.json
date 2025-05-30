@@ -1,0 +1,12 @@
+  {
+  "favorites":{
+    "title": "My Favorites",
+    "total": "Total",
+    "compare": "Compare",
+    "entries": "Entries",
+    "empty": "No favorites found.",
+    "avgRating": "Average Rating",
+    "addToCompare": "Add to Compare",
+    "removeFromCompare": "Remove from Compare"
+    }
+  }

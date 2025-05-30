@@ -1,0 +1,8 @@
+  {
+  "contact":{
+    "title": "Contatta il proprietario",
+    "object": "Oggetto",
+    "description": "Qui possono essere inseriti i dati di contatto o un modulo.",
+    "close": "Chiudi"
+    }
+  }

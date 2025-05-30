@@ -23,11 +23,11 @@ const ListingMapModal = ({ listing, onClose }) => {
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-500 hover:text-black"
-          aria-label={t('map.close')}
+          aria-label={t('close')}
         >
           <FiX size={20} />
         </button>
-        <h2 className="text-xl font-bold mb-4">{t('map.title')}</h2>
+        <h2 className="text-xl font-bold mb-4">{t('title')}</h2>
         <div className="h-96 w-full rounded overflow-hidden">
           <GoogleMapReact
             bootstrapURLKeys={{ key: 'YOUR_GOOGLE_MAPS_API_KEY' }}

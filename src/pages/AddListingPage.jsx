@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-hot-toast';
 
 const AddListingPage = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('addListing');
 
   const handleAddListing = async (listing) => {
     if (!auth.currentUser) {

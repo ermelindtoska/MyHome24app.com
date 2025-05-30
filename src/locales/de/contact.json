@@ -1,0 +1,8 @@
+ {
+ "contact":{
+    "title": "Kontakt Eigentümer*in",
+    "object": "Objekt",
+    "description": "Hier könnten Kontaktdaten oder ein Formular stehen.",
+    "close": "Schließen"
+    }
+  }

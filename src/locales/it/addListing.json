@@ -1,0 +1,15 @@
+ {
+ "addListing":{
+    "title": "Aggiungi annuncio",
+    "fields": {
+      "title": "Titolo",
+      "city": "Città",
+      "price": "Prezzo (€)",
+      "apartment": "Appartamento",
+      "house": "Casa",
+      "rent": "In affitto",
+      "buy": "In vendita"
+    },
+    "submit": "Invia"
+    }
+  }

@@ -1,0 +1,11 @@
+{
+"navbar":{
+    "home": "Ballina",
+    "listings": "Shpalljet",
+    "addListing": "Shto Shpallje",
+    "dashboard": "Paneli",
+    "logout": "Dil",
+    "login": "Hyr",
+    "register": "Regjistrohu"
+    }
+  }

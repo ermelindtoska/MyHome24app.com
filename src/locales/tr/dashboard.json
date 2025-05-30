@@ -1,0 +1,15 @@
+{
+"dashboard":{
+    "title": "İlanlarınızın Özeti",
+    "noListings": "Hesabınıza ait ilan bulunamadı.",
+    "loading": "İlanlarınız yükleniyor...",
+    "addNew": "Yeni Ekle",
+    "new": "Yeni",
+    "details": "Detaylar",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "favorite": "Favorilere ekle",
+    "unfavorite": "Favorilerden çıkar",
+    "contactOwner": "İlan Sahibine Ulaş"
+    }
+  }

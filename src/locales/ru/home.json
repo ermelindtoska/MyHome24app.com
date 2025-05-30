@@ -1,0 +1,22 @@
+{
+"home":{
+    "heroTitle": "Găsește-ți casa perfectă",
+    "heroSubtitle": "Alege o locație sau filtrează după preferințe.",
+    "heroButton": "Descoperă acum",
+    "searchPlaceholder": "Caută după oraș sau adresă...",
+    "categories": "Categorii",
+    "apartment": "Apartament",
+    "house": "Casă",
+    "office": "Birou",
+    "land": "Teren",
+    "latest": "Ultimele Anunțuri",
+    "whyTitle": "De ce MyHome24App?",
+    "whyDesc": "Te ajutăm să găsești casa perfectă cu ușurință.",
+    "why1": "Selecție Variată",
+    "why1Desc": "Multe proprietăți din toată Germania.",
+    "why2": "Sigur & Rapid",
+    "why2Desc": "Furnizori de încredere și căutare rapidă.",
+    "why3": "Ușor de utilizat",
+    "why3Desc": "Design modern și intuitiv pentru toate dispozitivele."
+    }
+  }

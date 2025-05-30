@@ -93,16 +93,16 @@ const UserDashboard = () => {
     );
   });
 
-  if (loading) return <p className="text-center p-4">{t('dashboard.loading')}</p>;
+  if (loading) return <p className="text-center p-4">{t('loading')}</p>;
 
   return (
     <div className="max-w-7xl mx-auto mt-10 px-4">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4 md:gap-0">
         <h2 className="text-3xl font-bold text-gray-800 flex items-center gap-2">
-          <FiSearch className="text-blue-600" /> {t('dashboard.title')}
+          <FiSearch className="text-blue-600" /> {t('title')}
         </h2>
         <Link to="/add" className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-          <FiPlusCircle size={18} /> {t('dashboard.addNew')}
+          <FiPlusCircle size={18} /> {t('addNew')}
         </Link>
       </div>
 
@@ -116,7 +116,7 @@ const UserDashboard = () => {
       />
 
       {filteredListings.length === 0 ? (
-        <p className="text-center text-gray-500 italic">{t('dashboard.noListings')}</p>
+        <p className="text-center text-gray-500 italic">{t('noListings')}</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {filteredListings.map((listing) => (
@@ -136,12 +136,12 @@ const UserDashboard = () => {
                   </h3>
                   {listing.isNew && (
                     <span className="text-xs bg-green-100 text-green-800 rounded-full px-2 py-0.5">
-                      {t('dashboard.new')}
+                      {t('new')}
                     </span>
                   )}
                 </div>
                 <p className="text-gray-600 text-sm">
-                  <FiMapPin className="inline mr-1 text-blue-500" /> {listing.city} – {t(`addListing.fields.${listing.type}`)} – {t(`addListing.fields.${listing.purpose}`)}
+                  <FiMapPin className="inline mr-1 text-blue-500" /> {listing.city} – {t(`fields.${listing.type}`)} – {t(`fields.${listing.purpose}`)}
                 </p>
                 <p className="text-blue-700 font-bold mt-2">€{listing.price}</p>
 
@@ -149,14 +149,14 @@ const UserDashboard = () => {
                   <button
                     onClick={() => setSelectedListing(listing)}
                     className="text-sm text-blue-500 hover:underline"
-                    title={t('dashboard.details')}
+                    title={t('details')}
                   >
-                    <FiEye className="inline mr-1" /> {t('dashboard.details')}
+                    <FiEye className="inline mr-1" /> {t('details')}
                   </button>
                   <div className="flex gap-3">
                     <button
                       onClick={() => setShowConfirmId(listing.id)}
-                      title={t('dashboard.delete')}
+                      title={t('delete')}
                       className="text-red-600 hover:text-red-800"
                     >
                       <FiTrash2 size={18} />
@@ -166,14 +166,14 @@ const UserDashboard = () => {
                         setEditingId(listing.id);
                         setNewTitle(listing.title);
                       }}
-                      title={t('dashboard.edit')}
+                      title={t('edit')}
                       className="text-blue-600 hover:text-blue-800"
                     >
                       <FiEdit size={18} />
                     </button>
                     <button
                       onClick={() => toggleFavorite(listing.id)}
-                      title={favorites.includes(listing.id) ? t('dashboard.unfavorite') : t('dashboard.favorite')}
+                      title={favorites.includes(listing.id) ? t('unfavorite') : t('favorite')}
                       className={`hover:text-pink-600 ${favorites.includes(listing.id) ? 'text-pink-500' : 'text-gray-400'}`}
                     >
                       <FiHeart size={18} />
@@ -205,7 +205,7 @@ const UserDashboard = () => {
             <h2 className="text-xl font-bold mb-2">{selectedListing.title}</h2>
             <p className="text-sm text-gray-600 mb-2">
               <FiMapPin className="inline mr-1 text-blue-500" />
-              {selectedListing.city} – {t(`addListing.fields.${selectedListing.type}`)} – {t(`addListing.fields.${selectedListing.purpose}`)}
+              {selectedListing.city} – {t(`fields.${selectedListing.type}`)} – {t(`fields.${selectedListing.purpose}`)}
             </p>
             <p className="text-blue-700 font-bold mb-4">€{selectedListing.price}</p>
             {selectedListing.imageUrl && (
@@ -220,13 +220,13 @@ const UserDashboard = () => {
                 className="inline-flex items-center gap-2 text-sm text-blue-600 hover:underline"
                 onClick={() => setShowContact(selectedListing)}
               >
-                <FiMessageCircle /> {t('dashboard.contactOwner')}
+                <FiMessageCircle /> {t('contactOwner')}
               </button>
               <button
                 className="inline-flex items-center gap-2 text-sm text-gray-600 hover:underline"
                 onClick={() => setShowMap(selectedListing)}
               >
-                <FiMap /> {t('dashboard.viewMap')}
+                <FiMap /> {t('viewMap')}
               </button>
             </div>
           </div>

@@ -1,0 +1,20 @@
+{
+"compare":{
+  "title": "Karşılaştırma",
+  "resetFilters": "Filtreleri sıfırla",
+  "copied": "Kopyalandı!",
+  "emailSubject": "Mülk Karşılaştırması",
+  "noData": "Gösterilecek veri yok.",
+  "chartTitle": "Fiyat ve puan karşılaştırması",
+  "minRating": "Minimum puan",
+  "minSize": "Minimum alan (m²)",
+  "maxSize": "Maksimum alan (m²)",
+  "lineChart": "Çizgi grafik",
+  "pieChart": "Pasta grafik",
+  "clearAll": "Tümünü sil",
+  "refresh": "Yenile",
+  "print": "Yazdır",
+  "copy": "Özeti kopyala",
+  "email": "E-posta ile gönder"
+  }
+  }

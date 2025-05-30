@@ -2,6 +2,7 @@
 import React from 'react';
 
 const SearchBar = ({ searchTerm, onSearch }) => {
+const { t } = useTranslation('search');
   return (
     <div className="w-full max-w-xl mx-auto my-4">
       <input

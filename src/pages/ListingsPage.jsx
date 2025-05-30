@@ -5,6 +5,7 @@ import { db } from '../firebase';
 import ListingCard from '../components/ListingCard';
 
 const ListingsPage = () => {
+  const { t } = useTranslation('listing');
   const [listings, setListings] = useState([]);
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const ListingsPage = () => {
             <ListingCard key={listing.id} listing={listing} />
           ))
         ) : (
-          <p className="text-center col-span-full text-gray-500">Nuk ka asnjë shpallje për momentin.</p>
+          <p className="text-center col-span-full text-gray-500"><Leer></Leer>.</p>
         )}
       </div>
     </div>

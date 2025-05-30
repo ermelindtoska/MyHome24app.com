@@ -13,6 +13,7 @@ const languages = [
   { code: 'tr', label: 'Türkçe' },
   { code: 'pl', label: 'Polski' },
   { code: 'ru', label: 'Русский' },
+  { code: 'rs', label: 'Русский' },
 ];
 
 const LanguageSwitcher = () => {

@@ -1,0 +1,15 @@
+  {
+  "dashboard":{
+    "title": "Your Listings Overview",
+    "noListings": "No listings found for your account.",
+    "loading": "Loading your listings...",
+    "addNew": "Add New",
+    "delete": "Delete",
+    "edit": "Edit",
+    "details": "Details",
+    "favorite": "Add to Favorites",
+    "unfavorite": "Remove from Favorites",
+    "new": "New",
+    "contactOwner": "Contact Owner"
+    }
+  }

@@ -1,0 +1,20 @@
+{
+"compare":{
+  "title": "Comparación",
+  "resetFilters": "Restablecer filtros",
+  "copied": "¡Copiado!",
+  "emailSubject": "Comparación de propiedades",
+  "noData": "No hay datos para mostrar.",
+  "chartTitle": "Comparación de precios y valoraciones",
+  "minRating": "Valoración mínima",
+  "minSize": "Tamaño mínimo (m²)",
+  "maxSize": "Tamaño máximo (m²)",
+  "lineChart": "Gráfico de líneas",
+  "pieChart": "Gráfico circular",
+  "clearAll": "Borrar todo",
+  "refresh": "Actualizar",
+  "print": "Imprimir",
+  "copy": "Copiar resumen",
+  "email": "Enviar por correo"
+  }
+  }

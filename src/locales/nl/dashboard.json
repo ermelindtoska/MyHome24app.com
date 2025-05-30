@@ -1,0 +1,15 @@
+{
+"dashboard":{
+    "title": "Jouw Advertentieoverzicht",
+    "noListings": "Geen advertenties gevonden voor jouw account.",
+    "loading": "Je advertenties worden geladen...",
+    "addNew": "Nieuwe Advertentie",
+    "new": "Nieuw",
+    "details": "Details",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "favorite": "Favoriet",
+    "unfavorite": "Verwijder Favoriet",
+    "contactOwner": "Neem contact op met eigenaar"
+    }
+  }

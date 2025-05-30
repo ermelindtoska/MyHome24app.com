@@ -16,8 +16,14 @@ import ProtectedRoute from './components/ProtectedRoute';
 import OwnerDashboard from './pages/OwnerDashboard';
 import AboutPage from './pages/AboutPage';
 import EditListingForm from './components/EditListingForm';
+import { useTranslation } from 'react-i18next';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+
 
 function App() {
+  const { t } = useTranslation('app');
+
   return (
     <Router>
       <Navbar />
@@ -31,6 +37,8 @@ function App() {
         <Route path="/register-success" element={<RegisterSuccess />} />
         <Route path="/auth" element={<LoginRegister />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
 
         {/* Geschützte Routen */}
         <Route path="/owner-dashboard" element={

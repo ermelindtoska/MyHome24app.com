@@ -6,8 +6,8 @@ const HeroSection = () => {
 
   return (
     <section className="bg-blue-600 text-white py-20 text-center">
-      <h1 className="text-4xl font-bold mb-4">{t('hero.title')}</h1>
-      <p className="text-lg">{t('hero.subtitle')}</p>
+      <h1 className="text-4xl font-bold mb-4">{t('title')}</h1>
+      <p className="text-lg">{t('subtitle')}</p>
     </section>
   );
 };

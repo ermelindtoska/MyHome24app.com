@@ -1,0 +1,11 @@
+{
+"navbar":{
+    "home": "Startpagina",
+    "listings": "Advertenties",
+    "addListing": "Nieuwe Advertentie",
+    "dashboard": "Dashboard",
+    "logout": "Uitloggen",
+    "login": "Inloggen",
+    "register": "Registreren"
+    }
+  }
