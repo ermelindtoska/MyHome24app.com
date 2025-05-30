@@ -1,0 +1,6 @@
+{
+  "title": "Release-Workflow",
+  "steps": "Workflow-Schritte",
+  "approval": "Genehmigung erforderlich",
+  "deploy": "Bereitstellung starten"
+}

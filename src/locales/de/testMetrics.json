@@ -1,0 +1,7 @@
+{
+  "title": "Testmetriken",
+  "coverage": "Abdeckung",
+  "passed": "Bestanden",
+  "failed": "Fehlgeschlagen",
+  "skipped": "Übersprungen"
+}

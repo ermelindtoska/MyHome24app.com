@@ -1,0 +1,6 @@
+{
+  "title": "Bereitstellungsübersicht",
+  "totalDeployments": "Gesamtbereitstellungen",
+  "successfulDeployments": "Erfolgreiche Bereitstellungen",
+  "failedDeployments": "Fehlgeschlagene Bereitstellungen"
+}

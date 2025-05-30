@@ -19,7 +19,12 @@ import EditListingForm from './components/EditListingForm';
 import { useTranslation } from 'react-i18next';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-
+import Footer from './components/Footer'; // ✅ Footer importuar
+import CareerPage from './pages/CareerPage';
+import ContactPage from './pages/ContactPage';
+import FAQPage from './pages/FAQPage';
+import PrivacyPage from './pages/PrivacyPage';
+import TermsPage from './pages/TermsPage';
 
 function App() {
   const { t } = useTranslation('app');
@@ -29,8 +34,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/listings" element={<PublicListings />} /> {/* Erweiterbar mit Filtern + interaktive Karte */}
-        <Route path="/listing/:id" element={<ListingDetails />} /> {/* Anzeige von Galerie, Premium Badge, Datum */}
+        <Route path="/listings" element={<PublicListings />} />
+        <Route path="/listing/:id" element={<ListingDetails />} />
         <Route path="/edit/:id" element={<EditListingForm />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
@@ -39,8 +44,13 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/career" element={<CareerPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/faq" element={<FAQPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
 
-        {/* Geschützte Routen */}
+        {/* Protected routes */}
         <Route path="/owner-dashboard" element={
           <ProtectedRoute>
             <OwnerDashboard />
@@ -48,7 +58,7 @@ function App() {
         } />
         <Route path="/favorites" element={
           <ProtectedRoute>
-            <FavoritesPage /> {/* Anzeige von Galerie, Kommentaren, Kontaktoptionen */}
+            <FavoritesPage />
           </ProtectedRoute>
         } />
         <Route path="/add" element={
@@ -62,6 +72,8 @@ function App() {
           </ProtectedRoute>
         } />
       </Routes>
+
+      <Footer /> {/* ✅ Shtuar këtu, pas Routes por brenda Router */}
     </Router>
   );
 }

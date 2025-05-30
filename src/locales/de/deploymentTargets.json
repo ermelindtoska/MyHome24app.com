@@ -1,0 +1,7 @@
+{
+  "title": "Bereitstellungsziele",
+  "targetName": "Zielname",
+  "status": "Status",
+  "type": "Typ",
+  "lastDeployed": "Zuletzt bereitgestellt"
+}

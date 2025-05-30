@@ -1,0 +1,7 @@
+{
+  "title": "Release-Genehmigungen",
+  "approver": "Genehmiger*in",
+  "approvedAt": "Genehmigt am",
+  "pending": "Ausstehend",
+  "rejected": "Abgelehnt"
+}

@@ -1,0 +1,6 @@
+{
+  "title": "Code Coverage",
+  "totalCoverage": "Total Coverage",
+  "coveredLines": "Covered Lines",
+  "missingLines": "Missing Lines"
+}

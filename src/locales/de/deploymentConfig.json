@@ -1,0 +1,7 @@
+{
+  "title": "Bereitstellungskonfiguration",
+  "environment": "Umgebung",
+  "strategy": "Strategie",
+  "rollbackEnabled": "Rollback aktiviert",
+  "deployNow": "Jetzt bereitstellen"
+}

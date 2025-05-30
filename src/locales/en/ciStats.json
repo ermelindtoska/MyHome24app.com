@@ -1,0 +1,6 @@
+{
+  "title": "CI Stats",
+  "builds": "Total Builds",
+  "tests": "Tests Run",
+  "successRate": "Success Rate"
+}

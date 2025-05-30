@@ -1,0 +1,6 @@
+{
+  "title": "CI-Pipelines",
+  "pipelineName": "Pipeline-Name",
+  "status": "Status",
+  "lastRun": "Letzter Durchlauf"
+}

@@ -1,0 +1,7 @@
+{
+  "title": "Pipeline Status",
+  "running": "Running",
+  "failed": "Failed",
+  "passed": "Passed",
+  "queued": "Queued"
+}

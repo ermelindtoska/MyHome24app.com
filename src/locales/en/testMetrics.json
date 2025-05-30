@@ -1,0 +1,7 @@
+{
+  "title": "Test Metrics",
+  "coverage": "Coverage",
+  "passed": "Passed",
+  "failed": "Failed",
+  "skipped": "Skipped"
+}

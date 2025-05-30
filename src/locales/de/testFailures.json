@@ -1,0 +1,6 @@
+{
+  "title": "Testfehler",
+  "testName": "Testname",
+  "errorMessage": "Fehlermeldung",
+  "failedAt": "Fehlgeschlagen am"
+}

@@ -1,0 +1,6 @@
+{
+  "title": "Deployment Summary",
+  "totalDeployments": "Total Deployments",
+  "successfulDeployments": "Successful Deployments",
+  "failedDeployments": "Failed Deployments"
+}

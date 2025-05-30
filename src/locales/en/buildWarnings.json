@@ -1,0 +1,7 @@
+{
+  "title": "Build Warnings",
+  "type": "Warning Type",
+  "message": "Message",
+  "file": "File",
+  "line": "Line"
+}

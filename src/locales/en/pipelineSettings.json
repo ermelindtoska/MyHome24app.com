@@ -1,0 +1,7 @@
+{
+  "title": "Pipeline Settings",
+  "autoDeploy": "Auto Deploy",
+  "notifications": "Notifications",
+  "branch": "Branch",
+  "save": "Save"
+}

@@ -1,0 +1,7 @@
+{
+  "title": "Build-Warnungen",
+  "type": "Warnungstyp",
+  "message": "Nachricht",
+  "file": "Datei",
+  "line": "Zeile"
+}

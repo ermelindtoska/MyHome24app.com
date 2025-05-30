@@ -1,0 +1,6 @@
+{
+  "title": "Deployment Warnings",
+  "critical": "Critical Warnings",
+  "resolved": "Resolved Issues",
+  "pending": "Pending Issues"
+}

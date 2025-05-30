@@ -1,0 +1,7 @@
+{
+  "title": "Pipeline Metrics",
+  "successRate": "Success Rate",
+  "avgDuration": "Average Duration",
+  "failures": "Failures",
+  "executions": "Executions"
+}

@@ -1,0 +1,7 @@
+{
+  "title": "Bereitstellungsprüfungen",
+  "check": "Prüfung",
+  "status": "Status",
+  "passed": "Bestanden",
+  "failed": "Fehlgeschlagen"
+}

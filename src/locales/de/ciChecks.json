@@ -1,0 +1,6 @@
+{
+  "title": "CI-Prüfungen",
+  "status": "Prüfstatus",
+  "passed": "Bestanden",
+  "failed": "Fehlgeschlagen"
+}

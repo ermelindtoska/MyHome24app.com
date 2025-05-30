@@ -1,0 +1,8 @@
+{
+  "title": "Test-Einblicke",
+  "totalTests": "Gesamttests",
+  "passedTests": "Bestandene Tests",
+  "failedTests": "Fehlgeschlagene Tests",
+  "coverage": "Testabdeckung",
+  "skippedTests": "Übersprungene Tests"
+}

@@ -1,0 +1,6 @@
+{
+  "title": "Bereitstellungswarnungen",
+  "critical": "Kritische Warnungen",
+  "resolved": "Behobene Probleme",
+  "pending": "Ausstehende Probleme"
+}

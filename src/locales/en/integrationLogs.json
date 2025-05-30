@@ -1,0 +1,7 @@
+{
+  "title": "Integration Logs",
+  "service": "Service",
+  "status": "Status",
+  "timestamp": "Timestamp",
+  "message": "Message"
+}

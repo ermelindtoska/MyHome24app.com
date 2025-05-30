@@ -5,9 +5,12 @@
   "press": "Press",
   "legal": "Legal",
   "privacy": "Privacy Policy",
+   "contact": "Contact",
   "terms": "Terms of Use",
+  "help": "Help",
   "followUs": "Follow Us",
   "newsletter": "Subscribe to Newsletter",
   "subscribe": "Subscribe",
-  "emailPlaceholder": "Your email address"
+  "emailPlaceholder": "Your email address",
+   "rightsReserved": "All rights reserved."
 }
