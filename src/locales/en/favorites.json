@@ -7,6 +7,8 @@
     "empty": "No favorites found.",
     "avgRating": "Average Rating",
     "addToCompare": "Add to Compare",
-    "removeFromCompare": "Remove from Compare"
+    "removeFromCompare": "Remove from Compare",
+      "remove": "Remove",
+  "view": "View"
     }
   }

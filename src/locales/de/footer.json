@@ -1,5 +1,13 @@
-
 {
-  "login": "Login",
-  "logout": "Logout"
+  "company": "Unternehmen",
+  "about": "Über uns",
+  "careers": "Karriere",
+  "press": "Presse",
+  "legal": "Rechtliches",
+  "privacy": "Datenschutz",
+  "terms": "Nutzungsbedingungen",
+  "followUs": "Folgen Sie uns",
+  "newsletter": "Newsletter abonnieren",
+  "subscribe": "Abonnieren",
+  "emailPlaceholder": "Ihre E-Mail-Adresse"
 }

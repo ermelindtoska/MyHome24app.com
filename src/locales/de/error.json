@@ -1,0 +1,8 @@
+{
+  "notFound": "Seite nicht gefunden",
+  "unexpected": "Ein unerwarteter Fehler ist aufgetreten.",
+  "unauthorized": "Nicht autorisiert",
+  "forbidden": "Zugriff verweigert",
+  "network": "Netzwerkfehler. Bitte versuche es erneut.",
+  "required": "Dieses Feld ist erforderlich"
+}

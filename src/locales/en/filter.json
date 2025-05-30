@@ -3,6 +3,12 @@
     "city": "City (Filter)",
     "maxPrice": "Max Price (€)",
     "allTypes": "All Types",
-    "allPurposes": "All Purposes"
+    "allPurposes": "All Purposes",
+      "title": "Filters",
+  "category": "Category",
+  "priceRange": "Price Range",
+  "location": "Location",
+  "apply": "Apply",
+  "reset": "Reset"
     }
   }

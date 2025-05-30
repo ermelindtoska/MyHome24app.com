@@ -3,6 +3,14 @@
     "name": "Ihr Name",
     "text": "Ihr Kommentar",
     "rating": "Bewertung (1–5)",
-    "submit": "Absenden"
+    "submit": "Absenden",
+      "title": "Kommentare",
+  "addComment": "Kommentar hinzufügen",
+  "placeholder": "Schreibe deinen Kommentar...",
+  "noComments": "Noch keine Kommentare vorhanden.",
+  "delete": "Löschen",
+  "comments": "Kommentare",
+   "yourComment": "Dein Kommentar"
+  
     }
   }

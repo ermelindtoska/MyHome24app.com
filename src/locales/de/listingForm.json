@@ -1,0 +1,12 @@
+{
+  "title": "Anzeige erstellen",
+  "editTitle": "Anzeige bearbeiten",
+  "stepDetails": "Details",
+  "stepPhotos": "Fotos",
+  "stepPreview": "Vorschau",
+  "next": "Weiter",
+  "back": "Zurück",
+  "submit": "Veröffentlichen",
+  "success": "Deine Anzeige wurde erfolgreich erstellt!",
+  "error": "Ein Fehler ist aufgetreten. Bitte versuche es erneut."
+}

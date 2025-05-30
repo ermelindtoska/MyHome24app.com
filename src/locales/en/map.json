@@ -1,5 +1,10 @@
  {
  "map":{
-    "title": "Location on Map"
+    "title": "Location on Map",
+      "mapTitle": "Interactive Map",
+  "explore": "Explore the map",
+  "listingsInArea": "Listings in this area",
+  "zoomIn": "Zoom in",
+  "zoomOut": "Zoom out"
     }
   }

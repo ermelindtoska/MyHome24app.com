@@ -1,0 +1,12 @@
+{
+  "overview": "Übersicht",
+  "description": "Beschreibung",
+  "features": "Merkmale",
+  "location": "Lage",
+  "contactSeller": "Verkäufer kontaktieren",
+  "price": "Preis",
+  "rooms": "Zimmer",
+  "area": "Fläche",
+  "address": "Adresse",
+  "createdAt": "Eingestellt am"
+}

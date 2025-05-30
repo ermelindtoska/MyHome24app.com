@@ -1,4 +1,12 @@
 {
-  "login": "Login",
-  "logout": "Logout"
+  "addListing": "Add New Listing",
+  "editListing": "Edit Listing",
+  "title": "Title",
+  "description": "Description",
+  "category": "Category",
+  "price": "Price",
+  "location": "Location",
+  "uploadImages": "Upload Images",
+  "submit": "Create Listing",
+  "update": "Update Listing"
 }

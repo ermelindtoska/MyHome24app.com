@@ -15,6 +15,9 @@
     "refresh": "Refresh",
     "print": "Print",
     "copy": "Copy Summary",
-    "email": "Send via Email"
+    "email": "Send via Email",
+     "noItems": "No listings selected for comparison.",
+  "compareButton": "Compare",
+  "remove": "Remove"
     }
   }

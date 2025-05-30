@@ -16,6 +16,9 @@
   "copied": "Zusammenfassung kopiert!",
   "copy": "Zusammenfassung kopieren",
   "email": "Per E-Mail senden",
-  "emailSubject": "Immobilienvergleich"
+  "emailSubject": "Immobilienvergleich",
+    "noItems": "Keine Immobilien zum Vergleich ausgewählt.",
+  "compareButton": "Vergleichen",
+  "remove": "Entfernen"
   }
 }

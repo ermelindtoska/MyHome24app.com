@@ -1,4 +1,7 @@
 {
-  "login": "Login",
-  "logout": "Logout"
+  "title": "Admin-Dashboard",
+  "manageUsers": "Benutzer verwalten",
+  "manageListings": "Anzeigen verwalten",
+  "logs": "Aktivitätsprotokolle",
+  "statistics": "Statistiken"
 }

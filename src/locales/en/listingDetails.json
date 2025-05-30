@@ -1,0 +1,12 @@
+{
+  "overview": "Overview",
+  "description": "Description",
+  "features": "Features",
+  "location": "Location",
+  "contactSeller": "Contact Seller",
+  "price": "Price",
+  "rooms": "Rooms",
+  "area": "Area",
+  "address": "Address",
+  "createdAt": "Posted on"
+}

@@ -10,6 +10,12 @@
     "favorite": "Add to Favorites",
     "unfavorite": "Remove from Favorites",
     "new": "New",
-    "contactOwner": "Contact Owner"
+    "contactOwner": "Contact Owner",
+      "myListings": "My Listings",
+  "addNew": "Add New Listing",
+  "edit": "Edit",
+  "delete": "Delete",
+  "noListings": "You haven't posted any listings yet.",
+  "logout": "Log out"
     }
   }

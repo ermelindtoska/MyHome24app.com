@@ -1,0 +1,8 @@
+{
+  "backToBlog": "Zurück zum Blog",
+  "share": "Teilen",
+  "readTime": "{{minutes}} Min. Lesezeit",
+  "postedOn": "Veröffentlicht am {{date}}",
+  "tags": "Tags",
+  "relatedPosts": "Verwandte Artikel"
+}

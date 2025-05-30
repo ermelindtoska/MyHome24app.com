@@ -1,0 +1,8 @@
+{
+  "notFound": "Page not found",
+  "unexpected": "An unexpected error has occurred.",
+  "unauthorized": "Unauthorized",
+  "forbidden": "Access denied",
+  "network": "Network error. Please try again.",
+  "required": "This field is required"
+}

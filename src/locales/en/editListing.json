@@ -1,0 +1,8 @@
+{
+  "title": "Edit Listing",
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "success": "Listing updated successfully.",
+  "error": "Error updating listing."
+}

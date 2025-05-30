@@ -1,0 +1,6 @@
+{
+  "denied": "Access denied",
+  "adminOnly": "Admin only access",
+  "loginRequired": "Please log in to continue",
+  "insufficientPermissions": "Insufficient permissions"
+}

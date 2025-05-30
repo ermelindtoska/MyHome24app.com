@@ -1,5 +1,10 @@
 {
 "map":{
-    "title": "Standort auf Karte"
+    "title": "Standort auf Karte",
+      "mapTitle": "Interaktive Karte",
+  "explore": "Karte erkunden",
+  "listingsInArea": "Anzeigen in dieser Region",
+  "zoomIn": "Hineinzoomen",
+  "zoomOut": "Herauszoomen"
      }
   }

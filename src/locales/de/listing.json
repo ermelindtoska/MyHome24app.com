@@ -3,6 +3,16 @@
   "createTitle": "Neue Anzeige erstellen",
   "success": "Anzeige erfolgreich gespeichert!",
   "error": "Beim Speichern ist ein Fehler aufgetreten.",
-  "loginRequired": "Bitte melden Sie sich zuerst an."
+  "loginRequired": "Bitte melden Sie sich zuerst an.",
+    "addListing": "Neue Immobilie hinzufügen",
+  "editListing": "Immobilie bearbeiten",
+  "title": "Titel",
+  "description": "Beschreibung",
+  "category": "Kategorie",
+  "price": "Preis",
+  "location": "Ort",
+  "uploadImages": "Bilder hochladen",
+  "submit": "Anzeigen erstellen",
+  "update": "Anzeigen aktualisieren"
  }
   }

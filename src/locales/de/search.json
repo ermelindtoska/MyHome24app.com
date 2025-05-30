@@ -1,4 +1,6 @@
 {
-  "login": "Login",
-  "logout": "Logout"
+  "title": "Suchergebnisse",
+  "noResults": "Keine Ergebnisse gefunden.",
+  "placeholder": "Stadt, PLZ oder Adresse eingeben...",
+  "button": "Suchen"
 }
