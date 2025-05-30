@@ -1,0 +1,12 @@
+{
+  "favorites":{
+    "title": "Të preferuarat e mia",
+    "total": "Gjithsej",
+    "compare": "Krahaso",
+    "entries": "Shënime",
+    "empty": "Nuk u gjetën të preferuara.",
+    "avgRating": "Vlerësim mesatar",
+    "addToCompare": "Shto për krahasim",
+    "removeFromCompare": "Hiq nga krahasimi"
+    }
+  }

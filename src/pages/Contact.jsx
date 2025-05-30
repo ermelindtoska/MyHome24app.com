@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const Contact = () => {
+  const { t } = useTranslation('contact');
   const [status, setStatus] = useState('');
 
   const handleSubmit = async (e) => {

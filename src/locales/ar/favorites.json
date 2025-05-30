@@ -1,0 +1,12 @@
+  {
+  "favorites":{
+    "title": "المفضلة",
+    "total": "الإجمالي",
+    "compare": "قارن",
+    "entries": "الإعلانات",
+    "empty": "لا توجد مفضلات.",
+    "avgRating": "متوسط التقييم",
+    "addToCompare": "أضف للمقارنة",
+    "removeFromCompare": "إزالة من المقارنة"
+  }
+  }

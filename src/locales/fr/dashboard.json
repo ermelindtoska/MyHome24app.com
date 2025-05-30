@@ -1,0 +1,15 @@
+ {
+ "dashboard":{
+    "title": "Vue d’ensemble de vos annonces",
+    "noListings": "Aucune annonce trouvée pour votre compte.",
+    "loading": "Chargement de vos annonces...",
+    "addNew": "Ajouter",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "details": "Détails",
+    "favorite": "Ajouter aux favoris",
+    "unfavorite": "Retirer des favoris",
+    "new": "Nouveau",
+    "contactOwner": "Contacter le propriétaire"
+    }
+  }

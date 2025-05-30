@@ -1,0 +1,8 @@
+{
+  "contact":{
+    "title": "İlan Sahibine Ulaş",
+    "object": "İlan",
+    "description": "Burada iletişim bilgileri veya bir form olabilir.",
+    "close": "Kapat"
+    }
+  }

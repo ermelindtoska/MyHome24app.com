@@ -1,0 +1,15 @@
+ {
+ "dashboard":{
+    "title": "Panoramica dei tuoi annunci",
+    "noListings": "Nessun annuncio trovato per il tuo account.",
+    "loading": "Caricamento degli annunci...",
+    "addNew": "Aggiungi",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "details": "Dettagli",
+    "favorite": "Aggiungi ai preferiti",
+    "unfavorite": "Rimuovi dai preferiti",
+    "new": "Nuovo",
+    "contactOwner": "Contatta il proprietario"
+    }
+  }

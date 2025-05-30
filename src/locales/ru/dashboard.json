@@ -1,0 +1,15 @@
+{
+"dashboard":{
+    "title": "Panoul Anunțurilor Tale",
+    "noListings": "Nu s-au găsit anunțuri pentru contul tău.",
+    "loading": "Se încarcă anunțurile...",
+    "addNew": "Adaugă Nou",
+    "new": "Nou",
+    "details": "Detalii",
+    "delete": "Șterge",
+    "edit": "Editează",
+    "favorite": "Adaugă la Favorite",
+    "unfavorite": "Elimină din Favorite",
+    "contactOwner": "Contactează Proprietarul"
+    }
+  }

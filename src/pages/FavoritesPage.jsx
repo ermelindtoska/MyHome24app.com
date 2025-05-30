@@ -9,7 +9,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { useTranslation } from 'react-i18next';
 
 const FavoritesPage = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('favorites');
   const [favorites, setFavorites] = useState([]);
   const [comments, setComments] = useState({});
   const [newComments, setNewComments] = useState({});
@@ -106,18 +106,18 @@ const FavoritesPage = () => {
 
   return (
     <div className="max-w-6xl mx-auto py-12 px-4">
-      <nav className="text-sm mb-4 text-gray-500">{t('breadcrumbs.home')} / {t('favorites.title')}</nav>
-      <h1 className="text-3xl font-bold mb-6 text-center">{t('favorites.title')}</h1>
-      <p className="text-center text-gray-600 mb-8">{t('favorites.total')}: {favorites.length}</p>
+      <nav className="text-sm mb-4 text-gray-500">{t('home')} / {t('title')}</nav>
+      <h1 className="text-3xl font-bold mb-6 text-center">{t('title')}</h1>
+      <p className="text-center text-gray-600 mb-8">{t('total')}: {favorites.length}</p>
 
       <div className="flex justify-end mb-6">
         <button onClick={goToComparePage} className="text-blue-600 hover:underline">
-          {t('favorites.compare')} {compareList.length} {t('favorites.entries')}
+          {t('compare')} {compareList.length} {t('entries')}
         </button>
       </div>
 
       {favorites.length === 0 ? (
-        <p className="text-center text-gray-500">{t('favorites.empty')}</p>
+        <p className="text-center text-gray-500">{t('empty')}</p>
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {favorites.map((fav) => (
@@ -132,26 +132,26 @@ const FavoritesPage = () => {
               <p className="text-blue-600 font-bold">€{fav.price}</p>
               {averageRating(comments[fav.id]) && (
                 <p className="text-sm text-yellow-600 mt-1">
-                  ⭐ {t('favorites.avgRating')}: {averageRating(comments[fav.id])}
+                  ⭐ {t('avgRating')}: {averageRating(comments[fav.id])}
                 </p>
               )}
               <button
                 onClick={() => toggleCompare(fav.id)}
                 className="text-sm text-blue-500 hover:underline mt-2 block"
               >
-                {compareList.includes(fav.id) ? t('favorites.removeFromCompare') : t('favorites.addToCompare')}
+                {compareList.includes(fav.id) ? t('removeFromCompare') : t('addToCompare')}
               </button>
 
               <div className="mt-4">
                 <input
                   type="text"
-                  placeholder={t('comments.name')}
+                  placeholder={t('name')}
                   value={newComments[fav.id]?.name || ''}
                   onChange={(e) => handleCommentChange(fav.id, 'name', e.target.value)}
                   className="w-full border p-2 mb-2 rounded"
                 />
                 <textarea
-                  placeholder={t('comments.text')}
+                  placeholder={t('text')}
                   value={newComments[fav.id]?.text || ''}
                   onChange={(e) => handleCommentChange(fav.id, 'text', e.target.value)}
                   className="w-full border p-2 mb-2 rounded"
@@ -160,7 +160,7 @@ const FavoritesPage = () => {
                   type="number"
                   min="1"
                   max="5"
-                  placeholder={t('comments.rating')}
+                  placeholder={t('rating')}
                   value={newComments[fav.id]?.rating || 5}
                   onChange={(e) => handleCommentChange(fav.id, 'rating', e.target.value)}
                   className="w-full border p-2 mb-2 rounded"
@@ -169,7 +169,7 @@ const FavoritesPage = () => {
                   onClick={() => submitComment(fav.id)}
                   className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
                 >
-                  {t('comments.submit')}
+                  {t('submit')}
                 </button>
               </div>
             </div>

@@ -1,0 +1,8 @@
+ {
+ "filter":{
+    "city": "Miasto (Filtr)",
+    "maxPrice": "Maksymalna cena (€)",
+    "allTypes": "Wszystkie typy",
+    "allPurposes": "Wszystkie cele"
+    }
+  }

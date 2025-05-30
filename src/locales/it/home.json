@@ -1,0 +1,22 @@
+ {
+ "home":{
+    "heroTitle": "Trova la casa perfetta per te",
+    "heroSubtitle": "Scegli una posizione o applica i filtri.",
+    "heroButton": "Esplora ora",
+    "searchPlaceholder": "Cerca per città o indirizzo...",
+    "categories": "Categorie",
+    "apartment": "Appartamento",
+    "house": "Casa",
+    "office": "Ufficio",
+    "land": "Terreno",
+    "latest": "Annunci recenti",
+    "whyTitle": "Perché MyHome24App?",
+    "whyDesc": "Ti aiutiamo a trovare facilmente la casa perfetta.",
+    "why1": "Ampia scelta",
+    "why1Desc": "Numerose proprietà in tutta la Germania.",
+    "why2": "Sicuro e veloce",
+    "why2Desc": "Fornitori affidabili e ricerca rapida.",
+    "why3": "Facile da usare",
+    "why3Desc": "Design moderno e intuitivo per tutti i dispositivi."
+    }
+  }

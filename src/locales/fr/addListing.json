@@ -1,0 +1,15 @@
+{
+"addListing":{
+    "title": "Ajouter une annonce",
+    "fields": {
+      "title": "Titre",
+      "city": "Ville",
+      "price": "Prix (€)",
+      "apartment": "Appartement",
+      "house": "Maison",
+      "rent": "À louer",
+      "buy": "À vendre"
+    },
+    "submit": "Soumettre"
+    }
+  }

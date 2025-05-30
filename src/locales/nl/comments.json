@@ -1,0 +1,8 @@
+ {
+  "comments":{
+    "name": "Je Naam",
+    "text": "Je Reactie",
+    "rating": "Beoordeling (1–5)",
+    "submit": "Versturen"
+    }
+  }

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Home, Settings, List } from 'lucide-react';
 
 const Breadcrumbs = () => {
+  const { t } = useTranslation('breadcrumbs')
   return (
     <div className="text-sm text-gray-600 mb-4 flex items-center space-x-2">
       <Home size={16} className="mr-1" />

@@ -6,18 +6,20 @@ import { db } from '../firebase-config';
 import { useTranslation } from 'react-i18next';
 import { Typewriter } from 'react-simple-typewriter';
 import Slider from 'react-slick';
+import CountUp from 'react-countup';
 import ReactPlayer from 'react-player';
 import {
   FaBuilding, FaHome, FaBriefcase, FaTree, FaSearch, FaQuoteLeft, FaHandshake, FaEnvelope,
   FaUserCircle, FaStar, FaLightbulb, FaMapMarkerAlt
 } from 'react-icons/fa';
 import ListingCard from '../components/ListingCard';
+import { FaRocket } from 'react-icons/fa';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const HomePage = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('home');
   const navigate = useNavigate();
   const [listings, setListings] = useState([]);
   const [search, setSearch] = useState('');
@@ -67,22 +69,23 @@ const HomePage = () => {
   };
 
   const testimonials = [
-    { name: 'Anna M.', text: t('home.testimonial1') },
-    { name: 'Max K.', text: t('home.testimonial2') },
-    { name: 'Laura W.', text: t('home.testimonial3') },
+    { name: 'Anna M.', text: t('testimonial1') },
+    { name: 'Max K.', text: t('testimonial2') },
+    { name: 'Laura W.', text: t('testimonial3') },
   ];
-    const categories = [
-    { name: t('home.apartment'), icon: <FaBuilding />, link: '/category/apartment' },
-    { name: t('home.house'), icon: <FaHome />, link: '/category/house' },
-    { name: t('home.office'), icon: <FaBriefcase />, link: '/category/office' },
-    { name: t('home.land'), icon: <FaTree />, link: '/category/land' },
+
+  const categories = [
+    { name: t('apartment'), icon: <FaBuilding />, link: '/category/apartment' },
+    { name: t('house'), icon: <FaHome />, link: '/category/house' },
+    { name: t('office'), icon: <FaBriefcase />, link: '/category/office' },
+    { name: t('land'), icon: <FaTree />, link: '/category/land' },
   ];
 
   const locations = [
-    t('home.popularArea1'),
-    t('home.popularArea2'),
-    t('home.popularArea3'),
-    t('home.popularArea4')
+    t('popularArea1'),
+    t('popularArea2'),
+    t('popularArea3'),
+    t('popularArea4')
   ];
 
   const handleSearch = () => {
@@ -94,8 +97,35 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* HERO SECTION */}
+    <div className="min-h-screen bg-gradient-to-b from-white via-blue-50 to-white animate-fade-in">
+      <div className="absolute top-0 left-0 w-full h-0 overflow-visible z-50 pointer-events-none">
+        <div className="w-full h-0 animate-fireworks" />
+      </div>
+      <div className="absolute top-20 left-1/3 transform -translate-x-1/2 text-5xl text-yellow-500 font-extrabold tracking-wide z-40 drop-shadow-lg animate-bounce flex items-center gap-4">
+        <FaRocket className="text-red-500" /> WELCOME TO MyHome24App!
+      </div>
+      <section className="bg-blue-50 py-20 px-4 animate-fade-in mt-56">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-12 text-gray-800">{t('specialTitle')}</h2>
+          <div className="grid sm:grid-cols-3 gap-12">
+            <Link to="/about" className="p-6 bg-white rounded-xl shadow hover:shadow-md transition border border-blue-200 cursor-pointer hover:bg-yellow-50 block">
+              <FaLightbulb className="text-4xl text-yellow-500 mb-4 mx-auto" />
+              <h4 className="text-xl font-semibold mb-2">{t('specialInnovative')}</h4>
+              <p className="text-gray-600">{t('specialInnovativeDesc')}</p>
+            </Link>
+            <Link to="/trust" className="p-6 bg-white rounded-xl shadow hover:shadow-md transition border border-blue-200 cursor-pointer hover:bg-green-50 block">
+              <FaHandshake className="text-4xl text-green-500 mb-4 mx-auto" />
+              <h4 className="text-xl font-semibold mb-2">{t('specialTrusted')}</h4>
+              <p className="text-gray-600">{t('specialTrustedDesc')}</p>
+            </Link>
+            <Link to="/growth" className="p-6 bg-white rounded-xl shadow hover:shadow-md transition border border-blue-200 cursor-pointer hover:bg-red-50 block">
+              <FaRocket className="text-4xl text-red-500 mb-4 mx-auto" />
+              <h4 className="text-xl font-semibold mb-2">{t('specialGrowing')}</h4>
+              <p className="text-gray-600">{t('specialGrowingDesc', { count: '' })}<CountUp end={stats.users} duration={2} /></p>
+            </Link>
+          </div>
+        </div>
+      </section>
       <section className="relative w-full h-[90vh] overflow-hidden">
         <Slider {...sliderSettings}>
           {heroImages.map((img, idx) => (
@@ -107,14 +137,14 @@ const HomePage = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/60 to-blue-400/60 flex flex-col items-center justify-center text-white text-center px-4">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 drop-shadow-md">
             <Typewriter
-              words={[t('home.heroTitle'), t('home.heroTitle2'), t('home.heroTitle3')]}
+              words={[t('heroTitle'), t('heroTitle2'), t('heroTitle3')]}
               loop cursor cursorStyle="|" typeSpeed={80} deleteSpeed={40} delaySpeed={2000}
             />
           </h1>
-          <p className="text-2xl md:text-3xl mb-8 drop-shadow-sm">{t('home.heroSubtitle')}</p>
+          <p className="text-2xl md:text-3xl mb-8 drop-shadow-sm">{t('heroSubtitle')}</p>
           <Link to="/listings">
             <button className="bg-white text-blue-600 font-semibold px-8 py-4 rounded-full shadow hover:bg-gray-100 transition text-lg">
-              {t('home.heroButton')}
+              {t('heroButton')}
             </button>
           </Link>
         </div>
@@ -131,56 +161,18 @@ const HomePage = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder={t('home.searchPlaceholder')}
+            placeholder={t('searchPlaceholder')}
             className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg transition duration-200 ease-in-out"
           />
           <button
             onClick={handleSearch}
             className="absolute right-1 top-1 bottom-1 bg-blue-600 text-white rounded-full px-5 hover:bg-blue-700 transition"
           >
-            {t('home.searchButton')}
+            {t('searchButton')}
           </button>
         </div>
       </div>
-            {/* LATEST LISTINGS */}
-      <section className="max-w-6xl mx-auto py-20 px-4 animate-fade-in">
-        <h2 className="text-4xl font-semibold mb-12 text-center text-gray-800">
-          {t('home.latest')}
-        </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {listings.slice(0, 6).map(listing => (
-            <ListingCard key={listing.id} listing={listing} />
-          ))}
-        </div>
-        <div className="text-center mt-12">
-          <Link to="/listings">
-            <button className="px-10 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition text-xl font-semibold">
-              {t('home.viewAll')}
-            </button>
-          </Link>
-        </div>
-      </section>
-            {/* STATISTICS SECTION */}
-      <section className="max-w-6xl mx-auto py-20 px-4 animate-fade-in">
-        <h2 className="text-4xl font-semibold mb-12 text-center text-gray-800">
-          {t('home.statsTitle')}
-        </h2>
-        <div className="grid sm:grid-cols-3 gap-8 text-center">
-          <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
-            <h3 className="text-5xl font-bold text-blue-600">{stats.listings}</h3>
-            <p className="mt-2 text-gray-700 text-lg">{t('home.statsListings')}</p>
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
-            <h3 className="text-5xl font-bold text-green-600">{stats.users}</h3>
-            <p className="mt-2 text-gray-700 text-lg">{t('home.statsUsers')}</p>
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
-            <h3 className="text-5xl font-bold text-yellow-600">{stats.featured}</h3>
-            <p className="mt-2 text-gray-700 text-lg">{t('home.statsFeatured')}</p>
-          </div>
-        </div>
-      </section>
-
+     
       {/* CTA AGENTEN */}
       <section className="bg-blue-600 py-20 px-4 text-white text-center animate-fade-in">
         <div className="max-w-4xl mx-auto">
@@ -221,8 +213,8 @@ const HomePage = () => {
       {/* VIDEO SECTION */}
       <section className="bg-white py-20 px-4 animate-fade-in">
         <div className="max-w-5xl mx-auto text-center">
-          <h3 className="text-4xl font-bold mb-6 text-blue-900">{t('home.videoTitle')}</h3>
-          <p className="mb-6 text-lg text-gray-600">{t('home.videoSubtitle')}</p>
+          <h3 className="text-4xl font-bold mb-6 text-blue-900">{t('videoTitle')}</h3>
+          <p className="mb-6 text-lg text-gray-600">{t('videoSubtitle')}</p>
           <div className="aspect-w-16 aspect-h-9">
             <ReactPlayer url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" controls width="100%" height="360px" />
           </div>
@@ -232,30 +224,30 @@ const HomePage = () => {
       {/* PARALLAX SECTION */}
       <section className="relative h-96 bg-fixed bg-center bg-cover bg-no-repeat" style={{ backgroundImage: 'url(/images/parallax.jpg)' }}>
         <div className="absolute inset-0 bg-blue-900 bg-opacity-60 flex items-center justify-center">
-          <h2 className="text-5xl text-white font-bold text-center px-4">{t('home.parallaxText')}</h2>
+          <h2 className="text-5xl text-white font-bold text-center px-4">{t('parallaxText')}</h2>
         </div>
       </section>
 
       {/* HOW IT WORKS */}
       <section className="bg-gradient-to-r from-blue-50 to-blue-100 py-20 px-4 animate-fade-in">
         <div className="max-w-6xl mx-auto text-center">
-          <h3 className="text-4xl font-bold mb-12 text-blue-900">{t('home.howItWorksTitle')}</h3>
-          <p className="text-lg text-gray-600 mb-12">{t('home.whyDesc')}</p>
+          <h3 className="text-4xl font-bold mb-12 text-blue-900">{t('howItWorksTitle')}</h3>
+          <p className="text-lg text-gray-600 mb-12">{t('whyDesc')}</p>
           <div className="grid sm:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition border border-blue-200">
               <FaSearch className="text-4xl text-blue-600 mb-4 mx-auto" />
-              <h4 className="text-xl font-semibold mb-2">{t('home.howStep1')}</h4>
-              <p className="text-gray-600">{t('home.howStep1Text')}</p>
+              <h4 className="text-xl font-semibold mb-2">{t('howStep1')}</h4>
+              <p className="text-gray-600">{t('howStep1Text')}</p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition border border-blue-200">
               <FaLightbulb className="text-4xl text-blue-600 mb-4 mx-auto" />
-              <h4 className="text-xl font-semibold mb-2">{t('home.howStep2')}</h4>
-              <p className="text-gray-600">{t('home.howStep2Text')}</p>
+              <h4 className="text-xl font-semibold mb-2">{t('howStep2')}</h4>
+              <p className="text-gray-600">{t('howStep2Text')}</p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow hover:shadow-md transition border border-blue-200">
               <FaEnvelope className="text-4xl text-blue-600 mb-4 mx-auto" />
-              <h4 className="text-xl font-semibold mb-2">{t('home.howStep3')}</h4>
-              <p className="text-gray-600">{t('home.howStep3Text')}</p>
+              <h4 className="text-xl font-semibold mb-2">{t('howStep3')}</h4>
+              <p className="text-gray-600">{t('howStep3Text')}</p>
             </div>
           </div>
         </div>
@@ -264,7 +256,7 @@ const HomePage = () => {
       {/* POPULAR LOCATIONS */}
       <section className="bg-gray-100 py-20 px-4 animate-fade-in">
         <div className="max-w-6xl mx-auto text-center">
-          <h3 className="text-4xl font-bold mb-12 text-gray-800">{t('home.popularAreasTitle')}</h3>
+          <h3 className="text-4xl font-bold mb-12 text-gray-800">{t('popularAreasTitle')}</h3>
           <div className="grid sm:grid-cols-4 gap-8">
             {locations.map((city, index) => (
               <div key={index} className="p-6 bg-white rounded-lg shadow hover:shadow-md transition border border-blue-200">
@@ -279,7 +271,7 @@ const HomePage = () => {
       {/* TESTIMONIALS */}
       <section className="bg-blue-50 py-20 px-4 animate-fade-in">
         <div className="max-w-6xl mx-auto text-center">
-          <h3 className="text-4xl font-bold mb-12 text-blue-900">{t('home.testimonialsTitle')}</h3>
+          <h3 className="text-4xl font-bold mb-12 text-blue-900">{t('testimonialsTitle')}</h3>
           <div className="grid sm:grid-cols-3 gap-10">
             {testimonials.map((item, index) => (
               <div key={index} className="bg-white shadow-lg rounded-xl p-6 transition-transform duration-300 hover:scale-105 border border-blue-200">
@@ -301,13 +293,14 @@ const HomePage = () => {
       <section className="bg-white py-20 px-4 animate-fade-in">
         <div className="max-w-4xl mx-auto text-center border border-blue-200 rounded-xl p-10">
           <FaEnvelope className="text-4xl text-blue-600 mb-4 mx-auto" />
-          <h3 className="text-3xl font-bold mb-4 text-gray-800">{t('home.contactTitle')}</h3>
-          <p className="text-lg text-gray-700 mb-2">{t('home.contactText')}</p>
+          <h3 className="text-3xl font-bold mb-4 text-gray-800">{t('contactTitle')}</h3>
+          <p className="text-lg text-gray-700 mb-2">{t('contactText')}</p>
           <a href="mailto:kontakt@myhome24app.com" className="text-blue-600 text-lg font-medium hover:underline">
             kontakt@myhome24app.com
           </a>
         </div>
       </section>
+
 
       {/* FOOTER */}
       <footer className="bg-gray-100 py-10 text-center text-base text-gray-500">

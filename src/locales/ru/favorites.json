@@ -1,0 +1,12 @@
+  {
+  "favorites":{
+    "title": "Favoritele Mele",
+    "total": "Total",
+    "compare": "Compară",
+    "entries": "Intrări",
+    "empty": "Nu ai anunțuri favorite.",
+    "avgRating": "Evaluare Medie",
+    "addToCompare": "Adaugă la Comparare",
+    "removeFromCompare": "Elimină din Comparare"
+    }
+  }

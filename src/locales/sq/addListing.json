@@ -1,0 +1,15 @@
+{
+"addListing":{
+    "title": "Shto një Shpallje",
+    "fields": {
+      "title": "Titulli",
+      "city": "Qyteti",
+      "price": "Çmimi (€)",
+      "apartment": "Apartament",
+      "house": "Shtëpi",
+      "rent": "Me Qira",
+      "buy": "Në Shitje"
+    },
+    "submit": "Dërgo"
+    }
+  }

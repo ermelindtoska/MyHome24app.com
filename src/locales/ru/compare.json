@@ -1,0 +1,20 @@
+ {
+ "compare":{
+  "title": "Comparație",
+  "resetFilters": "Resetează filtrele",
+  "copied": "Copiat!",
+  "emailSubject": "Comparație proprietăți",
+  "noData": "Nu există date de afișat.",
+  "chartTitle": "Comparație prețuri și evaluări",
+  "minRating": "Evaluare minimă",
+  "minSize": "Suprafață minimă (m²)",
+  "maxSize": "Suprafață maximă (m²)",
+  "lineChart": "Grafic de linie",
+  "pieChart": "Grafic circular",
+  "clearAll": "Șterge tot",
+  "refresh": "Reîmprospătează",
+  "print": "Tipărește",
+  "copy": "Copiază sumarul",
+  "email": "Trimite prin e-mail"
+  }
+ }

@@ -1,0 +1,22 @@
+{
+"home":{
+    "heroTitle": "Mükemmel evini bul",
+    "heroSubtitle": "Bir konum seçin veya filtre kullanın.",
+    "heroButton": "Şimdi keşfet",
+    "searchPlaceholder": "Şehir veya adres ara...",
+    "categories": "Kategoriler",
+    "apartment": "Daire",
+    "house": "Ev",
+    "office": "Ofis",
+    "land": "Arsa",
+    "latest": "En Son İlanlar",
+    "whyTitle": "Neden MyHome24App?",
+    "whyDesc": "Hayalinizdeki evi kolayca bulmanıza yardımcı oluyoruz.",
+    "why1": "Geniş Seçenekler",
+    "why1Desc": "Almanya genelinde birçok ilan.",
+    "why2": "Güvenli & Hızlı",
+    "why2Desc": "Güvenilir sağlayıcılar ve hızlı arama.",
+    "why3": "Kullanıcı Dostu",
+    "why3Desc": "Tüm cihazlara uygun modern tasarım."
+    }
+  }

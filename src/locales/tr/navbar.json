@@ -1,0 +1,11 @@
+{
+"navbar":{
+    "home": "Ana Sayfa",
+    "listings": "İlanlar",
+    "addListing": "Yeni İlan",
+    "dashboard": "Kontrol Paneli",
+    "logout": "Çıkış Yap",
+    "login": "Giriş",
+    "register": "Kayıt Ol"
+    }
+  }

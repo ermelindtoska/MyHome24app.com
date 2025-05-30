@@ -1,0 +1,8 @@
+ {
+ "comments":{
+    "name": "Ihr Name",
+    "text": "Ihr Kommentar",
+    "rating": "Bewertung (1–5)",
+    "submit": "Absenden"
+    }
+  }

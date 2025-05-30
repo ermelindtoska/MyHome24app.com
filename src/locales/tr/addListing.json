@@ -1,0 +1,15 @@
+{
+"addListing":{
+    "title": "İlan Ekle",
+    "fields": {
+      "title": "Başlık",
+      "city": "Şehir",
+      "price": "Fiyat (€)",
+      "apartment": "Daire",
+      "house": "Ev",
+      "rent": "Kiralık",
+      "buy": "Satılık"
+    },
+    "submit": "Gönder"
+    }
+  }

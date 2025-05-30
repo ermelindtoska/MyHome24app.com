@@ -7,6 +7,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import { Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
+  const { t } = useTranslation('admin');
   const [listings, setListings] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');

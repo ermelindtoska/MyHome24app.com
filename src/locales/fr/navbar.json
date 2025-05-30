@@ -1,0 +1,11 @@
+  {
+  "navbar":{
+    "home": "Accueil",
+    "listings": "Annonces",
+    "addListing": "Nouvelle annonce",
+    "dashboard": "Tableau de bord",
+    "logout": "Déconnexion",
+    "login": "Connexion",
+    "register": "Inscription"
+    }
+  }

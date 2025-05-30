@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const FilterBar = ({ onFilterChange }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('filter');
   const [filters, setFilters] = useState({
     city: '',
     maxPrice: '',
@@ -21,7 +21,7 @@ const FilterBar = ({ onFilterChange }) => {
       <input
         type="text"
         name="city"
-        placeholder={t('filter.city')}
+        placeholder={t('city')}
         value={filters.city}
         onChange={handleChange}
         className="p-2 border rounded w-full md:w-1/4"
@@ -29,7 +29,7 @@ const FilterBar = ({ onFilterChange }) => {
       <input
         type="number"
         name="maxPrice"
-        placeholder={t('filter.maxPrice')}
+        placeholder={t('maxPrice')}
         value={filters.maxPrice}
         onChange={handleChange}
         className="p-2 border rounded w-full md:w-1/4"
@@ -40,9 +40,9 @@ const FilterBar = ({ onFilterChange }) => {
         onChange={handleChange}
         className="p-2 border rounded w-full md:w-1/4"
       >
-        <option value="">{t('filter.allTypes')}</option>
-        <option value="Apartment">{t('addListing.fields.apartment')}</option>
-        <option value="House">{t('addListing.fields.house')}</option>
+        <option value="">{t('allTypes')}</option>
+        <option value="Apartment">{t('apartment')}</option>
+        <option value="House">{t('house')}</option>
       </select>
       <select
         name="purpose"
@@ -50,9 +50,9 @@ const FilterBar = ({ onFilterChange }) => {
         onChange={handleChange}
         className="p-2 border rounded w-full md:w-1/4"
       >
-        <option value="">{t('filter.allPurposes')}</option>
-        <option value="Rent">{t('addListing.fields.rent')}</option>
-        <option value="Buy">{t('addListing.fields.buy')}</option>
+        <option value="">{t('allPurposes')}</option>
+        <option value="Rent">{t('rent')}</option>
+        <option value="Buy">{t('buy')}</option>
       </select>
     </div>
   );

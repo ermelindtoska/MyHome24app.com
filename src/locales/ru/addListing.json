@@ -1,0 +1,15 @@
+{
+"addListing":{
+    "title": "Adaugă Anunț",
+    "fields": {
+      "title": "Titlu",
+      "city": "Oraș",
+      "price": "Preț (€)",
+      "apartment": "Apartament",
+      "house": "Casă",
+      "rent": "De Închiriat",
+      "buy": "De Vânzare"
+    },
+    "submit": "Trimite"
+    }
+  }

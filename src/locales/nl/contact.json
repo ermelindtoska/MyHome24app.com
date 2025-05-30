@@ -1,0 +1,8 @@
+{
+  "contact":{
+    "title": "Contacteer Eigenaar",
+    "object": "Object",
+    "description": "Hier kunnen contactgegevens of een formulier staan.",
+    "close": "Sluiten"
+    }
+  }

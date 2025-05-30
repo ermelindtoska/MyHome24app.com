@@ -1,0 +1,15 @@
+{
+"dashboard":{
+    "title": "Përmbledhja e Shpalljeve Tuaja",
+    "noListings": "Asnjë shpallje nuk u gjet për llogarinë tuaj.",
+    "loading": "Po ngarkohen shpalljet...",
+    "addNew": "Shto",
+    "delete": "Fshi",
+    "edit": "Ndrysho",
+    "details": "Detaje",
+    "favorite": "Shto te të preferuarat",
+    "unfavorite": "Hiq nga të preferuarat",
+    "new": "E Re",
+    "contactOwner": "Kontakto Pronarin"
+    }
+  }

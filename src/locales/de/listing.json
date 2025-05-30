@@ -1,0 +1,8 @@
+    {
+    "listing":{
+  "createTitle": "Neue Anzeige erstellen",
+  "success": "Anzeige erfolgreich gespeichert!",
+  "error": "Beim Speichern ist ein Fehler aufgetreten.",
+  "loginRequired": "Bitte melden Sie sich zuerst an."
+ }
+  }

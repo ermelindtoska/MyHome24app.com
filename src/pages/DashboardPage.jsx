@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { FaPlus, FaCheckCircle } from 'react-icons/fa';
 
 const DashboardPage = ({ onAdd }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('dashboard');
   const [form, setForm] = useState({
     title: '',
     city: '',
@@ -29,7 +29,7 @@ const DashboardPage = ({ onAdd }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!form.title || !form.city || !form.price || !form.image) {
-      alert(t('addListing.validation'));
+      alert(t('validation'));
       return;
     }
 
@@ -49,11 +49,11 @@ const DashboardPage = ({ onAdd }) => {
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-md w-full max-w-xl mx-auto mt-6 border border-gray-200">
-      <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">{t('addListing.title')}</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">{t('title')}</h2>
 
       {success && (
         <div className="flex items-center gap-2 text-green-600 mb-4 justify-center">
-          <FaCheckCircle /> <span>{t('addListing.success')}</span>
+          <FaCheckCircle /> <span>{t('success')}</span>
         </div>
       )}
 
@@ -62,21 +62,21 @@ const DashboardPage = ({ onAdd }) => {
           name="title"
           value={form.title}
           onChange={handleChange}
-          placeholder={t('addListing.fields.title')}
+          placeholder={t('title')}
           className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           name="city"
           value={form.city}
           onChange={handleChange}
-          placeholder={t('addListing.fields.city')}
+          placeholder={t('city')}
           className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           name="price"
           value={form.price}
           onChange={handleChange}
-          placeholder={t('addListing.fields.price')}
+          placeholder={t('price')}
           className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
@@ -87,8 +87,8 @@ const DashboardPage = ({ onAdd }) => {
             onChange={handleChange}
             className="w-1/2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="apartment">{t('addListing.fields.apartment')}</option>
-            <option value="house">{t('addListing.fields.house')}</option>
+            <option value="apartment">{t('apartment')}</option>
+            <option value="house">{t('house')}</option>
           </select>
           <select
             name="purpose"
@@ -96,8 +96,8 @@ const DashboardPage = ({ onAdd }) => {
             onChange={handleChange}
             className="w-1/2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="rent">{t('addListing.fields.rent')}</option>
-            <option value="buy">{t('addListing.fields.buy')}</option>
+            <option value="rent">{t('rent')}</option>
+            <option value="buy">{t('buy')}</option>
           </select>
         </div>
 
@@ -116,7 +116,7 @@ const DashboardPage = ({ onAdd }) => {
           type="submit"
           className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition font-semibold flex items-center justify-center gap-2"
         >
-          <FaPlus /> {t('addListing.submit')}
+          <FaPlus /> {t('submit')}
         </button>
       </form>
     </div>

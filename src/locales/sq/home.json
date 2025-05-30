@@ -1,0 +1,22 @@
+{
+"home":{
+    "heroTitle": "Gjej shtëpinë tënde të përsosur",
+    "heroSubtitle": "Zgjidh një vendndodhje ose filtro sipas preferencave.",
+    "heroButton": "Eksploro tani",
+    "searchPlaceholder": "Kërko sipas qytetit ose adresës...",
+    "categories": "Kategoritë",
+    "apartment": "Apartament",
+    "house": "Shtëpi",
+    "office": "Zyrë",
+    "land": "Tokë",
+    "latest": "Shpalljet më të fundit",
+    "whyTitle": "Pse MyHome24App?",
+    "whyDesc": "Të ndihmojmë të gjesh shtëpinë tënde të përsosur me lehtësi.",
+    "why1": "Zgjedhje e Gjerë",
+    "why1Desc": "Shumë prona nga e gjithë Gjermania.",
+    "why2": "E Sigurt dhe e Shpejtë",
+    "why2Desc": "Ofrues të besueshëm dhe kërkim i shpejtë.",
+    "why3": "E Lehtë për Përdorim",
+    "why3Desc": "Dizajn modern dhe i qartë për çdo pajisje."
+    }
+  }

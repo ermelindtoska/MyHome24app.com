@@ -1,0 +1,12 @@
+ {
+ "favorites":{
+    "title": "Mijn Favorieten",
+    "total": "Totaal",
+    "compare": "Vergelijken",
+    "entries": "Items",
+    "empty": "Geen favorieten gevonden.",
+    "avgRating": "Gemiddelde Beoordeling",
+    "addToCompare": "Toevoegen aan Vergelijking",
+    "removeFromCompare": "Verwijderen uit Vergelijking"
+    }
+ }

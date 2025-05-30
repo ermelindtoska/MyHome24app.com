@@ -1,0 +1,9 @@
+
+  {
+  "contact":{
+    "title": "Contacter le propriétaire",
+    "object": "Bien",
+    "description": "Ici, vous pouvez ajouter les coordonnées ou un formulaire.",
+    "close": "Fermer"
+    }
+  }

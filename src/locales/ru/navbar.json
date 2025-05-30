@@ -1,0 +1,11 @@
+{
+"navbar":{
+    "home": "Acasă",
+    "listings": "Anunțuri",
+    "addListing": "Adaugă Anunț",
+    "dashboard": "Panou de Control",
+    "logout": "Deconectare",
+    "login": "Autentificare",
+    "register": "Înregistrare"
+    }
+  }

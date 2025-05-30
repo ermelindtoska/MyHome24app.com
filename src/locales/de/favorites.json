@@ -1,0 +1,12 @@
+ {
+  "favorites":{
+    "title": "Meine Favoriten",
+    "total": "Gesamt",
+    "compare": "Vergleiche",
+    "entries": "Einträge",
+    "empty": "Keine Favoriten gefunden.",
+    "avgRating": "Durchschnittliche Bewertung",
+    "addToCompare": "Zum Vergleich hinzufügen",
+    "removeFromCompare": "Aus Vergleich entfernen"
+    }
+  }

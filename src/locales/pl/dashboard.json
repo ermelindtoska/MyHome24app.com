@@ -1,0 +1,15 @@
+{
+"dashboard":{
+    "title": "Twoje ogłoszenia",
+    "noListings": "Brak ogłoszeń przypisanych do Twojego konta.",
+    "loading": "Ładowanie ogłoszeń...",
+    "addNew": "Dodaj nowe",
+    "new": "Nowe",
+    "details": "Szczegóły",
+    "delete": "Usuń",
+    "edit": "Edytuj",
+    "favorite": "Dodaj do ulubionych",
+    "unfavorite": "Usuń z ulubionych",
+    "contactOwner": "Skontaktuj się z właścicielem"
+    }
+  }
