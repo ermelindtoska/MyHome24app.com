@@ -1,5 +1,4 @@
 // ✅ VERSIONI I PLOTËSUAR I HOMEPAGE ME TË GJITHA PJESËT ORIGJINALE DHE PËRMIRËSIMET E INTEGRUARA
-
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { collection, getDocs, orderBy, query, getCountFromServer } from 'firebase/firestore';
@@ -88,9 +87,9 @@ const HomePage = () => {
     t('popularArea4')
   ];
 
-  const handleSearch = () => {
-    if (search.trim()) navigate(`/search?query=${encodeURIComponent(search.trim())}`);
-  };
+ const handleSearch = () => {
+  if (search.trim()) navigate(`/search?query=${encodeURIComponent(search.trim())}`);
+};
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') handleSearch();
@@ -143,7 +142,7 @@ const HomePage = () => {
         <Slider {...sliderSettings}>
           {heroImages.map((img, idx) => (
             <div key={idx} className="w-full h-[90vh]">
-              <img src={img} alt={`hero-${idx}`} className="w-full h-full object-cover" />
+              <img src={img} alt={`hero-${idx}`}className="w-full h-full object-cover" />
             </div>
           ))}
         </Slider>
@@ -217,6 +216,8 @@ const HomePage = () => {
             {[1, 2, 3].map(i => (
               <div key={i} className="bg-white p-6 rounded-xl shadow-md">
                 <img src={`/images/agent${i}.jpg`} alt={`Agent ${i}`} className="w-full h-48 object-cover rounded-md mb-4" />
+
+
                 <h4 className="text-xl font-semibold text-gray-800">Agent {i}</h4>
                 <p className="text-sm text-gray-500">{t('agentsSpecialty') || 'Immobilienberater*in'}</p>
               </div>
@@ -246,7 +247,7 @@ const HomePage = () => {
           <h2 className="text-4xl font-bold mb-10 text-gray-800">{t('partnersTitle') || 'Unsere Partner'}</h2>
           <div className="flex flex-wrap items-center justify-center gap-8">
             {[1, 2, 3, 4].map(i => (
-              <img key={i} src={`/images/partner${i}.png`} alt={`Partner ${i}`} className="h-16 object-contain" />
+              <img key={i} src={`/images/partner${i}.png`} alt={`Partner ${i}`}className="h-16 object-contain" />
             ))}
           </div>
         </div>
