@@ -26,6 +26,25 @@ const LoginPage = () => {
         </button>
       </form>
     </div>
+    <div className="max-w-md mx-auto py-12 px-4">
+      <h1 className="text-3xl font-bold text-blue-700 mb-6">Login</h1>
+      <p className="text-gray-700 mb-4">Bitte melden Sie sich mit Ihren Zugangsdaten an.</p>
+      <form className="space-y-4">
+        <input
+          type="email"
+          placeholder="E-Mail-Adresse"
+          className="w-full border border-gray-300 px-4 py-2 rounded"
+        />
+        <input
+          type="password"
+          placeholder="Passwort"
+          className="w-full border border-gray-300 px-4 py-2 rounded"
+        />
+        <button type="submit" className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Anmelden
+        </button>
+      </form>
+    </div>
   );
 };
 

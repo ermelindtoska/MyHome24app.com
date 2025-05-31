@@ -25,6 +25,24 @@ import ContactPage from './pages/ContactPage';
 import FAQPage from './pages/FAQPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
+import NewConstructionPage from './pages/NewConstructionPage';
+import ForeclosurePage from './pages/ForeclosurePage';
+import DirectOwnerPage from './pages/DirectOwnerPage';
+import RentApartmentPage from './pages/RentApartmentPage';
+import RentHousePage from './pages/RentHousePage';
+import RentOfficePage from './pages/RentOfficePage';
+import MortgageCalculatorPage from './pages/MortgageCalculatorPage';
+import MortgagePartnersPage from './pages/MortgagePartnersPage';
+import AgentSearchPage from './pages/AgentSearchPage';
+import AgentRatePage from './pages/AgentRatePage';
+import MyPropertiesPage from './pages/MyPropertiesPage';
+import NewListingPage from './pages/NewListingPage';
+import BannerAdvertisingPage from './pages/BannerAdvertisingPage';
+import PremiumListingPage from './pages/PremiumListingPage';
+
+
+
+
 
 function App() {
   const { t } = useTranslation('app');
@@ -49,6 +67,24 @@ function App() {
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/terms" element={<TermsPage />} />
+        <Route path="/buy/new" element={<NewConstructionPage />} />
+        <Route path="/buy/foreclosures" element={<ForeclosurePage />} />
+        <Route path="/buy/owner" element={<DirectOwnerPage />} />
+        <Route path="/rent/apartment" element={<RentApartmentPage />} />
+        <Route path="/rent/house" element={<RentHousePage />} />
+        <Route path="/rent/office" element={<RentOfficePage />} />
+        <Route path="/mortgage/calculator" element={<MortgageCalculatorPage />} />
+        <Route path="/mortgage/partners" element={<MortgagePartnersPage />} />
+        <Route path="/agent/search" element={<AgentSearchPage />} />
+        <Route path="/agent/rate" element={<AgentRatePage />} />
+        <Route path="/manage/properties" element={<MyPropertiesPage />} />
+        <Route path="/manage/add" element={<NewListingPage />} />
+        <Route path="/advertise/banner" element={<BannerAdvertisingPage />} />
+        <Route path="/advertise/premium" element={<PremiumListingPage />} />
+
+
+
+
 
         {/* Protected routes */}
         <Route path="/owner-dashboard" element={
