@@ -7,28 +7,59 @@ const RegisterPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
-      <h1 className="text-3xl font-bold mb-6">{t('register.title')}</h1>
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-sm">
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-            {t('register.name')}
+      
+      {/* Titulli dhe përshkrimi sipër formës */}
+      <div className="text-center mb-6">
+        <h1 className="text-3xl font-bold text-blue-700 mb-2">{t('register.title') || 'Registrieren'}</h1>
+        <p className="text-gray-700">
+          {t('register.subtitle') || 'Erstellen Sie ein kostenloses Benutzerkonto.'}
+        </p>
+      </div>
+
+      {/* Forma e regjistrimit */}
+      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-sm space-y-4">
+        
+        <div>
+          <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
+            {t('register.name') || 'Name'}
           </label>
-          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" id="name" type="text" placeholder="Name" />
+          <input
+            id="name"
+            type="text"
+            placeholder="Vollständiger Name"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+          />
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-            {t('register.email')}
+
+        <div>
+          <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
+            {t('register.email') || 'E-Mail-Adresse'}
           </label>
-          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" id="email" type="email" placeholder="Email" />
+          <input
+            id="email"
+            type="email"
+            placeholder="E-Mail-Adresse"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+          />
         </div>
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-            {t('register.password')}
+
+        <div>
+          <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
+            {t('register.password') || 'Passwort'}
           </label>
-          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3" id="password" type="password" placeholder="********" />
+          <input
+            id="password"
+            type="password"
+            placeholder="********"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3"
+          />
         </div>
-        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-          {t('register.submit')}
+
+        <button
+          type="submit"
+          className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+        >
+          {t('register.submit') || 'Registrieren'}
         </button>
       </form>
     </div>

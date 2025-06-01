@@ -104,14 +104,26 @@ const Navbar = () => {
   </div>
 
   {/* Hilfe */}
-  <div className="relative group">
-    <span className="cursor-pointer">{t('help')}</span>
-    <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 z-50">
-      <Link to="/faq" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">FAQ</Link>
-      <Link to="/contact" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Kontakt</Link>
-      <Link to="/support" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Support</Link>
-    </div>
-  </div>
+<li className="relative group">
+  <span className="cursor-pointer">{t('Help')}</span>
+  <ul className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-md invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
+    <li>
+      <Link to="/help/faq" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">
+        {t('Faq')}
+      </Link>
+    </li>
+    <li>
+      <Link to="/help/support" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">
+        {t('Support')}
+      </Link>
+    </li>
+    <li>
+      <Link to="/help/how-it-works" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">
+        {t('HowItWorks')}
+      </Link>
+    </li>
+  </ul>
+</li>
 
   {/* Language Switcher */}
   <LanguageSwitcher />

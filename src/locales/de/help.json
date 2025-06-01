@@ -1,7 +1,33 @@
 {
+  "meta": {
+    "title": "Hilfe & Support",
+    "description": "Hier finden Sie Unterstützung, Antworten auf häufige Fragen und ein Kontaktformular."
+  },
   "title": "Hilfe & Unterstützung",
-  "contactSupport": "Support kontaktieren",
-  "faq": "Häufig gestellte Fragen",
-  "tutorials": "Anleitungen & Tutorials",
-  "reportProblem": "Ein Problem melden"
+  "support": {
+  "title": "Support kontaktieren",
+  
+  "hilfeFaq": "Häufige Fragen",
+  "hilfeSupport": "Kontakt & Support",
+  "hilfeHowItWorks": "Wie funktioniert MyHome24App?",
+  "text": "Nutzen Sie das folgende Formular für technische Hilfe oder allgemeine Anfragen.",
+  "confirmation": "Vielen Dank! Wir haben Ihre Nachricht erhalten und melden uns bald."
+
+
+  },
+  "form": {
+    "name": "Ihr Name",
+    "email": "Ihre E-Mail-Adresse",
+    "message": "Ihre Nachricht",
+    "submit": "Nachricht senden",
+    "error": "Bitte füllen Sie alle Felder aus.",
+    "selectPlaceholder": "Kategorie wählen",
+    "categories": {
+      "technical": "Technisches Problem",
+      "login": "Login / Zugang",
+      "listing": "Anzeige oder Inserat",
+      "feedback": "Vorschlag / Feedback",
+      "other": "Sonstiges"
+    }
+  }
 }
