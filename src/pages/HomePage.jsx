@@ -17,6 +17,7 @@ import ListingCard from '../components/ListingCard';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+
 const HomePage = () => {
   const { t } = useTranslation('home');
   const navigate = useNavigate();
@@ -238,8 +239,8 @@ const HomePage = () => {
             alt={`Blog ${i}`}
             className="w-full h-56 object-cover rounded-md mb-4"
           />
-          <h4 className="text-xl font-semibold text-blue-700 mb-2">{t(`blogPost.title${i}`)}</h4>
-          <p className="text-gray-600">{t(`blogPost.summary${i}`)}</p>
+          <h4 className="text-xl font-semibold text-blue-700 mb-2">{t(`title${i}`)}</h4>
+          <p className="text-gray-600">{t(`summary${i}`)}</p>
           <Link to={`/blog/${i}`} className="text-blue-600 hover:underline mt-2 block">{t('readMore')}</Link>
         </div>
       ))}

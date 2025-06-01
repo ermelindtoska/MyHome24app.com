@@ -3,10 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { FaQuestionCircle } from 'react-icons/fa';
 
 const HelpFaqPage = () => {
-  const { t } = useTranslation('hilfe');
+  const { t } = useTranslation('help');
 
   return (
     <div className="max-w-4xl mx-auto py-16 px-4">
+      <h1 className="text-3xl font-bold mb-4">{t('faqTitle')}</h1>
+      <p className="text-gray-700">{t('faqIntro')}</p>
       <div className="flex items-center gap-3 mb-6">
         <FaQuestionCircle className="text-3xl text-blue-600" />
         <h1 className="text-3xl font-bold">{t('hilfeFaq')}</h1>

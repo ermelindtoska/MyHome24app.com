@@ -41,6 +41,9 @@ import BannerAdvertisingPage from './pages/BannerAdvertisingPage';
 import PremiumListingPage from './pages/PremiumListingPage';
 import BlogPage from './pages/BlogPage';
 import BlogDetail from './pages/BlogDetail';
+import HelpFaqPage from './pages/HelpFaqPage';
+import HelpSupportPage from './pages/HelpSupportPage';
+import HelpHowItWorksPage from './pages/HelpHowItWorksPage';
 
 
 
@@ -90,6 +93,10 @@ function App() {
         <Route path="/advertise/premium" element={<PremiumListingPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:id" element={<BlogDetail />} />
+        <Route path="/help/faq" element={<HelpFaqPage />} />
+        <Route path="/help/support" element={<HelpSupportPage />} />
+        <Route path="/help/how-it-works" element={<HelpHowItWorksPage />} />
+
 
 
         

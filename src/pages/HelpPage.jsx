@@ -50,20 +50,20 @@ const HelpPage = () => {
     <div className="max-w-4xl mx-auto py-10 px-4">
       <Helmet>
         <title>{t('meta.title')} – MyHome24app</title>
-        <meta name="description" content={t('meta.description')} />
+        <meta name="description" content={t('description')} />
       </Helmet>
 
       <h1 className="text-3xl font-bold mb-6 text-blue-700">{t('title')}</h1>
 
       {/* Kontakt */}
       <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-4">{t('support.title')}</h2>
-        <p className="text-gray-700 mb-4">{t('support.text')}</p>
+        <h2 className="text-2xl font-semibold mb-4">{t('title')}</h2>
+        <p className="text-gray-700 mb-4">{t('text')}</p>
 
         {submitted ? (
           <div className="flex items-center gap-2 text-green-600 font-medium mb-4">
             <CheckCircle className="w-6 h-6" />
-            {t('support.confirmation')}
+            {t('confirmation')}
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -76,7 +76,7 @@ const HelpPage = () => {
             <input
               type="text"
               name="name"
-              placeholder={t('form.name')}
+              placeholder={t('name')}
               value={form.name}
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded"
@@ -84,7 +84,7 @@ const HelpPage = () => {
             <input
               type="email"
               name="email"
-              placeholder={t('form.email')}
+              placeholder={t('email')}
               value={form.email}
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded"
@@ -103,7 +103,7 @@ const HelpPage = () => {
             </select>
             <textarea
               name="message"
-              placeholder={t('form.message')}
+              placeholder={t('message')}
               value={form.message}
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded h-32"
@@ -112,7 +112,7 @@ const HelpPage = () => {
               type="submit"
               className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
             >
-              {t('form.submit')}
+              {t('submit')}
             </button>
           </form>
         )}

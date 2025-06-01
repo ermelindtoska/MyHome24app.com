@@ -4,17 +4,26 @@
     "description": "Hier finden Sie Unterstützung, Antworten auf häufige Fragen und ein Kontaktformular."
   },
   "title": "Hilfe & Unterstützung",
-  "support": {
-  "title": "Support kontaktieren",
-  
+
+  "faqTitle": "Häufig gestellte Fragen",
+  "faqIntro": "Hier finden Sie Antworten auf die häufigsten Fragen zu unserer Plattform.",
+
+  "supportTitle": "Support & Hilfe",
+  "supportIntro": "Wenn Sie Hilfe benötigen, kontaktieren Sie bitte unser Support-Team. Wir sind für Sie da.",
+
+  "howItWorksTitle": "Wie funktioniert’s?",
+  "howItWorksIntro": "Erfahren Sie, wie Sie Immobilien kaufen, mieten oder anbieten können – Schritt für Schritt erklärt.",
+
   "hilfeFaq": "Häufige Fragen",
   "hilfeSupport": "Kontakt & Support",
   "hilfeHowItWorks": "Wie funktioniert MyHome24App?",
-  "text": "Nutzen Sie das folgende Formular für technische Hilfe oder allgemeine Anfragen.",
-  "confirmation": "Vielen Dank! Wir haben Ihre Nachricht erhalten und melden uns bald."
 
-
+  "support": {
+    "title": "Support kontaktieren",
+    "text": "Nutzen Sie das folgende Formular für technische Hilfe oder allgemeine Anfragen.",
+    "confirmation": "Vielen Dank! Wir haben Ihre Nachricht erhalten und melden uns bald."
   },
+
   "form": {
     "name": "Ihr Name",
     "email": "Ihre E-Mail-Adresse",

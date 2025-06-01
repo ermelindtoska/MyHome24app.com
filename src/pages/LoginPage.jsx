@@ -35,7 +35,7 @@ const LoginPage = () => {
 
         <div>
           <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
-            {t('login.password') || 'Passwort'}
+            {t('password') || 'Passwort'}
           </label>
           <input
             id="password"

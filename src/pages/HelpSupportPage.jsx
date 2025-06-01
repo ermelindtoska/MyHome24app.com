@@ -3,11 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { FaPhoneAlt } from 'react-icons/fa';
 
 const HelpSupportPage = () => {
-  const { t } = useTranslation('hilfe');
+  const { t } = useTranslation('help');
 
   return (
     <div className="max-w-3xl mx-auto py-16 px-4">
         <h1 className="text-3xl font-bold text-blue-700 mb-6">Support</h1>
+         <h1 className="text-3xl font-bold mb-4">{t('supportTitle')}</h1>
+      <p className="text-gray-700">{t('supportIntro')}</p>
          <p className="text-gray-700 mb-4">
         Our support team is here to help you with any questions or issues you may have.
       </p>
