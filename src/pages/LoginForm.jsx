@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next'; // ✅ mungonte kjo
 
 const LoginForm = () => {
   const { t } = useTranslation('auth');
@@ -15,9 +16,9 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/dashboard'); // Redirect after successful login
+      navigate('/dashboard'); // sukses
     } catch (err) {
-      setError('Invalid email or password');
+      setError(t('error') || 'Invalid email or password');
     }
   };
 
@@ -28,13 +29,13 @@ const LoginForm = () => {
         <meta name="description" content="User login for MyHome24app platform" />
       </Helmet>
 
-      <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center">{t('title') || 'Login'}</h2>
 
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
       <form onSubmit={handleLogin} className="space-y-4">
         <div>
-          <label className="block mb-1">Email</label>
+          <label className="block mb-1">{t('email') || 'Email'}</label>
           <input
             type="email"
             value={email}
@@ -45,7 +46,7 @@ const LoginForm = () => {
         </div>
 
         <div>
-          <label className="block mb-1">Password</label>
+          <label className="block mb-1">{t('login.password') || 'Password'}</label>
           <input
             type="password"
             value={password}
@@ -59,7 +60,7 @@ const LoginForm = () => {
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
         >
-          Log In
+          {t('submit') || 'Log In'}
         </button>
       </form>
     </div>

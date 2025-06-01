@@ -39,6 +39,13 @@ import MyPropertiesPage from './pages/MyPropertiesPage';
 import NewListingPage from './pages/NewListingPage';
 import BannerAdvertisingPage from './pages/BannerAdvertisingPage';
 import PremiumListingPage from './pages/PremiumListingPage';
+import BlogPage from './pages/BlogPage';
+import BlogDetail from './pages/BlogDetail';
+
+
+
+
+
 
 
 
@@ -81,6 +88,12 @@ function App() {
         <Route path="/manage/add" element={<NewListingPage />} />
         <Route path="/advertise/banner" element={<BannerAdvertisingPage />} />
         <Route path="/advertise/premium" element={<PremiumListingPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:id" element={<BlogDetail />} />
+
+
+        
+        
 
 
 

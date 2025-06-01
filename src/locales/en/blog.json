@@ -4,5 +4,17 @@
   "blogSummary1": "What to consider when buying real estate – from financing to viewing.",
   "blogTitle2": "The Future of Living",
   "blogSummary2": "How technology is changing the way we live.",
-  "readMore": "Read more"
+  "pageTitle": "Blog",
+  "pageDescription": "Latest tips, trends, and guides related to real estate.",
+  "heading": "Advice & Articles",
+  "subheading": "Stay informed with updates and expert insights.",
+  "readMore": "Read more",
+  "article1": {
+  "title": "Tips for Buying Real Estate",
+  "summary": "Learn what to look out for when buying a property."
+  },
+  "article2": {
+    "title": "Easy Property Rental",
+    "summary": "Our checklist for successfully renting out your property."
+}
 }

@@ -1,5 +1,13 @@
 {
-  "backToBlog": "Back to Blog",
+ "title1": "Tips for Buying Your First Property",
+  "summary1": "Discover key strategies to help you purchase your dream home successfully.",
+  "full1": "In this article, we walk you through the essential steps when buying a property for the first time...",
+  "title2": "Buying Directly from the Owner",
+  "summary2": "Learn the benefits of purchasing real estate directly from private owners.",
+  "full2": "Buying a home directly from the owner can help save fees and increase negotiation flexibility...",
+  
+  
+  "backToBlog" : "Back to Blog",
   "share": "Share",
   "readTime": "{{minutes}} min read",
   "postedOn": "Posted on {{date}}",
@@ -8,3 +16,4 @@
   "readNext": "Read Next",
   "relatedPosts": "Related Posts"
 }
+

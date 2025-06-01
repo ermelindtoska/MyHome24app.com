@@ -227,20 +227,25 @@ const HomePage = () => {
       </section>
 
       {/* BLOG SECTION */}
-      <section className="bg-white py-20 px-4 animate-fade-in">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-10 text-gray-800">{t('blogTitle') || 'Ratgeber & Artikel'}</h2>
-          <div className="grid sm:grid-cols-2 gap-8 text-left">
-            {[1, 2].map(i => (
-              <div key={i} className="p-6 bg-gray-50 rounded-xl shadow hover:shadow-md transition">
-                <h4 className="text-xl font-semibold text-blue-700 mb-2">{t(`blogTitle${i}`) || `Beispielartikel ${i}`}</h4>
-                <p className="text-gray-600">{t(`blogSummary${i}`) || 'Kurze Zusammenfassung oder Einleitung zum Artikelinhalt.'}</p>
-                <Link to="/blog" className="text-blue-600 hover:underline mt-2 block">{t('readMore') || 'Mehr erfahren'}</Link>
-              </div>
-            ))}
-          </div>
+<section className="bg-white py-20 px-4 animate-fade-in">
+  <div className="max-w-6xl mx-auto text-center">
+    <h2 className="text-4xl font-bold mb-10 text-gray-800">{t('blogTitle')}</h2>
+    <div className="grid sm:grid-cols-2 gap-8 text-left">
+      {[1, 2].map(i => (
+        <div key={i} className="p-6 bg-gray-50 rounded-xl shadow hover:shadow-md transition">
+          <img
+            src={`/images/Blog${i}.png`}
+            alt={`Blog ${i}`}
+            className="w-full h-56 object-cover rounded-md mb-4"
+          />
+          <h4 className="text-xl font-semibold text-blue-700 mb-2">{t(`blogPost.title${i}`)}</h4>
+          <p className="text-gray-600">{t(`blogPost.summary${i}`)}</p>
+          <Link to={`/blog/${i}`} className="text-blue-600 hover:underline mt-2 block">{t('readMore')}</Link>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
       {/* PARTNERS SECTION */}
       <section className="bg-blue-50 py-20 px-4 animate-fade-in">
         <div className="max-w-6xl mx-auto text-center">
