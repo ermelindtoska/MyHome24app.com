@@ -4,14 +4,26 @@
     "description": "Find assistance, answers to common questions, and a contact form here."
   },
   "title": "Help & Support",
+
+  "faqTitle": "Frequently Asked Questions",
+  "faqIntro": "Here you'll find answers to the most common questions about our platform.",
+
+  "supportTitle": "Support & Help",
+  "supportIntro": "If you need assistance, please contact our support team. We're here for you.",
+
+  "howItWorksTitle": "How does it work?",
+  "howItWorksIntro": "Learn how to buy, rent or list real estate – step by step explained.",
+
+  "hilfeFaq": "Frequently Asked Questions",
+  "hilfeSupport": "Contact & Support",
+  "hilfeHowItWorks": "How does MyHome24App work?",
+
   "support": {
     "title": "Contact Support",
     "text": "Use the form below for technical assistance or general inquiries.",
-    "confirmation": "Thank you! We have received your message and will get back to you soon.",
-    "hilfeFaq": "Frequently Asked Questions",
-    "hilfeSupport": "Contact & Support",
-    "hilfeHowItWorks": "How does MyHome24App work?"
+    "confirmation": "Thank you! We have received your message and will get back to you soon."
   },
+
   "form": {
     "name": "Your Name",
     "email": "Your Email Address",

@@ -3,10 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { FaRocket } from 'react-icons/fa';
 
 const HelpHowItWorksPage = () => {
-  const { t } = useTranslation('hilfe');
+  const { t } = useTranslation('help');
 
   return (
     <div className="max-w-5xl mx-auto py-16 px-4">
+       <h1 className="text-3xl font-bold mb-4">{t('howItWorksTitle')}</h1>
+      <p className="text-gray-700">{t('howItWorksIntro')}</p>
       <div className="flex items-center gap-3 mb-6">
         <FaRocket className="text-3xl text-blue-600" />
         <h1 className="text-3xl font-bold">{t('hilfeHowItWorks')}</h1>

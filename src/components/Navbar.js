@@ -105,21 +105,21 @@ const Navbar = () => {
 
   {/* Hilfe */}
 <li className="relative group">
-  <span className="cursor-pointer">{t('Help')}</span>
+  <span className="cursor-pointer">{t('help')}</span>
   <ul className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-md invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
     <li>
       <Link to="/help/faq" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">
-        {t('Faq')}
+        {t('faq')}
       </Link>
     </li>
     <li>
       <Link to="/help/support" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">
-        {t('Support')}
+        {t('support')}
       </Link>
     </li>
     <li>
       <Link to="/help/how-it-works" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">
-        {t('HowItWorks')}
+        {t('howItWorks')}
       </Link>
     </li>
   </ul>

@@ -46,7 +46,7 @@ const LoginForm = () => {
         </div>
 
         <div>
-          <label className="block mb-1">{t('login.password') || 'Password'}</label>
+          <label className="block mb-1">{t('password') || 'Password'}</label>
           <input
             type="password"
             value={password}

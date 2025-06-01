@@ -46,6 +46,8 @@ import compareEN from './locales/en/compare.json';
 import filterEN from './locales/en/filter.json';
 import listingEN from './locales/en/listing.json';
 import mapEN from './locales/en/map.json';
+import blogPostDE from './locales/de/blogPost.json';
+import blogPostEN from './locales/en/blogPost.json';
 
 
 
@@ -59,7 +61,7 @@ const namespaces = [
   'home', 'navbar', 'dashboard', 'addListing', 'auth', 'favorites',
   'search', 'settings', 'admin', 'footer', 'contact', 'app',
   'breadcrumbs', 'comments', 'compare', 'filter', 'listing', 'map',
-  'careers', 'faq', 'privacy'
+  'careers', 'faq', 'privacy', 'help' , 'blogPost'
 ];
 
 const resources = {};
