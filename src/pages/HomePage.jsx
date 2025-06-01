@@ -18,6 +18,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 
+
+
 const HomePage = () => {
   const { t } = useTranslation('home');
   const navigate = useNavigate();
@@ -227,26 +229,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* BLOG SECTION */}
-<section className="bg-white py-20 px-4 animate-fade-in">
-  <div className="max-w-6xl mx-auto text-center">
-    <h2 className="text-4xl font-bold mb-10 text-gray-800">{t('blogTitle')}</h2>
-    <div className="grid sm:grid-cols-2 gap-8 text-left">
-      {[1, 2].map(i => (
-        <div key={i} className="p-6 bg-gray-50 rounded-xl shadow hover:shadow-md transition">
-          <img
-            src={`/images/Blog${i}.png`}
-            alt={`Blog ${i}`}
-            className="w-full h-56 object-cover rounded-md mb-4"
-          />
-          <h4 className="text-xl font-semibold text-blue-700 mb-2">{t(`title${i}`)}</h4>
-          <p className="text-gray-600">{t(`summary${i}`)}</p>
-          <Link to={`/blog/${i}`} className="text-blue-600 hover:underline mt-2 block">{t('readMore')}</Link>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
+     
       {/* PARTNERS SECTION */}
       <section className="bg-blue-50 py-20 px-4 animate-fade-in">
         <div className="max-w-6xl mx-auto text-center">
