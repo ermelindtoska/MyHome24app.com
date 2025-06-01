@@ -26,9 +26,6 @@ import privacyDE from './locales/de/privacy.json';
 
 // === EN English
 import homeEN from './locales/en/home.json';
-import privacyEN from './locales/en/privacy.json';
-import faqEN from './locales/en/faq.json';
-import careersEN from './locales/en/careers.json';
 import navbarEN from './locales/en/navbar.json';
 import dashboardEN from './locales/en/dashboard.json';
 import addListingEN from './locales/en/addListing.json';
@@ -46,48 +43,75 @@ import compareEN from './locales/en/compare.json';
 import filterEN from './locales/en/filter.json';
 import listingEN from './locales/en/listing.json';
 import mapEN from './locales/en/map.json';
-import blogPostDE from './locales/de/blogPost.json';
-import blogPostEN from './locales/en/blogPost.json';
+import careersEN from './locales/en/careers.json';
+import faqEN from './locales/en/faq.json';
+import privacyEN from './locales/en/privacy.json';
 
+const resources = {
+  de: {
+    home: homeDE,
+    navbar: navbarDE,
+    dashboard: dashboardDE,
+    addListing: addListingDE,
+    auth: authDE,
+    favorites: favoritesDE,
+    search: searchDE,
+    settings: settingsDE,
+    admin: adminDE,
+    footer: footerDE,
+    contact: contactDE,
+    app: appDE,
+    breadcrumbs: breadcrumbsDE,
+    comments: commentsDE,
+    compare: compareDE,
+    filter: filterDE,
+    listing: listingDE,
+    map: mapDE,
+    careers: careersDE,
+    faq: faqDE,
+    privacy: privacyDE
+  },
+  en: {
+    home: homeEN,
+    navbar: navbarEN,
+    dashboard: dashboardEN,
+    addListing: addListingEN,
+    auth: authEN,
+    favorites: favoritesEN,
+    search: searchEN,
+    settings: settingsEN,
+    admin: adminEN,
+    footer: footerEN,
+    contact: contactEN,
+    app: appEN,
+    breadcrumbs: breadcrumbsEN,
+    comments: commentsEN,
+    compare: compareEN,
+    filter: filterEN,
+    listing: listingEN,
+    map: mapEN,
+    careers: careersEN,
+    faq: faqEN,
+    privacy: privacyEN
+  }
+};
 
-
-const requireLocale = require.context('./locales', true, /\.json$/);
-
-const languages = [
-  'de', 'en', 
-];
-
-const namespaces = [
-  'home', 'navbar', 'dashboard', 'addListing', 'auth', 'favorites',
-  'search', 'settings', 'admin', 'footer', 'contact', 'app',
-  'breadcrumbs', 'comments', 'compare', 'filter', 'listing', 'map',
-  'careers', 'faq', 'privacy', 'help' , 'blogPost'
-];
-
-const resources = {};
-
-languages.forEach((lang) => {
-  resources[lang] = {};
-  namespaces.forEach((ns) => {
-    const path = `./${lang}/${ns}.json`;
-    if (requireLocale.keys().includes(path)) {
-      resources[lang][ns] = requireLocale(path);
-    } else {
-      resources[lang][ns] = {};
-      console.warn(`Missing translation for ${lang}/${ns}`);
+i18n
+  .use(initReactI18next)
+  .init({
+    resources,
+    lng: localStorage.getItem('i18nextLng') || 'de',
+    fallbackLng: 'en',
+    ns: [
+      'home', 'navbar', 'dashboard', 'addListing', 'auth', 'favorites',
+      'search', 'settings', 'admin', 'footer', 'contact', 'app',
+      'breadcrumbs', 'comments', 'compare', 'filter', 'listing', 'map',
+      'careers', 'faq', 'privacy'
+    ],
+    defaultNS: 'home',
+    interpolation: {
+      escapeValue: false
     }
   });
-});
-
-i18n.use(initReactI18next).init({
-  resources,
-  lng: localStorage.getItem('i18nextLng') || 'de',
-  fallbackLng: 'en',
-  ns: namespaces,
-  defaultNS: 'home',
-  interpolation: {
-    escapeValue: false,
-  },
-});
 
 export default i18n;

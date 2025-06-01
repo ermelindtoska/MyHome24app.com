@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import logo from '../assets/logo.png';
 
-
-
 const Navbar = () => {
   const { t } = useTranslation('navbar');
   const [openMenu, setOpenMenu] = useState(null);
@@ -19,117 +17,118 @@ const Navbar = () => {
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setOpenMenu(null);
-    }, 2000); // delay prej 900ms
+    }, 300);
   };
+
+  const leftMenus = [
+    {
+      title: t('buy'),
+      items: [
+        { label: 'Neubau', to: '/buy/new' },
+        { label: 'Zwangsversteigerungen', to: '/buy/foreclosures' },
+        { label: 'Direkt vom Eigentümer', to: '/buy/owner' }
+      ]
+    },
+    {
+      title: t('rent'),
+      items: [
+        { label: 'Wohnung', to: '/rent/apartment' },
+        { label: 'Haus', to: '/rent/house' },
+        { label: 'Büro / Gewerbe', to: '/rent/office' }
+      ]
+    },
+    {
+      title: t('mortgage'),
+      items: [
+        { label: 'Rechner', to: '/mortgage/calculator' },
+        { label: 'Bankpartner', to: '/mortgage/partners' }
+      ]
+    },
+    {
+      title: t('findAgent'),
+      items: [
+        { label: 'Maklersuche', to: '/agent/search' },
+        { label: 'Makler bewerten', to: '/agent/rate' }
+      ]
+    }
+  ];
+
+  const rightMenus = [
+    {
+      title: t('manage'),
+      items: [
+        { label: 'Meine Immobilien', to: '/manage/properties' },
+        { label: 'Neue Anzeige', to: '/manage/add' }
+      ]
+    },
+    {
+      title: t('advertise'),
+      items: [
+        { label: 'Bannerwerbung', to: '/advertise/banner' },
+        { label: 'Premium-Listing', to: '/advertise/premium' }
+      ]
+    },
+    {
+      title: t('login'),
+      items: [
+        { label: 'Login', to: '/login' },
+        { label: 'Registrieren', to: '/register' }
+      ]
+    },
+    {
+      title: t('help'),
+      items: [
+        { label: t('faq'), to: '/help/faq' },
+        { label: t('support'), to: '/help/support' },
+        { label: t('howItWorks'), to: '/help/how-it-works' }
+      ]
+    }
+  ];
+
+  const renderDropdown = (menu, index, align = 'left') => (
+    <div
+      key={index}
+      className="relative"
+      onMouseEnter={() => handleMouseEnter(index)}
+      onMouseLeave={handleMouseLeave}
+    >
+      <span className="cursor-pointer hover:text-blue-700 transition-colors duration-200">{menu.title}</span>
+      {openMenu === index && (
+        <div
+          className={`absolute ${align}-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-lg z-50 transition-opacity duration-300`}
+        >
+          {menu.items.map((item, idx) => (
+            <Link
+              key={idx}
+              to={item.to}
+              className="block px-4 py-2 text-gray-800 hover:text-blue-600 hover:bg-gray-100 transition-colors duration-200"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+
   return (
-    <header className="sticky top-0 z-50 backdrop-blur bg-white/80 shadow-sm">
+    <header className="sticky top-0 z-50 backdrop-blur bg-white/80 shadow-md">
       <nav className="flex justify-between items-center px-6 py-4 w-full">
-        
-        {/* Majtas: Menutë kryesore */}
-       
         <div className="flex gap-12 text-sm font-medium text-gray-900">
-  {/* Kaufen */}
-  <div className="relative group">
-    <span className="cursor-pointer">{t('buy')}</span>
-    <div className="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 z-50">
-      <Link to="/buy/new" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Neubau</Link>
-      <Link to="/buy/foreclosures" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Zwangsversteigerungen</Link>
-      <Link to="/buy/owner" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Direkt vom Eigentümer</Link>
-    </div>
-  </div>
+          {leftMenus.map((menu, index) => renderDropdown(menu, index, 'left'))}
+        </div>
 
-  {/* Mieten */}
-  <div className="relative group">
-    <span className="cursor-pointer">{t('rent')}</span>
-    <div className="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 z-50">
-      <Link to="/rent/apartment" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Wohnung</Link>
-      <Link to="/rent/house" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Haus</Link>
-      <Link to="/rent/office" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Büro / Gewerbe</Link>
-    </div>
-  </div>
-
-  {/* Hypothek */}
-  <div className="relative group">
-    <span className="cursor-pointer">{t('mortgage')}</span>
-    <div className="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 z-50">
-      <Link to="/mortgage/calculator" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Rechner</Link>
-      <Link to="/mortgage/partners" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Bankpartner</Link>
-    </div>
-  </div>
-
-  {/* Makler finden */}
-  <div className="relative group">
-    <span className="cursor-pointer">{t('findAgent')}</span>
-    <div className="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 z-50">
-      <Link to="/agent/search" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Maklersuche</Link>
-      <Link to="/agent/rate" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Makler bewerten</Link>
-    </div>
-  </div>
-</div>
-
-        {/* Qendra: Logo + Emri */}
         <div className="flex items-center gap-2">
-          <Link to="/" className="flex items-center gap-9">
+          <Link to="/" className="flex items-center gap-4">
             <img src={logo} alt="Logo" className="h-14 w-auto" />
             <span className="text-2xl font-bold text-blue-800">MyHome24App</span>
           </Link>
         </div>
 
-       <div className="flex items-center gap-12 text-sm font-medium text-gray-900">
-  {/* Verwaltung */}
-  <div className="relative group">
-    <span className="cursor-pointer">{t('manage')}</span>
-    <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 z-50">
-      <Link to="/manage/properties" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Meine Immobilien</Link>
-      <Link to="/manage/add" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Neue Anzeige</Link>
-    </div>
-  </div>
-
-  {/* Werben */}
-  <div className="relative group">
-    <span className="cursor-pointer">{t('advertise')}</span>
-    <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 z-50">
-      <Link to="/advertise/banner" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Bannerwerbung</Link>
-      <Link to="/advertise/premium" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Premium-Listing</Link>
-    </div>
-  </div>
-
-  {/* Anmelden */}
-  <div className="relative group">
-    <span className="cursor-pointer">{t('login')}</span>
-    <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 z-50">
-      <Link to="/login" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Login</Link>
-      <Link to="/register" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">Registrieren</Link>
-    </div>
-  </div>
-
-  {/* Hilfe */}
-<li className="relative group">
-  <span className="cursor-pointer">{t('help')}</span>
-  <ul className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-md invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50">
-    <li>
-      <Link to="/help/faq" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">
-        {t('faq')}
-      </Link>
-    </li>
-    <li>
-      <Link to="/help/support" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">
-        {t('support')}
-      </Link>
-    </li>
-    <li>
-      <Link to="/help/how-it-works" className="block px-4 py-2 text-blue-600 hover:underline hover:bg-gray-100">
-        {t('howItWorks')}
-      </Link>
-    </li>
-  </ul>
-</li>
-
-  {/* Language Switcher */}
-  <LanguageSwitcher />
-</div>
-        
-        
+        <div className="flex items-center gap-12 text-sm font-medium text-gray-900">
+          {rightMenus.map((menu, index) => renderDropdown(menu, index + 100, 'right'))}
+          <LanguageSwitcher />
+        </div>
       </nav>
     </header>
   );

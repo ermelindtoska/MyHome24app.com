@@ -17,8 +17,10 @@ import OwnerDashboard from './pages/OwnerDashboard';
 import AboutPage from './pages/AboutPage';
 import EditListingForm from './components/EditListingForm';
 import { useTranslation } from 'react-i18next';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
+import ApartmentPage from './pages/ApartmentPage';
+import OfficePage from './pages/OfficePage';
+
+
 import Footer from './components/Footer'; // ✅ Footer importuar
 import CareerPage from './pages/CareerPage';
 import ContactPage from './pages/ContactPage';
@@ -27,23 +29,27 @@ import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import NewConstructionPage from './pages/NewConstructionPage';
 import ForeclosurePage from './pages/ForeclosurePage';
-import DirectOwnerPage from './pages/DirectOwnerPage';
-import RentApartmentPage from './pages/RentApartmentPage';
-import RentHousePage from './pages/RentHousePage';
-import RentOfficePage from './pages/RentOfficePage';
+import HousePage from './pages/HousePage';
+
 import MortgageCalculatorPage from './pages/MortgageCalculatorPage';
-import MortgagePartnersPage from './pages/MortgagePartnersPage';
+
+
+import BankPartnersPage from './pages/BankPartnersPage';
+
+
 import AgentSearchPage from './pages/AgentSearchPage';
-import AgentRatePage from './pages/AgentRatePage';
+import RateAgentPage from './pages/RateAgentPage';
+
 import MyPropertiesPage from './pages/MyPropertiesPage';
 import NewListingPage from './pages/NewListingPage';
 import BannerAdvertisingPage from './pages/BannerAdvertisingPage';
 import PremiumListingPage from './pages/PremiumListingPage';
-import BlogPage from './pages/BlogPage';
-import BlogDetail from './pages/BlogDetail';
 import HelpFaqPage from './pages/HelpFaqPage';
 import HelpSupportPage from './pages/HelpSupportPage';
 import HelpHowItWorksPage from './pages/HelpHowItWorksPage';
+import OwnerPage from './pages/OwnerPage';
+
+
 
 
 
@@ -70,8 +76,14 @@ function App() {
         <Route path="/register-success" element={<RegisterSuccess />} />
         <Route path="/auth" element={<LoginRegister />} />
         <Route path="/about" element={<AboutPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/rent/apartment" element={<ApartmentPage />} />
+        <Route path="/rent/house" element={<HousePage />} />
+        <Route path="/mortgage/calculator" element={<MortgageCalculatorPage />} />
+        
+        <Route path="/mortgage/partners" element={<BankPartnersPage />} />
+
+        <Route path="/rent/office" element={<OfficePage />} />
+
         <Route path="/career" element={<CareerPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/faq" element={<FAQPage />} />
@@ -79,23 +91,21 @@ function App() {
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/buy/new" element={<NewConstructionPage />} />
         <Route path="/buy/foreclosures" element={<ForeclosurePage />} />
-        <Route path="/buy/owner" element={<DirectOwnerPage />} />
-        <Route path="/rent/apartment" element={<RentApartmentPage />} />
-        <Route path="/rent/house" element={<RentHousePage />} />
-        <Route path="/rent/office" element={<RentOfficePage />} />
-        <Route path="/mortgage/calculator" element={<MortgageCalculatorPage />} />
-        <Route path="/mortgage/partners" element={<MortgagePartnersPage />} />
+        
+
+       
         <Route path="/agent/search" element={<AgentSearchPage />} />
-        <Route path="/agent/rate" element={<AgentRatePage />} />
+        <Route path="/agent/rate" element={<RateAgentPage />} />
+
         <Route path="/manage/properties" element={<MyPropertiesPage />} />
         <Route path="/manage/add" element={<NewListingPage />} />
         <Route path="/advertise/banner" element={<BannerAdvertisingPage />} />
         <Route path="/advertise/premium" element={<PremiumListingPage />} />
-        <Route path="/blog" element={<BlogPage />} />
-        <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/help/faq" element={<HelpFaqPage />} />
         <Route path="/help/support" element={<HelpSupportPage />} />
         <Route path="/help/how-it-works" element={<HelpHowItWorksPage />} />
+        <Route path="/buy/owner" element={<OwnerPage />} />
+        
 
 
 
