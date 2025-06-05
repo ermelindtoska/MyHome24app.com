@@ -1,0 +1,14 @@
+{
+  "title": "Meine Immobilien verwalten",
+  "imageAlt": "Meine Immobilien verwalten",
+  "description": "Verwalten Sie Ihre Immobilien einfach und effizient – ob Vermietung, Verkauf oder Verwaltung von Objektdetails. Unser System hilft Ihnen, stets den Überblick zu behalten und Ihre Angebote professionell zu präsentieren.",
+  "features": [
+    { "title": "Übersicht", "text": "Alle aktiven und archivierten Immobilien auf einen Blick" },
+    { "title": "Bearbeitung", "text": "Ändern Sie Preise, Beschreibungen, Bilder mit wenigen Klicks" },
+    { "title": "Statistik", "text": "Sehen Sie, wie oft Ihre Anzeige angesehen wurde" },
+    { "title": "Benachrichtigungen", "text": "Bleiben Sie über Anfragen und Änderungen informiert" }
+  ],
+  "tipTitle": "Tipp:",
+  "tipText": "Nutzen Sie die Favoriten-Funktion, um Immobilien zu markieren, die Sie später bearbeiten oder erneut aktivieren möchten.",
+  "button": "Jetzt Immobilien verwalten"
+}

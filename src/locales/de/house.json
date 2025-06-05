@@ -1,0 +1,14 @@
+{
+  "imgAlt": "Haus zur Miete",
+  "title": "Familienfreundliche Häuser zur Miete",
+  "description": "Finden Sie Ihr neues Zuhause in einem geräumigen Haus – perfekt für Familien oder alle, die mehr Platz und Privatsphäre wünschen. Unsere Mietangebote bieten komfortables Wohnen in attraktiven Wohngegenden.",
+  "features": [
+    { "title": "Geräumigkeit", "text": "Mehrere Zimmer, Garten und Stellplatz" },
+    { "title": "Privatsphäre", "text": "Eigener Eingang, keine direkten Nachbarn" },
+    { "title": "Familienfreundlich", "text": "In der Nähe von Schulen, Spielplätzen und Parks" },
+    { "title": "Flexibilität", "text": "Oft mit Keller, Dachboden oder zusätzlichem Büro" }
+  ],
+  "tipTitle": "Tipp",
+  "tipText": "Vergleichen Sie verschiedene Stadtteile und nutzen Sie unsere Filteroptionen für Haustierhaltung, Garten, Garagen und mehr.",
+  "button": "Jetzt Häuser entdecken"
+}

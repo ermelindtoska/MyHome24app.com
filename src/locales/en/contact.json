@@ -1,5 +1,5 @@
   {
-  "contact":{
+  
     "title": "Contact Owner",
     "object": "Property",
     "description": "This could be contact information or a form.",
@@ -9,5 +9,5 @@
   "emailLabel": "Your Email Address",
   "messageLabel": "Your Message",
   "sendButton": "Send"
-    }
+    
   }

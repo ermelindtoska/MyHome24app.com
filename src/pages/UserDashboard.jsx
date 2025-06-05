@@ -1,4 +1,3 @@
-// src/pages/UserDashboard.jsx
 import React, { useEffect, useState } from 'react';
 import { collection, query, where, getDocs, deleteDoc, doc, updateDoc, Timestamp } from 'firebase/firestore';
 import { auth, db } from '../firebase-config';
@@ -14,7 +13,8 @@ import ContactOwnerModal from '../components/ContactOwnerModal';
 import ListingMapModal from '../components/ListingMapModal';
 
 const UserDashboard = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('userDashboard');
+
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterCity, setFilterCity] = useState('');
@@ -42,7 +42,7 @@ const UserDashboard = () => {
         });
         setListings(data);
       } catch (error) {
-        console.error('Fehler beim Abrufen der Einträge:', error);
+        console.error('Error fetching listings:', error);
       } finally {
         setLoading(false);
       }
@@ -55,7 +55,7 @@ const UserDashboard = () => {
       await deleteDoc(doc(db, 'listings', id));
       setListings((prev) => prev.filter((item) => item.id !== id));
     } catch (err) {
-      console.error('Fehler beim Löschen:', err);
+      console.error('Error deleting:', err);
     }
     setShowConfirmId(null);
   };
@@ -70,7 +70,7 @@ const UserDashboard = () => {
       setEditingId(null);
       setNewTitle('');
     } catch (err) {
-      console.error('Fehler beim Aktualisieren:', err);
+      console.error('Error updating:', err);
     }
   };
 
@@ -94,6 +94,8 @@ const UserDashboard = () => {
   });
 
   if (loading) return <p className="text-center p-4">{t('loading')}</p>;
+  
+
 
   return (
     <div className="max-w-7xl mx-auto mt-10 px-4">

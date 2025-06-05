@@ -1,0 +1,14 @@
+{
+  "imgAlt": "House for Rent",
+  "title": "Family-Friendly Houses for Rent",
+  "description": "Find your new home in a spacious house – perfect for families or anyone who wants more space and privacy. Our rental offers provide comfortable living in attractive residential areas.",
+  "features": [
+    { "title": "Spaciousness", "text": "Multiple rooms, garden, and parking space" },
+    { "title": "Privacy", "text": "Private entrance, no direct neighbors" },
+    { "title": "Family-Friendly", "text": "Near schools, playgrounds, and parks" },
+    { "title": "Flexibility", "text": "Often with basement, attic, or extra office" }
+  ],
+  "tipTitle": "Tip",
+  "tipText": "Compare different districts and use our filter options for pet-friendliness, gardens, garages, and more.",
+  "button": "Discover Houses Now"
+}

@@ -1,8 +1,19 @@
 {
-  "title": "Support",
-  "description": "We’re here to help.",
-  "contactUs": "Contact Us",
-  "faq": "Frequently Asked Questions",
-  "emailSupport": "Email Support",
-  "liveChat": "Start Live Chat"
+"title": "Support",
+"text": "If you have any questions or need help, please contact us using the form below.",
+"form": {
+"name": "Your name",
+"email": "Your email address",
+"message": "Your message",
+"submit": "Send message",
+"selectPlaceholder": "Select a topic",
+"category": {
+"general": "General inquiry",
+"technical": "Technical issue",
+"billing": "Billing issue",
+"login": "Login issue"
+}
+},
+"success": "Message sent successfully.",
+"error": "Message could not be sent. Please try again."
 }

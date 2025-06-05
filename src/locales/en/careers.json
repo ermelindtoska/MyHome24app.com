@@ -1,5 +1,16 @@
 {
-  "careersTitle": "Careers at MyHome24App",
-  "careersDesc": "We are always looking for talented individuals. Explore our job openings.",
-  "careersButton": "Apply now"
+  "title": "Careers",
+  "description": "Find out how you can work with MyHome24.",
+  "positions": [
+    {
+      "title": "Frontend Developer",
+      "location": "Berlin, Germany",
+      "description": "Help us build great user interfaces with React."
+    },
+    {
+      "title": "Marketing Specialist",
+      "location": "Remote",
+      "description": "Reach new audiences and shape campaigns with us."
+    }
+  ]
 }

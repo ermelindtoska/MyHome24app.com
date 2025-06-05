@@ -1,0 +1,9 @@
+{
+  "title": "Agentenbewertung",
+  "description": "Teilen Sie Ihre Erfahrungen mit Immobilienmakler*innen.",
+  "rateTitle": "Wie war Ihre Erfahrung?",
+  "placeholder": "Schreiben Sie einen kurzen Kommentar...",
+  "submit": "Bewertung abschicken",
+  "successMessage": "Vielen Dank für Ihre Bewertung!",
+  "errorMessage": "Fehler beim Speichern. Bitte versuchen Sie es erneut."
+}

@@ -1,4 +1,5 @@
 {
+  "createTitle": "Neues Inserat erstellen",
   "title": "Anzeige erstellen",
   "editTitle": "Anzeige bearbeiten",
   "stepDetails": "Details",
@@ -8,5 +9,10 @@
   "back": "Zurück",
   "submit": "Veröffentlichen",
   "success": "Deine Anzeige wurde erfolgreich erstellt!",
-  "error": "Ein Fehler ist aufgetreten. Bitte versuche es erneut."
+  "error": "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
+  "city": "Stadt",
+  "type": "Typ",
+  "purpose": "Zweck",
+  "price": "Preis",
+  "imageUrl": "Bild-URL"
 }

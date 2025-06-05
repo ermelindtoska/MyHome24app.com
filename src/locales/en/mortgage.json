@@ -1,0 +1,14 @@
+{
+  "imgAlt": "Mortgage Calculator",
+  "title": "Mortgage Calculator",
+  "description": "Quickly and easily calculate your monthly loan installment. Our mortgage calculator helps you better plan your financing – whether you're buying, building, or renovating.",
+  "features": [
+    { "title": "Flexible", "text": "Enter purchase price, down payment, interest rate, and term" },
+    { "title": "Transparency", "text": "Immediate display of monthly cost" },
+    { "title": "Comparison", "text": "Easily simulate various scenarios" },
+    { "title": "Planning", "text": "Realistic assessment of your financial options" }
+  ],
+  "tipTitle": "Tip",
+  "tipText": "Use our calculator to compare different terms and interest rates. This helps you get a better sense of your ideal financing.",
+  "button": "Calculate now"
+}

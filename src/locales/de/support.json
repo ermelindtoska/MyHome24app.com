@@ -1,8 +1,20 @@
 {
   "title": "Support",
-  "description": "Wir helfen dir gerne weiter.",
-  "contactUs": "Kontaktiere uns",
-  "faq": "Häufig gestellte Fragen",
-  "emailSupport": "E-Mail Support",
-  "liveChat": "Live-Chat starten"
+  "text": "Wenn Sie Fragen haben oder Hilfe benötigen, kontaktieren Sie uns bitte über das folgende Formular.",
+  "form": {
+    "name": "Ihr Name",
+    "email": "Ihre E-Mail-Adresse",
+    "message": "Ihre Nachricht",
+    "submit": "Nachricht senden",
+    "selectPlaceholder": "Wählen Sie ein Thema",
+  
+    "category": {
+      "general": "Allgemeine Anfrage",
+      "technical": "Technisches Problem",
+      "billing": "Rechnungsfrage",
+      "login": "Anmeldeproblem"
+    }
+  },
+  "success": "Nachricht erfolgreich gesendet.",
+  "error": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut."
 }

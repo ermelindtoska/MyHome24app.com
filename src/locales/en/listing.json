@@ -7,6 +7,7 @@
   "price": "Price",
   "location": "Location",
   "uploadImages": "Upload Images",
+  "createTitle": "All Listings",
   "submit": "Create Listing",
   "update": "Update Listing"
 }

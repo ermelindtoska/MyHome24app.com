@@ -1,0 +1,14 @@
+{
+  "title": "Bannerwerbung",
+  "imageAlt": "Bannerwerbung",
+  "description": "Mit unserer Bannerwerbung erreichen Sie gezielt potenzielle Kund*innen direkt auf unserer Plattform. Ideal für Makler*innen, Bauträger oder Dienstleister im Immobilienbereich.",
+  "features": [
+    { "title": "Platzierung", "text": "Auffällige Positionen auf der Startseite und in Suchergebnissen" },
+    { "title": "Zielgruppe", "text": "Nutzer*innen mit konkretem Immobilieninteresse" },
+    { "title": "Formate", "text": "Standard-Bannergrößen oder individuelle Designs" },
+    { "title": "Tracking", "text": "Statistiken zu Klicks und Sichtbarkeit" }
+  ],
+  "tipTitle": "Tipp:",
+  "tipText": "Kombinieren Sie Bannerwerbung mit einem Premium-Listing für maximale Sichtbarkeit!",
+  "button": "Jetzt Banner buchen"
+}

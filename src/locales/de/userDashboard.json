@@ -1,0 +1,20 @@
+{
+  "title": "Meine Immobilien",
+  "addNew": "Neue Anzeige",
+  "noListings": "Keine Anzeigen gefunden.",
+  "new": "Neu",
+  "details": "Details",
+  "delete": "Löschen",
+  "edit": "Bearbeiten",
+  "favorite": "Favorisieren",
+  "unfavorite": "Favorit entfernen",
+  "contactOwner": "Anbieter kontaktieren",
+  "viewMap": "Karte anzeigen",
+  "loading": "Wird geladen...",
+  "fields": {
+    "apartment": "Wohnung",
+    "house": "Haus",
+    "rent": "Mieten",
+    "buy": "Kaufen"
+  }
+}

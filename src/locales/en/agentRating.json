@@ -1,0 +1,9 @@
+{
+  "title": "Rate an Agent",
+  "description": "Share your experience with real estate agents.",
+  "rateTitle": "How was your experience?",
+  "placeholder": "Write a short review...",
+  "submit": "Submit Rating",
+  "successMessage": "Thank you for your feedback!",
+  "errorMessage": "Failed to save. Please try again."
+}

@@ -1,6 +1,6 @@
     {
     "listing":{
-  "createTitle": "Neue Anzeige erstellen",
+  "createTitle": "Alle Inserate",
   "success": "Anzeige erfolgreich gespeichert!",
   "error": "Beim Speichern ist ein Fehler aufgetreten.",
   "loginRequired": "Bitte melden Sie sich zuerst an.",

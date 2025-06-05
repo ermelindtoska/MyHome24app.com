@@ -1,0 +1,20 @@
+{
+  "title": "My Listings",
+  "addNew": "Add New",
+  "noListings": "No listings found.",
+  "new": "New",
+  "details": "Details",
+  "delete": "Delete",
+  "edit": "Edit",
+  "favorite": "Favorite",
+  "unfavorite": "Unfavorite",
+  "contactOwner": "Contact Owner",
+  "viewMap": "View Map",
+  "loading": "Loading...",
+  "fields": {
+    "apartment": "Apartment",
+    "house": "House",
+    "rent": "Rent",
+    "buy": "Buy"
+  }
+}

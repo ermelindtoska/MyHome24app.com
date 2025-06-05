@@ -1,21 +1,15 @@
-  {
-  "dashboard":{
-    "title": "Your Listings Overview",
-    "noListings": "No listings found for your account.",
-    "loading": "Loading your listings...",
-    "addNew": "Add New",
-    "delete": "Delete",
-    "edit": "Edit",
-    "details": "Details",
-    "favorite": "Add to Favorites",
-    "unfavorite": "Remove from Favorites",
-    "new": "New",
-    "contactOwner": "Contact Owner",
-      "myListings": "My Listings",
-  "addNew": "Add New Listing",
-  "edit": "Edit",
-  "delete": "Delete",
-  "noListings": "You haven't posted any listings yet.",
-  "logout": "Log out"
-    }
+{
+  "dashboardTitle": "Your Dashboard",
+  "success": "Successfully added!",
+  "validation": "Please fill in all fields.",
+  "form": {
+    "title": "Title",
+    "city": "City",
+    "price": "Price",
+    "apartment": "Apartment",
+    "house": "House",
+    "rent": "Rent",
+    "buy": "Buy",
+    "submit": "Create Listing"
   }
+}

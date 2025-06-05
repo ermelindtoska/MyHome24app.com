@@ -6,11 +6,16 @@ import { db } from '../firebase-config';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import MapComponent from '../components/MapComponent';
+import ContactOwnerModal from '../components/ContactOwnerModal';
+import { useTranslation } from 'react-i18next';
 
 const ListingDetails = () => {
   const { id } = useParams();
+  const { t } = useTranslation('listingDetails');
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -24,8 +29,8 @@ const ListingDetails = () => {
     fetchListing();
   }, [id]);
 
-  if (loading) return <div className="text-center py-20">Lädt...</div>;
-  if (!listing) return <div className="text-center py-20">Nicht gefunden.</div>;
+  if (loading) return <div className="text-center py-20">{t('loading')}</div>;
+  if (!listing) return <div className="text-center py-20">{t('notFound')}</div>;
 
   const sliderSettings = {
     dots: true,
@@ -36,7 +41,7 @@ const ListingDetails = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
+    <div className="max-w-5xl mx-auto px-4 py-10">
       <div className="relative">
         {listing.isPremium && (
           <span className="absolute top-2 left-2 bg-yellow-400 text-white px-3 py-1 rounded-full z-10 shadow">
@@ -57,12 +62,39 @@ const ListingDetails = () => {
 
       <h1 className="text-3xl font-bold mt-6">{listing.title}</h1>
       <p className="text-gray-600 text-sm mb-2">
-        Veröffentlicht am: {listing.createdAt?.toDate().toLocaleDateString('de-DE')}
+        {t('createdAt')}: {listing.createdAt?.toDate().toLocaleDateString('de-DE')}
       </p>
-      <p className="text-xl text-blue-600 font-semibold">{listing.price} €</p>
-      <p className="mt-2 text-gray-700">{listing.city}</p>
-      <p className="mt-4 text-gray-800">Typ: {listing.type}</p>
-      <p className="text-gray-800">Zweck: {listing.purpose}</p>
+      <p className="text-xl text-blue-600 font-semibold">{t('price')}: {listing.price} €</p>
+      <p className="mt-2 text-gray-700">{t('address')}: {listing.city}</p>
+      <p className="text-gray-800">{t('rooms')}: {listing.rooms}</p>
+      <p className="text-gray-800">{t('area')}: {listing.area} m²</p>
+      <p className="mt-4 text-gray-800">{t('description')}: {listing.description}</p>
+
+      {listing.location?.lat && listing.location?.lng && (
+        <div className="my-6">
+          <h2 className="text-xl font-semibold mb-2">{t('location')}</h2>
+          <MapComponent
+            lat={listing.location.lat}
+            lng={listing.location.lng}
+            address={listing.location.address || listing.city}
+          />
+        </div>
+      )}
+
+      <div className="mt-10 text-center">
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition"
+        >
+          {t('contactSeller')}
+        </button>
+      </div>
+
+      <ContactOwnerModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        ownerEmail={listing.ownerEmail}
+      />
     </div>
   );
 };

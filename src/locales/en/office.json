@@ -1,0 +1,14 @@
+{
+  "imgAlt": "Office and Commercial Spaces",
+  "title": "Modern Office and Commercial Spaces",
+  "description": "Discover attractive office and commercial units in various sizes and locations. Ideal for startups, agencies, practices or established companies looking for a new location.",
+  "features": [
+    { "title": "Flexible", "text": "Various sizes – from single offices to open-plan offices" },
+    { "title": "Location Advantage", "text": "City center, business parks, good transport connections" },
+    { "title": "Equipment", "text": "Modern infrastructure, fiber-optic internet, air conditioning" },
+    { "title": "Ready to move in", "text": "Many units are ready for immediate use or flexible adaptation" }
+  ],
+  "tipTitle": "Tip",
+  "tipText": "When choosing, also consider parking, proximity to clients, and potential for future expansion.",
+  "button": "Discover Offices Now"
+}

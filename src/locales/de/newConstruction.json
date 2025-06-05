@@ -1,0 +1,26 @@
+{
+  "title": "Neubau Immobilien in Deutschland",
+  "description": "Neubauten bieten moderne Architektur, Energieeffizienz und eine langfristige Gewährleistung. Ideal für Käufer*innen, die eine sorgenfreie und zukunftssichere Immobilie suchen.",
+  "features": [
+    {
+      "title": "Energieeffizienz",
+      "text": "Moderne Wärmedämmung, Solartechnik und niedrige Nebenkosten."
+    },
+    {
+      "title": "Individuelle Gestaltung",
+      "text": "Flexible Grundrisse und smarte Wohnkonzepte."
+    },
+    {
+      "title": "Rechtssicherheit",
+      "text": "Erstbezug mit Herstellergarantie & Mängelfreiheit."
+    },
+    {
+      "title": "Direkter Kontakt",
+      "text": "Kommunikation direkt mit dem Bauträger – keine Maklergebühren."
+    }
+  ],
+  "tipTitle": "Tipp: KfW-Förderung nutzen",
+  "tipText": "Viele Neubauten sind förderfähig – profitieren Sie von attraktiven Finanzierungsmöglichkeiten.",
+  "ready": "Bereit für Ihr neues Zuhause?",
+  "button": "Jetzt entdecken"
+}

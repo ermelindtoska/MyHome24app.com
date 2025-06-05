@@ -8,5 +8,13 @@
   "back": "Back",
   "submit": "Publish",
   "success": "Your listing was successfully created!",
-  "error": "Something went wrong. Please try again."
+  "error": "Something went wrong. Please try again.",
+   "createTitle": "Create New Listing",
+  
+  "city": "City",
+  "type": "Type",
+  "purpose": "Purpose",
+  "price": "Price",
+  "imageUrl": "Image URL"
+  
 }

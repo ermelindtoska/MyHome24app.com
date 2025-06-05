@@ -80,7 +80,8 @@ const HomePage = () => {
     { name: t('apartment'), icon: <FaBuilding />, link: '/category/apartment' },
     { name: t('house'), icon: <FaHome />, link: '/category/house' },
     { name: t('office'), icon: <FaBriefcase />, link: '/category/office' },
-    { name: t('land'), icon: <FaTree />, link: '/category/land' },
+    
+    { name: t('newConstruction'), icon: <FaRocket />, link: '/new-construction' },
   ];
 
   const locations = [
@@ -121,6 +122,8 @@ const HomePage = () => {
     <h1 className="text-4xl md:text-6xl font-extrabold mb-6">Finde dein perfektes Zuhause</h1>
     <p className="text-xl md:text-2xl mb-8">Einfache Suche. Zuverlässige Anbieter. Sichere Transaktionen.</p>
     <div className="max-w-xl mx-auto flex rounded-full overflow-hidden shadow-lg">
+
+      
       <input
         type="text"
         value={search}

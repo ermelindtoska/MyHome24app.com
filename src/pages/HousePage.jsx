@@ -1,15 +1,19 @@
+// src/pages/HousePage.jsx
 import React from 'react';
 import houseImg from '../assets/house-living.png';
 import logo from '../assets/logo.png';
+import { useTranslation } from 'react-i18next';
 
 const HousePage = () => {
+  const { t } = useTranslation('house');
+
   return (
     <div className="max-w-6xl mx-auto py-12 px-4">
       <div className="relative mb-8">
         <img
           src={houseImg}
-          alt="Haus zur Miete"
-          className="w-full h-[800px] object-contain rounded-xl shadow-md"
+          alt={t('imgAlt')}
+          className="w-full h-[500px] object-contain rounded-xl shadow-md"
         />
         <img
           src={logo}
@@ -18,29 +22,25 @@ const HousePage = () => {
         />
       </div>
 
-      <h1 className="text-3xl font-bold text-green-700 mb-6">Familienfreundliche Häuser zur Miete</h1>
+      <h1 className="text-3xl font-bold text-green-700 mb-6">{t('title')}</h1>
 
-      <p className="text-gray-800 mb-4 leading-relaxed">
-        Finden Sie Ihr neues Zuhause in einem geräumigen Haus – perfekt für Familien oder alle, die mehr Platz und Privatsphäre wünschen. Unsere Mietangebote bieten komfortables Wohnen in attraktiven Wohngegenden.
-      </p>
+      <p className="text-gray-800 mb-4 leading-relaxed">{t('description')}</p>
 
       <ul className="list-disc list-inside text-gray-800 space-y-2">
-        <li><strong>Geräumigkeit:</strong> Mehrere Zimmer, Garten und Stellplatz</li>
-        <li><strong>Privatsphäre:</strong> Eigener Eingang, keine direkten Nachbarn</li>
-        <li><strong>Familienfreundlich:</strong> In der Nähe von Schulen, Spielplätzen und Parks</li>
-        <li><strong>Flexibilität:</strong> Oft mit Keller, Dachboden oder zusätzlichem Büro</li>
+        <li><strong>{t('features.0.title')}:</strong> {t('features.0.text')}</li>
+        <li><strong>{t('features.1.title')}:</strong> {t('features.1.text')}</li>
+        <li><strong>{t('features.2.title')}:</strong> {t('features.2.text')}</li>
+        <li><strong>{t('features.3.title')}:</strong> {t('features.3.text')}</li>
       </ul>
 
       <div className="mt-8 bg-green-50 border border-green-200 p-6 rounded-md shadow-sm">
-        <h2 className="text-green-800 font-semibold mb-2">Tipp:</h2>
-        <p className="text-gray-700">
-          Vergleichen Sie verschiedene Stadtteile und nutzen Sie unsere Filteroptionen für Haustierhaltung, Garten, Garagen und mehr.
-        </p>
+        <h2 className="text-green-800 font-semibold mb-2">{t('tipTitle')}</h2>
+        <p className="text-gray-700">{t('tipText')}</p>
       </div>
 
       <div className="mt-10 text-center">
         <button className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition">
-          Jetzt Häuser entdecken
+          {t('button')}
         </button>
       </div>
     </div>

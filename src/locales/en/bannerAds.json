@@ -1,0 +1,14 @@
+{
+  "title": "Banner Advertising",
+  "imageAlt": "Banner Advertising",
+  "description": "With our banner advertising, you can effectively reach potential customers directly on our platform. Ideal for real estate agents, developers, or service providers in the property sector.",
+  "features": [
+    { "title": "Placement", "text": "Prominent positions on the homepage and search results" },
+    { "title": "Target Group", "text": "Users with concrete real estate interest" },
+    { "title": "Formats", "text": "Standard banner sizes or custom designs" },
+    { "title": "Tracking", "text": "Statistics on clicks and visibility" }
+  ],
+  "tipTitle": "Tip:",
+  "tipText": "Combine banner ads with a premium listing for maximum visibility!",
+  "button": "Book Banner Now"
+}
