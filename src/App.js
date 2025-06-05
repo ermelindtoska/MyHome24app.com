@@ -30,6 +30,7 @@ import CareersPage from './pages/CareersPage';
 
 import ContactPage from './pages/ContactPage';
 import FaqPage from './pages/FaqPage';
+
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 
@@ -67,6 +68,8 @@ import UserDashboard from './pages/UserDashboard';
 import ListingsPage from './pages/ListingsPage';
 import ListingDetails from './pages/ListingDetails';
 import FilterControls from './components/FilterControls';
+import BuyPage from './pages/BuyPage';
+
 
 
 
@@ -143,6 +146,8 @@ function App() {
         <Route path="/how-it-works" element={<HowItWorksPage />} />
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/listings" element={<ListingsPage />} />
+        <Route path="/buy" element={<BuyPage />} />
+
 
 
 
