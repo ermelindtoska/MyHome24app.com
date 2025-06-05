@@ -29,7 +29,7 @@ import Footer from './components/Footer'; // ✅ Footer importuar
 import CareersPage from './pages/CareersPage';
 
 import ContactPage from './pages/ContactPage';
-import FaqPage from './pages/FaqPage';
+
 
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
@@ -56,6 +56,7 @@ import BannerAdsPage from './pages/BannerAdsPage';
 import NewConstructionPage from './pages/NewConstructionPage';
 
 import PremiumListingPage from './pages/PremiumListingPage';
+import FaqPage from './pages/FaqPage';
 
 
 import ListingCreatePage from './pages/ListingCreatePage';
@@ -70,6 +71,9 @@ import ListingDetails from './pages/ListingDetails';
 import FilterControls from './components/FilterControls';
 import BuyPage from './pages/BuyPage';
 import RentPage from './pages/RentPage';
+import MortgagePage from './pages/MortgagePage';
+import FindAgentPage from './pages/FindAgentPage';
+
 
 
 
@@ -149,6 +153,9 @@ function App() {
         <Route path="/listings" element={<ListingsPage />} />
         <Route path="/buy" element={<BuyPage />} />
         <Route path="/rent" element={<RentPage />} />
+        <Route path="/mortgage" element={<MortgagePage />} />
+        <Route path="/agents" element={<FindAgentPage />} />
+
 
 
 

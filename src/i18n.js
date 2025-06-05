@@ -29,7 +29,7 @@ import agentRatingDE from './locales/de/agentRating.json';
 import apartmentDE from './locales/de/apartment.json';
 import houseDE from './locales/de/house.json';
 import officeDE from './locales/de/office.json';
-import mortgageDE from './locales/de/mortgage.json';
+
 import newConstructionDE from './locales/de/newConstruction.json';
 import foreclosureDE from './locales/de/foreclosure.json';
 import ownerDE from './locales/de/owner.json';
@@ -47,6 +47,8 @@ import filterBarDE from './locales/de/filterBar.json';
 import buyDE from './locales/de/buy.json';
 
 import rentDE from './locales/de/rent.json';
+import mortgageDE from './locales/de/mortgage.json';
+import findAgentDE from './locales/de/findAgent.json';
 
 
 
@@ -79,7 +81,7 @@ import agentRatingEN from './locales/en/agentRating.json';
 import apartmentEN from './locales/en/apartment.json';
 import houseEN from './locales/en/house.json';
 import officeEN from './locales/en/office.json';
-import mortgageEN from './locales/en/mortgage.json';
+
 import newConstructionEN from './locales/en/newConstruction.json';
 import foreclosureEN from './locales/en/foreclosure.json';
 import ownerEN from './locales/en/owner.json';
@@ -97,6 +99,8 @@ import filterBarEN from './locales/en/filterBar.json';
 import buyEN from './locales/de/buy.json';
 
 import rentEN from './locales/en/rent.json';
+import mortgageEN from './locales/en/mortgage.json';
+import findAgentEN from './locales/en/findAgent.json';
 
 
 
@@ -132,7 +136,7 @@ const resources = {
     apartment: apartmentDE,
     house: houseDE,
     office: officeDE,
-     mortgage: mortgageDE,
+     
      newConstruction: newConstructionDE,
      foreclosure: foreclosureDE,
      owner: ownerDE,
@@ -149,6 +153,8 @@ const resources = {
      listingForm: listingFormDE,
      buy: buyDE,
      rent: rentDE,
+     mortgage: mortgageDE,
+     findAgent: findAgentDE,
      
     
   },
@@ -180,7 +186,7 @@ const resources = {
     apartment: apartmentEN,
     house: houseEN,
     office: officeEN,
-    mortgage: mortgageEN,
+    
     newConstruction: newConstructionEN,
     foreclosure: foreclosureEN,
     owner: ownerEN,
@@ -197,6 +203,8 @@ const resources = {
     listingForm: listingFormEN,
     buy: buyEN,
     rent: rentEN,
+    mortgage: mortgageEN,
+    findAgent: findAgentEN,
    
   }
 };
@@ -211,9 +219,9 @@ i18n
       'home', 'navbar', 'addListing', 'auth', 'favorites',
       'search', 'settings', 'admin', 'footer', 'contact', 'app',
       'breadcrumbs', 'comments', 'compare', 'filter', 'listing', 'map',
-      'careers', 'faq', 'privacy','agent','agentRating','apartment','house','office','mortgage','newConstruction',
+      'careers', 'faq', 'privacy','agent','agentRating','apartment','house','office','newConstruction',
       'foreclosure','owner','bankPartners','manageRentals','newListing','bannerAds','premiumListing','dashboard','support', 'howItWorks','userDashboard',
-      'listingDetails','filterBar','listingForm','buy','rent'
+      'listingDetails','filterBar','listingForm','buy','rent','mortgage','findAgent'
       
 
     ],
