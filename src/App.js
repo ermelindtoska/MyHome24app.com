@@ -69,6 +69,7 @@ import ListingsPage from './pages/ListingsPage';
 import ListingDetails from './pages/ListingDetails';
 import FilterControls from './components/FilterControls';
 import BuyPage from './pages/BuyPage';
+import RentPage from './pages/RentPage';
 
 
 
@@ -147,6 +148,7 @@ function App() {
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/listings" element={<ListingsPage />} />
         <Route path="/buy" element={<BuyPage />} />
+        <Route path="/rent" element={<RentPage />} />
 
 
 
