@@ -40,6 +40,7 @@ const Navbar = () => {
   const leftMenus = [
     {
       title: t('buy'),
+      to: '/buy',
       items: [
         { label: 'Neubau', to: '/new-construction' },
         { label: 'Zwangsversteigerungen', to: '/buy/foreclosures' },
@@ -48,6 +49,7 @@ const Navbar = () => {
     },
     {
       title: t('rent'),
+      to: '/rent',
       items: [
         { label: 'Wohnung', to: '/rent/apartment' },
         { label: 'Haus', to: '/rent/house' },
@@ -56,6 +58,7 @@ const Navbar = () => {
     },
     {
       title: t('mortgage'),
+      to: '/mortgage',
       items: [
         { label: 'Rechner', to: '/mortgage/calculator' },
         { label: 'Bankpartner', to: '/mortgage/partners' }
@@ -63,6 +66,7 @@ const Navbar = () => {
     },
     {
       title: t('findAgent'),
+      to: '/agents',
       items: [
         { label: 'Maklersuche', to: '/agent/search' },
         { label: 'Makler bewerten', to: '/agent/rate' }
@@ -97,14 +101,14 @@ const Navbar = () => {
             { label: 'Registrieren', to: '/register' }
           ]
     },
-{
-  title: t('help'),
-  items: [
-    { label: t('faq'), to: '/faq' },
-    { label: t('support'), to: '/support' },
-    { label: t('howItWorks'), to: '/how-it-works' }
-  ]
-}
+    {
+      title: t('help'),
+      items: [
+        { label: t('faq'), to: '/faq' },
+        { label: t('support'), to: '/support' },
+        { label: t('howItWorks'), to: '/how-it-works' }
+      ]
+    }
   ];
 
   const renderDropdown = (menu, index, align = 'left') => (
@@ -114,8 +118,20 @@ const Navbar = () => {
       onMouseEnter={() => handleMouseEnter(index)}
       onMouseLeave={handleMouseLeave}
     >
-      <span className="cursor-pointer hover:text-blue-700 transition-colors duration-200">{menu.title}</span>
-      {openMenu === index && (
+      {menu.to ? (
+        <Link
+          to={menu.to}
+          className="cursor-pointer hover:text-blue-700 transition-colors duration-200"
+        >
+          {menu.title}
+        </Link>
+      ) : (
+        <span className="cursor-pointer hover:text-blue-700 transition-colors duration-200">
+          {menu.title}
+        </span>
+      )}
+
+      {menu.items && openMenu === index && (
         <div
           className={`absolute ${align}-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-lg z-50 transition-opacity duration-300`}
         >
