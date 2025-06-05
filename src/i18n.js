@@ -44,6 +44,7 @@ import userDashboardDE from './locales/de/userDashboard.json';
 import listingDE from './locales/de/listing.json';
 import listingDetailsDE from './locales/de/listingDetails.json';
 import filterBarDE from './locales/de/filterBar.json';
+import buyPage_de from './locales/de/buyPage.json';
 
 
 
@@ -91,6 +92,7 @@ import userDashboardEN from './locales/en/userDashboard.json';
 import listingEN from './locales/en/listing.json';
 import listingDetailsEN from './locales/en/listingDetails.json';
 import filterBarEN from './locales/en/filterBar.json';
+import buyPage_en from './locales/en/buyPage.json';
 
 
 
@@ -141,6 +143,7 @@ const resources = {
       listingDetails: listingDetailsDE,
      filterBar: filterBarDE,
      listingForm: listingFormDE,
+     buyPage: buyPage_de,
      
     
   },
@@ -187,6 +190,7 @@ const resources = {
     listingDetails: listingDetailsEN,
     filterBar: filterBarEN,
     listingForm: listingFormEN,
+    buyPage: buyPage_en,
    
   }
 };
@@ -203,7 +207,7 @@ i18n
       'breadcrumbs', 'comments', 'compare', 'filter', 'listing', 'map',
       'careers', 'faq', 'privacy','agent','agentRating','apartment','house','office','mortgage','newConstruction',
       'foreclosure','owner','bankPartners','manageRentals','newListing','bannerAds','premiumListing','dashboard','support', 'howItWorks','userDashboard',
-      'listingDetails','filterBar','listingForm'
+      'listingDetails','filterBar','listingForm','buyPage'
       
 
     ],
