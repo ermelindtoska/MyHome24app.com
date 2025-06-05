@@ -1,5 +1,16 @@
 {
-  "careersTitle": "Karriere bei MyHome24App",
-  "careersDesc": "Wir sind ständig auf der Suche nach talentierten Persönlichkeiten. Entdecken Sie unsere offenen Stellen.",
-  "careersButton": "Jetzt bewerben"
+  "title": "Karriere",
+  "description": "Finde heraus, wie du bei MyHome24 mitarbeiten kannst.",
+  "positions": [
+    {
+      "title": "Frontend Entwickler*in",
+      "location": "Berlin, Deutschland",
+      "description": "Hilf uns beim Aufbau großartiger Nutzeroberflächen mit React."
+    },
+    {
+      "title": "Marketing Spezialist*in",
+      "location": "Remote",
+      "description": "Erreiche mit uns neue Zielgruppen und gestalte Kampagnen mit."
+    }
+  ]
 }

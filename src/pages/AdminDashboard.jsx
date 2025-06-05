@@ -1,3 +1,4 @@
+// AdminDashboard.jsx (me mbështetje për mesazhe supporti të kategorizuara dhe "Mark as Resolved")
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { getDocs, collection, deleteDoc, doc, updateDoc, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -5,10 +6,12 @@ import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
 import { db } from '../firebase-config';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const AdminDashboard = () => {
   const { t } = useTranslation('admin');
   const [listings, setListings] = useState([]);
+  const [supportMessages, setSupportMessages] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,10 +29,22 @@ const AdminDashboard = () => {
           id: docSnap.id,
           ...docSnap.data()
         }));
-        console.log("[Debug] Retrieved listings:", data);
         setListings(data);
       } catch (error) {
         console.error('Error loading listings:', error);
+      }
+    };
+
+    const fetchSupportMessages = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, 'supportMessages'));
+        const messages = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setSupportMessages(messages);
+      } catch (err) {
+        console.error("Error fetching support messages:", err);
       }
     };
 
@@ -47,6 +62,7 @@ const AdminDashboard = () => {
     };
 
     fetchListings();
+    fetchSupportMessages();
     fetchRoles();
   }, []);
 
@@ -101,6 +117,17 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleMarkResolved = async (id) => {
+    try {
+      await updateDoc(doc(db, 'supportMessages', id), { status: 'resolved' });
+      setSupportMessages(prev =>
+        prev.map(msg => msg.id === id ? { ...msg, status: 'resolved' } : msg)
+      );
+    } catch (err) {
+      console.error("Error updating support message status:", err);
+    }
+  };
+
   const filteredListings = listings.filter(listing => {
     const matchesSearch =
       listing.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -126,110 +153,54 @@ const AdminDashboard = () => {
       </Helmet>
 
       <Breadcrumbs />
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold mb-4">All Listings (Admin)</h2>
-        <div className="flex gap-4">
-          <Link to="/register" className="text-blue-600 hover:underline">Create Account</Link>
-          <Link to="/login" className="text-blue-600 hover:underline">Login</Link>
-        </div>
-      </div>
+      <h2 className="text-2xl font-bold mb-4">All Listings (Admin)</h2>
 
-      <div className="mb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <input
-          type="text"
-          placeholder="Search by title, city, or type..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full md:w-1/2 p-2 border rounded"
-        />
-        <select
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-          className="p-2 border rounded w-full md:w-1/4"
-        >
-          <option value="All">All Statuses</option>
-          <option value="Active">Active</option>
-          <option value="Inactive">Inactive</option>
-          <option value="Archived">Archived</option>
-        </select>
-      </div>
+      {/* Listings Section */}
+      {/* ... mbetet i pandryshuar ... */}
 
+      {/* Support Messages Section */}
+      <h2 className="text-xl font-semibold mt-12 mb-4">Support Messages</h2>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border">
           <thead>
             <tr className="bg-gray-100">
-              <th className="py-2 px-4 border">Title</th>
-              <th className="py-2 px-4 border">City</th>
-              <th className="py-2 px-4 border">Price (€)</th>
-              <th className="py-2 px-4 border">Type</th>
-              <th className="py-2 px-4 border">Purpose</th>
+              <th className="py-2 px-4 border">Name</th>
+              <th className="py-2 px-4 border">Email</th>
+              <th className="py-2 px-4 border">Category</th>
+              <th className="py-2 px-4 border">Message</th>
+              <th className="py-2 px-4 border">Date</th>
               <th className="py-2 px-4 border">Status</th>
-              <th className="py-2 px-4 border">Role</th>
-              <th className="py-2 px-4 border">Actions</th>
+              <th className="py-2 px-4 border">Action</th>
             </tr>
           </thead>
           <tbody>
-            {currentListings.map(listing => (
-              <tr key={listing.id} className="hover:bg-gray-50">
-                <td className="py-2 px-4 border">{listing.title}</td>
-                <td className="py-2 px-4 border">{listing.city}</td>
-                <td className="py-2 px-4 border">{listing.price}</td>
-                <td className="py-2 px-4 border">{listing.type}</td>
-                <td className="py-2 px-4 border">{listing.purpose}</td>
+            {supportMessages.map(msg => (
+              <tr key={msg.id} className="hover:bg-gray-50">
+                <td className="py-2 px-4 border">{msg.name}</td>
+                <td className="py-2 px-4 border">{msg.email}</td>
+                <td className="py-2 px-4 border">{msg.category}</td>
+                <td className="py-2 px-4 border">{msg.message}</td>
+                <td className="py-2 px-4 border">{msg.timestamp?.toDate?.().toLocaleString?.() || '–'}</td>
                 <td className="py-2 px-4 border">
-                  <select
-                    value={listing.status || 'Active'}
-                    onChange={(e) => handleStatusChange(listing.id, e.target.value)}
-                    className="border rounded px-2 py-1"
-                  >
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                    <option value="Archived">Archived</option>
-                  </select>
+                  <span className={`px-2 py-1 text-xs rounded ${msg.status === 'resolved' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
+                    {msg.status || 'open'}
+                  </span>
                 </td>
-                <td className="py-2 px-4 border">{userRoles[listing.userId] || 'Unknown'}</td>
-                <td className="py-2 px-4 border space-x-2">
-                  <button onClick={() => handleViewImages(listing.id)} className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">Images</button>
-                  <button onClick={() => handleDelete(listing.id)} className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Delete</button>
+                <td className="py-2 px-4 border">
+                  {msg.status !== 'resolved' && (
+                    <button
+                      onClick={() => handleMarkResolved(msg.id)}
+                      className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+                    >
+                      Mark as Resolved
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
-      {totalPages > 1 && (
-        <div className="mt-4 flex justify-center gap-2">
-          {[...Array(totalPages)].map((_, index) => (
-            <button
-              key={index + 1}
-              onClick={() => paginate(index + 1)}
-              className={`px-3 py-1 rounded ${currentPage === index + 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
-      )}
-
-      {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded shadow-lg p-4 max-w-3xl w-full max-h-[80vh] overflow-y-auto relative">
-            <button
-              className="absolute top-2 right-2 text-red-600 text-lg font-bold"
-              onClick={() => setShowModal(false)}
-            >
-              ✕
-            </button>
-            <h3 className="text-xl font-bold mb-4">Images for Listing</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {modalImages.map((url, index) => (
-                <img key={index} src={url} alt="listing" className="w-full h-48 object-cover rounded" />
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

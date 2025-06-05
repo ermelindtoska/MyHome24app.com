@@ -1,55 +1,76 @@
-import React from 'react';
-import rateAgentImg from '../assets/rate-agent.png';
-import logo from '../assets/logo.png';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
+import { MdStar, MdRateReview } from 'react-icons/md';
+import { db } from '../firebase';
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { auth } from '../firebase'; // sigurohu që importohet auth
 
 const RateAgentPage = () => {
+  const { t } = useTranslation('agentRating');
+  const [feedback, setFeedback] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const userId = auth.currentUser ? auth.currentUser.uid : "anonymous";
+
+  if (!feedback.trim()) return;
+
+  try {
+await addDoc(collection(db, "agentRatings"), {
+  message: feedback,
+  createdAt: serverTimestamp(),
+  userId: userId
+    });
+    setFeedback('');
+    alert(t('successMessage')); // përkthimi për sukses
+  } catch (error) {
+    console.error('Error saving feedback:', error);
+    alert(t('errorMessage')); // përkthimi për dështim
+  }
+};
+
   return (
-    <div className="max-w-6xl mx-auto py-12 px-4">
-      {/* Foto + Logo */}
-      <div className="relative mb-8">
-        <img
-          src={rateAgentImg}
-          alt="Makler bewerten"
-          className="w-full h-[600px] object-cover object-top rounded-xl shadow-md"
-        />
-        <img
-          src={logo}
-          alt="Logo"
-          className="absolute top-4 right-4 h-12 w-auto"
-        />
+    <div className="max-w-3xl mx-auto py-16 px-4">
+      <Helmet>
+        <title>{t('title')} – MyHome24</title>
+        <meta name="description" content={t('description')} />
+      </Helmet>
+
+      <div className="flex items-center mb-4">
+        <MdStar className="text-yellow-500 text-3xl mr-2" />
+        <h1 className="text-3xl font-bold">{t('title')}</h1>
       </div>
 
-      {/* Titulli */}
-      <h1 className="text-3xl font-bold text-red-600 mb-6">Makler bewerten</h1>
+      <p className="text-gray-700 mb-6">{t('description')}</p>
 
-      {/* Përshkrimi */}
-      <p className="text-gray-800 mb-4 leading-relaxed">
-        Ihre Meinung zählt! Bewerten Sie Ihre Erfahrungen mit Immobilienmakler*innen und helfen Sie anderen bei ihrer Entscheidung.
-        Ob Sie eine Immobilie gekauft, verkauft oder gemietet haben – Ihr Feedback trägt zu mehr Transparenz auf dem Immobilienmarkt bei.
-      </p>
-
-      {/* Listë me piketa */}
-      <ul className="list-disc list-inside text-gray-800 space-y-2">
-        <li><strong>Vertrauen schaffen:</strong> Teilen Sie Ihre ehrliche Meinung über Service, Kompetenz und Kommunikation.</li>
-        <li><strong>Andere unterstützen:</strong> Ihre Bewertung hilft anderen Interessent*innen, den passenden Makler zu finden.</li>
-        <li><strong>Einfach und schnell:</strong> In wenigen Minuten eine Bewertung abgeben.</li>
-        <li><strong>Fair bleiben:</strong> Objektivität und Sachlichkeit sind erwünscht.</li>
-      </ul>
-
-      {/* Këshillë */}
-      <div className="mt-8 bg-red-50 border border-red-200 p-6 rounded-md shadow-sm">
-        <h2 className="text-red-700 font-semibold mb-2">Tipp:</h2>
-        <p className="text-gray-700">
-          Nutzen Sie die Möglichkeit, nicht nur Kritik, sondern auch Lob zu äußern – gute Makler verdienen Anerkennung!
-        </p>
-      </div>
-
-      {/* Buton */}
-      <div className="mt-10 text-center">
-        <button className="bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-700 transition">
-          Jetzt Makler bewerten
+      <form onSubmit={handleSubmit}>
+        <label className="block mb-2 font-semibold flex items-center">
+          <MdRateReview className="text-yellow-600 mr-2" />
+          {t('rateTitle')}
+        </label>
+        <textarea
+          value={feedback}
+          onChange={(e) => setFeedback(e.target.value)}
+          placeholder={t('placeholder')}
+          className="w-full border border-gray-300 p-3 rounded mb-4"
+          rows={4}
+          required
+        />
+        <button
+          type="submit"
+          className="bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition"
+        >
+          {t('submit')}
         </button>
-      </div>
+      </form>
+
+      {submitted && (
+        <div className="mt-4 text-green-600 font-medium">
+          {t('successMessage')}
+        </div>
+      )}
     </div>
   );
 };

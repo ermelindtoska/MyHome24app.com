@@ -1,57 +1,47 @@
-// src/pages/LoginPage.jsx
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 const LoginPage = () => {
-  const { t } = useTranslation('auth');
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
-      
-      {/* Titulli dhe përshkrimi sipër formës */}
-      <div className="text-center mb-6">
-        <h1 className="text-3xl font-bold text-blue-700 mb-2">
-          {t('title') || 'Login'}
-        </h1>
-        <p className="text-gray-700">
-          {t('subtitle') || 'Bitte melden Sie sich mit Ihren Zugangsdaten an.'}
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center text-blue-800 mb-6">Anmelden</h2>
+        <form className="space-y-4">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              E-Mail
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Ihre E-Mail"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              Passwort
+            </label>
+            <input
+              type="password"
+              id="password"
+              className="w-full mt-1 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="********"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+          >
+            Anmelden
+          </button>
+        </form>
+
+        <p className="mt-4 text-sm text-center text-gray-600">
+          Noch kein Konto? <a href="/register" className="text-blue-600 hover:underline">Jetzt registrieren</a>
         </p>
       </div>
-
-      {/* Forma e Login-it */}
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full max-w-sm space-y-4">
-        
-        <div>
-          <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
-            {t('email') || 'E-Mail-Adresse'}
-          </label>
-          <input
-            id="email"
-            type="email"
-            placeholder="E-Mail-Adresse"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
-            {t('password') || 'Passwort'}
-          </label>
-          <input
-            id="password"
-            type="password"
-            placeholder="********"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          {t('submit') || 'Anmelden'}
-        </button>
-      </form>
     </div>
   );
 };

@@ -1,0 +1,14 @@
+{
+  "title": "Create New Listing",
+  "imageAlt": "Create New Listing",
+  "description": "Create your new property listing quickly and easily. Our system guides you through all the necessary steps – from entering property details to publishing.",
+  "features": [
+    { "title": "Intuitive Input", "text": "Guided process for fast publication" },
+    { "title": "Upload Images", "text": "Present your property visually appealing" },
+    { "title": "Maximize Reach", "text": "Automatic visibility on the platform" },
+    { "title": "Cost Control", "text": "Transparent pricing and easy selection options" }
+  ],
+  "tipTitle": "Tip:",
+  "tipText": "Prepare high-quality photos and precise descriptions – this greatly increases the chances of inquiries.",
+  "button": "Create Listing Now"
+}

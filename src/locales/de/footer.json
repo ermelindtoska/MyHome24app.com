@@ -12,5 +12,10 @@
   "followUs": "Folgen Sie uns",
   "newsletter": "Newsletter abonnieren",
   "subscribe": "Abonnieren",
-  "emailPlaceholder": "Ihre E-Mail-Adresse"
+  "faq": "FAQ",
+  "emailPlaceholder": "Ihre E-Mail-Adresse",
+  "aboutUs": "Über uns",
+  "privacyPolicy": "Datenschutz",
+  "termsOfUse": "Nutzungsbedingungen"
+  
 }

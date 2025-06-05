@@ -1,0 +1,14 @@
+{
+  "imgAlt": "Hypothekenrechner",
+  "title": "Hypothekenrechner",
+  "description": "Berechnen Sie schnell und einfach Ihre monatliche Kreditrate. Unser Hypothekenrechner hilft Ihnen, Ihre Finanzierung besser zu planen – egal ob Sie kaufen, bauen oder modernisieren möchten.",
+  "features": [
+    { "title": "Flexibel", "text": "Geben Sie Kaufpreis, Eigenkapital, Zinssatz und Laufzeit ein" },
+    { "title": "Transparenz", "text": "Sofortige Anzeige der monatlichen Belastung" },
+    { "title": "Vergleich", "text": "Verschiedene Szenarien einfach durchspielen" },
+    { "title": "Planung", "text": "Realistische Einschätzung Ihrer finanziellen Möglichkeiten" }
+  ],
+  "tipTitle": "Tipp",
+  "tipText": "Nutzen Sie unseren Rechner, um unterschiedliche Laufzeiten und Zinssätze zu vergleichen. So erhalten Sie ein besseres Gefühl für Ihre ideale Finanzierung.",
+  "button": "Jetzt berechnen"
+}

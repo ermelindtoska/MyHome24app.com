@@ -8,7 +8,7 @@
   "contact": "Contact",
   "manage": "Manage Rentals",
   "advertise": "Advertise",
-  "help": "Help",
+  
   "login": "Sign In",
   "logout": "Logout",
   "favorites": "Favorites",
@@ -24,10 +24,22 @@
   "buyNew": "New Build",
   "buyForced": "Foreclosures",
   "buyPrivate": "Direct from Owner",
-  "findAgent": "Find Agent",
-  "faq": "FAQ",
-  "support": "Support",
-  "howItWorks": "How It Works"
+  "howItWorks": "How it works",
+  "newConstruction": "New Construction",
+  "foreclosures": "Foreclosures",
+  "directFromOwner": "Direct from Owner",
+  "apartment": "Apartment",
+  "house": "House",
+  "office": "Office / Commercial",
+  "calculator": "Calculator",
+  "searchAgent": "Find Agent",
+  "rateAgent": "Rate Agent",
+  "myProperties": "My Properties",
+  "addNew": "Add Listing",
+  "bannerAd": "Banner Ad",
+  "premiumListing": "Premium Listing",
+  "signIn": "Sign In"
+  
   
   
  

@@ -16,7 +16,7 @@
   "findAgent": "Makler finden",
   "manage": "Verwaltung",
   "advertise": "Werben",
-  "help": "Hilfe",
+  
   "login": "Anmelden",
   "careers": "Karriere",
   "newsletter": "Newsletter",
@@ -25,7 +25,24 @@
   "buyNew": "Neubau",
   "buyForced": "Zwangsversteigerungen",
   "buyPrivate": "Direkt vom Eigentümer",
-  "faq": "FAQ",
-  "support": "Support",
-  "howItWorks": "Wie funktioniert’s"
+  "howItWorks": "So funktioniert's",
+  "newConstruction": "Neubau",
+  "foreclosures": "Zwangsversteigerungen",
+  "directFromOwner": "Direkt vom Eigentümer",
+  "apartment": "Wohnung",
+  "house": "Haus",
+  "office": "Büro / Gewerbe",
+  "calculator": "Rechner",
+  "searchAgent": "Maklersuche",
+  "rateAgent": "Makler bewerten",
+  "myProperties": "Meine Immobilien",
+  "addNew": "Neue Anzeige",
+  "bannerAd": "Bannerwerbung",
+  "premiumListing": "Premium-Listing",
+  "signIn": "Anmelden",
+  "soFunktionierts": "So funktioniert's"
+  
+
+ 
 }
+  

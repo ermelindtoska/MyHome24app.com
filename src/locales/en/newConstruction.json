@@ -1,0 +1,26 @@
+{
+  "title": "New Construction Properties in Germany",
+  "description": "New constructions offer modern architecture, energy efficiency, and long-term warranties. Ideal for buyers seeking a secure and worry-free property.",
+  "features": [
+    {
+      "title": "Energy Efficiency",
+      "text": "Modern insulation, solar technology, and low utility costs."
+    },
+    {
+      "title": "Custom Design",
+      "text": "Flexible layouts and smart living concepts."
+    },
+    {
+      "title": "Legal Security",
+      "text": "First occupancy with manufacturer warranty and no defects."
+    },
+    {
+      "title": "Direct Contact",
+      "text": "Communicate directly with the developer – no broker fees."
+    }
+  ],
+  "tipTitle": "Tip: Use KfW Subsidies",
+  "tipText": "Many new constructions are eligible – benefit from attractive financing options.",
+  "ready": "Ready for your new home?",
+  "button": "Discover Now"
+}

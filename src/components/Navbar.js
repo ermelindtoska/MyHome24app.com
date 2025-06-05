@@ -1,13 +1,30 @@
-import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import logo from '../assets/logo.png';
+import { auth } from '../firebase-config';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 const Navbar = () => {
   const { t } = useTranslation('navbar');
   const [openMenu, setOpenMenu] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const timeoutRef = useRef(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    setCurrentUser(null);
+    navigate('/');
+  };
 
   const handleMouseEnter = (menu) => {
     clearTimeout(timeoutRef.current);
@@ -24,7 +41,7 @@ const Navbar = () => {
     {
       title: t('buy'),
       items: [
-        { label: 'Neubau', to: '/buy/new' },
+        { label: 'Neubau', to: '/new-construction' },
         { label: 'Zwangsversteigerungen', to: '/buy/foreclosures' },
         { label: 'Direkt vom Eigentümer', to: '/buy/owner' }
       ]
@@ -69,20 +86,25 @@ const Navbar = () => {
       ]
     },
     {
-      title: t('login'),
-      items: [
-        { label: 'Login', to: '/login' },
-        { label: 'Registrieren', to: '/register' }
-      ]
+      title: currentUser ? t('account') : t('login'),
+      items: currentUser
+        ? [
+            { label: t('dashboard'), to: '/dashboard' },
+            { label: t('logout'), to: '#', onClick: handleLogout }
+          ]
+        : [
+            { label: 'Login', to: '/login' },
+            { label: 'Registrieren', to: '/register' }
+          ]
     },
-    {
-      title: t('help'),
-      items: [
-        { label: t('faq'), to: '/help/faq' },
-        { label: t('support'), to: '/help/support' },
-        { label: t('howItWorks'), to: '/help/how-it-works' }
-      ]
-    }
+{
+  title: t('help'),
+  items: [
+    { label: t('faq'), to: '/faq' },
+    { label: t('support'), to: '/support' },
+    { label: t('howItWorks'), to: '/how-it-works' }
+  ]
+}
   ];
 
   const renderDropdown = (menu, index, align = 'left') => (
@@ -97,15 +119,25 @@ const Navbar = () => {
         <div
           className={`absolute ${align}-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-lg z-50 transition-opacity duration-300`}
         >
-          {menu.items.map((item, idx) => (
-            <Link
-              key={idx}
-              to={item.to}
-              className="block px-4 py-2 text-gray-800 hover:text-blue-600 hover:bg-gray-100 transition-colors duration-200"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {menu.items.map((item, idx) =>
+            item.onClick ? (
+              <button
+                key={idx}
+                onClick={item.onClick}
+                className="w-full text-left block px-4 py-2 text-gray-800 hover:text-blue-600 hover:bg-gray-100 transition-colors duration-200"
+              >
+                {item.label}
+              </button>
+            ) : (
+              <Link
+                key={idx}
+                to={item.to}
+                className="block px-4 py-2 text-gray-800 hover:text-blue-600 hover:bg-gray-100 transition-colors duration-200"
+              >
+                {item.label}
+              </Link>
+            )
+          )}
         </div>
       )}
     </div>

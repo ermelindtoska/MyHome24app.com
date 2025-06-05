@@ -1,0 +1,14 @@
+{
+  "title": "Neue Anzeige erstellen",
+  "imageAlt": "Neue Anzeige erstellen",
+  "description": "Erstellen Sie schnell und einfach Ihre neue Immobilienanzeige. Unser System führt Sie durch alle notwendigen Schritte – von der Eingabe der Objektdetails bis zur Veröffentlichung.",
+  "features": [
+    { "title": "Intuitive Eingabe", "text": "Geführter Prozess für schnelle Veröffentlichung" },
+    { "title": "Bilder hochladen", "text": "Präsentieren Sie Ihr Objekt visuell ansprechend" },
+    { "title": "Reichweite maximieren", "text": "Automatische Sichtbarkeit auf der Plattform" },
+    { "title": "Kostenkontrolle", "text": "Transparente Tarife und einfache Auswahloptionen" }
+  ],
+  "tipTitle": "Tipp:",
+  "tipText": "Bereiten Sie hochwertige Fotos und präzise Beschreibungen vor – das erhöht die Chancen auf Anfragen erheblich.",
+  "button": "Anzeige jetzt erstellen"
+}

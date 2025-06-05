@@ -1,0 +1,14 @@
+{
+  "title": "Manage My Properties",
+  "imageAlt": "Manage My Properties",
+  "description": "Manage your properties easily and efficiently – whether renting, selling, or editing property details. Our system helps you stay organized and present your listings professionally.",
+  "features": [
+    { "title": "Overview", "text": "All active and archived properties at a glance" },
+    { "title": "Editing", "text": "Change prices, descriptions, images with just a few clicks" },
+    { "title": "Statistics", "text": "See how often your ad was viewed" },
+    { "title": "Notifications", "text": "Stay informed about inquiries and changes" }
+  ],
+  "tipTitle": "Tip:",
+  "tipText": "Use the favorites feature to mark properties you want to edit or reactivate later.",
+  "button": "Manage Now"
+}

@@ -1,0 +1,15 @@
+{
+  "title": "Foreclosure Properties",
+  "imageAlt": "Foreclosure Auctions in Germany",
+  "description": "Discover unique opportunities to purchase properties below market value. Ideal for investors, private buyers and property seekers.",
+  "features": [
+    { "title": "Diverse Offers", "text": "Apartments, houses and land offered via court auctions" },
+    { "title": "Transparent Dates", "text": "Access to all auction dates and valuation documents" },
+    { "title": "Important Notes", "text": "Minimum bids, financing tips and legal information" },
+    { "title": "Direct Contact", "text": "Reach courts and insolvency administrators – no agent fees" }
+  ],
+  "tipTitle": "Tip for Buyers",
+  "tipText": "Many foreclosed properties are far cheaper than market price – but proper preparation is key.",
+  "ready": "Ready for your next investment?",
+  "button": "Browse properties now"
+}

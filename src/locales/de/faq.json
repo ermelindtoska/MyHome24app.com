@@ -1,9 +1,31 @@
 {
   "title": "Häufig gestellte Fragen",
-  "question1": "Wie kann ich eine Immobilie hinzufügen?",
-  "answer1": "Melden Sie sich an und klicken Sie auf 'Anzeige hinzufügen'.",
-  "question2": "Ist die Nutzung kostenlos?",
-  "answer2": "Ja, die Grundfunktionen sind kostenlos.",
-  "question3": "Wie kann ich den Support kontaktieren?",
-  "answer3": "Nutzen Sie unser Kontaktformular oder schreiben Sie eine E-Mail an kontakt@myhome24app.com."
+  "intro": "Hier finden Sie Antworten auf häufige Fragen zu MyHome24App.",
+
+  "questions": [
+    {
+      "question": "Wie funktioniert MyHome24App?",
+      "answer": "MyHome24App ist eine Online-Plattform, auf der Sie Immobilien kaufen, mieten oder verkaufen können. Sie können Anzeigen durchsuchen, eigene Immobilien hinzufügen und mit Eigentümer*innen oder Makler*innen direkt kommunizieren."
+    },
+    {
+      "question": "Wie kann ich eine Immobilie hinzufügen?",
+      "answer": "Melden Sie sich an, gehen Sie zum Benutzer-Dashboard und klicken Sie auf 'Neue Anzeige hinzufügen'. Füllen Sie das Formular mit den Immobiliendetails aus und veröffentlichen Sie es."
+    },
+    {
+      "question": "Ist die Nutzung der Plattform kostenlos?",
+      "answer": "Die Grundfunktionen wie Registrierung, Suchen und Anzeigen erstellen sind kostenlos. Für zusätzliche Werbemöglichkeiten gibt es kostenpflichtige Premium-Optionen."
+    },
+    {
+      "question": "Kann ich Eigentümer*innen direkt kontaktieren?",
+      "answer": "Ja, bei jeder Anzeige finden Sie ein Kontaktformular oder direkte Kontaktdaten, sofern vom Eigentümer freigegeben."
+    },
+    {
+      "question": "Wie funktioniert die Verifizierung?",
+      "answer": "Nach der Registrierung erhalten Sie eine E-Mail mit einem Bestätigungslink. Erst nach der Bestätigung können Sie alle Funktionen der Plattform nutzen."
+    },
+    {
+      "question": "Wie kann ich mein Passwort zurücksetzen?",
+      "answer": "Klicken Sie auf der Login-Seite auf 'Passwort vergessen?' und folgen Sie den Anweisungen. Sie erhalten eine E-Mail zum Zurücksetzen Ihres Passworts."
+    }
+  ]
 }

@@ -1,46 +1,52 @@
 import React from 'react';
-import ownerHeader from '../assets/owner-header.png'; // Do e gjenerojmë me logon lart djathtas
+import { useTranslation } from 'react-i18next';
+import ownerHeader from '../assets/owner-header.png';
+import { FaHandshake, FaUser, FaCommentDots, FaEye } from 'react-icons/fa';
 
 const OwnerPage = () => {
+  const { t } = useTranslation('owner');
+  const features = t('features', { returnObjects: true });
+
+  const icons = [
+    <FaHandshake className="text-green-500 mt-1" />,
+    <FaUser className="text-blue-500 mt-1" />,
+    <FaCommentDots className="text-purple-500 mt-1" />,
+    <FaEye className="text-orange-500 mt-1" />
+  ];
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      {/* Foto header */}
       <div className="rounded-xl overflow-hidden shadow-md mb-8">
         <img
           src={ownerHeader}
-          alt="Immobilien direkt vom Eigentümer kaufen"
-          className="w-full h-[700px] object-contain rounded-xl shadow-md"
+          alt={t('imageAlt')}
+          className="w-full h-[500px] object-contain rounded-xl shadow-md"
         />
       </div>
 
-      {/* Titulli dhe përmbajtja */}
-      <h1 className="text-3xl font-extrabold text-blue-800 mb-4">Direkt vom Eigentümer</h1>
+      <h1 className="text-3xl font-extrabold text-blue-800 mb-4">{t('title')}</h1>
+      <p className="text-gray-800 mb-4 leading-relaxed">{t('description')}</p>
 
-      <p className="text-gray-800 mb-4 leading-relaxed">
-        Auf MyHome24App finden Sie Immobilienangebote, die direkt von privaten Eigentümer*innen veröffentlicht wurden – ganz ohne Maklerprovision und mit persönlichem Kontakt.
-        Diese Objekte bieten oft einen authentischeren Eindruck und mehr Spielraum für individuelle Absprachen.
-      </p>
-
-      <ul className="list-disc list-inside space-y-2 text-gray-800">
-        <li><strong>Keine Provision:</strong> Direkter Kauf vom Eigentümer spart Maklerkosten</li>
-        <li><strong>Persönlicher Kontakt:</strong> Fragen klären Sie direkt mit dem Eigentümer</li>
-        <li><strong>Individuelle Vereinbarungen:</strong> Flexiblere Absprachen möglich</li>
-        <li><strong>Echte Einblicke:</strong> Eigentümer kennen ihre Immobilie am besten</li>
+      <ul className="text-gray-800 space-y-2 mb-8">
+        {features.map((feature, index) => (
+          <li key={index} className="flex items-start gap-3">
+            {icons[index]}
+            <span>
+              <strong>{feature.title}:</strong> {feature.text}
+            </span>
+          </li>
+        ))}
       </ul>
 
-      {/* Info box */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-8 shadow-sm">
-        <h2 className="text-lg font-semibold text-blue-700 mb-2">💡 Tipp für Interessenten</h2>
-        <p className="text-gray-700">
-          Verhandeln Sie fair und transparent. Viele Eigentümer schätzen direkte Kommunikation und unkomplizierte Abwicklung – das schafft Vertrauen auf beiden Seiten.
-        </p>
+        <h2 className="text-lg font-semibold text-blue-700 mb-2">{t('tipTitle')}</h2>
+        <p className="text-gray-700">{t('tipText')}</p>
       </div>
 
-      {/* CTA */}
       <div className="mt-8 text-center">
-        <h3 className="text-blue-800 font-bold text-xl mb-2">Jetzt stöbern und direkt Kontakt aufnehmen</h3>
+        <h3 className="text-blue-800 font-bold text-xl mb-2">{t('ready')}</h3>
         <button className="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-6 py-3 rounded-lg transition">
-          Angebote entdecken
+          {t('button')}
         </button>
       </div>
     </div>

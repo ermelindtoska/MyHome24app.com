@@ -1,0 +1,14 @@
+{
+  "title": "Vertrauenswürdige Bankpartner für Ihre Finanzierung",
+  "imageAlt": "Bankpartner",
+  "description": "Unsere Partnerbanken bieten Ihnen attraktive Finanzierungsmöglichkeiten, persönliche Beratung und schnelle Kreditentscheidungen. Ob Baufinanzierung oder Anschlussfinanzierung – hier finden Sie starke Partner an Ihrer Seite.",
+  "features": [
+    { "title": "Individuelle Angebote", "text": "Maßgeschneiderte Finanzierungslösungen" },
+    { "title": "Zuverlässigkeit", "text": "Zusammenarbeit mit etablierten Bankinstituten" },
+    { "title": "Transparenz", "text": "Klare Konditionen und nachvollziehbare Angebote" },
+    { "title": "Beratung", "text": "Persönliche Ansprechpartner mit Expertise" }
+  ],
+  "tipTitle": "Tipp:",
+  "tipText": "Nutzen Sie unseren Bankenvergleich, um das passende Angebot für Ihre Situation zu finden – schnell, unkompliziert und unverbindlich.",
+  "button": "Jetzt Partnerbanken entdecken"
+}

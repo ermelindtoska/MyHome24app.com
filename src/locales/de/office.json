@@ -1,0 +1,14 @@
+{
+  "imgAlt": "Büro und Gewerbeflächen",
+  "title": "Moderne Büro- und Gewerbeflächen",
+  "description": "Entdecken Sie attraktive Büro- und Gewerbeeinheiten in verschiedenen Größen und Lagen. Ideal für Startups, Agenturen, Praxen oder etablierte Unternehmen, die einen neuen Standort suchen.",
+  "features": [
+    { "title": "Flexibel", "text": "Verschiedene Größen – vom Einzelbüro bis zum Großraumbüro" },
+    { "title": "Standortvorteil", "text": "Citylage, Gewerbeparks, gute Verkehrsanbindung" },
+    { "title": "Ausstattung", "text": "Moderne Infrastruktur, Glasfaser-Internet, Klimaanlage" },
+    { "title": "Sofort bezugsfertig", "text": "Viele Objekte sind sofort nutzbar oder flexibel anpassbar" }
+  ],
+  "tipTitle": "Tipp",
+  "tipText": "Berücksichtigen Sie bei der Auswahl auch Parkmöglichkeiten, Nähe zu Kund*innen sowie Erweiterungspotenzial für die Zukunft.",
+  "button": "Jetzt Büroflächen entdecken"
+}

@@ -1,10 +1,20 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
+import { MdSearch, MdChecklist, MdLocationOn, MdVerified, MdPersonSearch } from 'react-icons/md';
 import agentSearchImg from '../assets/agent-search.png';
 import logo from '../assets/logo.png';
 
 const AgentSearchPage = () => {
+  const { t } = useTranslation('agent');
+
   return (
     <div className="max-w-6xl mx-auto py-12 px-4">
+      <Helmet>
+        <title>{t('title')} – MyHome24</title>
+        <meta name="description" content={t('description')} />
+      </Helmet>
+
       <div className="relative mb-8">
         <img
           src={agentSearchImg}
@@ -18,30 +28,30 @@ const AgentSearchPage = () => {
         />
       </div>
 
-      <h1 className="text-3xl font-bold text-green-700 mb-6">Finden Sie den richtigen Immobilienmakler</h1>
+      <h1 className="text-3xl font-bold text-green-700 mb-6 flex items-center">
+        <MdPersonSearch className="text-green-700 mr-2" />
+        {t('title')}
+      </h1>
 
       <p className="text-gray-800 mb-4 leading-relaxed">
-        Die Suche nach dem passenden Makler*in kann entscheidend sein für den Erfolg Ihrer Immobilienpläne. Unsere Plattform
-        bietet Ihnen die Möglichkeit, qualifizierte, geprüfte und lokal erfahrene Makler*innen zu finden – ganz nach Ihren Bedürfnissen.
+        {t('intro')}
       </p>
 
       <ul className="list-disc list-inside text-gray-800 space-y-2">
-        <li><strong>Geprüfte Makler*innen:</strong> Zertifiziert, erfahren und transparent bewertet</li>
-        <li><strong>Lokale Expertise:</strong> Makler*innen mit tiefem Verständnis für Ihre Region</li>
-        <li><strong>Kostenfreie Vermittlung:</strong> Kein Risiko – Sie entscheiden, wer Sie begleitet</li>
-        <li><strong>Individuelle Beratung:</strong> Persönlich, diskret und zielgerichtet</li>
+        <li><MdVerified className="inline text-green-600 mr-1" /> {t('point1')}</li>
+        <li><MdLocationOn className="inline text-green-600 mr-1" /> {t('point2')}</li>
+        <li><MdChecklist className="inline text-green-600 mr-1" /> {t('point3')}</li>
+        <li><MdSearch className="inline text-green-600 mr-1" /> {t('point4')}</li>
       </ul>
 
       <div className="mt-8 bg-green-50 border border-green-200 p-6 rounded-md shadow-sm">
-        <h2 className="text-green-800 font-semibold mb-2">Tipp:</h2>
-        <p className="text-gray-700">
-          Achten Sie bei der Wahl Ihres Maklers auf Bewertungen, regionale Erfahrung und Spezialisierungen. Die richtige Unterstützung spart Zeit und Geld.
-        </p>
+        <h2 className="text-green-800 font-semibold mb-2">{t('tipTitle')}</h2>
+        <p className="text-gray-700">{t('tipText')}</p>
       </div>
 
       <div className="mt-10 text-center">
         <button className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition">
-          Jetzt Makler finden
+          {t('button')}
         </button>
       </div>
     </div>

@@ -1,0 +1,15 @@
+{
+  "title": "Zwangsversteigerungen",
+  "imageAlt": "Zwangsversteigerungen in Deutschland",
+  "description": "Entdecken Sie einzigartige Möglichkeiten, Immobilien unter dem Marktwert zu erwerben. Ideal für Investoren, Eigennutzer*innen und Kapitalanleger.",
+  "features": [
+    { "title": "Vielfältige Objekte", "text": "Wohnungen, Häuser und Grundstücke im gerichtlichen Verfahren" },
+    { "title": "Transparente Termine", "text": "Einblicke in alle Versteigerungstermine und Bewertungsunterlagen" },
+    { "title": "Wichtige Hinweise", "text": "Mindestgebote, Finanzierungstipps und rechtliche Aspekte" },
+    { "title": "Direkter Kontakt", "text": "Kontakt zu Amtsgerichten und Insolvenzverwaltern – keine Maklerprovision" }
+  ],
+  "tipTitle": "Tipp für Interessenten",
+  "tipText": "Viele Immobilien aus Zwangsversteigerungen sind deutlich günstiger als der Marktpreis – aber es ist wichtig, sich gut vorzubereiten.",
+  "ready": "Bereit für Ihre nächste Investition?",
+  "button": "Jetzt Objekte entdecken"
+}

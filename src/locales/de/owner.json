@@ -1,0 +1,15 @@
+{
+  "title": "Direkt vom Eigentümer",
+  "imageAlt": "Immobilien direkt vom Eigentümer kaufen",
+  "description": "Auf MyHome24App finden Sie Immobilienangebote, die direkt von privaten Eigentümer*innen veröffentlicht wurden – ganz ohne Maklerprovision und mit persönlichem Kontakt. Diese Objekte bieten oft einen authentischeren Eindruck und mehr Spielraum für individuelle Absprachen.",
+  "features": [
+    { "title": "Keine Provision", "text": "Direkter Kauf vom Eigentümer spart Maklerkosten" },
+    { "title": "Persönlicher Kontakt", "text": "Fragen klären Sie direkt mit dem Eigentümer" },
+    { "title": "Individuelle Vereinbarungen", "text": "Flexiblere Absprachen möglich" },
+    { "title": "Echte Einblicke", "text": "Eigentümer kennen ihre Immobilie am besten" }
+  ],
+  "tipTitle": "💡 Tipp für Interessenten",
+  "tipText": "Verhandeln Sie fair und transparent. Viele Eigentümer schätzen direkte Kommunikation und unkomplizierte Abwicklung – das schafft Vertrauen auf beiden Seiten.",
+  "ready": "Jetzt stöbern und direkt Kontakt aufnehmen",
+  "button": "Angebote entdecken"
+}

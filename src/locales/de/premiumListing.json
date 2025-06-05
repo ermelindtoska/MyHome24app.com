@@ -1,0 +1,14 @@
+{
+  "title": "Premium-Listing für maximale Sichtbarkeit",
+  "imageAlt": "Premium-Listing",
+  "description": "Heben Sie Ihre Anzeige mit einem Premium-Listing hervor und erreichen Sie deutlich mehr Interessent*innen. Premium-Anzeigen werden bevorzugt angezeigt, erhalten mehr Aufmerksamkeit und bieten zusätzliche Präsentationsmöglichkeiten.",
+  "features": [
+    { "title": "Top-Platzierung", "text": "Ihre Anzeige erscheint ganz oben in den Suchergebnissen" },
+    { "title": "Hervorgehobenes Design", "text": "Mit besonderen Farben und Rahmen fällt Ihre Anzeige sofort auf" },
+    { "title": "Bildergalerie & Video", "text": "Präsentieren Sie Ihre Immobilie multimedial" },
+    { "title": "Performance-Berichte", "text": "Verfolgen Sie, wie gut Ihre Anzeige performt" }
+  ],
+  "tipTitle": "Tipp:",
+  "tipText": "Kombinieren Sie das Premium-Listing mit gezielter Bannerwerbung, um die Sichtbarkeit Ihrer Anzeige noch weiter zu steigern.",
+  "button": "Jetzt Premium-Listing buchen"
+}

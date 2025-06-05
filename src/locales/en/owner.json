@@ -1,0 +1,15 @@
+{
+  "title": "Directly from Owner",
+  "imageAlt": "Buy property directly from owner",
+  "description": "On MyHome24App you'll find property listings posted directly by private owners – with no broker fees and direct communication. These listings often offer a more authentic impression and more room for individual agreements.",
+  "features": [
+    { "title": "No Commission", "text": "Direct purchase from owner saves brokerage fees" },
+    { "title": "Personal Contact", "text": "Communicate directly with the owner" },
+    { "title": "Flexible Agreements", "text": "Easier to negotiate special arrangements" },
+    { "title": "Real Insight", "text": "Owners know their property best" }
+  ],
+  "tipTitle": "💡 Tip for Interested Buyers",
+  "tipText": "Negotiate fairly and transparently. Many owners value direct communication and uncomplicated transactions – it builds trust on both sides.",
+  "ready": "Start browsing and contact the owner directly",
+  "button": "View Listings"
+}

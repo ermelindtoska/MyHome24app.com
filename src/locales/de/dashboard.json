@@ -1,13 +1,15 @@
-  {
- "dashboard":{ 
-    "title": "Ihre Anzeigenübersicht",
-    "noListings": "Keine Anzeigen für Ihr Konto gefunden.",
-    "loading": "Lade Ihre Anzeigen...",
-      "myListings": "Meine Anzeigen",
-  "addNew": "Neue Anzeige hinzufügen",
-  "edit": "Bearbeiten",
-  "delete": "Löschen",
-  "noListings": "Sie haben noch keine Immobilien veröffentlicht.",
-  "logout": "Abmelden"
-    }
+{
+  "dashboardTitle": "Ihr Dashboard",
+  "success": "Erfolgreich hinzugefügt!",
+  "validation": "Bitte füllen Sie alle Felder aus.",
+  "form": {
+    "title": "Titel",
+    "city": "Stadt",
+    "price": "Preis",
+    "apartment": "Wohnung",
+    "house": "Haus",
+    "rent": "Mieten",
+    "buy": "Kaufen",
+    "submit": "Eintrag erstellen"
   }
+}

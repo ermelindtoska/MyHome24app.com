@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
+    "dev": "vite",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "preview": "vite preview",
     "deploy": "git add . && git commit -m \"Auto deploy\" || echo \"Nothing to commit\" && git pull --rebase origin main && git push origin main"
   },
   "dependencies": {
