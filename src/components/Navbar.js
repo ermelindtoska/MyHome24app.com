@@ -104,7 +104,7 @@ const Navbar = () => {
     {
       title: t('help'),
       items: [
-        { label: t('faq'), to: '/faq' },
+        
         { label: t('support'), to: '/support' },
         { label: t('howItWorks'), to: '/how-it-works' }
       ]

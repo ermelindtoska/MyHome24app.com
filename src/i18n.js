@@ -21,7 +21,7 @@ import filterDE from './locales/de/filter.json';
 import listingFormDE from './locales/de/listingForm.json';
 import mapDE from './locales/de/map.json';
 import careersDE from './locales/de/careers.json';
-import faqDE from './locales/de/faq.json';
+
 import privacyDE from './locales/de/privacy.json';
 
 import agentDE from './locales/de/agent.json';
@@ -73,7 +73,7 @@ import filterEN from './locales/en/filter.json';
 import listingFormEN from './locales/en/listingForm.json';
 import mapEN from './locales/en/map.json';
 import careersEN from './locales/en/careers.json';
-import faqEN from './locales/en/faq.json';
+
 import privacyEN from './locales/en/privacy.json';
 
 import agentEN from './locales/en/agent.json';
@@ -128,7 +128,7 @@ const resources = {
     listing: listingDE,
     map: mapDE,
     careers: careersDE,
-    faq: faqDE,
+    
     privacy: privacyDE,
     
     agent: agentDE,
@@ -178,7 +178,7 @@ const resources = {
     listing: listingEN,
     map: mapEN,
     careers: careersEN,
-    faq: faqEN,
+    
     privacy: privacyEN,
     
     agent: agentEN,
@@ -219,7 +219,7 @@ i18n
       'home', 'navbar', 'addListing', 'auth', 'favorites',
       'search', 'settings', 'admin', 'footer', 'contact', 'app',
       'breadcrumbs', 'comments', 'compare', 'filter', 'listing', 'map',
-      'careers', 'faq', 'privacy','agent','agentRating','apartment','house','office','newConstruction',
+      'careers', 'privacy','agent','agentRating','apartment','house','office','newConstruction',
       'foreclosure','owner','bankPartners','manageRentals','newListing','bannerAds','premiumListing','dashboard','support', 'howItWorks','userDashboard',
       'listingDetails','filterBar','listingForm','buy','rent','mortgage','findAgent'
       

@@ -26,7 +26,7 @@ const Footer = () => {
         <div>
           <h4 className="font-semibold text-gray-800 mb-2">{t('help')}</h4>
           <ul className="space-y-1">
-            <li><Link to="/faq" className="hover:underline">{t('faq')}</Link></li>
+            
             <li><Link to="/privacy" className="hover:underline">{t('privacy')}</Link></li>
             <li><Link to="/terms" className="hover:underline">{t('terms')}</Link></li>
           </ul>

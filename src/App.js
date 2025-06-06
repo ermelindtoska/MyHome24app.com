@@ -56,7 +56,7 @@ import BannerAdsPage from './pages/BannerAdsPage';
 import NewConstructionPage from './pages/NewConstructionPage';
 
 import PremiumListingPage from './pages/PremiumListingPage';
-import FaqPage from './pages/FaqPage';
+
 
 
 import ListingCreatePage from './pages/ListingCreatePage';
@@ -121,7 +121,7 @@ function App() {
         <Route path="/careers" element={<CareersPage />} />
 
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/faq" element={<FaqPage />} />
+        
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/terms" element={<TermsPage />} />
         
