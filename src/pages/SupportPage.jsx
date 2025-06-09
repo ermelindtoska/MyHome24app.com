@@ -51,16 +51,17 @@ const SupportPage = () => {
       <form className="space-y-4" onSubmit={handleSubmit}>
         <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder={t('name')} className="w-full border p-2 rounded" />
         <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder={t('email')} className="w-full border p-2 rounded" />
-        <select name="category" value={formData.category} onChange={handleChange} className="w-full border p-2 rounded">
-          <option value="">{t('selectPlaceholder')}</option>
-          <option value="technical">{t('technical')}</option>
-          <option value="login">{t('login')}</option>
-          <option value="listing">{t('listing')}</option>
-          <option value="feedback">{t('feedback')}</option>
-          <option value="other">{t('other')}</option>
-        </select>
-        <textarea name="message" value={formData.message} onChange={handleChange} placeholder={t('message')} className="w-full border p-2 rounded" rows={5} />
-        <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">{t('submit')}</button>
+<select name="category" value={formData.category} onChange={handleChange} className="w-full border p-2 rounded">
+  <option disabled>{t('form.selectPlaceholder')}</option>
+  <option value="technical">{t('form.category.technical')}</option>
+  <option value="login">{t('form.category.login')}</option>
+  <option value="listing">{t('form.category.listing')}</option>
+  <option value="feedback">{t('form.category.feedback')}</option>
+  <option value="other">{t('form.category.other')}</option>
+</select>
+
+        <textarea name="message" value={formData.message} onChange={handleChange} placeholder={t('form.messagePlaceholder')} className="w-full border p-2 rounded" rows={5} />
+        <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">{t('form.submitLabel')}</button>
       </form>
     </div>
   );

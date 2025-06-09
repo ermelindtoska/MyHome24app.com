@@ -8,8 +8,14 @@
     "price": "Preis",
     "apartment": "Wohnung",
     "house": "Haus",
-    "rent": "Mieten",
-    "buy": "Kaufen",
-    "submit": "Eintrag erstellen"
+    "submit": "Eintrag erstellen",
+    "type": {
+      "apartment": "Wohnung",
+      "house": "Haus"
+    },
+    "purpose": {
+      "rent": "Mieten",
+      "buy": "Kaufen"
+    }
   }
 }

@@ -16,7 +16,7 @@
   "findAgent": "Makler finden",
   "manage": "Verwaltung",
   "advertise": "Werben",
-  
+  "help": "Hilfe",
   "login": "Anmelden",
   "careers": "Karriere",
   "newsletter": "Newsletter",
@@ -40,6 +40,7 @@
   "bannerAd": "Bannerwerbung",
   "premiumListing": "Premium-Listing",
   "signIn": "Anmelden",
+  "account": "Konto",
   "soFunktionierts": "So funktioniert's"
   
 

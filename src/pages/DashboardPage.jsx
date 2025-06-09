@@ -87,8 +87,8 @@ const DashboardPage = ({ onAdd }) => {
             onChange={handleChange}
             className="w-1/2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="apartment">{t('form.apartment')}</option>
-            <option value="house">{t('form.house')}</option>
+            <option value="apartment">{t('form.type.apartment')}</option>
+            <option value="house">{t('form.type.house')}</option>
           </select>
           <select
             name="purpose"
@@ -96,8 +96,9 @@ const DashboardPage = ({ onAdd }) => {
             onChange={handleChange}
             className="w-1/2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="rent">{t('form.rent')}</option>
-            <option value="buy">{t('form.buy')}</option>
+          <option value="rent">{t('form.purpose.rent')}</option>
+          <option value="buy">{t('form.purpose.buy')}</option>
+
           </select>
         </div>
 

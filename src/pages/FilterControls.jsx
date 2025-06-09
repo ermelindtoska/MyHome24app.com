@@ -20,8 +20,8 @@ const FilterControls = ({ filterCity, setFilterCity, filterType, setFilterType, 
         className="p-2 border rounded w-full md:w-1/3"
       >
         <option value="">{t('allTypes')}</option>
-        <option value="apartment">{t('apartment')}</option>
-        <option value="house">{t('house')}</option>
+        <option value="apartment">{t('type.apartment')}</option>
+        <option value="house">{t('type.house')}</option>
       </select>
       <select
         value={filterPurpose}
@@ -29,8 +29,8 @@ const FilterControls = ({ filterCity, setFilterCity, filterType, setFilterType, 
         className="p-2 border rounded w-full md:w-1/3"
       >
         <option value="">{t('allPurposes')}</option>
-        <option value="rent">{t('rent')}</option>
-        <option value="buy">{t('buy')}</option>
+        <option value="rent">{t('purpose.rent')}</option>
+        <option value="buy">{t('purpose.buy')}</option>
       </select>
     </div>
   );

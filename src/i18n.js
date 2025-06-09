@@ -96,7 +96,7 @@ import userDashboardEN from './locales/en/userDashboard.json';
 import listingEN from './locales/en/listing.json';
 import listingDetailsEN from './locales/en/listingDetails.json';
 import filterBarEN from './locales/en/filterBar.json';
-import buyEN from './locales/de/buy.json';
+import buyEN from './locales/en/buy.json';
 
 import rentEN from './locales/en/rent.json';
 import mortgageEN from './locales/en/mortgage.json';

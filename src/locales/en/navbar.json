@@ -8,7 +8,7 @@
   "contact": "Contact",
   "manage": "Manage Rentals",
   "advertise": "Advertise",
-  
+  "help": "Help",
   "login": "Sign In",
   "logout": "Logout",
   "favorites": "Favorites",
@@ -38,6 +38,7 @@
   "addNew": "Add Listing",
   "bannerAd": "Banner Ad",
   "premiumListing": "Premium Listing",
+  "account": "Account",
   "signIn": "Sign In"
   
   
