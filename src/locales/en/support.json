@@ -4,14 +4,15 @@
 "form": {
 "name": "Your name",
 "email": "Your email address",
-"message": "Your message",
-"submit": "Send message",
+    "messagePlaceholder": "Your message",
+    "submitLabel": "Send message",
 "selectPlaceholder": "Select a topic",
 "category": {
-"general": "General inquiry",
-"technical": "Technical issue",
-"billing": "Billing issue",
-"login": "Login issue"
+"technical": "Technical Problem",
+"login": "Login Problem",
+"listing": "Display Problem",
+"feedback": "Feedback",
+"other": "Other"
 }
 },
 "success": "Message sent successfully.",

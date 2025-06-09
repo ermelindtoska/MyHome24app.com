@@ -4,15 +4,16 @@
   "form": {
     "name": "Ihr Name",
     "email": "Ihre E-Mail-Adresse",
-    "message": "Ihre Nachricht",
-    "submit": "Nachricht senden",
+  "submitLabel": "Nachricht senden",
+  "messagePlaceholder": "Ihre Nachricht",
     "selectPlaceholder": "Wählen Sie ein Thema",
   
-    "category": {
-      "general": "Allgemeine Anfrage",
+        "category": {
       "technical": "Technisches Problem",
-      "billing": "Rechnungsfrage",
-      "login": "Anmeldeproblem"
+      "login": "Anmeldeproblem",
+      "listing": "Anzeigeproblem",
+      "feedback": "Feedback",
+      "other": "Anderes"
     }
   },
   "success": "Nachricht erfolgreich gesendet.",

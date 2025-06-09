@@ -12,6 +12,7 @@
     "deploy": "git add . && git commit -m \"Auto deploy\" || echo \"Nothing to commit\" && git pull --rebase origin main && git push origin main"
   },
   "dependencies": {
+    "@sendgrid/mail": "^8.1.5",
     "firebase": "^10.14.1",
     "google-map-react": "^2.2.5",
     "i18next": "^23.10.0",

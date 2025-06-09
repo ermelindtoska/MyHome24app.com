@@ -1,9 +1,13 @@
 {
   "cityPlaceholder": "City",
   "allTypes": "All Types",
-  "apartment": "Apartment",
-  "house": "House",
   "allPurposes": "All Purposes",
-  "rent": "Rent",
-  "buy": "Buy"
+  "type": {
+    "apartment": "Apartment",
+    "house": "House"
+  },
+  "purpose": {
+    "rent": "Rent",
+    "buy": "Buy"
+  }
 }

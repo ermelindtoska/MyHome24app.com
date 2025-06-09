@@ -8,8 +8,14 @@
     "price": "Price",
     "apartment": "Apartment",
     "house": "House",
-    "rent": "Rent",
-    "buy": "Buy",
-    "submit": "Create Listing"
+    "submit": "Create Listing",
+    "type": {
+      "apartment": "Apartment",
+      "house": "House"
+    },
+    "purpose": {
+      "rent": "Rent",
+      "buy": "Buy"
+    }
   }
 }

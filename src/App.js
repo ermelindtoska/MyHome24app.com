@@ -157,7 +157,16 @@ function App() {
         <Route path="/agents" element={<FindAgentPage />} />
 
 
-
+<Route path="/test-filterbar" element={
+  <FilterControls
+    filterCity=""
+    setFilterCity={() => {}}
+    filterType=""
+    setFilterType={() => {}}
+    filterPurpose=""
+    setFilterPurpose={() => {}}
+  />
+} />
 
 
         
