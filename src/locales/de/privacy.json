@@ -2,6 +2,43 @@
   "title": "Datenschutzerklärung",
   "description": "Unsere Datenschutzrichtlinie erklärt, wie wir mit deinen Daten umgehen.",
 
-  "intro": "Der Schutz deiner Daten ist uns wichtig.",
-  "details": "Erfahre, wie wir deine Daten sammeln, nutzen und schützen."
+ 
+  "details": "Erfahre, wie wir deine Daten sammeln, nutzen und schützen.",
+  
+ 
+  "intro": "Der Schutz Ihrer persönlichen Daten ist uns ein wichtiges Anliegen. Diese Datenschutzerklärung informiert Sie darüber, welche Daten wir erheben und wie wir sie verwenden.",
+  "responsibleTitle": "Verantwortliche Stelle",
+  "responsibleText": "MyHome24App , Pestalozzistr. 14 Landau 76829, Deutschland.",
+  "dataTypesTitle": "Arten der verarbeiteten Daten",
+  "dataType1": "Name und Kontaktinformationen",
+  "dataType2": "Nutzungsdaten (z. B. besuchte Seiten, Klickverhalten)",
+  "dataType3": "Standortdaten",
+  "dataType4": "Geräteinformationen",
+  "dataType5": "Eingaben in Formulare",
+  "usePurposeTitle": "Zwecke der Datenverarbeitung",
+  "usePurposeText": "Die Daten werden verarbeitet zur Bereitstellung unseres Angebots, Verbesserung der Nutzererfahrung und zu Sicherheitszwecken.",
+  "legalBasisTitle": "Rechtsgrundlagen",
+  "legalBasisText": "Die Verarbeitung erfolgt auf Basis der DSGVO, insbesondere Art. 6 Abs. 1 lit. a, b und f.",
+  "dataSharingTitle": "Weitergabe an Dritte",
+  "dataSharingText": "Ihre Daten werden nur bei rechtlicher Verpflichtung oder zur Vertragserfüllung weitergegeben.",
+  "thirdPartyTitle": "Drittanbieter",
+  "thirdPartyText": "Wir nutzen folgende Drittanbieter zur Datenverarbeitung:",
+  "thirdParty1": "Google Analytics – Analyse der Webseitenutzung",
+  "thirdParty2": "Firebase – Authentifizierung und Datenbank",
+  "thirdParty3": "SendGrid – E-Mail-Versand",
+  "cookiesTitle": "Cookies",
+  "cookiesText": "Diese Webseite verwendet Cookies, um Funktionen zu gewährleisten und das Nutzungserlebnis zu verbessern.",
+  "rightsTitle": "Ihre Rechte",
+  "rightAccess": "Recht auf Auskunft über gespeicherte Daten",
+  "rightCorrection": "Recht auf Berichtigung unrichtiger Daten",
+  "rightDeletion": "Recht auf Löschung Ihrer Daten",
+  "rightRestriction": "Recht auf Einschränkung der Verarbeitung",
+  "rightObjection": "Recht auf Widerspruch gegen die Verarbeitung",
+  "rightPortability": "Recht auf Datenübertragbarkeit",
+  "contactTitle": "Kontakt",
+  "contactText": "Für Fragen zum Datenschutz kontaktieren Sie uns unter datenschutz@myhome24app.com.",
+  "toImpressum": "Zum Impressum",
+  "toPrivacy": "Zur Datenschutzerklärung"
 }
+
+

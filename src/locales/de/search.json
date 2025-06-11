@@ -2,5 +2,7 @@
   "title": "Suchergebnisse",
   "noResults": "Keine Ergebnisse gefunden.",
   "placeholder": "Stadt, PLZ oder Adresse eingeben...",
-  "button": "Suchen"
+  "button": "Suchen",
+    "resultsFor": "Suchergebnisse für"
+ 
 }

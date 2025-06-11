@@ -1,9 +1,21 @@
 {
   "title": "Imprint",
   "company": "Company",
-  "address": "Address",
+  "address": "Address Pestalozzistr .14 Landau 76829",
   "contact": "Contact",
   "managingDirector": "Managing Director",
   "registration": "Commercial Register",
-  "vat": "VAT ID"
+  "vat": "VAT ID",
+   
+  "provider": "Information according to § 5 TMG",
+  "name": "myhome24app",
+  
+  "represented": "Represented by: Ermelind Toska",
+ 
+  "phone": "Phone: +49 (0)1736695664",
+  "email": "Email: kontakt@myhome24app.com",
+  
+  "liability": "Liability for content",
+  "liabilityText": "The contents of our pages were created with great care. However, we cannot guarantee the contents’ accuracy, completeness or topicality."
+
 }

@@ -73,6 +73,9 @@ import BuyPage from './pages/BuyPage';
 import RentPage from './pages/RentPage';
 import MortgagePage from './pages/MortgagePage';
 import FindAgentPage from './pages/FindAgentPage';
+import SearchResultsPage from './pages/SearchResultsPage';
+import ImpressumPage from './pages/ImpressumPage';
+
 
 
 
@@ -155,6 +158,14 @@ function App() {
         <Route path="/rent" element={<RentPage />} />
         <Route path="/mortgage" element={<MortgagePage />} />
         <Route path="/agents" element={<FindAgentPage />} />
+        <Route path="/search" element={<SearchResultsPage />} />
+        <Route path="/impressum" element={<ImpressumPage />} />
+
+
+
+
+
+
 
 
 <Route path="/test-filterbar" element={

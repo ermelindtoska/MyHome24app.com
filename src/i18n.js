@@ -46,9 +46,11 @@ import listingDetailsDE from './locales/de/listingDetails.json';
 import filterBarDE from './locales/de/filterBar.json';
 import buyDE from './locales/de/buy.json';
 
+
 import rentDE from './locales/de/rent.json';
 import mortgageDE from './locales/de/mortgage.json';
 import findAgentDE from './locales/de/findAgent.json';
+import impressumDE from './locales/de/impressum.json';
 
 
 
@@ -101,6 +103,7 @@ import buyEN from './locales/en/buy.json';
 import rentEN from './locales/en/rent.json';
 import mortgageEN from './locales/en/mortgage.json';
 import findAgentEN from './locales/en/findAgent.json';
+import impressumEN from './locales/en/impressum.json';
 
 
 
@@ -155,6 +158,7 @@ const resources = {
      rent: rentDE,
      mortgage: mortgageDE,
      findAgent: findAgentDE,
+     impressum: impressumDE,
      
     
   },
@@ -205,6 +209,7 @@ const resources = {
     rent: rentEN,
     mortgage: mortgageEN,
     findAgent: findAgentEN,
+    impressum: impressumEN,
    
   }
 };
@@ -221,7 +226,7 @@ i18n
       'breadcrumbs', 'comments', 'compare', 'filter', 'listing', 'map',
       'careers', 'privacy','agent','agentRating','apartment','house','office','newConstruction',
       'foreclosure','owner','bankPartners','manageRentals','newListing','bannerAds','premiumListing','dashboard','support', 'howItWorks','userDashboard',
-      'listingDetails','filterBar','listingForm','buy','rent','mortgage','findAgent'
+      'listingDetails','filterBar','listingForm','buy','rent','mortgage','findAgent','impressum'
       
 
     ],
