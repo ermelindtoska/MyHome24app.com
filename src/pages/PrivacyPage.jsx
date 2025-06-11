@@ -56,21 +56,37 @@ const Datenschutz = () => {
       <h2 className="text-2xl font-semibold mt-10 mb-4">{t('contactTitle')}</h2>
       <p className="mb-4">{t('contactText')}</p>
 
-      <div className="mt-16 text-center">
+      <div className="mt-16 text-center space-y-4">
         <a
           href="/impressum"
           className="inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition"
         >
           {t('toImpressum') || 'Zum Impressum'}
         </a>
-        <div className="mt-4">
-          <a
-            href="/datenschutz"
-            className="inline-block text-blue-600 underline hover:text-blue-800 transition"
-          >
-            {t('toPrivacy') || 'Zur Datenschutzerklärung'}
-          </a>
-        </div>
+
+        <a
+          href="/files/MyHome24App_Datenschutzerklaerung.pdf"
+          download
+          className="block text-blue-600 underline hover:text-blue-800 transition"
+        >
+          PDF: {t('title')}
+        </a>
+        <a
+  href="/files/MyHome24App_PrivacyPolicy_EN.pdf"
+  download
+  className="block text-blue-600 underline hover:text-blue-800 transition"
+>
+  PDF: Privacy Policy (English)
+</a>
+
+        <a
+          href="https://www.bfdi.bund.de/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block text-blue-600 underline hover:text-blue-800 transition"
+        >
+          Bundesbeauftragter für den Datenschutz (BfDI)
+        </a>
       </div>
     </div>
   );
