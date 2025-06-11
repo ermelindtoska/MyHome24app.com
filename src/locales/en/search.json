@@ -2,5 +2,6 @@
   "title": "Search Results",
   "noResults": "No results found.",
   "placeholder": "Enter city, zip code or address...",
+  "resultsFor": "Search results for",
   "button": "Search"
 }

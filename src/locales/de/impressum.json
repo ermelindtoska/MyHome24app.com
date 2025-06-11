@@ -1,9 +1,21 @@
 {
   "title": "Impressum",
   "company": "Firma",
-  "address": "Adresse",
+  "address": "Adresse Pestalozzistr.14  Landau 76829",
   "contact": "Kontakt",
   "managingDirector": "Geschäftsführer",
   "registration": "Handelsregister",
-  "vat": "Umsatzsteuer-ID"
+  "vat": "Umsatzsteuer-ID",
+  
+  "provider": "Angaben gemäß § 5 TMG",
+  "name": "myhome24app",
+ 
+  "represented": "Vertreten durch: Ermelind Toska",
+  
+  "phone": "Telefon: +49 (0)1736695664",
+  "email": "E-Mail: kontakt@myhome24app.com",
+ 
+  "liability": "Haftung für Inhalte",
+  "liabilityText": "Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen."
+
 }

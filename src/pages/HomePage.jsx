@@ -1,4 +1,4 @@
-// ✅ VERSIONI I PLOTËSUAR I HOMEPAGE ME TË GJITHA PJESËT ORIGJINALE DHE PËRMIRËSIMET E INTEGRUARA
+// ✅ HomePage.jsx – Versioni përfundimtar me strukturën tënde + përmirësimet
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { collection, getDocs, orderBy, query, getCountFromServer } from 'firebase/firestore';
@@ -6,19 +6,15 @@ import { db } from '../firebase-config';
 import { useTranslation } from 'react-i18next';
 import { Typewriter } from 'react-simple-typewriter';
 import Slider from 'react-slick';
-import CountUp from 'react-countup';
 import ReactPlayer from 'react-player';
 import {
-  FaBuilding, FaHome, FaBriefcase, FaTree, FaSearch, FaQuoteLeft, FaHandshake, FaEnvelope,
-  FaUserCircle, FaStar, FaLightbulb, FaMapMarkerAlt, FaRocket
+  FaBuilding, FaHome, FaBriefcase, FaRocket, FaMapMarkerAlt,
+  FaSearch, FaLightbulb, FaEnvelope, FaQuoteLeft, FaStar, FaUserCircle
 } from 'react-icons/fa';
 import ListingCard from '../components/ListingCard';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
-
-
 
 const HomePage = () => {
   const { t } = useTranslation('home');
@@ -60,6 +56,14 @@ const HomePage = () => {
     fetchStats();
   }, [listings]);
 
+  const handleSearch = () => {
+    if (search.trim()) navigate(`/search?query=${encodeURIComponent(search.trim())}`);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') handleSearch();
+  };
+
   const heroImages = ['/images/hero-1.jpg', '/images/hero-2.jpg', '/images/hero-3.jpg'];
   const sliderSettings = {
     autoplay: true,
@@ -80,7 +84,6 @@ const HomePage = () => {
     { name: t('apartment'), icon: <FaBuilding />, link: '/category/apartment' },
     { name: t('house'), icon: <FaHome />, link: '/category/house' },
     { name: t('office'), icon: <FaBriefcase />, link: '/category/office' },
-    
     { name: t('newConstruction'), icon: <FaRocket />, link: '/new-construction' },
   ];
 
@@ -88,16 +91,8 @@ const HomePage = () => {
     t('popularArea1'),
     t('popularArea2'),
     t('popularArea3'),
-    t('popularArea4')
+    t('popularArea4'),
   ];
-
- const handleSearch = () => {
-  if (search.trim()) navigate(`/search?query=${encodeURIComponent(search.trim())}`);
-};
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') handleSearch();
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-blue-50 to-white animate-fade-in">
@@ -105,50 +100,27 @@ const HomePage = () => {
         <div className="w-full h-0 animate-fireworks" />
       </div>
 
-      {/* Hero Section with Text + Search */}
-<section
-  className="relative w-full h-[120vh] bg-cover bg-center flex flex-col justify-center items-center text-white text-center"
-  style={{
-    backgroundImage: "url('/images/myhomehintergrund.png')",
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  }}
->
-  {/* Layer blur e errët sipër fotos */}
-  <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-10"></div>
-
-  {/* Përmbajtja qëndrore */}
-  <div className="relative z-20 bg-black bg-opacity-60 p-8 rounded-lg shadow-lg">
-    <h1 className="text-4xl md:text-6xl font-extrabold mb-6">Finde dein perfektes Zuhause</h1>
-    <p className="text-xl md:text-2xl mb-8">Einfache Suche. Zuverlässige Anbieter. Sichere Transaktionen.</p>
-    <div className="max-w-xl mx-auto flex rounded-full overflow-hidden shadow-lg">
-
-      
-      <input
-        type="text"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder="Nach Stadt, Adresse oder PLZ suchen..."
-        className="flex-grow px-6 py-4 text-black text-lg outline-none"
-      />
-      <button
-        onClick={handleSearch}
-        className="bg-blue-600 text-white px-6 py-4 text-lg font-semibold hover:bg-blue-700 transition"
-      >
-        Suchen
-      </button>
-    </div>
-  </div>
-</section>
-
+      {/* Hero Section with Search */}
+      <section className="relative w-full h-[120vh] bg-cover bg-center flex flex-col justify-center items-center text-white text-center" style={{ backgroundImage: "url('/images/myhomehintergrund.png')" }}>
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-10" />
+        <div className="relative z-20 bg-black bg-opacity-60 p-8 rounded-lg shadow-lg">
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-6">Finde dein perfektes Zuhause</h1>
+          <p className="text-xl md:text-2xl mb-8">Einfache Suche. Zuverlässige Anbieter. Sichere Transaktionen.</p>
+          <div className="max-w-xl mx-auto flex rounded-full overflow-hidden shadow-lg">
+            <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} onKeyDown={handleKeyDown} placeholder="Nach Stadt, Adresse oder PLZ suchen..." className="flex-grow px-6 py-4 text-black text-lg outline-none" />
+            <button onClick={handleSearch} className="bg-blue-600 text-white px-6 py-4 text-lg font-semibold hover:bg-blue-700 transition">
+              Suchen
+            </button>
+          </div>
+        </div>
+      </section>
 
       {/* Slider Background Section */}
       <section className="relative w-full h-[90vh] overflow-hidden">
         <Slider {...sliderSettings}>
           {heroImages.map((img, idx) => (
             <div key={idx} className="w-full h-[90vh]">
-              <img src={img} alt={`hero-${idx}`}className="w-full h-full object-cover" />
+              <img src={img} alt={`hero-${idx}`} className="w-full h-full object-cover" />
             </div>
           ))}
         </Slider>
@@ -156,8 +128,7 @@ const HomePage = () => {
           <h1 className="text-5xl md:text-7xl font-bold mb-6 drop-shadow-md">
             <Typewriter
               words={[t('heroTitle'), t('heroTitle2'), t('heroTitle3')]}
-              loop cursor cursorStyle="|" typeSpeed={80} deleteSpeed={40} delaySpeed={2000}
-            />
+              loop cursor cursorStyle="|" typeSpeed={80} deleteSpeed={40} delaySpeed={2000} />
           </h1>
           <p className="text-2xl md:text-3xl mb-8 drop-shadow-sm">{t('heroSubtitle')}</p>
           <Link to="/listings">
@@ -167,17 +138,35 @@ const HomePage = () => {
           </Link>
         </div>
       </section>
-      {/* FEATURED LISTINGS SECTION */}
-      <section className="bg-white py-20 px-4 animate-fade-in">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center text-gray-800">{t('latest')}</h2>
-          <div className="grid md:grid-cols-3 sm:grid-cols-2 gap-6">
-            {listings.slice(0, 6).map(listing => (
-              <ListingCard key={listing.id} listing={listing} />
-            ))}
-          </div>
+
+    <div>
+      {/* Layer blur e errët sipër fotos */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-10"></div>
+
+      {/* Përmbajtja qëndrore */}
+      <div className="relative z-20 bg-black bg-opacity-60 p-8 rounded-lg shadow-lg">
+        <h1 className="text-4xl md:text-6xl font-extrabold mb-6">Finde dein perfektes Zuhause</h1>
+        <p className="text-xl md:text-2xl mb-8">Einfache Suche. Zuverlässige Anbieter. Sichere Transaktionen.</p>
+        <div className="max-w-xl mx-auto flex rounded-full overflow-hidden shadow-lg">
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Nach Stadt, Adresse oder PLZ suchen..."
+            className="flex-grow px-6 py-4 text-black text-lg outline-none"
+          />
+          <button
+            onClick={handleSearch}
+            className="bg-blue-600 text-white px-6 py-4 text-lg font-semibold hover:bg-blue-700 transition"
+          >
+            Suchen
+          </button>
         </div>
-      </section>
+      </div>
+    </div>
+
+
 
       {/* CATEGORIES SECTION */}
       <section className="bg-gray-100 py-20 px-4 animate-fade-in">
@@ -224,6 +213,7 @@ const HomePage = () => {
                 <img src={`/images/agent${i}.jpg`} alt={`Agent ${i}`} className="w-full h-48 object-cover rounded-md mb-4" />
 
 
+
                 <h4 className="text-xl font-semibold text-gray-800">Agent {i}</h4>
                 <p className="text-sm text-gray-500">{t('agentsSpecialty') || 'Immobilienberater*in'}</p>
               </div>
@@ -239,7 +229,9 @@ const HomePage = () => {
           <h2 className="text-4xl font-bold mb-10 text-gray-800">{t('partnersTitle') || 'Unsere Partner'}</h2>
           <div className="flex flex-wrap items-center justify-center gap-8">
             {[1, 2, 3, 4].map(i => (
-              <img key={i} src={`/images/partner${i}.png`} alt={`Partner ${i}`}className="h-16 object-contain" />
+              <img
+                key={i}src={`/images/partner${i}.png`} alt={`Partner ${i}`}className="h-16 object-contain"
+/>
             ))}
           </div>
         </div>
@@ -354,8 +346,12 @@ const HomePage = () => {
       {/* FOOTER */}
       <footer className="bg-gray-200 py-10 text-center text-base text-gray-500">
         © {new Date().getFullYear()} MyHome24App. Alle Rechte vorbehalten.
+        <Link to="/impressum" className="text-blue-600 hover:underline">
+    Impressum
+  </Link>
       </footer>
-    </div>
+       </div>
+      
   );
 };
 
