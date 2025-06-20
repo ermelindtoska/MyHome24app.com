@@ -1,8 +1,35 @@
 {
-  "title": "Pricing & Plans",
-  "basic": "Basic",
-  "premium": "Premium",
+
   "pro": "Pro",
-  "features": "Feature Overview",
-  "choosePlan": "Choose Plan"
+
+  "choosePlan": "Choose Plan",
+
+    "title": "Choose Your Plan",
+  "free": "Free Plan",
+  "basic": "Basic Plan",
+  "premium": "Premium Plan",
+  "features": {
+    "unlimitedListings": "Unlimited Listings",
+    "prioritySupport": "Priority Customer Support",
+    "analyticsDashboard": "Advanced Analytics Dashboard",
+    "customBranding": "Custom Branding Options",
+      "plansTitle": "Subscription Plans",
+  "basicPlan": "Basic Plan",
+  "proPlan": "Pro Plan",
+  "enterprisePlan": "Enterprise Plan",
+  "currentPlan": "Your Current Plan",
+  "upgradePlan": "Upgrade Your Plan",
+  "billingHistory": "Billing History",
+  "cancelSubscription": "Cancel Subscription"
+  },
+  "cta": {
+    "upgradeNow": "Upgrade Now",
+    "downgrade": "Downgrade",
+    "cancelPlan": "Cancel Plan",
+    "currentPlan": "Your Current Plan"
+  },
+  "billingCycle": {
+    "monthly": "Monthly Billing",
+    "yearly": "Yearly Billing"
+  }
 }

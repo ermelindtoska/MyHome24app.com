@@ -2,5 +2,24 @@
   "title": "Rechtliche Hinweise",
   "privacy": "Datenschutz",
   "terms": "Nutzungsbedingungen",
-  "impressum": "Impressum"
+  "impressum": "Impressum",
+    "termsOfService": "Nutzungsbedingungen",
+  "privacyPolicy": "Datenschutzrichtlinie",
+  "cookiePolicy": "Cookie-Richtlinie",
+  "userAgreement": "Nutzervereinbarung",
+  "legalNotice": "Impressum",
+  "compliance": "Einhaltungsanforderungen",
+  "gdpr": "DSGVO-Informationen",
+  "copyright": "Urheberrechtsbestimmungen",
+  "disclaimer": "Haftungsausschluss",
+  "licensing": "Lizenzinformationen",
+ 
+  "dataProtection": "Datenschutz",
+  "userRights": "Benutzerrechte",
+  
+  "consent": "Einwilligungsverwaltung",
+ 
+  "eula": "Endbenutzer-Lizenzvertrag"
+  
 }
+

@@ -1,5 +1,23 @@
 {
   "homeTitle": "Immobilien in Deutschland kaufen oder mieten | MyHome24App",
   "homeDescription": "Finden Sie Ihre Traumimmobilie mit MyHome24App – einfache Suche, geprüfte Anbieter, sichere Transaktionen.",
-  "defaultKeywords": "Immobilien, Kaufen, Mieten, Deutschland, Wohnungen, Häuser"
+  "defaultKeywords": "Immobilien, Kaufen, Mieten, Deutschland, Wohnungen, Häuser",
+    "pageTitle": "Seitentitel",
+  "metaDescription": "Meta-Beschreibung",
+  "keywords": "SEO-Schlüsselwörter",
+  "openGraphTitle": "Open Graph Titel",
+  "openGraphDescription": "Open Graph Beschreibung",
+  "twitterCard": "Twitter-Karten-Typ",
+  "canonicalURL": "Kanonische URL",
+  "altText": "Alternativtext für Bilder",
+  "schemaMarkup": "Schema-Markup",
+  "robotsMeta": "Robots-Meta-Tag",
+    "metaTitle": "Meta-Titel",
+
+  "ogTitle": "Open Graph Titel",
+  "ogDescription": "Open Graph Beschreibung",
+ 
+
+  "robotsTxt": "Robots.txt-Konfiguration",
+  "sitemap": "Sitemap-Einstellungen"
 }

@@ -1,9 +1,34 @@
 {
-  "title": "Security",
+ 
   "changePassword": "Change Password",
   "twoFactor": "Two-Factor Authentication",
   "sessions": "Active Sessions",
   "lastLogin": "Last Login",
   "enable2FA": "Enable 2FA",
-  "disable2FA": "Disable 2FA"
+  "disable2FA": "Disable 2FA",
+    "title": "Security Settings",
+  "twoFactorAuth": "Two-Factor Authentication",
+  "passwordStrength": "Password Strength",
+  "activeSessions": "Active Sessions",
+  "loginHistory": "Login History",
+  "dataExport": "Export My Data",
+  "deleteAccount": "Delete Account",
+  "securityTips": "Security Tips",
+  "recommendations": [
+    "Use a strong and unique password.",
+    "Enable two-factor authentication.",
+    "Regularly review your active sessions.",
+    "Be cautious with phishing emails.",
+    "Never share your credentials.",
+ {
+  "securityTitle": "Security Settings",
+  "twoFactor": "Two-Factor Authentication",
+  "encryption": "Data Encryption",
+  "firewall": "Network Firewall Protection",
+  "accessControl": "Access Control Settings",
+  "securityTips": "Security Tips & Best Practices",
+  "lastLogin": "Last Login Information",
+  "sessions": "Active Sessions"
+ }
+  ]
 }

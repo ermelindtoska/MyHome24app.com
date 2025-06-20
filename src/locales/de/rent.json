@@ -1,4 +1,18 @@
 {
   "title": "Mieten",
-  "description": "Entdecken Sie unsere Mietangebote, perfekt für jeden Lebensstil und jedes Budget. Finden Sie noch heute Ihr neues Zuhause."
+  "description": "Entdecken Sie unsere Mietangebote, perfekt für jeden Lebensstil und jedes Budget. Finden Sie noch heute Ihr neues Zuhause.",
+      "rent": {
+        "title": "Mietwohnungen und Häuser finden",
+        "description": "Entdecken Sie verfügbare Mietobjekte in Ihrer bevorzugten Region.",
+        "filters": {
+            "monthlyRent": "Monatsmiete",
+            "propertyType": "Immobilienart",
+            "furnished": "Möbliert",
+            "petsAllowed": "Haustiere erlaubt"
+        },
+        "actions": {
+            "applyNow": "Jetzt bewerben",
+            "viewMore": "Mehr anzeigen"
+        }
+    }
 }

@@ -2,5 +2,13 @@
   "title": "Accessibility",
   "description": "Our platform is accessible to everyone, regardless of abilities or devices.",
   "statement": "Accessibility Statement",
-  "contact": "Contact us if you encounter issues"
+  "contact": "Contact us if you encounter issues",
+ 
+  "textSize": "Text Size",
+  "contrast": "High Contrast Mode",
+  "screenReader": "Screen Reader Support",
+  "keyboardNav": "Keyboard Navigation",
+  "accessibleMap": "Accessible Map View",
+  "voiceControl": "Voice Control",
+  "colorBlindMode": "Color Blind Mode"
 }

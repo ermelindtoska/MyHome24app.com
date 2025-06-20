@@ -3,5 +3,24 @@
   "editProfile": "Profil bearbeiten",
   "logout": "Abmelden",
   "myListings": "Meine Immobilien",
-  "settings": "Einstellungen"
+  "settings": "Einstellungen",
+ 
+  "myProfile": "Mein Profil",
+  
+  "viewPublicProfile": "Öffentliches Profil anzeigen",
+  "name": "Name",
+  "email": "E-Mail",
+  "phone": "Telefonnummer",
+  "address": "Adresse",
+  "bio": "Biografie",
+  "save": "Speichern",
+  "cancel": "Abbrechen",
+  "changePhoto": "Foto ändern",
+  "removePhoto": "Foto entfernen",
+  "updateSuccess": "Profil erfolgreich aktualisiert.",
+  "updateError": "Fehler beim Aktualisieren des Profils. Bitte versuche es erneut.",
+  "profileVisibility": "Sichtbarkeit des Profils",
+  "public": "Öffentlich",
+  "private": "Privat",
+  "edit": "Bearbeiten"
 }

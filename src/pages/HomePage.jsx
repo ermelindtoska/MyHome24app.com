@@ -1,4 +1,4 @@
-// ✅ HomePage.jsx – Versioni përfundimtar me strukturën tënde + përmirësimet
+// HomePage.jsx – përfshin komponentin GermanyMap në seksionin e hartës interaktive
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { collection, getDocs, orderBy, query, getCountFromServer } from 'firebase/firestore';
@@ -12,12 +12,15 @@ import {
   FaSearch, FaLightbulb, FaEnvelope, FaQuoteLeft, FaStar, FaUserCircle
 } from 'react-icons/fa';
 import ListingCard from '../components/ListingCard';
+import GermanyMap from '../components/GermanyMap';
+
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const HomePage = () => {
   const { t } = useTranslation('home');
+  const { t: tMap } = useTranslation('map');
   const navigate = useNavigate();
   const [listings, setListings] = useState([]);
   const [search, setSearch] = useState('');
@@ -100,6 +103,7 @@ const HomePage = () => {
         <div className="w-full h-0 animate-fireworks" />
       </div>
 
+
       {/* Hero Section with Search */}
       <section className="relative w-full h-[120vh] bg-cover bg-center flex flex-col justify-center items-center text-white text-center" style={{ backgroundImage: "url('/images/myhomehintergrund.png')" }}>
         <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-10" />
@@ -115,33 +119,26 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Slider Background Section */}
-      <section className="relative w-full h-[90vh] overflow-hidden">
-        <Slider {...sliderSettings}>
-          {heroImages.map((img, idx) => (
-            <div key={idx} className="w-full h-[90vh]">
-              <img src={img} alt={`hero-${idx}`} className="w-full h-full object-cover" />
-            </div>
-          ))}
-        </Slider>
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/60 to-blue-400/60 flex flex-col items-center justify-center text-white text-center px-4">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 drop-shadow-md">
-            <Typewriter
-              words={[t('heroTitle'), t('heroTitle2'), t('heroTitle3')]}
-              loop cursor cursorStyle="|" typeSpeed={80} deleteSpeed={40} delaySpeed={2000} />
-          </h1>
-          <p className="text-2xl md:text-3xl mb-8 drop-shadow-sm">{t('heroSubtitle')}</p>
-          <Link to="/listings">
-            <button className="bg-white text-blue-600 font-semibold px-8 py-4 rounded-full shadow hover:bg-gray-100 transition text-lg">
-              {t('heroButton')}
-            </button>
-          </Link>
-        </div>
-      </section>
+
 
     <div>
       {/* Layer blur e errët sipër fotos */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-10"></div>
+
+      
+            {/* INTERACTIVE MAP SECTION */}
+<section className="bg-white py-20 px-4 animate-fade-in">
+  <div className="max-w-6xl mx-auto">
+    <h2 className="text-4xl font-bold mb-8 text-center text-gray-800">
+      Interaktive Karte
+    </h2>
+    <Link to="/map" className="btn btn-primary mt-6">
+  {t('map.exploreGermany')}
+</Link>
+    <GermanyMap />
+  </div>
+</section>
+
 
       {/* Përmbajtja qëndrore */}
       <div className="relative z-20 bg-black bg-opacity-60 p-8 rounded-lg shadow-lg">
@@ -182,24 +179,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-       {/* MAP SECTION */}
-      <section className="bg-white py-20 px-4 animate-fade-in">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold mb-8 text-center text-gray-800">{t('mapTitle') || 'Interaktive Karte'}</h2>
-          <div className="w-full h-[500px] rounded-xl overflow-hidden shadow">
-            {/* TODO: Replace with <MapComponent /> if using react-leaflet */}
-            <iframe
-              src="https://www.google.com/maps/embed?..."
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </div>
-        </div>
-      </section>
+
 
       {/* AGENTS SECTION */}
       <section className="bg-gray-100 py-20 px-4 animate-fade-in">
@@ -237,17 +217,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* NEWSLETTER SECTION */}
-      <section className="bg-white py-20 px-4 animate-fade-in">
-        <div className="max-w-xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6 text-gray-800">{t('newsletterTitle') || 'Bleiben Sie informiert'}</h2>
-          <p className="text-gray-600 mb-4">{t('newsletterDesc') || 'Abonnieren Sie unseren Newsletter für Updates, Tipps und exklusive Angebote.'}</p>
-          <form className="flex flex-col sm:flex-row gap-4">
-            <input type="email" placeholder="E-Mail-Adresse" className="flex-1 px-4 py-3 border border-gray-300 rounded-md focus:outline-none" />
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition">{t('subscribe') || 'Abonnieren'}</button>
-          </form>
-        </div>
-      </section>
+
 
       {/* CAREERS SECTION */}
       <section className="bg-gray-100 py-20 px-4 animate-fade-in">
@@ -271,30 +241,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-       {/* HOW IT WORKS */}
-      <section className="bg-white py-20 px-4 animate-fade-in">
-        <div className="max-w-6xl mx-auto text-center">
-          <h3 className="text-4xl font-bold mb-12 text-blue-900">{t('howItWorksTitle')}</h3>
-          <p className="text-lg text-gray-500 mb-12">{t('whyDesc')}</p>
-          <div className="grid sm:grid-cols-3 gap-8">
-            <div className="bg-gray-50 p-6 rounded-xl shadow hover:shadow-md transition">
-              <FaSearch className="text-4xl text-blue-600 mb-4 mx-auto" />
-              <h4 className="text-xl font-semibold mb-2">{t('howStep1')}</h4>
-              <p className="text-gray-600">{t('howStep1Text')}</p>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-xl shadow hover:shadow-md transition">
-              <FaLightbulb className="text-4xl text-blue-600 mb-4 mx-auto" />
-              <h4 className="text-xl font-semibold mb-2">{t('howStep2')}</h4>
-              <p className="text-gray-600">{t('howStep2Text')}</p>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-xl shadow hover:shadow-md transition">
-              <FaEnvelope className="text-4xl text-blue-600 mb-4 mx-auto" />
-              <h4 className="text-xl font-semibold mb-2">{t('howStep3')}</h4>
-              <p className="text-gray-600">{t('howStep3Text')}</p>
-            </div>
-          </div>
-        </div>
-      </section>
+
        {/* POPULAR LOCATIONS SECTION */}
       <section className="bg-gray-100 py-20 px-4 animate-fade-in">
         <div className="max-w-6xl mx-auto text-center">

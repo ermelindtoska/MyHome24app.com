@@ -5,5 +5,35 @@
   "privacy": "Datenschutz",
   "account": "Kontoeinstellungen",
   "save": "Speichern",
-  "changePassword": "Passwort ändern"
+  "changePassword": "Passwort ändern",
+      "settings": {
+        "title": "Einstellungen",
+        "language": "Sprache",
+        "theme": "Design",
+        "notifications": "Benachrichtigungen",
+        "account": {
+            "profile": "Profil bearbeiten",
+            "privacy": "Datenschutz",
+            "logout": "Abmelden",
+              "title": "Einstellungen",
+  "language": "Sprache",
+  "selectLanguage": "Sprache auswählen",
+  "theme": "Design",
+  "lightMode": "Heller Modus",
+  "darkMode": "Dunkler Modus",
+  "notifications": "Benachrichtigungen",
+  "enableNotifications": "Benachrichtigungen aktivieren",
+  
+  "accountSettings": "Kontoeinstellungen",
+  "changeEmail": "E-Mail-Adresse ändern",
+  "changePassword": "Passwort ändern",
+  "deleteAccount": "Konto löschen",
+  "confirmDelete": "Bist du sicher, dass du dein Konto löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.",
+  "saveChanges": "Änderungen speichern",
+  "cancel": "Abbrechen",
+  "successUpdate": "Deine Einstellungen wurden erfolgreich gespeichert.",
+  "errorUpdate": "Beim Speichern ist ein Fehler aufgetreten. Bitte versuche es erneut."
+        }
+    }
+
 }

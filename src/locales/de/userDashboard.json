@@ -15,6 +15,16 @@
     "apartment": "Wohnung",
     "house": "Haus",
     "rent": "Mieten",
-    "buy": "Kaufen"
+    "buy": "Kaufen",
+  "title": "Mein Dashboard",
+  "welcomeMessage": "Willkommen zurück, {{name}}!",
+  "myListings": "Meine Inserate",
+  "favorites": "Gespeicherte Immobilien",
+  "messages": "Nachrichten",
+  "profile": "Profil bearbeiten",
+  "settings": "Kontoeinstellungen",
+  "logout": "Abmelden",
+  "analytics": "Analysen & Statistiken",
+  "notifications": "Benachrichtigungen"
   }
 }

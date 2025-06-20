@@ -1,4 +1,5 @@
 // src/App.jsx
+import './i18n';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -73,9 +74,16 @@ import BuyPage from './pages/BuyPage';
 import RentPage from './pages/RentPage';
 import MortgagePage from './pages/MortgagePage';
 import FindAgentPage from './pages/FindAgentPage';
-import SearchResultsPage from './pages/SearchResultsPage';
-import ImpressumPage from './pages/ImpressumPage';
 
+import ImpressumPage from './pages/ImpressumPage';
+import SearchResultsPage from './pages/SearchResultsPage';
+import GermanyMap from './components/GermanyMap';
+import GermanyMapLeaflet from './components/GermanyMapLeaflet';
+
+
+import GermanyMapReal from './pages/GermanyMapReal';
+import BuyMapPage from './pages/BuyMapPage';
+import RentMapPage from './pages/RentMapPage';
 
 
 
@@ -158,12 +166,23 @@ function App() {
         <Route path="/rent" element={<RentPage />} />
         <Route path="/mortgage" element={<MortgagePage />} />
         <Route path="/agents" element={<FindAgentPage />} />
-        <Route path="/search" element={<SearchResultsPage />} />
+        
         <Route path="/impressum" element={<ImpressumPage />} />
+        <Route path="/search" element={<SearchResultsPage />} />
+        <Route path="/map" element={<GermanyMap />} />
 
 
+<Route path="/map" element={<GermanyMapLeaflet />} />
+<Route path="/map-real" element={<GermanyMapReal />} />
 
-
+<Route path="/karte" element={<GermanyMapReal />} />
+<Route path="/explore" element={<GermanyMapReal />} />
+<Route path="/explore/germany" element={<GermanyMapReal />} />
+<Route path="/map" element={<GermanyMapReal />} />
+<Route path="/buy" element={<GermanyMapReal />} />
+<Route path="/rent" element={<GermanyMapReal />} />
+<Route path="/buy" element={<BuyMapPage />} />
+<Route path="/rent" element={<RentMapPage />} />
 
 
 

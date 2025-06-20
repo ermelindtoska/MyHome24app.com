@@ -8,5 +8,52 @@
   "rooms": "Rooms",
   "area": "Area",
   "address": "Address",
-  "createdAt": "Posted on"
+  "createdAt": "Posted on",
+
+    "details": "Details",
+ 
+  "city": "City",
+  "state": "State",
+  "zip": "ZIP Code",
+  "propertyType": "Property Type",
+  "listingType": "Listing Type",
+  
+  "bedrooms": "Bedrooms",
+  "bathrooms": "Bathrooms",
+ 
+  "yearBuilt": "Year Built",
+  "availableFrom": "Available From",
+  "parking": "Parking",
+  "heating": "Heating",
+  "balcony": "Balcony",
+  "garden": "Garden",
+  "basement": "Basement",
+  "energyCertificate": "Energy Certificate",
+  "contactAgent": "Contact Agent",
+  "viewOnMap": "View on Map",
+  "similarListings": "Similar Listings",
+  "floor": "Floor",
+  "totalFloors": "Total Floors",
+  "listingId": "Listing ID",
+  "furnished": "Furnished",
+  "availability": "Availability",
+  "uploadDate": "Uploaded On",
+  "viewMore": "View More",
+  "virtualTour": "Virtual Tour",
+    "title": "Property Listings",
+ 
+  "type": "Property Type",
+  "purpose": "Purpose",
+ 
+  "size": "Size",
+  
+  "noResults": "No results found.",
+  "visibleOnMap": "Visible on map",
+  "apartment": "Apartment",
+  "house": "House",
+  "buy": "Buy",
+  "rent": "Rent",
+  
+  "postedBy": "Posted by"
+ 
 }

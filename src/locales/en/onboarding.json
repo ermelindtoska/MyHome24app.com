@@ -3,5 +3,25 @@
   "step1": "Create your account",
   "step2": "Add your first listing",
   "step3": "Manage your favorites",
-  "done": "Let’s get started!"
+  "done": "Let’s get started!",
+  
+  "getStarted": "Get Started",
+  "setupProfile": "Set up your profile",
+  "tutorials": "Watch Tutorials",
+  "completeSteps": "Complete onboarding steps",
+  "inviteTeam": "Invite your team",
+  "connectApps": "Connect external apps",
+  "verifyEmail": "Verify your email",
+  "customizeDashboard": "Customize your dashboard",
+  "startExploring": "Start exploring features",
+  
+  "startTour": "Start the tour",
+  "skipTour": "Skip tour",
+  "tourCompleted": "You’ve completed the tour!",
+  "helpText": "Need help getting started?",
+
+  "step4": "Customize your preferences",
+
+  "tips": "Pro tips for new users",
+  "finish": "Finish setup"
 }

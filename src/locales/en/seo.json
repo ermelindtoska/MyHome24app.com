@@ -1,5 +1,23 @@
 {
   "homeTitle": "Buy or Rent Properties in Germany | MyHome24App",
   "homeDescription": "Find your dream property with MyHome24App – simple search, verified providers, secure transactions.",
-  "defaultKeywords": "real estate, buy, rent, Germany, apartments, houses"
+  "defaultKeywords": "real estate, buy, rent, Germany, apartments, houses",
+    "pageTitle": "Page Title",
+  "metaDescription": "Meta Description",
+  "keywords": "SEO Keywords",
+  "openGraphTitle": "Open Graph Title",
+  "openGraphDescription": "Open Graph Description",
+  "twitterCard": "Twitter Card Type",
+  "canonicalURL": "Canonical URL",
+  "altText": "Image Alt Text",
+  "schemaMarkup": "Schema Markup",
+  "robotsMeta": "Robots Meta Tag",
+    "metaTitle": "Meta Title",
+
+  "ogTitle": "Open Graph Title",
+  "ogDescription": "Open Graph Description",
+
+
+  "robotsTxt": "Robots.txt Configuration",
+  "sitemap": "Sitemap Settings"
 }

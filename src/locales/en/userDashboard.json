@@ -15,6 +15,16 @@
     "apartment": "Apartment",
     "house": "House",
     "rent": "Rent",
-    "buy": "Buy"
+    "buy": "Buy",
+      "title": "My Dashboard",
+  "welcomeMessage": "Welcome back, {{name}}!",
+  "myListings": "My Listings",
+  "favorites": "Saved Listings",
+  "messages": "Messages",
+  "profile": "Edit Profile",
+  "settings": "Account Settings",
+  "logout": "Logout",
+  "analytics": "Analytics & Statistics",
+  "notifications": "Notifications"
   }
 }

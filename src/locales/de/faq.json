@@ -1,0 +1,42 @@
+{
+  "title": "Häufig gestellte Fragen",
+  "searchPlaceholder": "Frage suchen...",
+  "noResults": "Keine Ergebnisse für Ihre Suche gefunden.",
+  "categories": {
+    "general": "Allgemein",
+    "account": "Konto",
+    "billing": "Abrechnung & Pläne",
+    "security": "Sicherheit",
+    "technical": "Technische Probleme"
+  },
+  "questions": {
+    "whatIsThisPlatform": "Worum geht es auf dieser Plattform?",
+    "howToRegister": "Wie registriere ich mich?",
+    "forgotPassword": "Ich habe mein Passwort vergessen. Was soll ich tun?",
+    "cancelSubscription": "Wie kündige ich mein Abonnement?",
+    "dataProtection": "Wie werden meine persönlichen Daten geschützt?",
+    "contactSupport": "Wie kann ich den Support kontaktieren?",
+    "faqTitle": "Häufig gestellte Fragen",
+  "question1": "Wie kann ich mein Passwort zurücksetzen?",
+  "answer1": "Um Ihr Passwort zurückzusetzen, gehen Sie zur Login-Seite und klicken Sie auf 'Passwort vergessen'. Folgen Sie den Anweisungen in Ihrer E-Mail.",
+  "question2": "Wo finde ich meine Rechnungen?",
+  "answer2": "Ihre Rechnungen finden Sie im Konto-Dashboard unter 'Abrechnung'.",
+  "question3": "Wie kontaktiere ich den Kundendienst?",
+  "answer3": "Sie können den Kundendienst über den Bereich 'Hilfe' kontaktieren oder uns direkt unter support@example.com eine E-Mail senden.",
+  "question4": "Kann ich meinen Abonnementplan ändern?",
+  "answer4": "Ja, Sie können Ihren Plan jederzeit im Bereich 'Pläne & Abrechnung' ändern.",
+  "question5": "Sind meine Daten sicher?",
+  "answer5": "Ja, wir verwenden branchenübliche Verschlüsselung und halten uns an strenge Datenschutzrichtlinien, um Ihre Daten zu schützen."
+},
+  
+  "answers": {
+    "whatIsThisPlatform": "Dies ist eine Immobilienplattform zum Kauf, zur Miete und zum Verkauf von Immobilien in Deutschland.",
+    "howToRegister": "Klicken Sie oben rechts auf 'Registrieren' und geben Sie Ihre Daten ein.",
+    "forgotPassword": "Nutzen Sie den Link 'Passwort vergessen' auf der Login-Seite.",
+    "cancelSubscription": "Gehen Sie zu 'Kontoeinstellungen' > 'Abonnement', um Ihren Plan zu verwalten.",
+    "dataProtection": "Wir halten uns an die DSGVO und schützen Ihre Daten mit höchsten Sicherheitsstandards.",
+    "contactSupport": "Nutzen Sie das Kontaktformular oder schreiben Sie an support@myhome24app.com"
+    
+  }
+}
+  

@@ -3,5 +3,25 @@
   "step1": "Erstelle dein Konto",
   "step2": "Füge deine erste Anzeige hinzu",
   "step3": "Verwalte deine Favoriten",
-  "done": "Los geht’s!"
+  "done": "Los geht’s!",
+
+  "getStarted": "Jetzt starten",
+  "setupProfile": "Profil einrichten",
+  "tutorials": "Tutorials ansehen",
+  "completeSteps": "Onboarding-Schritte abschließen",
+  "inviteTeam": "Team einladen",
+  "connectApps": "Externe Apps verbinden",
+  "verifyEmail": "E-Mail bestätigen",
+  "customizeDashboard": "Dashboard anpassen",
+  "startExploring": "Funktionen erkunden",
+  
+  "startTour": "Tour starten",
+  "skipTour": "Tour überspringen",
+  "tourCompleted": "Sie haben die Tour abgeschlossen!",
+  "helpText": "Brauchen Sie Hilfe beim Einstieg?",
+
+  "step4": "Einstellungen anpassen",
+  
+  "tips": "Profi-Tipps für neue Benutzer",
+  "finish": "Einrichtung abschließen"
 }
