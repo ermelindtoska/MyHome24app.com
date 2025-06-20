@@ -6,6 +6,7 @@ import logo from '../assets/logo.png';
 import { auth } from '../firebase-config';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 
+
 const Navbar = () => {
   const { t } = useTranslation('navbar');
   const [openMenu, setOpenMenu] = useState(null);
@@ -160,10 +161,16 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <Link to="/" className="flex items-center gap-4">
-            <img src={logo} alt="Logo" className="h-14 w-auto" />
-            <span className="text-2xl font-bold text-blue-800">MyHome24App</span>
-          </Link>
+         <button
+  onClick={() => {
+    navigate('/');
+    setTimeout(() => window.location.reload(), 50);
+  }}
+  className="flex items-center gap-4 focus:outline-none"
+>
+  <img src={logo} alt="Logo" className="h-14 w-auto" />
+  <span className="text-2xl font-bold text-blue-800">MyHome24App</span>
+</button>
           <Link to="/explore/germany" className="nav-link">Explore Germany</Link>
         </div>
 

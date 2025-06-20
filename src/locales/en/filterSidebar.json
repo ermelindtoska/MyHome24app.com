@@ -1,0 +1,11 @@
+{
+  "propertyType": "Property Type",
+  "listingType": "Listing Type",
+  "priceRange": "Price Range (€)",
+  "spaceRange": "Living Space (m²)",
+  "min": "Min",
+  "max": "Max",
+  "step": "Step",
+  "resetFilters": "Reset Filters",
+  "applyFilters": "Apply Filters"
+}

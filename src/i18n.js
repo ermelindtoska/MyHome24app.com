@@ -59,6 +59,7 @@ import districtsDE from './locales/de/districts.json';
 import streetsDE from './locales/de/streets.json';
 import neighbourhoodsDE from './locales/de/neighbourhoods.json';
 import filterBarDE from './locales/de/filterBar.json';
+import filterSidebarDE from './locales/de/filterSidebar.json';
 
 
 
@@ -121,6 +122,7 @@ import districtsEN from './locales/en/districts.json';
 import streetsEN from './locales/en/streets.json';
 import neighbourhoodsEN from './locales/en/neighbourhoods.json';
 import filterBarEN from './locales/en/filterBar.json';
+import filterSidebarEN from './locales/en/filterSidebar.json';
 
 
 
@@ -181,6 +183,7 @@ const resources = {
     districts: districtsDE,
     streets: streetsDE,
     neighbourhoods: neighbourhoodsDE,
+    filterSidebar: filterSidebarDE
      
     
   },
@@ -238,6 +241,7 @@ const resources = {
     districts: districtsEN,
     streets: streetsEN,
     neighbourhoods: neighbourhoodsEN,
+     filterSidebar: filterSidebarEN
   }
 };
 
@@ -253,8 +257,8 @@ i18n
       'breadcrumbs', 'comments', 'compare', 'filter', 'listing', 'map',
       'careers', 'privacy','agent','agentRating','apartment','house','office','newConstruction',
       'foreclosure','owner','bankPartners','manageRentals','newListing','bannerAds','premiumListing','dashboard','support', 'howItWorks','userDashboard',
-      'listingDetails','filterBar','listingForm','buy','rent','mortgage','findAgent','impressum','states', 'cities', 'districts', 'streets', 'neighbourhoods'
-      
+      'listingDetails','filterBar','listingForm','buy','rent','mortgage','findAgent','impressum','states', 'cities', 'districts', 'streets', 'neighbourhoods',
+      'filterSidebar'
 
     ],
     defaultNS: 'home',

@@ -1,0 +1,11 @@
+{
+  "propertyType": "Immobilientyp",
+  "listingType": "Anzeigentyp",
+  "priceRange": "Preisspanne (€)",
+  "spaceRange": "Wohnfläche (m²)",
+  "min": "Min.",
+  "max": "Max.",
+  "step": "Schritt",
+  "resetFilters": "Filter zurücksetzen",
+  "applyFilters": "Filter anwenden"
+}
