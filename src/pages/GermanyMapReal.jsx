@@ -10,12 +10,16 @@ import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import listings from '../data/listings.json';
 import ListingDetailsModal from '../components/ListingDetailsModal';
 
-// Leaflet icon fix
+// ✅ Konfiguro ikonat (saktësisht si në pamjen e fundit që dërgove)
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x,
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
 });
 
 const GermanyMapReal = ({ purpose }) => {
@@ -66,8 +70,8 @@ const GermanyMapReal = ({ purpose }) => {
   return (
     <div className="w-full h-[calc(100vh-64px)] flex flex-col lg:flex-row">
       
-      {/* Filter Panel */}
-      <div className="w-full lg:w-1/3 overflow-y-auto max-h-[400px] sm:max-h-none bg-white p-4 shadow-md">
+      {/* ✅ Filter Panel */}
+      <div className="w-full lg:w-1/3 overflow-y-auto max-h-[400px] sm:max-h-none bg-white p-4 shadow-md mb-4 lg:mb-0 lg:mr-4">
         <h2 className="text-xl font-bold mb-2">{t('title', { ns: 'filterBar' })}</h2>
         <input
           type="text"
@@ -128,8 +132,8 @@ const GermanyMapReal = ({ purpose }) => {
         )}
       </div>
 
-      {/* Map Panel */}
-      <MapContainer className="w-full h-[400px] sm:h-[50vh] lg:h-full z-0" center={[51.1657, 10.4515]} zoom={6}>
+      {/* ✅ Map Panel */}
+      <MapContainer className="w-full h-[400px] sm:h-[50vh] lg:h-full z-0 rounded" center={[51.1657, 10.4515]} zoom={6}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; OpenStreetMap contributors"
@@ -154,13 +158,13 @@ const GermanyMapReal = ({ purpose }) => {
         <MapEventHandler />
       </MapContainer>
 
-      {/* Modal */}
+      {/* ✅ Modal i përmirësuar */}
       {selectedItem && (
         <ListingDetailsModal listing={selectedItem} onClose={() => setSelectedItem(null)} />
       )}
-      {selectedListing && (
-        <ListingDetailsModal listing={selectedListing} onClose={() => setSelectedListing(null)} />
-      )}
+      
+  
+      
     </div>
   );
 };
