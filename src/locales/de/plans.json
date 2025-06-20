@@ -1,8 +1,35 @@
 {
-  "title": "Preise & Pakete",
-  "basic": "Basis",
-  "premium": "Premium",
+ 
+
   "pro": "Profi",
-  "features": "Leistungsübersicht",
-  "choosePlan": "Paket wählen"
+    "plansTitle": "Abonnementpläne",
+  "basicPlan": "Basisplan",
+  "proPlan": "Profi-Plan",
+  "enterprisePlan": "Unternehmensplan",
+  "currentPlan": "Ihr aktueller Plan",
+  "upgradePlan": "Plan upgraden",
+  "billingHistory": "Rechnungsverlauf",
+  "cancelSubscription": "Abonnement kündigen",
+ 
+  "choosePlan": "Paket wählen",
+    "title": "Wähle deinen Plan",
+  "free": "Kostenloser Plan",
+  "basic": "Basisplan",
+  "premium": "Premium-Plan",
+  "features": {
+    "unlimitedListings": "Unbegrenzte Anzeigen",
+    "prioritySupport": "Priorisierter Kundensupport",
+    "analyticsDashboard": "Erweitertes Analyse-Dashboard",
+    "customBranding": "Individuelle Markenoptionen"
+  },
+  "cta": {
+    "upgradeNow": "Jetzt upgraden",
+    "downgrade": "Downgrade",
+    "cancelPlan": "Plan kündigen",
+    "currentPlan": "Ihr aktueller Plan"
+  },
+  "billingCycle": {
+    "monthly": "Monatliche Abrechnung",
+    "yearly": "Jährliche Abrechnung"
+  }
 }

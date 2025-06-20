@@ -43,7 +43,7 @@ import howItWorksDE from './locales/de/howItWorks.json';
 import userDashboardDE from './locales/de/userDashboard.json';
 import listingDE from './locales/de/listing.json';
 import listingDetailsDE from './locales/de/listingDetails.json';
-import filterBarDE from './locales/de/filterBar.json';
+
 import buyDE from './locales/de/buy.json';
 
 
@@ -51,6 +51,14 @@ import rentDE from './locales/de/rent.json';
 import mortgageDE from './locales/de/mortgage.json';
 import findAgentDE from './locales/de/findAgent.json';
 import impressumDE from './locales/de/impressum.json';
+
+
+import statesDE from './locales/de/states.json';
+import citiesDE from './locales/de/cities.json';
+import districtsDE from './locales/de/districts.json';
+import streetsDE from './locales/de/streets.json';
+import neighbourhoodsDE from './locales/de/neighbourhoods.json';
+import filterBarDE from './locales/de/filterBar.json';
 
 
 
@@ -97,7 +105,7 @@ import howItWorksEN from './locales/en/howItWorks.json';
 import userDashboardEN from './locales/en/userDashboard.json';
 import listingEN from './locales/en/listing.json';
 import listingDetailsEN from './locales/en/listingDetails.json';
-import filterBarEN from './locales/en/filterBar.json';
+
 import buyEN from './locales/en/buy.json';
 
 import rentEN from './locales/en/rent.json';
@@ -105,6 +113,14 @@ import mortgageEN from './locales/en/mortgage.json';
 import findAgentEN from './locales/en/findAgent.json';
 import impressumEN from './locales/en/impressum.json';
 
+
+
+import statesEN from './locales/en/states.json';
+import citiesEN from './locales/en/cities.json';
+import districtsEN from './locales/en/districts.json';
+import streetsEN from './locales/en/streets.json';
+import neighbourhoodsEN from './locales/en/neighbourhoods.json';
+import filterBarEN from './locales/en/filterBar.json';
 
 
 
@@ -159,6 +175,12 @@ const resources = {
      mortgage: mortgageDE,
      findAgent: findAgentDE,
      impressum: impressumDE,
+
+    states: statesDE,
+    cities: citiesDE,
+    districts: districtsDE,
+    streets: streetsDE,
+    neighbourhoods: neighbourhoodsDE,
      
     
   },
@@ -210,7 +232,12 @@ const resources = {
     mortgage: mortgageEN,
     findAgent: findAgentEN,
     impressum: impressumEN,
-   
+
+    states: statesEN,
+    cities: citiesEN,
+    districts: districtsEN,
+    streets: streetsEN,
+    neighbourhoods: neighbourhoodsEN,
   }
 };
 
@@ -226,7 +253,7 @@ i18n
       'breadcrumbs', 'comments', 'compare', 'filter', 'listing', 'map',
       'careers', 'privacy','agent','agentRating','apartment','house','office','newConstruction',
       'foreclosure','owner','bankPartners','manageRentals','newListing','bannerAds','premiumListing','dashboard','support', 'howItWorks','userDashboard',
-      'listingDetails','filterBar','listingForm','buy','rent','mortgage','findAgent','impressum'
+      'listingDetails','filterBar','listingForm','buy','rent','mortgage','findAgent','impressum','states', 'cities', 'districts', 'streets', 'neighbourhoods'
       
 
     ],

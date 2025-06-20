@@ -1,4 +1,18 @@
 {
   "title": "Rent",
-  "description": "Explore our rental listings, perfect for every lifestyle and budget. Find your new home today."
+  "description": "Explore our rental listings, perfect for every lifestyle and budget. Find your new home today.",
+      "rent": {
+        "title": "Find Rental Apartments and Houses",
+        "description": "Explore available rentals in your preferred region.",
+        "filters": {
+            "monthlyRent": "Monthly Rent",
+            "propertyType": "Property Type",
+            "furnished": "Furnished",
+            "petsAllowed": "Pets Allowed"
+        },
+        "actions": {
+            "applyNow": "Apply Now",
+            "viewMore": "View More"
+        }
+    }
 }

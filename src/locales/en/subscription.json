@@ -4,5 +4,15 @@
   "changePlan": "Change Plan",
   "cancelSubscription": "Cancel Subscription",
   "billingCycle": "Billing Cycle",
-  "nextBilling": "Next Billing Date"
+  "nextBilling": "Next Billing Date",
+  
+  "monthly": "Monthly Plan",
+  "yearly": "Yearly Plan",
+  "benefits": "Enjoy premium features such as unlimited listings, priority support, and advanced analytics.",
+  "upgrade": "Upgrade your plan to access all features.",
+  "downgrade": "You can downgrade anytime from your account settings.",
+  "cancel": "Cancel subscription",
+  "cancel_info": "You can cancel your subscription at any time. Your benefits will remain until the end of the billing cycle.",
+  "renew": "Auto-renew is enabled by default. You can disable it anytime.",
+  "questions": "Have questions about plans? Contact our support team anytime."
 }

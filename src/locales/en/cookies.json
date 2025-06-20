@@ -2,5 +2,23 @@
   "notice": "This website uses cookies to ensure you get the best experience.",
   "accept": "Accept",
   "decline": "Decline",
-  "settings": "Settings"
+  "settings": "Settings",
+    "acceptCookies": "Accept Cookies",
+  "cookieSettings": "Cookie Settings",
+  "essentialCookies": "Essential Cookies",
+  "analyticsCookies": "Analytics Cookies",
+  "marketingCookies": "Marketing Cookies",
+  "savePreferences": "Save Preferences",
+  "learnMore": "Learn more about cookies",
+  "rejectAll": "Reject All",
+  "allowSelected": "Allow selected",
+  "consentBanner": "We use cookies to improve your experience.",
+    "manageCookies": "Manage Cookies",
+  "essential": "Essential Cookies",
+  "analytics": "Analytics Cookies",
+  "marketing": "Marketing Cookies",
+  "preferences": "Preference Cookies",
+  "acceptAll": "Accept All",
+
+  "cookieBannerText": "This website uses cookies to enhance the user experience."
 }

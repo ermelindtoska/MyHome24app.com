@@ -7,13 +7,11 @@ const FilterControls = ({ filterCity, setFilterCity, filterType, setFilterType, 
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-      <input
-        type="text"
-        placeholder={t('city')}
-        className="border px-3 py-2 rounded w-full"
-        value={filterCity}
-        onChange={(e) => setFilterCity(e.target.value)}
-      />
+   <input
+  id="autocomplete"
+  placeholder={t('searchPlaceholder', { ns: 'filterBar' })}
+  className="input w-full px-3 py-2 border rounded"
+/>
       <select
         value={filterType}
         onChange={(e) => setFilterType(e.target.value)}

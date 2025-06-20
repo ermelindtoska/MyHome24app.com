@@ -14,5 +14,79 @@
   "type": "Typ",
   "purpose": "Zweck",
   "price": "Preis",
-  "imageUrl": "Bild-URL"
+  "imageUrl": "Bild-URL",
+
+    "formTitle": "Immobilie hinzufügen",
+  "propertyType": "Immobilienart",
+  "listingType": "Angebotsart",
+  
+  "description": "Beschreibung",
+  
+  "area": "Wohnfläche (m²)",
+  "rooms": "Zimmeranzahl",
+  "bedrooms": "Schlafzimmer",
+  "bathrooms": "Badezimmer",
+  "yearBuilt": "Baujahr",
+  "availableFrom": "Verfügbar ab",
+  "furnished": "Möbliert",
+  "heatingType": "Heizungsart",
+  "parking": "Parkmöglichkeit",
+  "balcony": "Balkon",
+  "garden": "Garten",
+  "uploadImages": "Bilder hochladen",
+  "address": "Adresse",
+  
+  "zipCode": "Postleitzahl",
+ 
+  "size": "Größe",
+  "viewMore": "Mehr anzeigen",
+  "noResults": "Keine Ergebnisse gefunden.",
+  "visibleOnMap": "Sichtbar auf der Karte",
+  "apartment": "Wohnung",
+  "house": "Haus",
+  "buy": "Kaufen",
+  "rent": "Mieten",
+  "details": "Angebotsdetails",
+  "postedBy": "Eingestellt von",
+  "contactAgent": "Makler kontaktieren",
+ 
+  "basicInfo": "Grundinformationen",
+  "propertyTitle": "Titel der Immobilie",
+  "propertyDescription": "Beschreibung",
+
+  "currency": "Währung",
+  "location": "Standort",
+
+  "country": "Land",
+
+  "floor": "Etage",
+  "totalFloors": "Anzahl Etagen",
+  
+  "features": "Ausstattung",
+
+
+  "heating": "Heizung",
+  "elevator": "Aufzug",
+  "condition": "Zustand",
+  "new": "Neu",
+  "good": "Gut",
+  "needsRenovation": "Renovierungsbedürftig",
+  "images": "Bilder hochladen",
+  
+  "contactInfo": "Kontaktinformationen",
+  "contactName": "Kontaktname",
+  "contactEmail": "E-Mail",
+  "contactPhone": "Telefonnummer",
+  
+  "update": "Inserat aktualisieren",
+  "cancel": "Abbrechen",
+  "requiredField": "Dieses Feld ist erforderlich",
+  "successMessage": "Dein Inserat wurde erfolgreich gespeichert",
+  "errorMessage": "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
+  "deleteListing": "Inserat löschen",
+  "confirmDelete": "Möchtest du dieses Inserat wirklich löschen?",
+  "yesDelete": "Ja, löschen",
+  "noCancel": "Nein, abbrechen"
+ 
+  
 }

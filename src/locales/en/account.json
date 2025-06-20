@@ -1,0 +1,18 @@
+{
+  "accountTitle": "Account Settings",
+  "profileInfo": "Profile Information",
+  "emailAddress": "Email Address",
+  "changePassword": "Change Password",
+  "linkedAccounts": "Linked Accounts",
+  "deleteAccount": "Delete Account",
+  "notifications": "Notification Preferences",
+    "profile": "Profile",
+  "email": "Email",
+ 
+  "languagePreference": "Language Preference",
+ 
+  "membership": "Membership Level",
+ 
+  "manageSubscription": "Manage Subscription",
+  "connectedAccounts": "Connected Social Accounts"
+}

@@ -1,5 +1,15 @@
 {
   "newsletterTitle": "Stay Updated!",
   "newsletterDesc": "Subscribe to our newsletter and get the latest offers and updates straight to your inbox.",
-  "subscribe": "Subscribe"
+  "subscribe": "Subscribe",
+    "subscribeTitle": "Subscribe to Our Newsletter",
+  "weeklyUpdates": "Receive weekly updates and insights.",
+  "emailAddress": "Your Email Address",
+  "subscribeButton": "Subscribe",
+  "successMessage": "You’ve successfully subscribed!",
+  "errorMessage": "Something went wrong. Please try again.",
+  "unsubscribe": "Unsubscribe",
+  "managePreferences": "Manage Preferences",
+  "promoOffers": "Get the latest promotional offers",
+  "newsHighlights": "Highlights and Announcements"
 }

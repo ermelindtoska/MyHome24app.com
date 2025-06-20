@@ -2,5 +2,23 @@
   "title": "Legal",
   "privacy": "Privacy Policy",
   "terms": "Terms of Use",
-  "impressum": "Impressum"
+  "impressum": "Impressum",
+    "termsOfService": "Terms of Service",
+  "privacyPolicy": "Privacy Policy",
+  "cookiePolicy": "Cookie Policy",
+  "userAgreement": "User Agreement",
+  "legalNotice": "Legal Notice",
+  "compliance": "Compliance Requirements",
+  "gdpr": "GDPR Information",
+  "copyright": "Copyright Terms",
+  "disclaimer": "Disclaimer",
+  "licensing": "Licensing Information",
+
+  "dataProtection": "Data Protection",
+  "userRights": "User Rights",
+  
+  "consent": "Consent Management",
+  
+  "eula": "End User License Agreement"
+ 
 }

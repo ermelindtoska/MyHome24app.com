@@ -1,0 +1,17 @@
+ {
+  "profile": "Profil",
+  "email": "E-Mail",
+  "changePassword": "Passwort ändern",
+  "languagePreference": "Spracheinstellung",
+  "notifications": "Benachrichtigungseinstellungen",
+  "membership": "Mitgliedschaftsstufe",
+  "deleteAccount": "Mein Konto löschen",
+  "manageSubscription": "Abonnement verwalten",
+  "connectedAccounts": "Verbundene soziale Konten",
+   "accountTitle": "Kontoeinstellungen",
+  "profileInfo": "Profilinformationen",
+  "emailAddress": "E-Mail-Adresse",
+
+  "linkedAccounts": "Verknüpfte Konten"
+ 
+ }

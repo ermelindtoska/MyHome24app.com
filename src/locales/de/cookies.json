@@ -2,5 +2,23 @@
   "notice": "Diese Website verwendet Cookies, um Ihnen ein besseres Erlebnis zu bieten.",
   "accept": "Akzeptieren",
   "decline": "Ablehnen",
-  "settings": "Einstellungen"
+  "settings": "Einstellungen",
+    "acceptCookies": "Cookies akzeptieren",
+  "cookieSettings": "Cookie-Einstellungen",
+  "essentialCookies": "Essenzielle Cookies",
+  "analyticsCookies": "Analyse-Cookies",
+  "marketingCookies": "Marketing-Cookies",
+  "savePreferences": "Einstellungen speichern",
+  "learnMore": "Mehr über Cookies erfahren",
+  "rejectAll": "Alle ablehnen",
+  "allowSelected": "Auswahl erlauben",
+  "consentBanner": "Wir verwenden Cookies, um Ihre Erfahrung zu verbessern.",
+    "manageCookies": "Cookies verwalten",
+  "essential": "Essenzielle Cookies",
+  "analytics": "Analyse-Cookies",
+  "marketing": "Marketing-Cookies",
+  "preferences": "Präferenz-Cookies",
+  "acceptAll": "Alle akzeptieren",
+
+  "cookieBannerText": "Diese Website verwendet Cookies, um die Benutzererfahrung zu verbessern."
 }

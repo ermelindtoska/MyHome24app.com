@@ -12,6 +12,7 @@
     "deploy": "git add . && git commit -m \"Auto deploy\" || echo \"Nothing to commit\" && git pull --rebase origin main && git push origin main"
   },
   "dependencies": {
+    "@geoapify/geocoder-autocomplete": "^2.1.0",
     "@sendgrid/mail": "^8.1.5",
     "aos": "^2.3.4",
     "firebase": "^10.14.1",

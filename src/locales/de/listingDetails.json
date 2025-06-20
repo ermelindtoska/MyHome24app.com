@@ -8,5 +8,52 @@
   "rooms": "Zimmer",
   "area": "Fläche",
   "address": "Adresse",
-  "createdAt": "Eingestellt am"
+  "createdAt": "Eingestellt am",
+
+    "details": "Details",
+
+  "city": "Stadt",
+  "state": "Bundesland",
+  "zip": "Postleitzahl",
+  "propertyType": "Immobilienart",
+  "listingType": "Angebotsart",
+ 
+  "bedrooms": "Schlafzimmer",
+  "bathrooms": "Badezimmer",
+ 
+  "yearBuilt": "Baujahr",
+  "availableFrom": "Verfügbar ab",
+  "parking": "Parkplätze",
+  "heating": "Heizung",
+  "balcony": "Balkon",
+  "garden": "Garten",
+  "basement": "Keller",
+  "energyCertificate": "Energieausweis",
+  "contactAgent": "Makler kontaktieren",
+  "viewOnMap": "Auf der Karte anzeigen",
+  "similarListings": "Ähnliche Immobilien",
+  "floor": "Etage",
+  "totalFloors": "Anzahl Etagen",
+  "listingId": "Anzeigen-ID",
+  "furnished": "Möbliert",
+  "availability": "Verfügbarkeit",
+  "uploadDate": "Hochgeladen am",
+  "viewMore": "Mehr erfahren",
+  "virtualTour": "Virtueller Rundgang",
+    "title": "Immobilienangebote",
+  
+  "type": "Immobilientyp",
+  "purpose": "Zweck",
+  
+  "size": "Größe",
+  
+  "noResults": "Keine Ergebnisse gefunden.",
+  "visibleOnMap": "Sichtbar auf der Karte",
+  "apartment": "Wohnung",
+  "house": "Haus",
+  "buy": "Kaufen",
+  "rent": "Mieten",
+  
+  "postedBy": "Eingestellt von"
 }
+

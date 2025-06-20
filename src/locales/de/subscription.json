@@ -4,5 +4,15 @@
   "changePlan": "Plan ändern",
   "cancelSubscription": "Abonnement kündigen",
   "billingCycle": "Abrechnungszeitraum",
-  "nextBilling": "Nächste Abrechnung"
+  "nextBilling": "Nächste Abrechnung",
+ 
+  "monthly": "Monatlicher Plan",
+  "yearly": "Jährlicher Plan",
+  "benefits": "Genießen Sie Premium-Funktionen wie unbegrenzte Inserate, bevorzugten Support und erweiterte Analysen.",
+  "upgrade": "Aktualisieren Sie Ihren Plan, um alle Funktionen freizuschalten.",
+  "downgrade": "Sie können jederzeit über Ihre Kontoeinstellungen downgraden.",
+  "cancel": "Abonnement kündigen",
+  "cancel_info": "Sie können Ihr Abonnement jederzeit kündigen. Ihre Vorteile bleiben bis zum Ende des Abrechnungszeitraums erhalten.",
+  "renew": "Automatische Verlängerung ist standardmäßig aktiviert. Sie können sie jederzeit deaktivieren.",
+  "questions": "Fragen zu Plänen? Kontaktieren Sie jederzeit unser Support-Team."
 }

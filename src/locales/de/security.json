@@ -1,9 +1,31 @@
 {
-  "title": "Sicherheit",
+
   "changePassword": "Passwort ändern",
   "twoFactor": "Zwei-Faktor-Authentifizierung",
   "sessions": "Aktive Sitzungen",
   "lastLogin": "Letzter Login",
   "enable2FA": "2FA aktivieren",
-  "disable2FA": "2FA deaktivieren"
+  "disable2FA": "2FA deaktivieren",
+    "title": "Sicherheitseinstellungen",
+  "twoFactorAuth": "Zwei-Faktor-Authentifizierung",
+  "passwordStrength": "Passwortstärke",
+  "activeSessions": "Aktive Sitzungen",
+  "loginHistory": "Anmeldeverlauf",
+  "dataExport": "Meine Daten exportieren",
+  "deleteAccount": "Konto löschen",
+  "securityTips": "Sicherheitstipps",
+   "securityTitle": "Sicherheitseinstellungen",
+
+  "encryption": "Datenverschlüsselung",
+  "firewall": "Netzwerk-Firewall-Schutz",
+  "accessControl": "Zugangskontroll-Einstellungen",
+  
+  "recommendations": [
+    "Verwenden Sie ein starkes und einzigartiges Passwort.",
+    "Aktivieren Sie die Zwei-Faktor-Authentifizierung.",
+    "Überprüfen Sie regelmäßig Ihre aktiven Sitzungen.",
+    "Seien Sie vorsichtig mit Phishing-E-Mails.",
+    "Teilen Sie niemals Ihre Zugangsdaten."
+  ]
 }
+

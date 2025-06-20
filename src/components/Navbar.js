@@ -104,7 +104,6 @@ const Navbar = () => {
     {
       title: t('help'),
       items: [
-        
         { label: t('support'), to: '/support' },
         { label: t('howItWorks'), to: '/how-it-works' }
       ]
@@ -118,18 +117,12 @@ const Navbar = () => {
       onMouseEnter={() => handleMouseEnter(index)}
       onMouseLeave={handleMouseLeave}
     >
-      {menu.to ? (
-        <Link
-          to={menu.to}
-          className="cursor-pointer hover:text-blue-700 transition-colors duration-200"
-        >
-          {menu.title}
-        </Link>
-      ) : (
-        <span className="cursor-pointer hover:text-blue-700 transition-colors duration-200">
-          {menu.title}
-        </span>
-      )}
+      <Link
+        to={menu.to || '#'}
+        className="cursor-pointer hover:text-blue-700 transition-colors duration-200"
+      >
+        {menu.title}
+      </Link>
 
       {menu.items && openMenu === index && (
         <div
@@ -171,6 +164,7 @@ const Navbar = () => {
             <img src={logo} alt="Logo" className="h-14 w-auto" />
             <span className="text-2xl font-bold text-blue-800">MyHome24App</span>
           </Link>
+          <Link to="/explore/germany" className="nav-link">Explore Germany</Link>
         </div>
 
         <div className="flex items-center gap-12 text-sm font-medium text-gray-900">

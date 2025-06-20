@@ -1,8 +1,61 @@
 {
-  "notFound": "Seite nicht gefunden",
+ 
   "unexpected": "Ein unerwarteter Fehler ist aufgetreten.",
-  "unauthorized": "Nicht autorisiert",
+  
   "forbidden": "Zugriff verweigert",
   "network": "Netzwerkfehler. Bitte versuche es erneut.",
-  "required": "Dieses Feld ist erforderlich"
+  "required": "Dieses Feld ist erforderlich",
+    "requiredField": "Dieses Feld ist erforderlich.",
+  "invalidEmail": "Ungültige E-Mail-Adresse.",
+  "passwordTooShort": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+  "passwordsDoNotMatch": "Die Passwörter stimmen nicht überein.",
+  "somethingWentWrong": "Etwas ist schief gelaufen. Bitte versuche es erneut.",
+  "unauthorized": "Du bist nicht autorisiert, diese Aktion auszuführen.",
+  "notFound": "Die angeforderte Seite wurde nicht gefunden.",
+  "serverError": "Serverfehler. Bitte versuche es später erneut.",
+
+  "networkError": "Netzwerkfehler. Überprüfe deine Internetverbindung.",
+  "uploadFailed": "Hochladen fehlgeschlagen. Versuche es erneut.",
+  "tooManyRequests": "Zu viele Anfragen. Bitte warte einen Moment.",
+  "invalidFileType": "Ungültiger Dateityp.",
+  "fileTooLarge": "Die Datei ist zu groß.",
+
+  "passwordTooWeak": "Das Passwort ist zu schwach.",
+  
+  "invalidPhoneNumber": "Ungültige Telefonnummer.",
+  "usernameTaken": "Benutzername ist bereits vergeben.",
+  "emailAlreadyExists": "E-Mail ist bereits registriert.",
+  "invalidCredentials": "Ungültige Anmeldedaten.",
+  "accountDisabled": "Dieses Konto wurde deaktiviert.",
+  "accountNotVerified": "Konto ist nicht verifiziert.",
+  "verificationExpired": "Der Verifizierungslink ist abgelaufen.",
+  "tokenExpired": "Das Token ist abgelaufen.",
+  "sessionExpired": "Sitzung ist abgelaufen. Bitte melde dich erneut an.",
+
+  "connectionTimeout": "Verbindungszeitüberschreitung. Bitte versuche es erneut.",
+  
+  "downloadFailed": "Download fehlgeschlagen.",
+
+  "imageTooSmall": "Das Bild ist zu klein.",
+  "imageTooLarge": "Das Bild ist zu groß.",
+  "imageCorrupted": "Das Bild ist beschädigt.",
+
+  "actionNotAllowed": "Diese Aktion ist nicht erlaubt.",
+  "missingData": "Fehlende oder unvollständige Daten.",
+  "invalidInput": "Ungültige Eingabe.",
+  "captchaFailed": "CAPTCHA-Verifizierung fehlgeschlagen.",
+  "locationAccessDenied": "Standortzugriff verweigert.",
+  "listingNotFound": "Inserat nicht gefunden.",
+  "userNotFound": "Benutzer nicht gefunden.",
+  "emailSendFailed": "E-Mail konnte nicht gesendet werden.",
+  "resetLinkInvalid": "Der Zurücksetzungslink ist ungültig.",
+  "invalidDateFormat": "Ungültiges Datumsformat.",
+  "invalidCharacters": "Ungültige Zeichen verwendet.",
+  "fieldTooLong": "Das Feld ist zu lang.",
+  "fieldTooShort": "Das Feld ist zu kurz.",
+  "duplicateEntry": "Doppelter Eintrag erkannt.",
+  "saveFailed": "Speichern fehlgeschlagen.",
+  "deleteFailed": "Löschen fehlgeschlagen.",
+  "updateFailed": "Aktualisierung fehlgeschlagen.",
+  "unknownError": "Ein unbekannter Fehler ist aufgetreten."
 }
