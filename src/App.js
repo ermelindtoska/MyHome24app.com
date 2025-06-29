@@ -52,6 +52,13 @@ import SearchResultsPage from './pages/SearchResultsPage';
 import GermanyMapLeaflet from './components/GermanyMapLeaflet';
 import GermanyMapReal from './pages/GermanyMapReal';
 import { useTranslation } from 'react-i18next';
+import ComparePage from './pages/ComparePage';
+import CompareDetails from './pages/CompareDetails';
+import PropertyDetails from './components/PropertyDetails/PropertyDetails';
+
+
+
+
 
 function AppRoutes() {
   const location = useLocation();
@@ -105,6 +112,10 @@ function AppRoutes() {
         <Route path="/owner-dashboard" element={<ProtectedRoute><OwnerDashboard /></ProtectedRoute>} />
         <Route path="/search" element={<SearchResultsPage />} />
         <Route path="/listings" element={<ListingsPage />} />
+        <Route path="/compare" element={<ComparePage />} />
+        <Route path="/compare/details" element={<CompareDetails />} />
+        <Route path="/listing/:id" element={<PropertyDetails />} />
+
 
         {/* Hartë dhe eksplorim */}
         <Route path="/map" element={<GermanyMapReal />} />
@@ -115,6 +126,7 @@ function AppRoutes() {
         {/* Të rëndësishmet që shkaktojnë "ngrirje" */}
         <Route path="/buy" element={<BuyPage key="/buy" />} />
         <Route path="/rent" element={<RentPage key="/rent" />} />
+        
       </Routes>
       <Footer />
     </>

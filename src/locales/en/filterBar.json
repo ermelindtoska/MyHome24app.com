@@ -1,12 +1,10 @@
 {
   "cityPlaceholder": "City",
-    
-  
  "title": "Advanced Property Filters",
-  "city": "City",
- 
- 
-  
+ "city": "City",
+  "toggleFilters": "Toggle Filters",
+  "showFilters": "Show Filters",
+  "selected": "Selected",
   "villa": "Villa",
   "duplex": "Duplex",
   "penthouse": "Penthouse",
@@ -18,16 +16,11 @@
   "chalet": "Chalet",
   "mansion": "Mansion",
   "houseboat": "Houseboat",
- 
   "minSize": "Minimum Size (m\u00b2)",
   "maxSize": "Maximum Size (m\u00b2)",
-
   "garage": "Garage",
-
   "terrace": "Terrace",
-
   "unfurnished": "Unfurnished",
- 
   "pool": "Swimming Pool",
   "fireplace": "Fireplace",
   "cellar": "Cellar",
@@ -50,16 +43,12 @@
   "oilHeating": "Oil Heating",
   "geothermal": "Geothermal",
   "airConditioning": "Air Conditioning",
- 
   "smokingAllowed": "Smoking Allowed",
-  
   "availableNow": "Available Now",
   "referenceCode": "Reference Code",
-
   "visibleOnMap": "Visible on the map",
   "keywordSearch": "Keyword Search",
   "propertyId": "Property ID",
-
   "distanceToCenter": "Distance to City Center",
   "internet": "Internet Available",
   "tvConnection": "TV Connection",
@@ -128,36 +117,10 @@
   "postalCode": "Postal Code",
   "allTypes": "All Types",
   "allPurposes": "All Purposes",
-  "type": {
-    "apartment": "Apartment",
-    "house": "House"
-  },
-  "purpose": {
-    "rent": "Rent",
-    "buy": "Buy",
-     
-  
-    "title": "Filter Listings",
-  "city": "City",
-  "typeAll": "All Types",
-  "apartment": "Apartment",
-  "house": "House",
-  "office": "Office",
-  "minPrice": "Min Price",
-  "maxPrice": "Max Price",
-  "searchPlaceholder": "Enter city, ZIP or address...",
-  "resultsTitle": "Visible on map",
-  "noResults": "No results found.",
-
   "price": "Price",
   "type": "Property Type",
   "purpose": "Purpose",
-  "bedrooms": "Bedrooms",
-  "size": "Size",
   "viewMore": "View more",
- 
-  "visibleOnMap": "Visible on map",
- 
   "details": "Listing Details",
   "postedBy": "Posted by",
   "contactAgent": "Contact agent",
@@ -1164,5 +1127,5 @@
   "filterBar_key_998": "FilterBar value 998 (EN)",
   "filterBar_key_999": "FilterBar value 999 (EN)",
   "filterBar_key_1000": "FilterBar value 1000 (EN)"
-  }
+  
 }

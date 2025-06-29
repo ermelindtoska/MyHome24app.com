@@ -1,5 +1,5 @@
 {
-"map":{
+
     "title": "Standort auf Karte",
       "mapTitle": "Interaktive Karte",
   "explore": "Karte erkunden",
@@ -9,7 +9,7 @@
 
     "filter": "Filtern",
   "searchPlaceholder": "Ort, PLZ, Adresse...",
-  "type": "Typ",
+  
   "category": "Kategorie",
   "priceFrom": "Preis ab",
   "priceTo": "Preis bis",
@@ -17,19 +17,17 @@
   "areaTo": "Fläche bis",
   "applyFilters": "Filter anwenden",
   "clearFilters": "Filter zurücksetzen",
-      "map": {
-        "title": "Interaktive Karte",
+     
+       
         "description": "Klicken Sie auf die Karte, um Details zu Immobilien in jeder Region anzuzeigen.",
-        "legend": {
+       
             "forSale": "Zum Verkauf",
             "forRent": "Zur Miete",
-            "sold": "Verkauft"
-        },
-        "actions": {
-            "zoomIn": "Hineinzoomen",
-            "zoomOut": "Herauszoomen",
-            "reset": "Zurücksetzen",
-              "title": "Immobilienangebote",
+            "sold": "Verkauft",
+      
+           
+  "reset": "Zurücksetzen",
+              
   "city": "Stadt",
   "price": "Preis",
   "type": "Immobilientyp",
@@ -46,8 +44,26 @@
   "details": "Angebotsdetails",
   "postedBy": "Eingestellt von",
   "contactAgent": "Makler kontaktieren",
-  "description": "Beschreibung",
-
+  "filtersTitle": "Filter anzeigen",
+"minPrice": "Mindestpreis",
+"maxPrice": "Höchstpreis",
+"resetFilters": "Zurücksetzen",
+  "filters": "Filteranzeigen",
+  "results": "Ergebnisse",
+  "sortBy": "Sortieren nach",
+  "priceAsc": "Preis: aufsteigend",
+  "priceDesc": "Preis: absteigend",
+  "bathrooms": "Badezimmer",
+  "loading": "Lade Karte und Anzeigen...",
+  "propertyType": "Immobilientyp",
+  "showOnMap": "Auf der Karte sichtbar",
+  "viewDetails": "Details ansehen",
+  "resultsFound": "{{count}} Ergebnisse gefunden",
+  "priceLowToHigh": "Preis: Aufsteigend",
+  "priceHighToLow": "Preis: Absteigend",
+  "latestListings": "Neueste Anzeigen",
+  
+  
 
   "map_key_1": "map value 1 (DE)",
   "map_key_2": "map value 2 (DE)",
@@ -349,7 +365,7 @@
   "map_key_298": "map value 298 (DE)",
   "map_key_299": "map value 299 (DE)",
   "map_key_300": "map value 300 (DE)"
-        }
-    }
-     }
+        
+  
+     
   }

@@ -1,13 +1,12 @@
  {
- "map":{
-    "title": "Location on Map",
-      "mapTitle": "Interactive Map",
+ 
+  "title": "Location on Map",
+  "mapTitle": "Interactive Map",
   "explore": "Explore the map",
   "listingsInArea": "Listings in this area",
   "zoomIn": "Zoom in",
   "zoomOut": "Zoom out",
-
-    "filter": "Filter",
+  "filter": "Filter",
   "searchPlaceholder": "City, ZIP, Address...",
   "type": "Type",
   "category": "Category",
@@ -16,23 +15,25 @@
   "areaFrom": "Area From",
   "areaTo": "Area To",
   "applyFilters": "Apply Filters",
-  "clearFilters": "Clear Filters",
-      "map": {
-        "title": "Interactive Map",
-        "description": "Click on the map to view property details in each region.",
-        "legend": {
-            "forSale": "For Sale",
-            "forRent": "For Rent",
-            "sold": "Sold"
-        },
-        "actions": {
-            "zoomIn": "Zoom In",
-            "zoomOut": "Zoom Out",
-            "reset": "Reset",
-              "title": "Property Listings",
+  "clearFilters": "Clear Filters",  
+  "description": "Click on the map to view property details in each region.", 
+  "forSale": "For Sale",
+  "forRent": "For Rent",
+  "sold": "Sold",
+  "filtersTitle": "Show Filters",
+  "minPrice": "Minimum Price",
+  "maxPrice": "Maximum Price",
+  "resetFilters": "Reset",    
+  "filters": "Filter Listings",
+  "results": "results",
+  "sortBy": "Sort by",
+  "priceAsc": "Price: Low to High",
+  "priceDesc": "Price: High to Low",
+  "bathrooms": "Bathrooms",
+  "loading": "Loading map and listings...",       
+  "reset": "Reset", 
   "city": "City",
   "price": "Price",
-  "type": "Property Type",
   "purpose": "Purpose",
   "bedrooms": "Bedrooms",
   "size": "Size",
@@ -46,7 +47,15 @@
   "details": "Listing Details",
   "postedBy": "Posted by",
   "contactAgent": "Contact agent",
-  "description": "Description",
+  "propertyType": "Property Type",
+  "showOnMap": "Show on map",
+  "viewDetails": "View Details",
+  "resultsFound": "{{count}} results found",
+  "priceLowToHigh": "Price: Low to High",
+  "priceHighToLow": "Price: High to Low",
+  "latestListings": "Latest Listings",
+  
+  
 
 
 
@@ -1050,7 +1059,7 @@
   "map_key_998": "map value 998 (EN)",
   "map_key_999": "map value 999 (EN)",
   "map_key_1000": "map value 1000 (EN)"
-        }
-    }
-    }
+        
+    
+    
   }

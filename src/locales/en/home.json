@@ -74,7 +74,50 @@
   "testimonialsTitle": "What our users say",
   "contactTitle": "Contact Us",
   "contactText": "Have questions, feedback or need help? Feel free to send us an email.",
-  "newConstruction": "New Construction"
+  "newConstruction": "New Construction",
+
+    "searchRecent": "Recently searched",
+  "searchSuggestions": "Suggestions",
+  "searchNoResults": "No results found",
+  "searchFilterLabel": "Advanced Filters",
+  "searchByCategory": "Search by Category",
+  "searchByRegion": "Search by Region",
+  "searchPlaceholderMobile": "City, address, or keyword...",
+
+  
+  "totalListings": "Total Listings",
+  "activeUsers": "Active Users",
+  "featuredHomes": "Featured Listings",
+  "dailyViews": "Daily Views",
+  "monthlyGrowth": "Monthly Growth",
+  "trustedBy": "Trusted by over",
+  "clients": "clients",
+  "partners": "partners",
+  "ratingAverage": "Average Rating",
+  "reviews": "Reviews",
+
+  
+  "exploreGermany": "Explore Germany",
+  "exploreCities": "Explore Cities",
+  "mapHeadline": "Interactive Map View",
+  "mapCTA": "Click on a city to start your search",
+
+  
+  "faq": "Frequently Asked Questions",
+  "learnMore": "Learn More",
+  "startNow": "Start Now",
+  "downloadApp": "Download our App",
+  "newsletterSignup": "Sign up for our Newsletter",
+  "termsShort": "Terms",
+  "privacyShort": "Privacy",
+  "noTitle": "No title available",
+  "rooms": "Rooms",
+  "bathrooms": "Bathrooms",
+  "area": "Area",
+  "noListings": "There are currently no listings available.",
+ 
+  "latestListings": "Latest Listings"
+
 
 
 
