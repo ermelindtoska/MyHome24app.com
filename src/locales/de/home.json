@@ -75,10 +75,53 @@
   
   "search": "Suchen",
   "rent": "Mieten",
-  "buy": "Kaufen"
+  "buy": "Kaufen",
+
+  
+  "searchRecent": "Kürzlich gesucht",
+  "searchSuggestions": "Vorschläge",
+  "searchNoResults": "Keine Ergebnisse gefunden",
+  "searchFilterLabel": "Erweiterte Filter",
+  "searchByCategory": "Nach Kategorie suchen",
+  "searchByRegion": "Nach Region suchen",
+  "searchPlaceholderMobile": "Stadt, Adresse oder Stichwort...",
+
+  
+  "totalListings": "Alle Inserate",
+  "activeUsers": "Aktive Nutzer*innen",
+  "featuredHomes": "Empfohlene Immobilien",
+  "dailyViews": "Tägliche Aufrufe",
+  "monthlyGrowth": "Monatliches Wachstum",
+  "trustedBy": "Vertrauenswürdig für über",
+  "clients": "Kund*innen",
+  "partners": "Partner",
+  "ratingAverage": "Durchschnittliche Bewertung",
+  "reviews": "Bewertungen",
+
+ 
+  "exploreGermany": "Deutschland erkunden",
+  "exploreCities": "Städte erkunden",
+  "mapHeadline": "Interaktive Kartenansicht",
+  "mapCTA": "Klicken Sie auf eine Stadt, um Ihre Suche zu starten",
+
+  "faq": "Häufig gestellte Fragen",
+  "learnMore": "Mehr erfahren",
+  "startNow": "Jetzt starten",
+  "downloadApp": "Unsere App herunterladen",
+  "newsletterSignup": "Für unseren Newsletter anmelden",
+  "termsShort": "AGB",
+  "privacyShort": "Datenschutz",
+
   
  
-  
+  "noTitle": "Kein Titel verfügbar",
+  "rooms": "Zimmer",
+  "bathrooms": "Badezimmer",
+  "area": "Fläche",
+
+  "latestListings": "Neueste Anzeigen"
+
+
 
   
 

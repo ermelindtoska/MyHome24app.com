@@ -1,0 +1,10 @@
+{
+  "nav": {
+    "buy": "Buy",
+    "rent": "Rent",
+    "mortgage": "Mortgage",
+    "findAgent": "Find an Agent",
+    "compare": "Compare",
+    "login": "Log in"
+  }
+}

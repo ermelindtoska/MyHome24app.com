@@ -1,25 +1,16 @@
 {
   "cityPlaceholder": "Stadt",
-    "title": "Filteranzeigen",
- 
-   
+  "title": "Filteranzeigen",
   "city": "Stadt",
-  
-  
-  
-  
+  "toggleFilters": "Filter umschalten",
+  "showFilters": "Filter anzeigen",
+  "selected": "Ausgewählt",
   "minSize": "Mindestgröße (m²)",
   "maxSize": "Maximalgröße (m²)",
- 
-  
   "accessible": "Barrierefrei",
-  
   "availableNow": "Sofort verfügbar",
-
-
   "saveSearch": "Suche speichern",
   "clearAll": "Alle löschen",
-  
   "propertyPurpose": "Zweck",
   "buy": "Kaufen",
   "rent": "Mieten",
@@ -68,8 +59,6 @@
   "carport": "Carport",
   "availableListings": "Verfügbare Inserate",
   "visibleOnMap": "Auf der Karte sichtbar",
- 
-
   "priceAsc": "Preis aufsteigend",
   "priceDesc": "Preis absteigend",
   "sizeAsc": "Größe aufsteigend",
@@ -82,7 +71,6 @@
   "exactMatch": "Genau passende Ergebnisse",
   "mapView": "Kartenansicht",
   "listView": "Listenansicht",
-
   "loading": "Wird geladen...",
   "advancedFilters": "Erweiterte Filter",
   "expandFilters": "Filter anzeigen",
@@ -138,36 +126,10 @@
   "postalCode": "Postleitzahl",
   "allTypes": "Alle Typen",
   "allPurposes": "Alle Zwecke",
-  "type": {
-    "apartment": "Wohnung",
-    "house": "Haus"
-  },
-  "purpose": {
-    "rent": "Mieten",
-    "buy": "Kaufen",
-      "title": "Anzeigen filtern",
-  "city": "Stadt",
-  
-  "typeAll": "Alle Typen",
-  "apartment": "Wohnung",
-  "house": "Haus",
-  "office": "Büro",
-  "minPrice": "Mindestpreis",
-  "maxPrice": "Höchstpreis",
-  "searchPlaceholder": "Stadt, PLZ oder Adresse eingeben...",
-  "resultsTitle": "Auf der Karte sichtbar",
-  "noResults": "Keine Ergebnisse gefunden",
-   
- 
   "price": "Preis",
   "type": "Immobilientyp",
   "purpose": "Zweck",
-  "bedrooms": "Schlafzimmer",
-  "size": "Größe",
   "viewMore": "Mehr anzeigen",
- 
-  "visibleOnMap": "Sichtbar auf der Karte",
-
   "details": "Angebotsdetails",
   "postedBy": "Eingestellt von",
   "contactAgent": "Makler kontaktieren",
@@ -473,5 +435,5 @@
   "filterBar_key_298": "filterBar value 298 (DE)",
   "filterBar_key_299": "filterBar value 299 (DE)",
   "filterBar_key_300": "filterBar value 300 (DE)"
-  }
+  
 }

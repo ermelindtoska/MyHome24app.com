@@ -1,0 +1,10 @@
+{
+  "nav": {
+    "buy": "Kaufen",
+    "rent": "Mieten",
+    "mortgage": "Hypothek",
+    "findAgent": "Makler finden",
+    "compare": "Vergleichen",
+    "login": "Anmelden"
+  }
+}
