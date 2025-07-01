@@ -4,7 +4,10 @@ import FavoriteButton from './FavoriteButton';
 
 const ListingCard = ({ listing }) => {
   return (
-    <div className="relative border rounded-lg p-4 shadow hover:scale-105 transition bg-white">
+    <div className="listing-card p-4 rounded shadow mb-4">
+      className="listing-card border rounded bg-white dark:bg-neutral-800 mb-3 shadow hover:shadow-lg cursor-pointer overflow-hidden"
+
+      
       <Link to={`/listing/${listing.id}`}>
         <img
           src={listing.imageUrls?.[0] || '/placeholder.jpg'}

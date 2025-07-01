@@ -1,14 +1,16 @@
 // src/components/Navbar.jsx
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import logo from '../assets/logo.png';
 import { auth } from '../firebase-config';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { ThemeContext } from "../context/ThemeContext";
 
 const Navbar = () => {
   const { t } = useTranslation('navbar');
+  const { isDark, toggleTheme } = useContext(ThemeContext);
   const [openMenu, setOpenMenu] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const timeoutRef = useRef(null);
@@ -118,34 +120,42 @@ const Navbar = () => {
       onMouseEnter={() => handleMouseEnter(index)}
       onMouseLeave={handleMouseLeave}
     >
-      <Link
-        to={menu.to || '#'}
-        className="relative cursor-pointer px-2 py-1 transition-all duration-200 hover:text-blue-700 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 hover:after:w-full after:h-[2px] after:bg-blue-700 after:transition-all after:duration-300"
-      >
-        {menu.title}
-      </Link>
+      {menu.to ? (
+        <a
+          href={menu.to}
+          className="relative cursor-pointer px-2 py-1 transition hover:text-blue-700 dark:hover:text-blue-300"
+        >
+          {menu.title}
+        </a>
+      ) : (
+        <span
+          className="relative cursor-pointer px-2 py-1 transition hover:text-blue-700 dark:hover:text-blue-300"
+        >
+          {menu.title}
+        </span>
+      )}
 
       {menu.items && openMenu === index && (
         <div
-          className={`absolute ${align}-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-lg z-50 transition-opacity duration-300`}
+          className={`absolute ${align}-0 mt-2 w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg z-50`}
         >
           {menu.items.map((item, idx) =>
             item.onClick ? (
               <button
                 key={idx}
                 onClick={item.onClick}
-                className="w-full text-left block px-4 py-2 text-gray-800 hover:text-blue-600 hover:bg-gray-100 transition-colors duration-200"
+                className="w-full text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 {item.label}
               </button>
             ) : (
-              <Link
-                key={idx}
-                to={item.to}
-                className="block px-4 py-2 text-gray-800 hover:text-blue-600 hover:bg-gray-100 transition-colors duration-200"
-              >
-                {item.label}
-              </Link>
+              <a
+            key={idx}
+            href={item.to}
+            className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+          >
+            {item.label}
+          </a>
             )
           )}
         </div>
@@ -154,9 +164,9 @@ const Navbar = () => {
   );
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow transition-all duration-300">
+    <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow">
       <nav className="flex justify-between items-center px-6 py-4 w-full">
-        <div className="flex gap-12 text-sm font-medium text-gray-900">
+        <div className="flex gap-12 text-sm font-medium text-gray-900 dark:text-gray-100">
           {leftMenus.map((menu, index) => renderDropdown(menu, index, 'left'))}
         </div>
 
@@ -169,23 +179,31 @@ const Navbar = () => {
             className="flex items-center gap-4 focus:outline-none"
           >
             <img src={logo} alt="Logo" className="h-14 w-auto" />
-            <span className="text-2xl font-bold text-blue-800">MyHome24App</span>
+            <span className="text-2xl font-bold text-blue-800 dark:text-blue-300">MyHome24App</span>
           </button>
-          <Link to="/explore/germany" className="nav-link">Explore Germany</Link>
+          <Link to="/explore/germany" className="nav-link">
+            Explore Germany
+          </Link>
         </div>
 
-        <div className="flex items-center gap-12 text-sm font-medium text-gray-900">
+        <div className="flex items-center gap-6 text-sm font-medium text-gray-900 dark:text-gray-100">
           {rightMenus.map((menu, index) => renderDropdown(menu, index + 100, 'right'))}
 
-          {/* Butoni Compare */}
-          <Link
-            to="/compare"
-            className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-blue-700 border border-blue-700 rounded-full hover:bg-blue-700 hover:text-white transition-all duration-300"
+            <a href="/compare"
+            className="inline-flex items-center px-4 py-2 text-sm font-semibold text-blue-700 dark:text-blue-300 border border-blue-700 dark:border-blue-300 rounded-full hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white transition"
           >
             {t('compare')}
-          </Link>
+          </a>
+
 
           <LanguageSwitcher />
+
+          <button
+            onClick={toggleTheme}
+            className="flex items-center gap-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 px-3 py-1 rounded"
+          >
+            <span className="text-lg">{isDark ? '☀️' : '🌙'}</span>
+          </button>
         </div>
       </nav>
     </header>
