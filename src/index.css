@@ -2,6 +2,96 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Default light mode body */
 body {
-  @apply bg-gray-100 text-gray-800 font-sans;
+  @apply bg-white text-gray-900;
+}
+
+/* Dark mode për body */
+html.dark body {
+  @apply bg-gray-900 text-gray-100;
+}
+
+/* Navbar dark */
+html.dark header {
+  @apply bg-neutral-900 text-gray-100 shadow-none;
+}
+
+/* Nëse do që të mos selektosh tekst specifik, specifiko vetëm logon ose pjesë të header-it në vend që të bësh gjithë header: */
+/* Shembull: */
+/* header .logo { user-select: none; } */
+
+/* Mos prek selektimin global të tekstit */
+::selection {
+  background: rgba(59, 130, 246, 0.4); /* blu e lehtë */
+  color: #fff;
+}
+html.dark ::selection {
+  background: rgba(59, 130, 246, 0.4); /* njësoj në dark */
+  color: #fff;
+}
+
+/* Opsionale: një outline minimal që të mos humbet fokusin */
+*:focus {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+}
+
+/* Sidebar / Filters */
+html.dark .sidebar,
+html.dark .filter-panel,
+html.dark .filter-container {
+  @apply bg-neutral-800 text-gray-100 border-gray-700;
+}
+
+/* Kartat e listimeve */
+html.dark .listing-card {
+  @apply bg-neutral-800 text-gray-100 border-gray-700;
+}
+
+/* Input dhe select */
+html.dark input,
+html.dark select,
+html.dark textarea {
+  @apply bg-neutral-700 text-gray-100 placeholder-gray-400 border-gray-600;
+}
+
+/* Për të gjitha input/select që nuk janë dark mode */
+input, select, textarea {
+  @apply bg-white text-gray-900 border-gray-300;
+}
+
+/* Butonat në dark mode (kujdes: kjo prek *çdo* buton!) */
+html.dark button {
+  @apply text-white;
+}
+/* Për dark mode - tekst automatikisht i hapur */
+html.dark body,
+html.dark body * {
+  color: #e5e7eb !important; /* text-gray-100 */
+}
+
+/* Nëse dëshiron që vetëm disa buttona të jenë blu, përdor klasë specifike */
+html.dark .btn-primary {
+  @apply bg-blue-600;
+}
+html.dark .btn-primary:hover {
+  @apply bg-blue-700;
+}
+
+/* Dropdown menu */
+html.dark .dropdown-menu {
+  @apply bg-neutral-800 text-gray-100 border-gray-700;
+}
+
+/* Scrollbar modern */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

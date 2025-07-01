@@ -55,83 +55,77 @@ import { useTranslation } from 'react-i18next';
 import ComparePage from './pages/ComparePage';
 import CompareDetails from './pages/CompareDetails';
 import PropertyDetails from './components/PropertyDetails/PropertyDetails';
+import ExplorePage from './pages/ExplorePage';
 
 
-
+const MapWrapper = ({ purpose }) => (
+  <GermanyMapReal purpose={purpose} key={purpose} />
+);
 
 
 function AppRoutes() {
   const location = useLocation();
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
       <Navbar />
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/listings" element={<PublicListings />} />
-        <Route path="/listing/:id" element={<ListingDetails />} />
-        <Route path="/edit/:id" element={<EditListingForm />} />
-        <Route path="/register" element={<RegisterForm />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/register-success" element={<RegisterSuccess />} />
-        <Route path="/auth" element={<LoginRegister />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-
-        {/* Pages për kategori */}
-        <Route path="/rent/house" element={<HousePage />} />
-        <Route path="/rent/apartment" element={<ApartmentPage />} />
-        <Route path="/rent/office" element={<OfficePage />} />
-        <Route path="/buy/owner" element={<OwnerPage />} />
-        <Route path="/buy/foreclosures" element={<ForeclosurePage />} />
-        <Route path="/new-construction" element={<NewConstructionPage />} />
-        <Route path="/mortgage/calculator" element={<MortgageCalculatorPage />} />
-        <Route path="/mortgage/partners" element={<BankPartnersPage />} />
-        <Route path="/advertise/banner" element={<BannerAdsPage />} />
-        <Route path="/advertise/premium" element={<PremiumListingPage />} />
-        <Route path="/manage/add" element={<NewListing />} />
-        <Route path="/manage/properties" element={<ManageRentalsPage />} />
-
-        {/* Ndihmë dhe komunitet */}
-        <Route path="/agents" element={<FindAgentPage />} />
-        <Route path="/agent/search" element={<AgentSearchPage />} />
-        <Route path="/agent/rate" element={<RateAgentPage />} />
-        <Route path="/support" element={<SupportPage />} />
-        <Route path="/how-it-works" element={<HowItWorksPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/privacy" element={<PrivacyPage />} />
-        <Route path="/terms" element={<TermsPage />} />
-        <Route path="/impressum" element={<ImpressumPage />} />
-
-        {/* Të tjera */}
-        <Route path="/create" element={<ListingCreatePage />} />
-        <Route path="/careers" element={<CareersPage />} />
-        <Route path="/dashboard" element={<UserDashboard />} />
-        <Route path="/favorites" element={<ProtectedRoute><FavoritesPage /></ProtectedRoute>} />
-        <Route path="/add" element={<ProtectedRoute><AddListingPage /></ProtectedRoute>} />
-        <Route path="/owner-dashboard" element={<ProtectedRoute><OwnerDashboard /></ProtectedRoute>} />
-        <Route path="/search" element={<SearchResultsPage />} />
-        <Route path="/listings" element={<ListingsPage />} />
-        <Route path="/compare" element={<ComparePage />} />
-        <Route path="/compare/details" element={<CompareDetails />} />
-        <Route path="/listing/:id" element={<PropertyDetails />} />
-
-
-        {/* Hartë dhe eksplorim */}
-        <Route path="/map" element={<GermanyMapReal />} />
-        <Route path="/map-leaflet" element={<GermanyMapLeaflet />} />
-        <Route path="/explore" element={<GermanyMapReal />} />
-        <Route path="/explore/germany" element={<GermanyMapReal />} />
-
-        {/* Të rëndësishmet që shkaktojnë "ngrirje" */}
-        <Route path="/buy" element={<BuyPage key="/buy" />} />
-        <Route path="/rent" element={<RentPage key="/rent" />} />
-        
-      </Routes>
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/listings" element={<PublicListings />} />
+          <Route path="/listing/:id" element={<ListingDetails />} />
+          <Route path="/edit/:id" element={<EditListingForm />} />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/register-success" element={<RegisterSuccess />} />
+          <Route path="/auth" element={<LoginRegister />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/rent/house" element={<HousePage />} />
+          <Route path="/rent/apartment" element={<ApartmentPage />} />
+          <Route path="/rent/office" element={<OfficePage />} />
+          <Route path="/buy/owner" element={<OwnerPage />} />
+          <Route path="/buy/foreclosures" element={<ForeclosurePage />} />
+          <Route path="/new-construction" element={<NewConstructionPage />} />
+          <Route path="/mortgage/calculator" element={<MortgageCalculatorPage />} />
+          <Route path="/mortgage/partners" element={<BankPartnersPage />} />
+          <Route path="/advertise/banner" element={<BannerAdsPage />} />
+          <Route path="/advertise/premium" element={<PremiumListingPage />} />
+          <Route path="/manage/add" element={<NewListing />} />
+          <Route path="/manage/properties" element={<ManageRentalsPage />} />
+          <Route path="/agents" element={<FindAgentPage />} />
+          <Route path="/agent/search" element={<AgentSearchPage />} />
+          <Route path="/agent/rate" element={<RateAgentPage />} />
+          <Route path="/support" element={<SupportPage />} />
+          <Route path="/how-it-works" element={<HowItWorksPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/impressum" element={<ImpressumPage />} />
+          <Route path="/create" element={<ListingCreatePage />} />
+          <Route path="/careers" element={<CareersPage />} />
+          <Route path="/dashboard" element={<UserDashboard />} />
+          <Route path="/favorites" element={<ProtectedRoute><FavoritesPage /></ProtectedRoute>} />
+          <Route path="/add" element={<ProtectedRoute><AddListingPage /></ProtectedRoute>} />
+          <Route path="/owner-dashboard" element={<ProtectedRoute><OwnerDashboard /></ProtectedRoute>} />
+          <Route path="/search" element={<SearchResultsPage />} />
+          <Route path="/listings" element={<ListingsPage />} />
+          <Route path="/compare" element={<ComparePage />} />
+          <Route path="/compare/details" element={<CompareDetails />} />
+          <Route path="/listing/:id" element={<PropertyDetails />} />
+          <Route path="/map" element={<GermanyMapReal />} />
+          <Route path="/map-leaflet" element={<GermanyMapLeaflet />} />
+          <Route path="/explore" element={<ExplorePage />} />
+          <Route path="/explore/germany" element={<ExplorePage />} />
+          <Route path="/buy"element={<GermanyMapReal purpose="buy" key="buy" />}/>
+          <Route path="/rent"element={<GermanyMapReal purpose="rent" key="rent" />}/>
+        </Routes>
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }
+
 
 function App() {
   return (
