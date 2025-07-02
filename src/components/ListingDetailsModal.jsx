@@ -1,16 +1,14 @@
-// ListingDetailsModal.jsx – Metadata e avancuar si Zillow
+// ListingDetailsModal.jsx
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import SimilarListings from './SimilarListings/SimilarListings';
-
 import { FaPhoneAlt, FaEnvelope, FaCheckCircle, FaInfoCircle, FaTag, FaTools, FaBalanceScale, FaHistory } from 'react-icons/fa';
 
 const ListingDetailsModal = ({ listing, onClose, allListings }) => {
   const { t } = useTranslation('listing');
   const [current, setCurrent] = useState(0);
   const images = listing?.images || [];
-
 
   const nextImage = () => setCurrent((current + 1) % images.length);
   const prevImage = () => setCurrent((current - 1 + images.length) % images.length);
@@ -37,7 +35,7 @@ const ListingDetailsModal = ({ listing, onClose, allListings }) => {
       >
         <motion.div
           key="panel"
-          className="bg-white w-full sm:max-w-md h-full overflow-y-auto p-6 shadow-xl relative"
+          className="w-full sm:max-w-md h-full overflow-y-auto p-6 shadow-xl relative border-l border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
           initial={{ x: '100%' }}
           animate={{ x: 0 }}
           exit={{ x: '100%' }}
@@ -47,7 +45,7 @@ const ListingDetailsModal = ({ listing, onClose, allListings }) => {
           {/* Mbyllje */}
           <motion.button
             onClick={onClose}
-            className="absolute top-4 right-5 text-2xl font-bold text-gray-500 hover:text-black transition-all z-50"
+            className="absolute top-4 right-5 text-2xl font-bold text-gray-500 hover:text-black dark:hover:text-white transition-all z-50"
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -57,112 +55,91 @@ const ListingDetailsModal = ({ listing, onClose, allListings }) => {
           {/* Slider */}
           {images.length > 0 && (
             <div className="relative mb-4 rounded overflow-hidden group">
-          <motion.img
-            key={images[current]}
-            src={images[current]}
-            alt={`slide-${current}`}
-            className="w-full h-60 object-cover transition-transform duration-300 group-hover:scale-105"
-            initial={{ opacity: 0.6, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4 }}
-          />
-
-          {images.length > 1 && (
-            <>
-              <motion.button
-                onClick={prevImage}
-                className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                ←
-              </motion.button>
-              <motion.button
-                onClick={nextImage}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                →
-              </motion.button>
-            </>
+              <motion.img
+                key={images[current]}
+                src={images[current]}
+                alt={`slide-${current}`}
+                className="w-full h-60 object-cover transition-transform duration-300 group-hover:scale-105"
+                initial={{ opacity: 0.6, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4 }}
+              />
+              {images.length > 1 && (
+                <>
+                  <motion.button
+                    onClick={prevImage}
+                    className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 dark:bg-gray-800 dark:bg-opacity-80 px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    ←
+                  </motion.button>
+                  <motion.button
+                    onClick={nextImage}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 dark:bg-gray-800 dark:bg-opacity-80 px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    →
+                  </motion.button>
+                </>
+              )}
+              <div className="absolute bottom-2 right-3 text-xs text-gray-800 dark:text-gray-200 bg-white bg-opacity-70 dark:bg-gray-800 dark:bg-opacity-80 px-2 py-0.5 rounded">
+                {current + 1}/{images.length}
+              </div>
+            </div>
           )}
 
-          <div className="absolute bottom-2 right-3 text-xs text-gray-800 bg-white bg-opacity-70 px-2 py-0.5 rounded">
-            {current + 1}/{images.length}
-          </div>
-        </div>
-
-          )}
-
-          {/* Info kryesore */}
-          <h2 className="text-2xl font-semibold mb-2 sticky top-0 bg-gradient-to-b from-white to-transparent py-2 z-10">{listing.title}</h2>
+          {/* Info Kryesore */}
+          <h2 className="text-2xl font-semibold mb-2 sticky top-0 bg-gradient-to-b from-white to-transparent dark:from-gray-900 py-2 z-10">{listing.title}</h2>
           <p className="mb-1"><strong>📍 {t('city')}:</strong> {listing.city} ({listing.postalCode})</p>
           <p className="mb-1"><strong>💶 {t('price')}:</strong> € {listing.price.toLocaleString()}</p>
           <p className="mb-1"><strong>🏠 {t('type')}:</strong> {t(listing.type.toLowerCase())}</p>
           <p className="mb-1 flex items-center gap-2">
-                <strong>🎯 {t('purpose')}:</strong><span
-                  className={`px-2 py-0.5 rounded text-white text-xs ${
-                    listing.purpose === 'buy' ? 'bg-green-600' : 'bg-blue-600'
-                  }`}
-                >
-                  {listing.purpose === 'buy' ? t('forSale') : t('forRent')}
-                </span>
-              </p>
-
+            <strong>🎯 {t('purpose')}:</strong>
+            <span className={`px-2 py-0.5 rounded text-white text-xs ${listing.purpose === 'buy' ? 'bg-green-600' : 'bg-blue-600'}`}>
+              {listing.purpose === 'buy' ? t('forSale') : t('forRent')}
+            </span>
+          </p>
           <p className="mb-1"><strong>🛏️ {t('bedrooms')}:</strong> {listing.bedrooms}</p>
           <p className="mb-1"><strong>📐 {t('size')}:</strong> {listing.size} m²</p>
 
           {listing.description && (
-  <div className="mt-4 bg-gray-50 p-4 rounded shadow-inner">
-    <p className="text-gray-800 whitespace-pre-line leading-relaxed text-[15px]">
-      {listing.description}
-    </p>
-  </div>
-)}
+            <div className="mt-4 bg-gray-50 dark:bg-gray-800 p-4 rounded shadow-inner">
+              <p className="whitespace-pre-line leading-relaxed text-[15px] text-gray-800 dark:text-gray-200">
+                {listing.description}
+              </p>
+            </div>
+          )}
 
-{/* Badges Status */}
-{(listing.isFeatured || listing.isHighlighted || listing.isUrgent || listing.isLuxury || listing.isPriceReduced) && (
-  <div className="flex flex-wrap gap-2 mt-4">
-    {listing.isFeatured && (
-      <span className="inline-block bg-yellow-400 text-yellow-900 px-2 py-0.5 text-xs rounded">
-        {t('featured')}
-      </span>
-    )}
-    {listing.isHighlighted && (
-      <span className="inline-block bg-purple-400 text-purple-900 px-2 py-0.5 text-xs rounded">
-        {t('highlighted')}
-      </span>
-    )}
-    {listing.isUrgent && (
-      <span className="inline-block bg-red-500 text-white px-2 py-0.5 text-xs rounded">
-        {t('urgent')}
-      </span>
-    )}
-    {listing.isLuxury && (
-      <span className="inline-block bg-indigo-500 text-white px-2 py-0.5 text-xs rounded">
-        {t('luxury')}
-      </span>
-    )}
-    {listing.isPriceReduced && (
-      <span className="inline-block bg-blue-500 text-white px-2 py-0.5 text-xs rounded">
-        {t('priceReduced')}
-      </span>
-    )}
-  </div>
+          {/* Badges */}
+          {(listing.isFeatured || listing.isHighlighted || listing.isUrgent || listing.isLuxury || listing.isPriceReduced) && (
+            <div className="flex flex-wrap gap-2 mt-4">
+              {listing.isFeatured && (
+                <span className="inline-block bg-yellow-400 text-yellow-900 px-2 py-0.5 text-xs rounded">{t('featured')}</span>
+              )}
+              {listing.isHighlighted && (
+                <span className="inline-block bg-purple-400 text-purple-900 px-2 py-0.5 text-xs rounded">{t('highlighted')}</span>
+              )}
+              {listing.isUrgent && (
+                <span className="inline-block bg-red-500 text-white px-2 py-0.5 text-xs rounded">{t('urgent')}</span>
+              )}
+              {listing.isLuxury && (
+                <span className="inline-block bg-indigo-500 text-white px-2 py-0.5 text-xs rounded">{t('luxury')}</span>
+              )}
+              {listing.isPriceReduced && (
+                <span className="inline-block bg-blue-500 text-white px-2 py-0.5 text-xs rounded">{t('priceReduced')}</span>
+              )}
+            </div>
+          )}
 
-
-
-          
-        )}
-          {/* Seksioni: Overview */}
+          {/* Seksionet */}
           <div className="mt-6 border-t pt-4">
             <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-            <FaInfoCircle className="text-blue-600" />
-            {t('overview')}
-          </h3>
-
-            <ul className="text-gray-700 space-y-1">
+              <FaInfoCircle className="text-blue-600" />
+              {t('overview')}
+            </h3>
+            <ul className="space-y-1 text-gray-700 dark:text-gray-300">
               {listing.builtYear && <li><strong>{t('builtYear')}:</strong> {listing.builtYear}</li>}
               {listing.floor && <li><strong>{t('floor')}:</strong> {listing.floor}</li>}
               {listing.totalFloors && <li><strong>{t('totalFloors')}:</strong> {listing.totalFloors}</li>}

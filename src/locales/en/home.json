@@ -1,5 +1,7 @@
 {
   "heroTitle": "Find your perfect home",
+  "errorLoadingListings": "Error loading property listings.",
+  "loadingSearchBar": "Search bar is loading...",
   "heroTitle2": "Homes for every budget",
   "heroTitle3": "Find your new home!",
   "heroSubtitle": "Choose a location or filter by your preferences.",
