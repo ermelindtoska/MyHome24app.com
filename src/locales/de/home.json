@@ -1,5 +1,7 @@
 {
   "heroTitle": "Finde dein perfektes Zuhause",
+  "errorLoadingListings": "Fehler beim Laden der Immobilienanzeigen.",
+  "loadingSearchBar": "Suchleiste wird geladen...",
   "heroTitle2": "Wohnungen für jedes Budget",
   "heroTitle3": "Finden Sie Ihr neues Zuhause!",
   "heroSubtitle": "Wähle einen Standort oder filtere nach deinem Wunsch.",
