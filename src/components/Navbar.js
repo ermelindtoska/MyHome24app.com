@@ -123,13 +123,13 @@ const Navbar = () => {
       {menu.to ? (
         <a
           href={menu.to}
-          className="relative cursor-pointer px-2 py-1 transition hover:text-blue-700 dark:hover:text-blue-300"
+          className="relative cursor-pointer px-2 py-1 transition text-gray-900 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300"
         >
           {menu.title}
         </a>
       ) : (
         <span
-          className="relative cursor-pointer px-2 py-1 transition hover:text-blue-700 dark:hover:text-blue-300"
+          className="relative cursor-pointer px-2 py-1 transition text-gray-900 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300"
         >
           {menu.title}
         </span>
@@ -150,12 +150,12 @@ const Navbar = () => {
               </button>
             ) : (
               <a
-            key={idx}
-            href={item.to}
-            className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-          >
-            {item.label}
-          </a>
+                key={idx}
+                href={item.to}
+                className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                {item.label}
+              </a>
             )
           )}
         </div>
@@ -181,7 +181,10 @@ const Navbar = () => {
             <img src={logo} alt="Logo" className="h-14 w-auto" />
             <span className="text-2xl font-bold text-blue-800 dark:text-blue-300">MyHome24App</span>
           </button>
-          <Link to="/explore/germany" className="nav-link">
+          <Link
+            to="/explore/germany"
+            className="text-gray-900 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300 transition"
+          >
             Explore Germany
           </Link>
         </div>
@@ -189,12 +192,12 @@ const Navbar = () => {
         <div className="flex items-center gap-6 text-sm font-medium text-gray-900 dark:text-gray-100">
           {rightMenus.map((menu, index) => renderDropdown(menu, index + 100, 'right'))}
 
-            <a href="/compare"
+          <a
+            href="/compare"
             className="inline-flex items-center px-4 py-2 text-sm font-semibold text-blue-700 dark:text-blue-300 border border-blue-700 dark:border-blue-300 rounded-full hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white transition"
           >
             {t('compare')}
           </a>
-
 
           <LanguageSwitcher />
 
