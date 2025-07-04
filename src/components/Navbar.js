@@ -7,12 +7,14 @@ import logo from '../assets/logo.png';
 import { auth } from '../firebase-config';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { ThemeContext } from "../context/ThemeContext";
+import { HiMenu, HiX } from "react-icons/hi";
 
 const Navbar = () => {
   const { t } = useTranslation('navbar');
   const { isDark, toggleTheme } = useContext(ThemeContext);
   const [openMenu, setOpenMenu] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const timeoutRef = useRef(null);
   const navigate = useNavigate();
 
@@ -121,12 +123,12 @@ const Navbar = () => {
       onMouseLeave={handleMouseLeave}
     >
       {menu.to ? (
-        <a
-          href={menu.to}
+        <Link
+          to={menu.to}
           className="relative cursor-pointer px-2 py-1 transition text-gray-900 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300"
         >
           {menu.title}
-        </a>
+        </Link>
       ) : (
         <span
           className="relative cursor-pointer px-2 py-1 transition text-gray-900 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300"
@@ -134,29 +136,27 @@ const Navbar = () => {
           {menu.title}
         </span>
       )}
-
       {menu.items && openMenu === index && (
         <div
           className={`absolute ${align}-0 mt-2 w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg z-50`}
         >
           {menu.items.map((item, idx) =>
             item.onClick ? (
-            <button
-              key={idx}
-              onClick={item.onClick}
-              className="w-full text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white transition"
-            >
-              {item.label}
-            </button>
-            ) : (
-              <a
+              <button
                 key={idx}
-                href={item.to}
-                className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white transition"
+                onClick={item.onClick}
+                className="w-full text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 {item.label}
-              </a>
-
+              </button>
+            ) : (
+              <Link
+                key={idx}
+                to={item.to}
+                className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                {item.label}
+              </Link>
             )
           )}
         </div>
@@ -165,48 +165,31 @@ const Navbar = () => {
   );
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow overflow-x-hidden">
-
-      <nav className="flex flex-wrap justify-between items-center px-6 py-4 w-full">
-
+    <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow">
+      {/* Desktop Navbar */}
+      <nav className="hidden md:flex justify-between items-center px-6 py-4 w-full">
         <div className="flex gap-12 text-sm font-medium text-gray-900 dark:text-gray-100">
           {leftMenus.map((menu, index) => renderDropdown(menu, index, 'left'))}
         </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => {
-              navigate('/');
-              setTimeout(() => window.location.reload(), 50);
-            }}
-            className="flex items-center gap-4 focus:outline-none"
-          >
-            <img src={logo} alt="Logo" className="h-14 w-auto" />
-            <span className="text-2xl font-bold text-blue-800 dark:text-blue-300">MyHome24App</span>
-          </button>
-          <Link
-  to="/explore/germany"
-  className="nav-link text-gray-800 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300"
-
-
-          >
-            Explore Germany
-          </Link>
-        </div>
-
+        <button
+          onClick={() => {
+            navigate('/');
+            setTimeout(() => window.location.reload(), 50);
+          }}
+          className="flex items-center gap-4 focus:outline-none"
+        >
+          <img src={logo} alt="Logo" className="h-14 w-auto" />
+          <span className="text-2xl font-bold text-blue-800 dark:text-blue-300">MyHome24App</span>
+        </button>
         <div className="flex items-center gap-6 text-sm font-medium text-gray-900 dark:text-gray-100">
           {rightMenus.map((menu, index) => renderDropdown(menu, index + 100, 'right'))}
-
-     <a
-  href="/compare"
-  className="inline-flex items-center px-4 py-2 text-sm font-semibold text-blue-700 dark:text-blue-300 border border-blue-700 dark:border-blue-300 rounded-full hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white transition"
->
-
+          <a
+            href="/compare"
+            className="inline-flex items-center px-4 py-2 text-sm font-semibold text-blue-700 dark:text-blue-300 border border-blue-700 dark:border-blue-300 rounded-full hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white transition"
+          >
             {t('compare')}
           </a>
-
           <LanguageSwitcher />
-
           <button
             onClick={toggleTheme}
             className="flex items-center gap-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 px-3 py-1 rounded"
@@ -215,6 +198,74 @@ const Navbar = () => {
           </button>
         </div>
       </nav>
+
+      {/* Mobile Navbar */}
+      <nav className="flex md:hidden justify-between items-center px-4 py-3 w-full">
+        <button
+          onClick={() => {
+            navigate('/');
+            setTimeout(() => window.location.reload(), 50);
+          }}
+          className="flex items-center gap-2 focus:outline-none"
+        >
+          <img src={logo} alt="Logo" className="h-10 w-auto" />
+          <span className="text-xl font-bold text-blue-800 dark:text-blue-300">MyHome24App</span>
+        </button>
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="text-gray-800 dark:text-gray-100 text-2xl"
+        >
+          {mobileOpen ? <HiX /> : <HiMenu />}
+        </button>
+      </nav>
+
+      {mobileOpen && (
+        <div className="md:hidden bg-white dark:bg-gray-900 w-full px-4 pb-4 shadow">
+          <div className="flex flex-col space-y-2 mt-2">
+            {leftMenus.concat(rightMenus).map((menu, idx) => (
+              <div key={idx} className="flex flex-col">
+                <span className="text-gray-900 dark:text-gray-100 font-semibold">{menu.title}</span>
+                {menu.items?.map((item, j) =>
+                  item.onClick ? (
+                    <button
+                      key={j}
+                      onClick={() => {
+                        setMobileOpen(false);
+                        item.onClick();
+                      }}
+                      className="text-left pl-4 py-1 text-gray-700 dark:text-gray-300"
+                    >
+                      {item.label}
+                    </button>
+                  ) : (
+                    <Link
+                      key={j}
+                      to={item.to}
+                      onClick={() => setMobileOpen(false)}
+                      className="text-left pl-4 py-1 text-gray-700 dark:text-gray-300"
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                )}
+              </div>
+            ))}
+            <a
+              href="/compare"
+              className="inline-flex items-center px-4 py-2 mt-2 text-sm font-semibold text-blue-700 dark:text-blue-300 border border-blue-700 dark:border-blue-300 rounded-full hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white transition"
+            >
+              {t('compare')}
+            </a>
+            <LanguageSwitcher />
+            <button
+              onClick={toggleTheme}
+              className="flex items-center gap-1 mt-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 px-3 py-1 rounded"
+            >
+              <span className="text-lg">{isDark ? '☀️' : '🌙'}</span>
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
