@@ -141,21 +141,22 @@ const Navbar = () => {
         >
           {menu.items.map((item, idx) =>
             item.onClick ? (
-              <button
-                key={idx}
-                onClick={item.onClick}
-                className="w-full text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                {item.label}
-              </button>
+            <button
+              key={idx}
+              onClick={item.onClick}
+              className="w-full text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white transition"
+            >
+              {item.label}
+            </button>
             ) : (
               <a
                 key={idx}
                 href={item.to}
-                className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white transition"
               >
                 {item.label}
               </a>
+
             )
           )}
         </div>
@@ -164,8 +165,10 @@ const Navbar = () => {
   );
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow">
-      <nav className="flex justify-between items-center px-6 py-4 w-full">
+    <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow overflow-x-hidden">
+
+      <nav className="flex flex-wrap justify-between items-center px-6 py-4 w-full">
+
         <div className="flex gap-12 text-sm font-medium text-gray-900 dark:text-gray-100">
           {leftMenus.map((menu, index) => renderDropdown(menu, index, 'left'))}
         </div>
