@@ -121,15 +121,15 @@ const Navbar = () => {
       onMouseLeave={handleMouseLeave}
     >
       {menu.to ? (
-        <Link
-          to={menu.to}
-          className="relative cursor-pointer px-2 py-1 transition text-gray-800 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300"
+        <a
+          href={menu.to}
+          className="relative cursor-pointer px-2 py-1 transition text-gray-900 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300"
         >
           {menu.title}
-        </Link>
+        </a>
       ) : (
         <span
-          className="relative cursor-pointer px-2 py-1 transition text-gray-800 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300"
+          className="relative cursor-pointer px-2 py-1 transition text-gray-900 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300"
         >
           {menu.title}
         </span>
@@ -149,13 +149,13 @@ const Navbar = () => {
                 {item.label}
               </button>
             ) : (
-              <Link
+              <a
                 key={idx}
-                to={item.to}
+                href={item.to}
                 className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 {item.label}
-              </Link>
+              </a>
             )
           )}
         </div>
@@ -166,7 +166,7 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow">
       <nav className="flex justify-between items-center px-6 py-4 w-full">
-        <div className="flex gap-12 text-sm font-medium">
+        <div className="flex gap-12 text-sm font-medium text-gray-900 dark:text-gray-100">
           {leftMenus.map((menu, index) => renderDropdown(menu, index, 'left'))}
         </div>
 
@@ -179,27 +179,25 @@ const Navbar = () => {
             className="flex items-center gap-4 focus:outline-none"
           >
             <img src={logo} alt="Logo" className="h-14 w-auto" />
-            <span className="text-2xl font-bold text-blue-800 dark:text-blue-300">
-              MyHome24App
-            </span>
+            <span className="text-2xl font-bold text-blue-800 dark:text-blue-300">MyHome24App</span>
           </button>
           <Link
             to="/explore/germany"
-            className="text-gray-800 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300 transition"
+            className="text-gray-900 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300 transition"
           >
             Explore Germany
           </Link>
         </div>
 
-        <div className="flex items-center gap-6 text-sm font-medium">
+        <div className="flex items-center gap-6 text-sm font-medium text-gray-900 dark:text-gray-100">
           {rightMenus.map((menu, index) => renderDropdown(menu, index + 100, 'right'))}
 
-          <Link
-            to="/compare"
+          <a
+            href="/compare"
             className="inline-flex items-center px-4 py-2 text-sm font-semibold text-blue-700 dark:text-blue-300 border border-blue-700 dark:border-blue-300 rounded-full hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white transition"
           >
             {t('compare')}
-          </Link>
+          </a>
 
           <LanguageSwitcher />
 
