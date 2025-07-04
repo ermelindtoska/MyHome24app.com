@@ -182,8 +182,10 @@ const Navbar = () => {
             <span className="text-2xl font-bold text-blue-800 dark:text-blue-300">MyHome24App</span>
           </button>
           <Link
-            to="/explore/germany"
-            className="text-gray-900 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300 transition"
+  to="/explore/germany"
+  className="nav-link text-gray-800 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300"
+
+
           >
             Explore Germany
           </Link>
@@ -192,10 +194,11 @@ const Navbar = () => {
         <div className="flex items-center gap-6 text-sm font-medium text-gray-900 dark:text-gray-100">
           {rightMenus.map((menu, index) => renderDropdown(menu, index + 100, 'right'))}
 
-          <a
-            href="/compare"
-            className="inline-flex items-center px-4 py-2 text-sm font-semibold text-blue-700 dark:text-blue-300 border border-blue-700 dark:border-blue-300 rounded-full hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white transition"
-          >
+     <a
+  href="/compare"
+  className="inline-flex items-center px-4 py-2 text-sm font-semibold text-blue-700 dark:text-blue-300 border border-blue-700 dark:border-blue-300 rounded-full hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white transition"
+>
+
             {t('compare')}
           </a>
 
