@@ -122,20 +122,12 @@ const Navbar = () => {
       onMouseEnter={() => handleMouseEnter(index)}
       onMouseLeave={handleMouseLeave}
     >
-      {menu.to ? (
-        <Link
-          to={menu.to}
-          className="relative cursor-pointer px-2 py-1 transition text-gray-900 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300"
-        >
-          {menu.title}
-        </Link>
-      ) : (
-        <span
-          className="relative cursor-pointer px-2 py-1 transition text-gray-900 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300"
-        >
-          {menu.title}
-        </span>
-      )}
+      <a
+        href={menu.to}
+        className="relative cursor-pointer px-2 py-1 transition text-gray-900 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300"
+      >
+        {menu.title}
+      </a>
       {menu.items && openMenu === index && (
         <div
           className={`absolute ${align}-0 mt-2 w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg z-50`}
@@ -150,13 +142,13 @@ const Navbar = () => {
                 {item.label}
               </button>
             ) : (
-              <Link
+              <a
                 key={idx}
-                to={item.to}
+                href={item.to}
                 className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 {item.label}
-              </Link>
+              </a>
             )
           )}
         </div>
@@ -238,14 +230,13 @@ const Navbar = () => {
                       {item.label}
                     </button>
                   ) : (
-                    <Link
+                    <a
                       key={j}
-                      to={item.to}
-                      onClick={() => setMobileOpen(false)}
+                      href={item.to}
                       className="text-left pl-4 py-1 text-gray-700 dark:text-gray-300"
                     >
                       {item.label}
-                    </Link>
+                    </a>
                   )
                 )}
               </div>
