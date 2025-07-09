@@ -1,9 +1,19 @@
-// ListingDetailsModal.jsx
+// ✅ VERSIONI FINAL I ListingDetailsModal.jsx sipas modelit Zillow
+
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import SimilarListings from './SimilarListings/SimilarListings';
-import { FaPhoneAlt, FaEnvelope, FaCheckCircle, FaInfoCircle, FaTag, FaTools, FaBalanceScale, FaHistory } from 'react-icons/fa';
+import {
+  FaPhoneAlt,
+  FaEnvelope,
+  FaCheckCircle,
+  FaInfoCircle,
+  FaTag,
+  FaTools,
+  FaBalanceScale,
+  FaHistory
+} from 'react-icons/fa';
 
 const ListingDetailsModal = ({ listing, onClose, allListings }) => {
   const { t } = useTranslation('listing');
@@ -42,7 +52,6 @@ const ListingDetailsModal = ({ listing, onClose, allListings }) => {
           transition={{ type: 'tween', duration: 0.3 }}
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Mbyllje */}
           <motion.button
             onClick={onClose}
             className="absolute top-4 right-5 text-2xl font-bold text-gray-500 hover:text-black dark:hover:text-white transition-all z-50"
