@@ -1,4 +1,4 @@
-// src/components/Navbar.jsx
+// src/components/Navbar.jsx — VERSIONI FINAL I RUAJTUR
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -6,8 +6,8 @@ import LanguageSwitcher from './LanguageSwitcher';
 import logo from '../assets/logo.png';
 import { auth } from '../firebase-config';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { ThemeContext } from "../context/ThemeContext";
-import { HiMenu, HiX } from "react-icons/hi";
+import { ThemeContext } from '../context/ThemeContext';
+import { HiMenu, HiX } from 'react-icons/hi';
 
 const Navbar = () => {
   const { t } = useTranslation('navbar');
@@ -19,9 +19,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-    });
+    const unsubscribe = onAuthStateChanged(auth, (user) => setCurrentUser(user));
     return () => unsubscribe();
   }, []);
 
@@ -37,9 +35,7 @@ const Navbar = () => {
   };
 
   const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => {
-      setOpenMenu(null);
-    }, 300);
+    timeoutRef.current = setTimeout(() => setOpenMenu(null), 300);
   };
 
   const leftMenus = [
@@ -49,8 +45,8 @@ const Navbar = () => {
       items: [
         { label: 'Neubau', to: '/new-construction' },
         { label: 'Zwangsversteigerungen', to: '/buy/foreclosures' },
-        { label: 'Direkt vom Eigentümer', to: '/buy/owner' }
-      ]
+        { label: 'Direkt vom Eigentümer', to: '/buy/owner' },
+      ],
     },
     {
       title: t('rent'),
@@ -58,25 +54,25 @@ const Navbar = () => {
       items: [
         { label: 'Wohnung', to: '/rent/apartment' },
         { label: 'Haus', to: '/rent/house' },
-        { label: 'Büro / Gewerbe', to: '/rent/office' }
-      ]
+        { label: 'Büro / Gewerbe', to: '/rent/office' },
+      ],
     },
     {
       title: t('mortgage'),
       to: '/mortgage',
       items: [
         { label: 'Rechner', to: '/mortgage/calculator' },
-        { label: 'Bankpartner', to: '/mortgage/partners' }
-      ]
+        { label: 'Bankpartner', to: '/mortgage/partners' },
+      ],
     },
     {
       title: t('findAgent'),
       to: '/agents',
       items: [
         { label: 'Maklersuche', to: '/agent/search' },
-        { label: 'Makler bewerten', to: '/agent/rate' }
-      ]
-    }
+        { label: 'Makler bewerten', to: '/agent/rate' },
+      ],
+    },
   ];
 
   const rightMenus = [
@@ -84,35 +80,35 @@ const Navbar = () => {
       title: t('manage'),
       items: [
         { label: 'Meine Immobilien', to: '/manage/properties' },
-        { label: 'Neue Anzeige', to: '/manage/add' }
-      ]
+        { label: 'Neue Anzeige', to: '/manage/add' },
+      ],
     },
     {
       title: t('advertise'),
       items: [
         { label: 'Bannerwerbung', to: '/advertise/banner' },
-        { label: 'Premium-Listing', to: '/advertise/premium' }
-      ]
+        { label: 'Premium-Listing', to: '/advertise/premium' },
+      ],
     },
     {
       title: currentUser ? t('account') : t('login'),
       items: currentUser
         ? [
             { label: t('dashboard'), to: '/dashboard' },
-            { label: t('logout'), to: '#', onClick: handleLogout }
+            { label: t('logout'), to: '#', onClick: handleLogout },
           ]
         : [
             { label: 'Login', to: '/login' },
-            { label: 'Registrieren', to: '/register' }
-          ]
+            { label: 'Registrieren', to: '/register' },
+          ],
     },
     {
       title: t('help'),
       items: [
         { label: t('support'), to: '/support' },
-        { label: t('howItWorks'), to: '/how-it-works' }
-      ]
-    }
+        { label: t('howItWorks'), to: '/how-it-works' },
+      ],
+    },
   ];
 
   const renderDropdown = (menu, index, align = 'left') => (
@@ -158,7 +154,6 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow">
-      {/* Desktop Navbar */}
       <nav className="hidden md:flex justify-between items-center px-6 py-4 w-full">
         <div className="flex gap-12 text-sm font-medium text-gray-900 dark:text-gray-100">
           {leftMenus.map((menu, index) => renderDropdown(menu, index, 'left'))}
@@ -191,7 +186,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Navbar */}
+      {/* Mobile */}
       <nav className="flex md:hidden justify-between items-center px-4 py-3 w-full">
         <button
           onClick={() => {

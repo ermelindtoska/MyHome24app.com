@@ -3,6 +3,8 @@
   "noResults": "Keine Ergebnisse gefunden.",
   "placeholder": "Stadt, PLZ oder Adresse eingeben...",
   "button": "Suchen",
+ 
+  "loading": "Lade",
     "resultsFor": "Suchergebnisse für",
       "searchTitle": "Immobilien suchen",
   "searchSubtitle": "Finden Sie Ihr Traumobjekt in ganz Deutschland",
