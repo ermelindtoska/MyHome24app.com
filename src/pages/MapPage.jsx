@@ -1,4 +1,4 @@
-// src/pages/MapPage.jsx — FULLSCREEN MOBILE VIEW + MODERN POPUP STYLE + MOBILE ENTRY BUTTON FROM /buy & /rent
+// src/pages/MapPage.jsx — FINAL ZUMPER/ZILLOW SPLIT LAYOUT + FULLSCREEN MOBILE + POPUP + BACK BUTTON
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -27,7 +27,6 @@ L.Icon.Default.mergeOptions({
 const MapPage = () => {
   const { t } = useTranslation(['listing', 'navbar']);
   const navigate = useNavigate();
-  const location = useLocation();
   const [filteredListings, setFilteredListings] = useState([]);
 
   useEffect(() => {
@@ -35,70 +34,74 @@ const MapPage = () => {
   }, []);
 
   return (
-    <div className="h-screen w-screen relative bg-white dark:bg-gray-900">
-      {/* Butoni Back to Search */}
-      <div className="absolute top-4 left-4 z-[999]">
-        <button
-          onClick={() => navigate(-1)}
-          className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white px-4 py-2 rounded shadow-md hover:bg-gray-100 dark:hover:bg-gray-700"
-        >
-          ← {t('backToSearch', { ns: 'navbar' })}
-        </button>
-      </div>
-
-      {/* Harta */}
-      <MapContainer
-        className="w-full h-full z-0"
-        center={[51.1657, 10.4515]}
-        zoom={6}
-      >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        {filteredListings.map((item) => (
-          <Marker key={item.id} position={[item.lat, item.lng]}>
-            <Popup>
-              <motion.div
-                className="text-sm leading-snug w-52"
-                initial={{ opacity: 0.3, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3 }}
-              >
-                <img
-                  src={item.images?.[0] || '/placeholder.jpg'}
-                  alt={item.title}
-                  className="w-full h-24 object-cover rounded mb-1"
-                />
-                <h3 className="font-semibold text-sm text-gray-800 dark:text-gray-100">
-                  {t('listingTitle', {
-                    ns: 'listing',
-                    type: t(item.type.toLowerCase(), { ns: 'listing' }),
-                    city: item.city,
-                    id: item.id.replace('property-', '')
-                  })}
-                </h3>
-                <p className="text-blue-700 font-bold mt-1">€ {item.price.toLocaleString()}</p>
-                <button
-                  onClick={() => navigate(`/listing/${item.id}`)}
-                  className="mt-2 w-full bg-blue-600 text-white text-xs py-1 rounded hover:bg-blue-700 transition"
-                >
-                  {t('viewMore', { ns: 'listing' })}
-                </button>
-              </motion.div>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-
-      {/* Butoni Show Map për Mobile (nëse duam të përfshijmë në buy/rent faqet në të ardhmen) */}
-      {['/buy', '/rent'].includes(location.pathname) && (
-        <div className="md:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
+    <div className="h-screen w-screen md:grid md:grid-cols-2 bg-white dark:bg-gray-900">
+      {/* Split Left Side (List View Placeholder or Page Entry) */}
+      <div className="hidden md:block border-r border-gray-200 dark:border-gray-800 overflow-y-auto">
+        <div className="p-6 text-gray-700 dark:text-gray-100 text-center">
+          <h2 className="text-xl font-bold mb-2">{t('backToSearch', { ns: 'navbar' })}</h2>
+          <p className="text-sm">{t('listingMapSplitNote', { ns: 'listing' })}</p>
           <button
-            onClick={() => navigate('/map')}
-            className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-blue-700 transition"
+            onClick={() => navigate(-1)}
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
-            {t('showMap', { ns: 'navbar' })}
+            ← {t('backToSearch', { ns: 'navbar' })}
           </button>
         </div>
-      )}
+      </div>
+
+      {/* Right Side: Full Map */}
+      <div className="relative w-full h-screen md:h-full">
+        <MapContainer
+          className="w-full h-full z-0"
+          center={[51.1657, 10.4515]}
+          zoom={6}
+        >
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          {filteredListings.map((item) => (
+            <Marker key={item.id} position={[item.lat, item.lng]}>
+              <Popup>
+                <motion.div
+                  className="text-sm leading-snug w-52"
+                  initial={{ opacity: 0.3, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <img
+                    src={item.images?.[0] || '/placeholder.jpg'}
+                    alt={item.title}
+                    className="w-full h-24 object-cover rounded mb-1"
+                  />
+                  <h3 className="font-semibold text-sm text-gray-800 dark:text-gray-100">
+                    {t('listingTitle', {
+                      ns: 'listing',
+                      type: t(item.type.toLowerCase(), { ns: 'listing' }),
+                      city: item.city,
+                      id: item.id.replace('property-', '')
+                    })}
+                  </h3>
+                  <p className="text-blue-700 font-bold mt-1">€ {item.price.toLocaleString()}</p>
+                  <button
+                    onClick={() => navigate(`/listing/${item.id}`)}
+                    className="mt-2 w-full bg-blue-600 text-white text-xs py-1 rounded hover:bg-blue-700 transition"
+                  >
+                    {t('viewMore', { ns: 'listing' })}
+                  </button>
+                </motion.div>
+              </Popup>
+            </Marker>
+          ))}
+        </MapContainer>
+
+        {/* Back button for mobile */}
+        <div className="md:hidden absolute top-4 left-4 z-[999]">
+          <button
+            onClick={() => navigate(-1)}
+            className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white px-4 py-2 rounded shadow-md hover:bg-gray-100 dark:hover:bg-gray-700"
+          >
+            ← {t('backToSearch', { ns: 'navbar' })}
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
