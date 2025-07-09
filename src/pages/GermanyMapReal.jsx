@@ -28,17 +28,33 @@ L.Icon.Default.mergeOptions({
 
 const MapEventHandler = ({ listings, setActiveListings, applyFilters }) => {
   const map = useMap();
+
   useEffect(() => {
-    const bounds = map.getBounds();
-    const visible = listings.filter(({ lat, lng }) => bounds.contains([lat, lng]));
-    setActiveListings(applyFilters(visible));
-    map.on('moveend', () => {
-      const visibleNow = listings.filter(({ lat, lng }) => map.getBounds().contains([lat, lng]));
-      setActiveListings(applyFilters(visibleNow));
-    });
-  }, [map]);
+    let timeoutId;
+
+    const updateVisibleListings = () => {
+      const visible = listings.filter(({ lat, lng }) => map.getBounds().contains([lat, lng]));
+      setActiveListings(applyFilters(visible));
+    };
+
+    // fillimisht
+    updateVisibleListings();
+
+    const handleMoveEnd = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(updateVisibleListings, 300); // ➕ Debounce 300ms
+    };
+
+    map.on('moveend', handleMoveEnd);
+    return () => {
+      map.off('moveend', handleMoveEnd);
+      clearTimeout(timeoutId);
+    };
+  }, [map, listings]);
+
   return null;
 };
+
 
 const GermanyMapReal = ({ purpose }) => {
   const { t } = useTranslation(['listing', 'navbar', 'filterBar']);
@@ -126,7 +142,7 @@ const GermanyMapReal = ({ purpose }) => {
       </div>
 
       {/* Map */}
-      <MapContainer center={[51.1657, 10.4515]} zoom={6} className="w-full lg:w-[60%] xl:w-[65%] h-[400px] lg:h-full z-0">
+      <MapContainer center={[51.1657, 10.4515]} zoom={6} preferCanvas={true} className="w-full lg:w-[60%] xl:w-[65%] h-[400px] lg:h-full z-0">
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {filteredListings.map((item) => (
           <Marker key={item.id} position={[item.lat, item.lng]}>
