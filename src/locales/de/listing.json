@@ -9,7 +9,7 @@
 "maxBedrooms": "Max. Schlafzimmer",
 "minSize": "Min. Größe (m²)",
 "maxSize": "Max. Größe (m²)",
-  
+  "listingMapSplitNote": "Hier können die Karten der gefilterten Ergebnisse angezeigt werden.",
   "listingStatus": "Anzeigenstatus",
 
   "property": "Immobilie",

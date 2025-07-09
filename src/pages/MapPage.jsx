@@ -1,4 +1,4 @@
-// src/pages/MapPage.jsx — FINAL ZUMPER/ZILLOW SPLIT LAYOUT + FULLSCREEN MOBILE + POPUP + BACK BUTTON
+// src/pages/MapPage.jsx — FINAL ZUMPER/ZILLOW SPLIT LAYOUT + FULLSCREEN MOBILE + POPUP + BACK BUTTON + LISTINGS COLUMN
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -11,6 +11,7 @@ import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import listings from '../data/listings.json';
 import { motion } from 'framer-motion';
+import ListingCard from '../components/ListingCard';
 
 // Configure leaflet default icon
 delete L.Icon.Default.prototype._getIconUrl;
@@ -35,18 +36,25 @@ const MapPage = () => {
 
   return (
     <div className="h-screen w-screen md:grid md:grid-cols-2 bg-white dark:bg-gray-900">
-      {/* Split Left Side (List View Placeholder or Page Entry) */}
-      <div className="hidden md:block border-r border-gray-200 dark:border-gray-800 overflow-y-auto">
-        <div className="p-6 text-gray-700 dark:text-gray-100 text-center">
-          <h2 className="text-xl font-bold mb-2">{t('backToSearch', { ns: 'navbar' })}</h2>
-          <p className="text-sm">{t('listingMapSplitNote', { ns: 'listing' })}</p>
+      {/* Split Left Side – Real Listings */}
+      <div className="hidden md:flex flex-col border-r border-gray-200 dark:border-gray-800 overflow-y-auto h-screen p-4 space-y-4 bg-white dark:bg-gray-900">
+        <div className="flex items-center justify-between mb-2 px-2">
+          <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+            {filteredListings.length} {t('listingsFound', { ns: 'listing' })}
+          </h2>
           <button
             onClick={() => navigate(-1)}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="text-sm text-blue-600 dark:text-blue-300 hover:underline"
           >
             ← {t('backToSearch', { ns: 'navbar' })}
           </button>
         </div>
+
+        {filteredListings.map((listing) => (
+          <div key={listing.id} className="px-2">
+            <ListingCard listing={listing} />
+          </div>
+        ))}
       </div>
 
       {/* Right Side: Full Map */}

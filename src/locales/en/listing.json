@@ -8,7 +8,7 @@
     "resultsFound": "{{count}} results found",
 "listingTitle": "{{type}} in {{city}} #{{id}}",
   "agentName": "Agent",
-  
+  "listingMapSplitNote": "You can use this space to display the filtered property listings.",
   "previous": "Previous",
   "next": "Next",
   "pageInfo": "Page {{current}} of {{total}}",
