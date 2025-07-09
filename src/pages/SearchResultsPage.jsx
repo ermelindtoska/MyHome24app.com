@@ -1,4 +1,4 @@
-// src/pages/SearchResultsPage.jsx — FINAL ZUMPER/ZILLOW STYLE + PAGINATION
+// src/pages/SearchResultsPage.jsx — FINAL ZUMPER/ZILLOW STYLE + PAGINATION + MAP SHORTCUT MOBILE
 
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -58,6 +58,16 @@ const SearchResultsPage = () => {
         <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-gray-900 dark:text-white">
           {t('resultsFor')} "{queryParam}"
         </h1>
+
+        {/* Mobile Shortcut for Map View */}
+        <div className="md:hidden mb-6">
+          <a
+            href="/map"
+            className="inline-block w-full text-center text-sm font-semibold text-blue-700 dark:text-blue-300 border border-blue-700 dark:border-blue-300 rounded-full px-4 py-2 hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white transition"
+          >
+            {t('mapSearch', { ns: 'navbar' })}
+          </a>
+        </div>
 
         {loading ? (
           <p className="text-gray-500 dark:text-gray-400 text-lg">{t('loading')}...</p>
