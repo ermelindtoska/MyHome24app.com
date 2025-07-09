@@ -56,6 +56,7 @@ import ComparePage from './pages/ComparePage';
 import CompareDetails from './pages/CompareDetails';
 import PropertyDetails from './components/PropertyDetails/PropertyDetails';
 import ExplorePage from './pages/ExplorePage';
+import MapPage from './pages/MapPage';
 
 
 const MapWrapper = ({ purpose }) => (
@@ -119,6 +120,7 @@ function AppRoutes() {
           <Route path="/explore/germany" element={<ExplorePage />} />
           <Route path="/buy"element={<GermanyMapReal purpose="buy" key="buy" />}/>
           <Route path="/rent"element={<GermanyMapReal purpose="rent" key="rent" />}/>
+          <Route path="/map" element={<MapPage />} />
         </Routes>
       </main>
       <Footer />
