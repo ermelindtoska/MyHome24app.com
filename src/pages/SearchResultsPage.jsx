@@ -1,7 +1,7 @@
 // src/pages/SearchResultsPage.jsx — FINAL ZUMPER/ZILLOW STYLE + PAGINATION + MAP SHORTCUT MOBILE
 
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import ListingCard from '../components/ListingCard';
@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 const SearchResultsPage = () => {
   const { t } = useTranslation('search');
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParam = new URLSearchParams(location.search).get('query') || '';
 
   const [results, setResults] = useState([]);
@@ -53,21 +54,21 @@ const SearchResultsPage = () => {
   const goToNextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 px-4 py-24">
+    <div className="min-h-screen bg-white dark:bg-gray-900 px-4 py-24 relative">
+      {/* Mobile Map Fullscreen Shortcut */}
+      <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden">
+        <button
+          onClick={() => navigate('/map')}
+          className="w-full bg-blue-600 text-white font-semibold py-3 rounded-full shadow-lg hover:bg-blue-700 transition"
+        >
+          {t('mapSearch', { ns: 'navbar' })}
+        </button>
+      </div>
+
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-gray-900 dark:text-white">
           {t('resultsFor')} "{queryParam}"
         </h1>
-
-        {/* Mobile Shortcut for Map View */}
-        <div className="md:hidden mb-6">
-          <a
-            href="/map"
-            className="inline-block w-full text-center text-sm font-semibold text-blue-700 dark:text-blue-300 border border-blue-700 dark:border-blue-300 rounded-full px-4 py-2 hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white transition"
-          >
-            {t('mapSearch', { ns: 'navbar' })}
-          </a>
-        </div>
 
         {loading ? (
           <p className="text-gray-500 dark:text-gray-400 text-lg">{t('loading')}...</p>
