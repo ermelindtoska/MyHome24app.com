@@ -11,6 +11,7 @@
   "listingMapSplitNote": "You can use this space to display the filtered property listings.",
   "previous": "Previous",
   "next": "Next",
+  "backToSearch": "Back to search",
   "pageInfo": "Page {{current}} of {{total}}",
     "bedroomsDesc": "Bedrooms: Most to Least",
     "cityAsc": "City: A to Z",

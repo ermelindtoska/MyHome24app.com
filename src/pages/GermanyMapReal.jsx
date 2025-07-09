@@ -1,21 +1,23 @@
-// VERSIONI I PËRFUNDIMTAR GERMANYMAPREAL JSX (Zumper Style + Zillow Navbar)
+// src/pages/GermanyMapReal.jsx — FINAL FULL VERSION (Zumper/Zillow style + Mobile + Popup + Filters + Modal)
 
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import listings from '../data/listings.json';
-import ListingDetailsModal from '../components/ListingDetailsModal';
 import { motion } from 'framer-motion';
+import ListingCard from '../components/ListingCard';
+import ListingDetailsModal from '../components/ListingDetailsModal';
 
 // Leaflet icon fix
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x,
+  shadowUrl: markerShadow,
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
   iconSize: [25, 41],
@@ -24,24 +26,36 @@ L.Icon.Default.mergeOptions({
   shadowSize: [41, 41],
 });
 
-const GermanyMapReal = ({ purpose }) => {
-  const { t } = useTranslation(['listing', 'filterBar', 'map']);
-  const location = useLocation();
-  const pathname = location.pathname;
+const MapEventHandler = ({ listings, setActiveListings, applyFilters }) => {
+  const map = useMap();
+  useEffect(() => {
+    const bounds = map.getBounds();
+    const visible = listings.filter(({ lat, lng }) => bounds.contains([lat, lng]));
+    setActiveListings(applyFilters(visible));
+    map.on('moveend', () => {
+      const visibleNow = listings.filter(({ lat, lng }) => map.getBounds().contains([lat, lng]));
+      setActiveListings(applyFilters(visibleNow));
+    });
+  }, [map]);
+  return null;
+};
 
-  const [sortBy, setSortBy] = useState('');
-  const [selectedItem, setSelectedItem] = useState(null);
+const GermanyMapReal = ({ purpose }) => {
+  const { t } = useTranslation(['listing', 'navbar', 'filterBar']);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [filteredListings, setFilteredListings] = useState([]);
   const [activeListings, setActiveListings] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [sortBy, setSortBy] = useState('');
   const [filters, setFilters] = useState({ city: '', type: '' });
 
-  // Reset on pathname change
   useEffect(() => {
     setFilters({ city: '', type: '' });
     setSelectedItem(null);
     setActiveListings([]);
-  }, [pathname, purpose]);
+  }, [location.pathname, purpose]);
 
-  // Filtering logic
   const applyFilters = (items) => {
     let results = items.filter((item) => (
       (!purpose || item.purpose === purpose) &&
@@ -56,25 +70,12 @@ const GermanyMapReal = ({ purpose }) => {
     return results;
   };
 
-  const filteredListings = applyFilters(listings);
-
-  const MapEventHandler = () => {
-    const map = useMap();
-    useEffect(() => {
-      const bounds = map.getBounds();
-      const visible = listings.filter(({ lat, lng }) => bounds.contains([lat, lng]));
-      setActiveListings(applyFilters(visible));
-      map.on('moveend', () => {
-        const visibleNow = listings.filter(({ lat, lng }) => map.getBounds().contains([lat, lng]));
-        setActiveListings(applyFilters(visibleNow));
-      });
-    }, [map, filters]);
-    return null;
-  };
+  useEffect(() => {
+    setFilteredListings(applyFilters(listings));
+  }, [filters, sortBy]);
 
   return (
     <div className="w-full h-[calc(100vh-64px)] flex flex-col lg:flex-row bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-
       {/* Sidebar */}
       <div className="w-full lg:w-[40%] xl:w-[35%] overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
         {/* Filter bar */}
@@ -139,7 +140,7 @@ const GermanyMapReal = ({ purpose }) => {
             </Popup>
           </Marker>
         ))}
-        <MapEventHandler />
+        <MapEventHandler listings={listings} setActiveListings={setActiveListings} applyFilters={applyFilters} />
       </MapContainer>
 
       {/* Modal */}
@@ -150,16 +151,18 @@ const GermanyMapReal = ({ purpose }) => {
           onClose={() => setSelectedItem(null)}
         />
       )}
+
+      {/* Mobile button */}
       {['/buy', '/rent'].includes(location.pathname) && (
-  <div className="md:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
-    <button
-      onClick={() => navigate('/map')}
-      className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-blue-700 transition"
-    >
-      {t('showMap', { ns: 'navbar' })}
-    </button>
-  </div>
-)}
+        <div className="md:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
+          <button
+            onClick={() => navigate('/map')}
+            className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-blue-700 transition"
+          >
+            {t('showMap', { ns: 'navbar' })}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 // src/pages/MapPage.jsx — FINAL ZUMPER/ZILLOW SPLIT LAYOUT + FULLSCREEN MOBILE + POPUP + BACK BUTTON + LISTINGS COLUMN
 
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -13,7 +13,7 @@ import listings from '../data/listings.json';
 import { motion } from 'framer-motion';
 import ListingCard from '../components/ListingCard';
 
-// Configure leaflet default icon
+// Konfiguro ikona për Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x,
@@ -36,7 +36,7 @@ const MapPage = () => {
 
   return (
     <div className="h-screen w-screen md:grid md:grid-cols-2 bg-white dark:bg-gray-900">
-      {/* Split Left Side – Real Listings */}
+      {/* Majtas – lista e pronave për desktop */}
       <div className="hidden md:flex flex-col border-r border-gray-200 dark:border-gray-800 overflow-y-auto h-screen p-4 space-y-4 bg-white dark:bg-gray-900">
         <div className="flex items-center justify-between mb-2 px-2">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
@@ -57,7 +57,7 @@ const MapPage = () => {
         ))}
       </div>
 
-      {/* Right Side: Full Map */}
+      {/* Djathtas – Harta për të gjitha madhësitë */}
       <div className="relative w-full h-screen md:h-full">
         <MapContainer
           className="w-full h-full z-0"
@@ -100,7 +100,7 @@ const MapPage = () => {
           ))}
         </MapContainer>
 
-        {/* Back button for mobile */}
+        {/* Butoni “Back to search” për mobile */}
         <div className="md:hidden absolute top-4 left-4 z-[999]">
           <button
             onClick={() => navigate(-1)}
