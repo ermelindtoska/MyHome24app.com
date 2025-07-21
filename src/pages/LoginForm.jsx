@@ -1,120 +1,81 @@
+// ... importet ekzistuese
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth, db } from '../firebase-config';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { auth } from '../firebase';
 import { useTranslation } from 'react-i18next';
-import { doc, getDoc } from 'firebase/firestore';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid';
 
 const LoginForm = () => {
   const { t } = useTranslation('auth');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    const { email, password } = formData;
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      if (!user.emailVerified) {
-        setError(t('emailNotVerified') || 'Bitte bestätigen Sie zuerst Ihre E-Mail-Adresse.');
-        return;
-      }
-
-      const docRef = doc(db, 'users', user.uid);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        const userData = docSnap.data();
-
-        const userInfo = {
-          uid: user.uid,
-          email: user.email,
-          role: userData.role || 'user',
-        };
-
-        if (rememberMe) {
-          localStorage.setItem('user', JSON.stringify(userInfo));
-        } else {
-          sessionStorage.setItem('user', JSON.stringify(userInfo));
-        }
-
-        navigate('/dashboard');
-      } else {
-        setError(t('userDataNotFound') || 'Benutzerdaten wurden nicht gefunden.');
-      }
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate('/dashboard');
     } catch (err) {
-      if (err.code === 'auth/user-not-found') {
-        setError(t('userNotFound') || 'Benutzer wurde nicht gefunden.');
-      } else if (err.code === 'auth/wrong-password') {
-        setError(t('wrongPassword') || 'Falsches Passwort.');
-      } else if (err.code === 'auth/invalid-email') {
-        setError(t('invalidEmail') || 'Ungültige E-Mail-Adresse.');
-      } else {
-        setError(t('loginFailed') || 'Anmeldung fehlgeschlagen.');
-      }
+      setError(t('loginError') || 'Anmeldung fehlgeschlagen. Bitte prüfen Sie Ihre Daten.');
     }
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 mt-10 bg-white shadow-md rounded">
+    <div className="max-w-md mx-auto p-6 mt-10 bg-gray-800 text-white shadow rounded">
       <Helmet>
-        <title>Anmelden – MyHome24app</title>
-        <meta name="description" content="Benutzeranmeldung für die MyHome24app-Plattform" />
+        <title>Anmelden – MyHome24App</title>
       </Helmet>
-
       <h2 className="text-2xl font-bold mb-4 text-center">{t('loginTitle') || 'Anmelden'}</h2>
 
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+      {error && <p className="text-red-400 mb-4">{error}</p>}
 
-      <form onSubmit={handleLogin} className="space-y-4">
-        <div>
-          <label className="block mb-1">{t('email') || 'E-Mail'}</label>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          name="email"
+          type="email"
+          placeholder="E-Mail"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded placeholder-gray-400"
+        />
+
+        <div className="relative">
           <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="password"
+            type={showPassword ? 'text' : 'password'}
+            placeholder="Passwort"
+            value={formData.password}
+            onChange={handleChange}
             required
-            className="w-full border px-3 py-2 rounded"
+            className="w-full p-2 pr-10 border border-gray-600 bg-gray-700 text-white rounded placeholder-gray-400"
           />
+          <div className="absolute right-2 top-2 cursor-pointer text-gray-400" onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? (<EyeSlashIcon className="h-5 w-5" />) : (<EyeIcon className="h-5 w-5" />)}
+          </div>
         </div>
 
-        <div>
-          <label className="block mb-1">{t('password') || 'Passwort'}</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="w-full border px-3 py-2 rounded"
-          />
-        </div>
-
-        <div className="flex items-center justify-between">
-          <label className="inline-flex items-center">
-            <input
-              type="checkbox"
-              className="mr-2"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
-            />
-            {t('rememberMe')}
+        <div className="flex items-center justify-between text-sm">
+          <label className="flex items-center">
+            <input type="checkbox" className="mr-2" />
+            <span className="text-gray-300">{t('stayLoggedIn') || 'Angemeldet bleiben'}</span>
           </label>
-          <Link to="/forgot-password" className="text-blue-600 hover:underline text-sm">
-            {t('forgotPassword')}
-          </Link>
+          <a href="/forgot-password" className="text-blue-400 hover:underline">
+            {t('forgotPassword') || 'Passwort vergessen?'}
+          </a>
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-        >
+        <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">
           {t('loginButton') || 'Einloggen'}
         </button>
       </form>

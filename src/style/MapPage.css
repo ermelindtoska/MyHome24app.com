@@ -1,0 +1,40 @@
+/* src/styles/MapPage.css */
+
+.custom-marker img {
+  border-radius: 100%;
+  box-shadow: 0 0 5px #000;
+}
+
+.popup-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  max-width: 280px;
+}
+
+.popup-img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.popup-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.popup-title {
+  font-weight: bold;
+  color: #fff;
+}
+
+.popup-price {
+  background-color: #2563eb;
+  padding: 4px 8px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 0.9rem;
+}

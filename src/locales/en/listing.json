@@ -22,13 +22,21 @@
     "sizeDesc": "Size: Largest First",
     "pool": "Swimming Pool",
   "size": "Size (m²)",
-  
+    
+  "perMonth": "per month",
   "city": "City",
   "postalCode": "Postal Code",
   "country": "Country",
   "property": "Property"
 ,
   "available": "Available",
+  
+  "forSale": "For Sale",
+  "forRent": "For Rent",
+  
+    "berlin": "Berlin",
+    "hamburg": "Hamburg",
+    "munich": "Munich",
 
   "submitInquiry": "Submit Inquiry",
   "relatedProperties": "Related Properties",
@@ -36,6 +44,9 @@
   "updatedOn": "Last updated on",
   "propertyID": "Property ID",
   "features": "Features",
+  "please_login_to_favorite": "Please log in to save favorites.",
+"add_to_favorites": "Add to favorites",
+"remove_from_favorites": "Remove from favorites",
   
 
   "energyClass": "Energy Class",

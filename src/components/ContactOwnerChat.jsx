@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { db, auth } from "../firebase-config"; // sigurohu që këto janë eksportuar nga firebase.js
+import { db, auth } from "../firebase"; // sigurohu që këto janë eksportuar nga firebase.js
 import {
   collection,
   addDoc,

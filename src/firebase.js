@@ -5,18 +5,16 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "YOUR-KEY",
-  authDomain: "your-app.firebaseapp.com",
-  projectId: "your-app-id",
-  storageBucket: "your-app.appspot.com",
-  messagingSenderId: "YOUR-ID",
-  appId: "YOUR-ID"
+  apiKey: "AIzaSyBeaECyKbHTBGdq6PDBpbxWXuiTmIzlOxc",
+  authDomain: "myhome24app-a0973.firebaseapp.com",
+  projectId: "myhome24app-a0973",
+  storageBucket: "myhome24app-a0973.appspot.com",
+  messagingSenderId: "635338268249",
+  appId: "1:635338268249:web:b20165baf83aedd0df01b48"
 };
 
-// ✅ Mos e inicializo dy herë
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
-// ✅ Krijo instancat dhe eksporto
 const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);

@@ -24,7 +24,7 @@
   "minPrice": "Minimum Price",
   "maxPrice": "Maximum Price",
   "resetFilters": "Reset",    
-  "filters": "Filter Listings",
+  
   "results": "results",
   "sortBy": "Sort by",
   "priceAsc": "Price: Low to High",
@@ -54,7 +54,21 @@
   "priceLowToHigh": "Price: Low to High",
   "priceHighToLow": "Price: High to Low",
   "latestListings": "Latest Listings",
-  
+    "showMap": "Show map",
+  "backToSearch": "Back to search",
+  "listingsFound": "{{count}} listings found",
+  "filters": {
+    "city": "Search by city",
+    "typeAll": "All types",
+    "apartment": "Apartment",
+    "house": "House",
+    "sortDefault": "Sort",
+    "priceAsc": "Price (Low to High)",
+    "priceDesc": "Price (High to Low)"
+  },
+  "popup": {
+    "viewMore": "View more"
+  },
   
 
 

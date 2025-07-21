@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
-import { db } from "../../firebase-config";
+import { db } from "../../firebase";
 import PropertyList from "../PropertyList/PropertyList";
 import { FaExclamationTriangle } from "react-icons/fa"; // SHTO KËTË IMPORT!
 

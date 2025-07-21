@@ -1,5 +1,5 @@
 {
-  "name": "myhome24",
+  "name": "myhome24app",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -13,9 +13,11 @@
   },
   "dependencies": {
     "@geoapify/geocoder-autocomplete": "^2.1.0",
+    "@heroicons/react": "^2.2.0",
     "@sendgrid/mail": "^8.1.5",
     "aos": "^2.3.4",
     "firebase": "^10.14.1",
+    "firebase-admin": "^13.4.0",
     "framer-motion": "^12.18.1",
     "google-map-react": "^2.2.5",
     "i18next": "^23.10.0",
@@ -24,6 +26,8 @@
     "jspdf-autotable": "^5.0.2",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.511.0",
+    "mapbox-gl": "^3.13.0",
+    "maplibre-gl": "^2.4.0",
     "react": "^18.2.0",
     "react-countup": "^6.5.3",
     "react-dom": "^18.2.0",
@@ -33,12 +37,14 @@
     "react-i18next": "^13.0.0",
     "react-icons": "^5.5.0",
     "react-leaflet": "^4.2.1",
+    "react-map-gl": "^7.1.9",
     "react-player": "^2.16.0",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^7.6.0",
     "react-scripts": "5.0.1",
     "react-simple-typewriter": "^5.0.1",
     "react-slick": "^0.30.3",
+    "react-toastify": "^11.0.5",
     "recharts": "^2.15.3",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^5.0.1"

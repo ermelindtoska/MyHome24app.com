@@ -1,70 +1,106 @@
 import React, { useState } from 'react';
+import { db, auth } from '../../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { useTranslation } from 'react-i18next';
 
-const ContactForm = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+const ContactForm = ({ listingId, ownerEmail, listingTitle }) => {
+  const { t } = useTranslation('contact');
+  const user = auth.currentUser;
+
+  const [formData, setFormData] = useState({
+    name: user?.displayName || '',
+    email: user?.email || '',
+    message: ''
+  });
+
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    });
 
-    if (response.ok) {
+    if (!formData.message.trim()) return;
+
+    try {
+      await addDoc(collection(db, 'contacts'), {
+        ...formData,
+        listingId,
+        listingTitle,
+        ownerEmail,
+        sentAt: serverTimestamp(),
+        userId: user?.uid || null
+      });
+
       setSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('❌ Error sending contact message:', error);
     }
   };
 
   if (submitted) {
-    return <p className="text-green-600 font-medium">Thank you! Your message has been sent.</p>;
+    return (
+      <p className="text-green-600 dark:text-green-400 font-medium">
+        {t('contactForm.successMessage')}
+      </p>
+    );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-xl mx-auto space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto bg-white dark:bg-gray-900 p-6 rounded shadow">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+        {t('contactForm.contactOwner')} {listingTitle && `: ${listingTitle}`}
+      </h3>
+
       <div>
-        <label className="block mb-1 font-medium">Name</label>
+        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+          {t('contactForm.name')}
+        </label>
         <input
           type="text"
           name="name"
+          required
           value={formData.name}
           onChange={handleChange}
-          required
-          className="w-full border border-gray-300 rounded px-3 py-2"
+          className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-black dark:text-white rounded px-3 py-2"
         />
       </div>
+
       <div>
-        <label className="block mb-1 font-medium">Email</label>
+        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+          {t('contactForm.email')}
+        </label>
         <input
           type="email"
           name="email"
+          required
           value={formData.email}
           onChange={handleChange}
-          required
-          className="w-full border border-gray-300 rounded px-3 py-2"
+          className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-black dark:text-white rounded px-3 py-2"
         />
       </div>
+
       <div>
-        <label className="block mb-1 font-medium">Message</label>
+        <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
+          {t('contactForm.message')}
+        </label>
         <textarea
           name="message"
+          rows={5}
+          required
           value={formData.message}
           onChange={handleChange}
-          required
-          rows="5"
-          className="w-full border border-gray-300 rounded px-3 py-2"
+          className="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-black dark:text-white rounded px-3 py-2"
         />
       </div>
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-        Send
+
+      <button
+        type="submit"
+        className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded transition"
+      >
+        {t('contactForm.send')}
       </button>
     </form>
   );

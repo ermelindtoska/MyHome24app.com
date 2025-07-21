@@ -61,3 +61,48 @@ exports.sendNewCommentNotificationFinalV2 = onDocumentCreated(
     }
   }
 );
+
+// ---------------------------
+// 📬 Kontakto Pronarin – Notifikim për mesazh të ri
+// ---------------------------
+exports.sendNewContactNotificationFinalV2 = onDocumentCreated(
+  {
+    region: 'us-central1',
+    document: 'contacts/{contactId}',
+    secrets: [SENDGRID_API_KEY],
+    memory: '256MiB',
+    timeoutSeconds: 60,
+  },
+  async (event) => {
+    const contact = event.data?.data();
+
+    if (!contact || !contact.ownerEmail) {
+      logger.error('❌ Missing contact data or ownerEmail');
+      return;
+    }
+
+    sgMail.setApiKey(SENDGRID_API_KEY.value());
+
+    const msg = {
+      to: contact.ownerEmail,
+      from: 'noreply@myhome24app.com',
+      subject: `📨 New contact request: ${contact.listingTitle}`,
+      text: `
+You received a new message from ${contact.name} (${contact.email}):
+${contact.message}
+      `,
+      html: `
+        <p><strong>New contact from:</strong> ${contact.name} (${contact.email})</p>
+        <p><strong>Message:</strong><br>${contact.message}</p>
+        <p><strong>Listing:</strong> ${contact.listingTitle}</p>
+      `
+    };
+
+    try {
+      await sgMail.send(msg);
+      logger.log(`✅ Contact email sent to: ${contact.ownerEmail}`);
+    } catch (error) {
+      logger.error('❌ SendGrid error:', error?.response?.body || error);
+    }
+  }
+);
