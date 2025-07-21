@@ -11,7 +11,7 @@ const ApartmentPage = () => {
   return (
     <div className="max-w-6xl mx-auto py-12 px-4">
       <Helmet>
-        <title>{t('title')} – MyHome24</title>
+        <title>{t('title')} – MyHome24app</title>
         <meta name="description" content={t('description')} />
       </Helmet>
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '../firebase-config';
+import { auth } from '../firebase';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
@@ -30,22 +30,22 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 mt-10 bg-white shadow-md rounded">
+    <div className="max-w-md mx-auto p-10 mt-10 bg-white shadow-md rounded">
       <Helmet>
         <title>{t('forgotPasswordTitle') || 'Passwort zurücksetzen'}</title>
         <meta name="description" content="Passwort zurücksetzen für MyHome24App" />
       </Helmet>
 
-      <h2 className="text-2xl font-bold mb-4 text-center">
+      <h2 className="text-4xl font-bold mb-10 text-center">
         {t('forgotPassword') || 'Passwort vergessen'}
       </h2>
 
-      {message && <p className="text-green-600 mb-4">{message}</p>}
+      {message && <p className="text-green-900 mb-10">{message}</p>}
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
-      <form onSubmit={handleReset} className="space-y-4">
+      <form onSubmit={handleReset} className="space-y-6">
         <div>
-          <label className="block mb-1">{t('email') || 'E-Mail'}</label>
+          <label className="block mb-4">{t('email') || 'E-Mail'}</label>
           <input
             type="email"
             value={email}

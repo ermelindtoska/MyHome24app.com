@@ -25,7 +25,20 @@
   "listedOn": "Inseriert am",
   "features": "Wichtige Merkmale",
   "agent": "Makler",
+"publish_title": "Immobilie veröffentlichen",
+"title": "Titel",
 
+"select_type": "Immobilientyp auswählen",
+"house": "Haus",
+"apartment": "Wohnung",
+"office": "Büro",
+"buy": "Zu verkaufen",
+"rent": "Zu vermieten",
+"submit": "Immobilie einreichen",
+
+"success_uploaded": "Immobilie erfolgreich hochgeladen!",
+"error_upload": "Beim Hochladen ist ein Fehler aufgetreten. Versuchen Sie es erneut.",
+"error_image_required": "Bitte wählen Sie ein Bild aus.",
 
 
   "size": "Größe",

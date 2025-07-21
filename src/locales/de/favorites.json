@@ -38,7 +38,14 @@
   "viewListing": "Anzeige ansehen",
   "favoriteListings": "Gespeicherte Anzeigen",
   "loginToSave": "Melde dich an, um Favoriten zu speichern.",
-  "goToListings": "Zu den Anzeigen"
+  "goToListings": "Zu den Anzeigen",
+   
+  "home": "Startseite",
+  
+  "name": "Name",
+  "text": "Kommentar",
+  "rating": "Bewertung",
+  "submit": "Absenden"
   },
 
 

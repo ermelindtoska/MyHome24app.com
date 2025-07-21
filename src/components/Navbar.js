@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import logo from '../assets/logo.png';
-import { auth } from '../firebase-config';
+import { auth } from '../firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { ThemeContext } from '../context/ThemeContext';
 import { HiMenu, HiX } from 'react-icons/hi';
@@ -18,10 +18,21 @@ const Navbar = () => {
   const timeoutRef = useRef(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => setCurrentUser(user));
-    return () => unsubscribe();
-  }, []);
+ useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    if (user && user.emailVerified) {
+      setCurrentUser(user);
+    } else {
+      setCurrentUser(null);
+      if (user && !user.emailVerified) {
+        console.warn("User email not verified. Signing out.");
+        await signOut(auth);
+      }
+    }
+  });
+
+  return () => unsubscribe();
+}, []);
 
   const handleLogout = async () => {
     await signOut(auth);

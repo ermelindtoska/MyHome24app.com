@@ -9,7 +9,7 @@ const CareersPage = () => {
   return (
     <div className="max-w-3xl mx-auto py-16 px-4">
       <Helmet>
-        <title>{t('careers')} – MyHome24</title>
+        <title>{t('careers')} – MyHome24app</title>
         <meta name="description" content="Karrieremöglichkeiten bei MyHome24" />
       </Helmet>
 

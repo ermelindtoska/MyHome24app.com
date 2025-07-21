@@ -57,6 +57,22 @@ import CompareDetails from './pages/CompareDetails';
 import PropertyDetails from './components/PropertyDetails/PropertyDetails';
 import ExplorePage from './pages/ExplorePage';
 import MapPage from './pages/MapPage';
+import BuyMapPage from './pages/BuyMapPage';
+import RentMapPage from './pages/RentMapPage';
+import { RoleProvider } from './roles/RoleContext';
+import RequireRole from './roles/RequireRole';
+import AgentDashboard from './pages/AgentDashboard';
+import PublishProperty from './publish/PublishProperty';
+import AdminDashboard from './pages/AdminDashboard';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from './auth/AuthContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
+
+
 
 
 const MapWrapper = ({ purpose }) => (
@@ -71,70 +87,81 @@ function AppRoutes() {
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
       <Navbar />
       <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/listings" element={<PublicListings />} />
-          <Route path="/listing/:id" element={<ListingDetails />} />
-          <Route path="/edit/:id" element={<EditListingForm />} />
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/register-success" element={<RegisterSuccess />} />
-          <Route path="/auth" element={<LoginRegister />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/rent/house" element={<HousePage />} />
-          <Route path="/rent/apartment" element={<ApartmentPage />} />
-          <Route path="/rent/office" element={<OfficePage />} />
-          <Route path="/buy/owner" element={<OwnerPage />} />
-          <Route path="/buy/foreclosures" element={<ForeclosurePage />} />
-          <Route path="/new-construction" element={<NewConstructionPage />} />
-          <Route path="/mortgage/calculator" element={<MortgageCalculatorPage />} />
-          <Route path="/mortgage/partners" element={<BankPartnersPage />} />
-          <Route path="/advertise/banner" element={<BannerAdsPage />} />
-          <Route path="/advertise/premium" element={<PremiumListingPage />} />
-          <Route path="/manage/add" element={<NewListing />} />
-          <Route path="/manage/properties" element={<ManageRentalsPage />} />
-          <Route path="/agents" element={<FindAgentPage />} />
-          <Route path="/agent/search" element={<AgentSearchPage />} />
-          <Route path="/agent/rate" element={<RateAgentPage />} />
-          <Route path="/support" element={<SupportPage />} />
-          <Route path="/how-it-works" element={<HowItWorksPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/privacy" element={<PrivacyPage />} />
-          <Route path="/terms" element={<TermsPage />} />
-          <Route path="/impressum" element={<ImpressumPage />} />
-          <Route path="/create" element={<ListingCreatePage />} />
-          <Route path="/careers" element={<CareersPage />} />
-          <Route path="/dashboard" element={<UserDashboard />} />
-          <Route path="/favorites" element={<ProtectedRoute><FavoritesPage /></ProtectedRoute>} />
-          <Route path="/add" element={<ProtectedRoute><AddListingPage /></ProtectedRoute>} />
-          <Route path="/owner-dashboard" element={<ProtectedRoute><OwnerDashboard /></ProtectedRoute>} />
-          <Route path="/search" element={<SearchResultsPage />} />
-          <Route path="/listings" element={<ListingsPage />} />
-          <Route path="/compare" element={<ComparePage />} />
-          <Route path="/compare/details" element={<CompareDetails />} />
-          <Route path="/listing/:id" element={<PropertyDetails />} />
-          <Route path="/map" element={<GermanyMapReal />} />
-          <Route path="/map-leaflet" element={<GermanyMapLeaflet />} />
-          <Route path="/explore" element={<ExplorePage />} />
-          <Route path="/explore/germany" element={<ExplorePage />} />
-          <Route path="/buy"element={<GermanyMapReal purpose="buy" key="buy" />}/>
-          <Route path="/rent"element={<GermanyMapReal purpose="rent" key="rent" />}/>
-          <Route path="/map" element={<MapPage />} />
-        </Routes>
+     <Routes>
+  <Route path="/" element={<HomePage />} />
+  <Route path="/listing/:id" element={<PropertyDetails />} />
+  <Route path="/edit/:id" element={<EditListingForm />} />
+  <Route path="/register" element={<RegisterForm />} />
+  <Route path="/login" element={<LoginForm />} />
+  <Route path="/register-success" element={<RegisterSuccess />} />
+  <Route path="/auth" element={<LoginRegister />} />
+  <Route path="/about" element={<AboutPage />} />
+  <Route path="/forgot-password" element={<ForgotPassword />} />
+  <Route path="/rent/house" element={<HousePage />} />
+  <Route path="/rent/apartment" element={<ApartmentPage />} />
+  <Route path="/rent/office" element={<OfficePage />} />
+  <Route path="/buy/owner" element={<OwnerPage />} />
+  <Route path="/buy/foreclosures" element={<ForeclosurePage />} />
+  <Route path="/new-construction" element={<NewConstructionPage />} />
+  <Route path="/mortgage/calculator" element={<MortgageCalculatorPage />} />
+  <Route path="/mortgage/partners" element={<BankPartnersPage />} />
+  <Route path="/advertise/banner" element={<BannerAdsPage />} />
+  <Route path="/advertise/premium" element={<PremiumListingPage />} />
+  <Route path="/manage/add" element={<NewListing />} />
+  <Route path="/manage/properties" element={<ManageRentalsPage />} />
+  <Route path="/agents" element={<FindAgentPage />} />
+  <Route path="/agent/search" element={<AgentSearchPage />} />
+  <Route path="/agent/rate" element={<RateAgentPage />} />
+  <Route path="/support" element={<SupportPage />} />
+  <Route path="/how-it-works" element={<HowItWorksPage />} />
+  <Route path="/contact" element={<ContactPage />} />
+  <Route path="/privacy" element={<PrivacyPage />} />
+  <Route path="/terms" element={<TermsPage />} />
+  <Route path="/impressum" element={<ImpressumPage />} />
+  <Route path="/create" element={<ListingCreatePage />} />
+  <Route path="/careers" element={<CareersPage />} />
+  <Route path="/favorites" element={<ProtectedRoute><FavoritesPage /></ProtectedRoute>} />
+  <Route path="/add" element={<ProtectedRoute><AddListingPage /></ProtectedRoute>} />
+  <Route path="/search" element={<SearchResultsPage />} />
+  <Route path="/listings" element={<ListingsPage />} />
+  <Route path="/compare" element={<ComparePage />} />
+  <Route path="/compare/details" element={<CompareDetails />} />
+  <Route path="/map" element={<MapPage purpose="all" />} />
+  <Route path="/buy" element={<MapPage purpose="buy" />} />
+  <Route path="/rent" element={<MapPage purpose="rent" />} />
+  <Route path="/buy/map" element={<MapPage purpose="buy" />} />
+  <Route path="/rent/map" element={<MapPage purpose="rent" />} />
+  <Route path="/map-leaflet" element={<GermanyMapLeaflet />} />
+  <Route path="/explore" element={<ExplorePage />} />
+  <Route path="/explore/germany" element={<ExplorePage />} />
+  <Route path="/owner-dashboard" element={<RequireRole allowedRoles={['owner']}><OwnerDashboard /></RequireRole>}/>
+  <Route path="/agent-dashboard" element={<RequireRole allowedRoles={['agent']}><AgentDashboard /></RequireRole>}/>
+  <Route path="/dashboard" element={<RequireRole allowedRoles={['user']}><UserDashboard /></RequireRole>}/>
+  <Route path="/add-property" element={<PublishProperty />} />
+  <Route path="/admin-dashboard" element={<RequireRole role="admin"><AdminDashboard /></RequireRole>} />
+  
+
+
+
+   </Routes>    
       </main>
       <Footer />
     </div>
   );
 }
 
-
 function App() {
   return (
-    <Router>
-      <AppRoutes />
-    </Router>
+    
+      <BrowserRouter>
+         <AuthProvider>
+            <RoleProvider>
+         <AppRoutes />
+         <ToastContainer />
+    </RoleProvider>
+  </AuthProvider>
+</BrowserRouter>
+    
   );
 }
-
 export default App;

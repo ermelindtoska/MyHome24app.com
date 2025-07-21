@@ -10,6 +10,11 @@
     "removeFromCompare": "Remove from Compare",
       "remove": "Remove",
   "view": "View",
+   
+  "name": "Name",
+  "text": "Comment",
+  "rating": "Rating",
+  "submit": "Submit",
   
   "city": "City",
   "price": "Price",

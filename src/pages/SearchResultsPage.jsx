@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../firebase-config';
+import { db } from '../firebase';
 import ListingCard from '../components/ListingCard';
 import { useTranslation } from 'react-i18next';
 

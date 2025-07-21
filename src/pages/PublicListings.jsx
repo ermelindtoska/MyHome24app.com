@@ -1,7 +1,7 @@
 // src/pages/PublicListings.jsx
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
-import { db } from '../firebase-config';
+import { db } from '../firebase';
 import ListingCard from '../components/ListingCard';
 
 const PublicListings = () => {

@@ -2,6 +2,71 @@
   "dashboardTitle": "Your Dashboard",
   "success": "Successfully added!",
   "validation": "Please fill in all fields.",
+    "agent_dashboard_title": "Agent Dashboard",
+  "agent_dashboard_welcome": "Welcome back! Here is an overview of your activity.",
+  "total_listings": "Total Listings",
+  "pending_approvals": "Pending Approvals",
+  "messages": "New Messages",
+  "reviews": "Client Reviews",
+  "quick_actions": "Quick Actions",
+  "add_listing": "Add New Listing",
+  "view_messages": "View Messages",
+  "manage_reviews": "Manage Reviews",
+    "owner_dashboard_title": "Owner Dashboard",
+  "owner_dashboard_welcome": "Welcome! Manage your rental properties and requests below.",
+  "total_properties": "Total Properties",
+  "active_rentals": "Active Rentals",
+  "pending_requests": "Pending Requests",
+  "support_tickets": "Support Tickets",
+  "add_property": "Add New Property",
+  "view_requests": "View Requests",
+  "manage_rentals": "Manage Rentals",
+    "user_dashboard_title": "User Dashboard",
+  "user_dashboard_welcome": "Welcome! Here is a summary of your activities and tools.",
+  "saved_listings": "Saved Listings",
+  "contact_requests": "Contact Requests",
+  "viewing_appointments": "Viewing Appointments",
+  "user_actions": "Your Actions",
+  "edit_profile": "Edit Profile",
+  "manage_favorites": "Manage Favorites",
+  "view_schedule": "View Schedule",
+    "title": "Your Listings",
+  "addNew": "Add New Listing",
+  "loading": "Loading your listings...",
+  "noListings": "No listings found for your filters.",
+  "new": "New",
+ 
+  "your_properties": "Your Properties",
+  "no_properties": "You don't have any properties listed yet.",
+  
+  "city": "City",
+  "price": "Price",
+  "actions": "Actions",
+  "edit": "Edit",
+  "delete": "Delete",
+  "confirm_delete_title": "Confirm Deletion",
+  "confirm_delete_message": "Are you sure you want to delete this property?",
+  "yes_delete": "Yes, delete",
+  "cancel": "Cancel",
+ 
+ 
+  "image_url": "Image URL",
+  "submit": "Submit",
+  "details": "View Details",
+  
+  "favorite": "Save",
+  "unfavorite": "Remove",
+  "contactOwner": "Contact Owner",
+  "viewMap": "View on Map",
+  "fields": {
+    "apartment": "Apartment",
+    "house": "House",
+    "studio": "Studio",
+    "other": "Other",
+    "buy": "For Sale",
+    "rent": "For Rent"
+    
+  },
   "form": {
     "title": "Title",
     "city": "City",
@@ -16,7 +81,25 @@
     "purpose": {
       "rent": "Rent",
       "buy": "Buy",
-
+      "owner": {
+    "title": "Your Listings",
+    "empty": "No listings found.",
+    "price": "Price",
+    "city": "City",
+    "type": "Type"
+  },
+  "user": {
+    "title": "Welcome User",
+    "message": "You can browse and manage your saved properties here."
+  },
+  "agent": {
+    "title": "Agent Center",
+    "message": "Manage your listings, inquiries, and client contacts."
+  },
+    "agentDashboard": {
+    "title": "Agent Dashboard",
+    "description": "Here you can manage your agent profile, respond to client inquiries, and track your listings."
+  },
         "welcome": "Welcome back",
   "myListings": "My Listings",
   "savedListings": "Saved Properties",

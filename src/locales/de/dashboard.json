@@ -2,6 +2,69 @@
   "dashboardTitle": "Ihr Dashboard",
   "success": "Erfolgreich hinzugefügt!",
   "validation": "Bitte füllen Sie alle Felder aus.",
+    "agent_dashboard_title": "Agenten-Dashboard",
+  "agent_dashboard_welcome": "Willkommen zurück! Hier ist ein Überblick über deine Aktivitäten.",
+  "total_listings": "Gesamtanzeigen",
+  "pending_approvals": "Ausstehende Genehmigungen",
+  "messages": "Neue Nachrichten",
+  "reviews": "Kundenbewertungen",
+  "quick_actions": "Schnellaktionen",
+  "add_listing": "Neue Anzeige hinzufügen",
+  "view_messages": "Nachrichten anzeigen",
+  "manage_reviews": "Bewertungen verwalten",
+    "owner_dashboard_title": "Eigentümer-Dashboard",
+  "owner_dashboard_welcome": "Willkommen! Verwalten Sie Ihre Mietobjekte und Anfragen unten.",
+  "total_properties": "Gesamtimmobilien",
+  "active_rentals": "Aktive Vermietungen",
+  "pending_requests": "Ausstehende Anfragen",
+  "support_tickets": "Support-Tickets",
+  "add_property": "Neue Immobilie hinzufügen",
+  "view_requests": "Anfragen anzeigen",
+  "manage_rentals": "Vermietungen verwalten",
+    "user_dashboard_title": "Benutzer-Dashboard",
+  "user_dashboard_welcome": "Willkommen! Hier findest du eine Übersicht deiner Aktivitäten und Tools.",
+  "saved_listings": "Gespeicherte Anzeigen",
+  "contact_requests": "Kontaktanfragen",
+  "viewing_appointments": "Besichtigungstermine",
+  "user_actions": "Deine Aktionen",
+  "edit_profile": "Profil bearbeiten",
+  "manage_favorites": "Favoriten verwalten",
+  "view_schedule": "Terminübersicht",
+    "title": "Deine Inserate",
+ 
+  "your_properties": "Deine Immobilien",
+  "no_properties": "Du hast noch keine Immobilien gelistet.",
+ 
+  "city": "Stadt",
+  "price": "Preis",
+  "actions": "Aktionen",
+  "edit": "Bearbeiten",
+  "delete": "Löschen",
+  "confirm_delete_title": "Löschen bestätigen",
+  "confirm_delete_message": "Möchtest du diese Immobilie wirklich löschen?",
+  "yes_delete": "Ja, löschen",
+  "cancel": "Abbrechen",
+ 
+  "image_url": "Bild-URL",
+  "submit": "Absenden",
+  "addNew": "Neues Inserat hinzufügen",
+  "loading": "Lade deine Inserate...",
+  "noListings": "Keine Inserate für deine Filter gefunden.",
+  "new": "Neu",
+  "details": "Details anzeigen",
+  
+  "favorite": "Speichern",
+  "unfavorite": "Entfernen",
+  "contactOwner": "Eigentümer kontaktieren",
+  "viewMap": "Auf Karte anzeigen",
+  "fields": {
+    "apartment": "Wohnung",
+    "house": "Haus",
+    "studio": "Studio",
+    "other": "Sonstiges",
+    "buy": "Zum Verkauf",
+    "rent": "Zur Miete"
+  },
   "form": {
     "title": "Titel",
     "city": "Stadt",
@@ -16,7 +79,25 @@
     "purpose": {
       "rent": "Mieten",
       "buy": "Kaufen",
-
+       "owner": {
+    "title": "Deine Inserate",
+    "empty": "Keine Inserate gefunden.",
+    "price": "Preis",
+    "city": "Stadt",
+    "type": "Typ"
+  },
+  "user": {
+    "title": "Willkommen Benutzer",
+    "message": "Hier können Sie Ihre gespeicherten Immobilien verwalten."
+  },
+  "agent": {
+    "title": "Maklerbereich",
+    "message": "Verwalten Sie Ihre Inserate, Anfragen und Kontakte."
+  },
+   "agentDashboard": {
+    "title": "Makler-Übersicht",
+    "description": "Verwalten Sie Ihr Maklerprofil, antworten Sie auf Anfragen und verfolgen Sie Ihre Inserate."
+  },
         "welcome": "Willkommen zurück",
   "myListings": "Meine Inserate",
   "savedListings": "Gespeicherte Objekte",
