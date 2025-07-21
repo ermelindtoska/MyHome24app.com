@@ -3,5 +3,26 @@
   "manageUsers": "Manage Users",
   "manageListings": "Manage Listings",
   "logs": "Activity Logs",
-  "statistics": "Statistics"
+  "statistics": "Statistics",
+    "allListings": "All Listings",
+  "close": "Close",
+    
+  "previous": "Previous",
+  "next": "Next",
+  "city": "City",
+  "type": "Type",
+  "status": "Status",
+  "action": "Action",
+  "delete": "Delete",
+  "viewImages": "View Images",
+  "pending": "Pending",
+  "active": "Active",
+  "inactive": "Inactive",
+  "supportMessages": "Support Messages",
+  "name": "Name",
+  "email": "Email",
+  "category": "Category",
+  "message": "Message",
+  "date": "Date",
+  "markResolved": "Mark as Resolved"
 }

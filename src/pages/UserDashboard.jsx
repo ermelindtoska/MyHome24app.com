@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { collection, query, where, getDocs, deleteDoc, doc, updateDoc, Timestamp } from 'firebase/firestore';
-import { auth, db } from '../firebase-config';
+import { auth, db } from '../firebase';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import {
@@ -93,15 +93,13 @@ const UserDashboard = () => {
     );
   });
 
-  if (loading) return <p className="text-center p-4">{t('loading')}</p>;
-  
-
+  if (loading) return <p className="text-center p-4 text-gray-500 dark:text-gray-400">{t('loading')}</p>;
 
   return (
     <div className="max-w-7xl mx-auto mt-10 px-4">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4 md:gap-0">
-        <h2 className="text-3xl font-bold text-gray-800 flex items-center gap-2">
-          <FiSearch className="text-blue-600" /> {t('title')}
+        <h2 className="text-3xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
+          <FiSearch className="text-blue-600 dark:text-blue-400" /> {t('title')}
         </h2>
         <Link to="/add" className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
           <FiPlusCircle size={18} /> {t('addNew')}
@@ -118,59 +116,58 @@ const UserDashboard = () => {
       />
 
       {filteredListings.length === 0 ? (
-        <p className="text-center text-gray-500 italic">{t('noListings')}</p>
+        <p className="text-center text-gray-500 dark:text-gray-400 italic mt-6">{t('noListings')}</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
           {filteredListings.map((listing) => (
-            <div key={listing.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+            <div key={listing.id} className="bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition-shadow">
               {listing.imageUrl && (
                 <img
                   src={listing.imageUrl}
                   alt={listing.title}
                   loading="lazy"
-                  className="w-full h-48 object-cover cursor-pointer hover:scale-105 transition-transform"
+                  className="w-full h-48 object-cover"
                 />
               )}
               <div className="p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-lg font-semibold text-gray-800 truncate" title={listing.title}>
-                    {listing.title}
+                  <h3 className="text-lg font-semibold text-gray-800 dark:text-white truncate" title={listing.title}>
+                    {editingId === listing.id ? (
+                      <input
+                        value={newTitle}
+                        onChange={(e) => setNewTitle(e.target.value)}
+                        onBlur={() => handleUpdate(listing.id)}
+                        className="w-full p-1 border rounded"
+                        autoFocus
+                      />
+                    ) : (
+                      listing.title
+                    )}
                   </h3>
                   {listing.isNew && (
-                    <span className="text-xs bg-green-100 text-green-800 rounded-full px-2 py-0.5">
+                    <span className="text-xs bg-green-100 text-green-800 dark:bg-green-800 dark:text-white rounded-full px-2 py-0.5">
                       {t('new')}
                     </span>
                   )}
                 </div>
-                <p className="text-gray-600 text-sm">
-                  <FiMapPin className="inline mr-1 text-blue-500" /> {listing.city} – {t(`fields.${listing.type}`)} – {t(`fields.${listing.purpose}`)}
+                <p className="text-gray-600 dark:text-gray-300 text-sm">
+                  <FiMapPin className="inline mr-1 text-blue-500" />
+                  {listing.city} – {t(`fields.${listing.type}`)} – {t(`fields.${listing.purpose}`)}
                 </p>
-                <p className="text-blue-700 font-bold mt-2">€{listing.price}</p>
+                <p className="text-blue-700 dark:text-blue-400 font-bold mt-2">€{listing.price}</p>
 
                 <div className="flex flex-wrap justify-between items-center mt-4 gap-2">
                   <button
                     onClick={() => setSelectedListing(listing)}
-                    className="text-sm text-blue-500 hover:underline"
-                    title={t('details')}
+                    className="text-sm text-blue-500 dark:text-blue-400 hover:underline"
                   >
                     <FiEye className="inline mr-1" /> {t('details')}
                   </button>
                   <div className="flex gap-3">
-                    <button
-                      onClick={() => setShowConfirmId(listing.id)}
-                      title={t('delete')}
-                      className="text-red-600 hover:text-red-800"
-                    >
+                    <button onClick={() => setShowConfirmId(listing.id)} title={t('delete')} className="text-red-600 hover:text-red-800">
                       <FiTrash2 size={18} />
                     </button>
-                    <button
-                      onClick={() => {
-                        setEditingId(listing.id);
-                        setNewTitle(listing.title);
-                      }}
-                      title={t('edit')}
-                      className="text-blue-600 hover:text-blue-800"
-                    >
+                    <button onClick={() => { setEditingId(listing.id); setNewTitle(listing.title); }} title={t('edit')} className="text-blue-600 hover:text-blue-800">
                       <FiEdit size={18} />
                     </button>
                     <button
@@ -197,35 +194,31 @@ const UserDashboard = () => {
 
       {selectedListing && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white p-6 rounded-lg max-w-lg w-full relative max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg max-w-lg w-full relative max-h-[90vh] overflow-y-auto">
             <button
-              className="absolute top-3 right-3 text-gray-500 hover:text-black"
+              className="absolute top-3 right-3 text-gray-500 dark:text-gray-300 hover:text-black"
               onClick={() => setSelectedListing(null)}
             >
               <FiX size={20} />
             </button>
-            <h2 className="text-xl font-bold mb-2">{selectedListing.title}</h2>
-            <p className="text-sm text-gray-600 mb-2">
+            <h2 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">{selectedListing.title}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
               <FiMapPin className="inline mr-1 text-blue-500" />
               {selectedListing.city} – {t(`fields.${selectedListing.type}`)} – {t(`fields.${selectedListing.purpose}`)}
             </p>
-            <p className="text-blue-700 font-bold mb-4">€{selectedListing.price}</p>
+            <p className="text-blue-700 dark:text-blue-400 font-bold mb-4">€{selectedListing.price}</p>
             {selectedListing.imageUrl && (
-              <img
-                src={selectedListing.imageUrl}
-                alt={selectedListing.title}
-                className="w-full h-64 object-cover rounded"
-              />
+              <img src={selectedListing.imageUrl} alt={selectedListing.title} className="w-full h-64 object-cover rounded" />
             )}
             <div className="mt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
               <button
-                className="inline-flex items-center gap-2 text-sm text-blue-600 hover:underline"
+                className="inline-flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 hover:underline"
                 onClick={() => setShowContact(selectedListing)}
               >
                 <FiMessageCircle /> {t('contactOwner')}
               </button>
               <button
-                className="inline-flex items-center gap-2 text-sm text-gray-600 hover:underline"
+                className="inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 hover:underline"
                 onClick={() => setShowMap(selectedListing)}
               >
                 <FiMap /> {t('viewMap')}
@@ -235,13 +228,8 @@ const UserDashboard = () => {
         </div>
       )}
 
-      {showContact && (
-        <ContactOwnerModal listing={showContact} onClose={() => setShowContact(null)} />
-      )}
-
-      {showMap && (
-        <ListingMapModal listing={showMap} onClose={() => setShowMap(null)} />
-      )}
+      {showContact && <ContactOwnerModal listing={showContact} onClose={() => setShowContact(null)} />}
+      {showMap && <ListingMapModal listing={showMap} onClose={() => setShowMap(null)} />}
     </div>
   );
 };

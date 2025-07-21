@@ -1,12 +1,10 @@
 // src/pages/FavoritesPage.jsx
 import React, { useEffect, useState } from 'react';
 import { collection, doc, getDoc, getDocs, addDoc, query, orderBy, onSnapshot } from 'firebase/firestore';
-import { db, auth } from '../firebase-config';
-import { Link, useNavigate } from 'react-router-dom';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import { db, auth } from '../firebase';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import PropertyCard from '../components/PropertyCard';
 
 const FavoritesPage = () => {
   const { t } = useTranslation('favorites');
@@ -15,8 +13,6 @@ const FavoritesPage = () => {
   const [newComments, setNewComments] = useState({});
   const [compareList, setCompareList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [modalContent, setModalContent] = useState(null);
-  const [detailModal, setDetailModal] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -96,14 +92,6 @@ const FavoritesPage = () => {
     navigate('/compare', { state: { listings: items } });
   };
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
-  };
-
   return (
     <div className="max-w-6xl mx-auto py-12 px-4">
       <nav className="text-sm mb-4 text-gray-500">{t('home')} / {t('title')}</nav>
@@ -121,58 +109,18 @@ const FavoritesPage = () => {
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {favorites.map((fav) => (
-            <div key={fav.id} className="border rounded-lg p-4 bg-white shadow relative">
-              <Slider {...sliderSettings}>
-                {(fav.imageUrls || [fav.imageUrl]).map((img, i) => (
-                  <img key={i} src={img} alt={fav.title} className="w-full h-48 object-cover rounded" />
-                ))}
-              </Slider>
-              <h2 className="text-xl font-bold mt-2">{fav.title}</h2>
-              <p className="text-gray-600">{fav.city}</p>
-              <p className="text-blue-600 font-bold">€{fav.price}</p>
-              {averageRating(comments[fav.id]) && (
-                <p className="text-sm text-yellow-600 mt-1">
-                  ⭐ {t('avgRating')}: {averageRating(comments[fav.id])}
-                </p>
-              )}
-              <button
-                onClick={() => toggleCompare(fav.id)}
-                className="text-sm text-blue-500 hover:underline mt-2 block"
-              >
-                {compareList.includes(fav.id) ? t('removeFromCompare') : t('addToCompare')}
-              </button>
-
-              <div className="mt-4">
-                <input
-                  type="text"
-                  placeholder={t('name')}
-                  value={newComments[fav.id]?.name || ''}
-                  onChange={(e) => handleCommentChange(fav.id, 'name', e.target.value)}
-                  className="w-full border p-2 mb-2 rounded"
-                />
-                <textarea
-                  placeholder={t('text')}
-                  value={newComments[fav.id]?.text || ''}
-                  onChange={(e) => handleCommentChange(fav.id, 'text', e.target.value)}
-                  className="w-full border p-2 mb-2 rounded"
-                />
-                <input
-                  type="number"
-                  min="1"
-                  max="5"
-                  placeholder={t('rating')}
-                  value={newComments[fav.id]?.rating || 5}
-                  onChange={(e) => handleCommentChange(fav.id, 'rating', e.target.value)}
-                  className="w-full border p-2 mb-2 rounded"
-                />
-                <button
-                  onClick={() => submitComment(fav.id)}
-                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                >
-                  {t('submit')}
-                </button>
-              </div>
-            </div>
+            <PropertyCard
+              key={fav.id}
+              item={fav}
+              showComments={true}
+              comments={comments[fav.id]}
+              newComment={newComments[fav.id]}
+              onCommentChange={handleCommentChange}
+              onSubmitComment={() => submitComment(fav.id)}
+              showCompare={true}
+              isInCompare={compareList.includes(fav.id)}
+              toggleCompare={() => toggleCompare(fav.id)}
+            />
           ))}
         </div>
       )}

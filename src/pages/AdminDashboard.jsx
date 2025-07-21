@@ -1,12 +1,11 @@
-// AdminDashboard.jsx (me mbështetje për mesazhe supporti të kategorizuara dhe "Mark as Resolved")
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { getDocs, collection, deleteDoc, doc, updateDoc, addDoc, serverTimestamp } from 'firebase/firestore';
 import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
-import { db } from '../firebase-config';
+import { db } from '../firebase';
 import Breadcrumbs from '../components/Breadcrumbs';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import ImageModal from '../components/ImageModal';
 
 const AdminDashboard = () => {
   const { t } = useTranslation('admin');
@@ -21,19 +20,20 @@ const AdminDashboard = () => {
   const itemsPerPage = 5;
   const storage = getStorage();
 
-  useEffect(() => {
-    const fetchListings = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'listings'));
-        const data = querySnapshot.docs.map(docSnap => ({
-          id: docSnap.id,
-          ...docSnap.data()
-        }));
-        setListings(data);
-      } catch (error) {
-        console.error('Error loading listings:', error);
-      }
-    };
+useEffect(() => {
+  const fetchListings = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'listings'));
+      const data = querySnapshot.docs.map(docSnap => ({
+        id: docSnap.id,
+        ...docSnap.data()
+      }));
+      console.log('Listings:', data); // ➤ Shto këtë
+      setListings(data);
+    } catch (error) {
+      console.error('Error loading listings:', error);
+    }
+  };
 
     const fetchSupportMessages = async () => {
       try {
@@ -66,12 +66,12 @@ const AdminDashboard = () => {
     fetchRoles();
   }, []);
 
-  const logActivity = async (action, listing) => {
+  const logActivity = async (action, detail, userId = 'admin') => {
     try {
       await addDoc(collection(db, 'logs'), {
         action,
-        title: listing.title,
-        userId: listing.userId,
+        detail,
+        userId,
         timestamp: serverTimestamp()
       });
     } catch (error) {
@@ -84,7 +84,7 @@ const AdminDashboard = () => {
       const deletedListing = listings.find(l => l.id === id);
       await deleteDoc(doc(db, 'listings', id));
       setListings(prev => prev.filter(listing => listing.id !== id));
-      await logActivity('deleted listing', deletedListing);
+      await logActivity('Deleted listing', deletedListing.title, deletedListing.userId);
     } catch (error) {
       console.error('Error deleting listing:', error);
     }
@@ -99,7 +99,7 @@ const AdminDashboard = () => {
           listing.id === id ? { ...listing, status: newStatus } : listing
         )
       );
-      await logActivity(`changed status to ${newStatus}`, updated);
+      await logActivity(`Changed status to ${newStatus}`, updated.title, updated.userId);
     } catch (error) {
       console.error('Error updating status:', error);
     }
@@ -123,6 +123,7 @@ const AdminDashboard = () => {
       setSupportMessages(prev =>
         prev.map(msg => msg.id === id ? { ...msg, status: 'resolved' } : msg)
       );
+      await logActivity('Marked support as resolved', id);
     } catch (err) {
       console.error("Error updating support message status:", err);
     }
@@ -139,43 +140,80 @@ const AdminDashboard = () => {
   });
 
   const totalPages = Math.ceil(filteredListings.length / itemsPerPage);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentListings = filteredListings.slice(indexOfFirstItem, indexOfLastItem);
+  const currentListings = filteredListings.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="max-w-6xl mx-auto p-4">
+    <div className="max-w-7xl mx-auto p-4">
       <Helmet>
         <title>Admin Dashboard – MyHome24app</title>
         <meta name="description" content="Overview of all real estate listings and admin control for MyHome24app" />
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
-      <Breadcrumbs />
-      <h2 className="text-2xl font-bold mb-4">All Listings (Admin)</h2>
+      <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('allListings')}</h2>
 
-      {/* Listings Section */}
-      {/* ... mbetet i pandryshuar ... */}
-
-      {/* Support Messages Section */}
-      <h2 className="text-xl font-semibold mt-12 mb-4">Support Messages</h2>
+      {/* Listings Table */}
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border">
+        <table className="min-w-full border rounded-md text-sm md:text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
           <thead>
-            <tr className="bg-gray-100">
-              <th className="py-2 px-4 border">Name</th>
-              <th className="py-2 px-4 border">Email</th>
-              <th className="py-2 px-4 border">Category</th>
-              <th className="py-2 px-4 border">Message</th>
-              <th className="py-2 px-4 border">Date</th>
-              <th className="py-2 px-4 border">Status</th>
-              <th className="py-2 px-4 border">Action</th>
+            <tr className="bg-gray-100 dark:bg-gray-700">
+              <th className="px-4 py-2 border">{t('title')}</th>
+              <th className="px-4 py-2 border">{t('city')}</th>
+              <th className="px-4 py-2 border">{t('type')}</th>
+              <th className="px-4 py-2 border">{t('status')}</th>
+              <th className="px-4 py-2 border">{t('action')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentListings.map(listing => (
+              <tr key={listing.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                <td className="px-4 py-2 border">{listing.title}</td>
+                <td className="px-4 py-2 border">{listing.city}</td>
+                <td className="px-4 py-2 border">{listing.type}</td>
+                <td className="px-4 py-2 border">
+                  <select
+                    className="bg-white dark:bg-gray-800 border p-1"
+                    value={listing.status}
+                    onChange={e => handleStatusChange(listing.id, e.target.value)}
+                  >
+                    <option value="pending">{t('pending')}</option>
+                    <option value="active">{t('active')}</option>
+                    <option value="inactive">{t('inactive')}</option>
+                  </select>
+                </td>
+                <td className="px-4 py-2 border flex flex-col space-y-2">
+                  <button onClick={() => handleDelete(listing.id)} className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded">
+                    {t('delete')}
+                  </button>
+                  <button onClick={() => handleViewImages(listing.id)} className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded">
+                    {t('viewImages')}
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Support Messages Table */}
+      <h2 className="text-xl font-semibold mt-10 mb-4">{t('supportMessages')}</h2>
+      <div className="overflow-x-auto">
+        <table className="min-w-full border text-sm md:text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+          <thead>
+            <tr className="bg-gray-100 dark:bg-gray-700">
+              <th className="py-2 px-4 border">{t('name')}</th>
+              <th className="py-2 px-4 border">{t('email')}</th>
+              <th className="py-2 px-4 border">{t('category')}</th>
+              <th className="py-2 px-4 border">{t('message')}</th>
+              <th className="py-2 px-4 border">{t('date')}</th>
+              <th className="py-2 px-4 border">{t('status')}</th>
+              <th className="py-2 px-4 border">{t('action')}</th>
             </tr>
           </thead>
           <tbody>
             {supportMessages.map(msg => (
-              <tr key={msg.id} className="hover:bg-gray-50">
+              <tr key={msg.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                 <td className="py-2 px-4 border">{msg.name}</td>
                 <td className="py-2 px-4 border">{msg.email}</td>
                 <td className="py-2 px-4 border">{msg.category}</td>
@@ -192,7 +230,7 @@ const AdminDashboard = () => {
                       onClick={() => handleMarkResolved(msg.id)}
                       className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
                     >
-                      Mark as Resolved
+                      {t('markResolved')}
                     </button>
                   )}
                 </td>
@@ -200,6 +238,7 @@ const AdminDashboard = () => {
             ))}
           </tbody>
         </table>
+        <ImageModal images={modalImages}isOpen={showModal} onClose={() => setShowModal(false)}/>
       </div>
     </div>
   );

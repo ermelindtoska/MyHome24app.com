@@ -1,10 +1,15 @@
 {
   "addListing": "Add New Listing",
     "resultsFound": "{{count}} Ergebnisse gefunden",
-   
+     
+  "perMonth": "pro Monat",
 
   "in": "in",
-
+ 
+  
+    "berlin": "Berlin",
+    "hamburg": "Hamburg",
+    "munich": "München",
   "minBedrooms": "Min. Schlafzimmer",
 "maxBedrooms": "Max. Schlafzimmer",
 "minSize": "Min. Größe (m²)",
@@ -14,6 +19,9 @@
  "backToSearch": "Zurück zur Suche",
   "property": "Immobilie",
 "agentName": "Makler",
+  "please_login_to_favorite": "Bitte loggen Sie sich ein, um Favoriten zu speichern.",
+  "add_to_favorites": "Zu Favoriten hinzufügen",
+  "remove_from_favorites": "Aus Favoriten entfernen",
 
     "default": "Sortieren nach",
     "priceAsc": "Preis: Aufsteigend",

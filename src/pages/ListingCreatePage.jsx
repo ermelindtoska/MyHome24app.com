@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
-import { db, auth } from '../firebase-config';
+import { db, auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 
 const ListingCreatePage = () => {

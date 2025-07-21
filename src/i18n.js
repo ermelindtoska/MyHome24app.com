@@ -211,6 +211,9 @@ const resources = {
     filterSidebar: filterSidebarEN
   }
 };
+if (!localStorage.getItem('i18nextLng')) {
+  localStorage.setItem('i18nextLng', 'de');
+}
 
 i18n
   .use(initReactI18next)

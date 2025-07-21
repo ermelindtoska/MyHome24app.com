@@ -6,7 +6,21 @@
   "listingsInArea": "Anzeigen in dieser Region",
   "zoomIn": "Hineinzoomen",
   "zoomOut": "Herauszoomen",
-
+  "showMap": "Karte anzeigen",
+  "backToSearch": "Zurück zur Suche",
+  "listingsFound": "{{count}} Immobilien gefunden",
+  "filters": {
+    "city": "Suche nach Stadt",
+    "typeAll": "Alle Typen",
+    "apartment": "Wohnung",
+    "house": "Haus",
+    "sortDefault": "Sortieren",
+    "priceAsc": "Preis (aufsteigend)",
+    "priceDesc": "Preis (absteigend)"
+  },
+  "popup": {
+    "viewMore": "Mehr anzeigen"
+  },
     "filter": "Filtern",
   "searchPlaceholder": "Ort, PLZ, Adresse...",
   
@@ -48,7 +62,7 @@
 "minPrice": "Mindestpreis",
 "maxPrice": "Höchstpreis",
 "resetFilters": "Zurücksetzen",
-  "filters": "Filteranzeigen",
+  
   "results": "Ergebnisse",
   "sortBy": "Sortieren nach",
   "priceAsc": "Preis: aufsteigend",

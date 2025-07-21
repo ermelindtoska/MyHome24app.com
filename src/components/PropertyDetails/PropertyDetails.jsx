@@ -1,7 +1,7 @@
 // PropertyDetails.jsx – versioni i plotë si Zillow
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { db } from '../../firebase-config';
+import { db } from '../../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
 import { FaBed, FaBath, FaMapMarkerAlt, FaMoneyBill, FaEnvelope, FaPhone } from 'react-icons/fa';

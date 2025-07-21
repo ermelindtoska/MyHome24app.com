@@ -1,6 +1,6 @@
 import React from 'react';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { auth, db } from '../firebase-config';
+import { auth, db } from '../firebase';
 import AddListingForm from '../components/AddListingForm';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-hot-toast';

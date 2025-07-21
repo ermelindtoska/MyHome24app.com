@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../firebase-config';
-import { auth } from '../firebase-config';
+import { db } from '../firebase';
+import { auth } from '../firebase';
 
 const EditListingForm = () => {
   const { id } = useParams();

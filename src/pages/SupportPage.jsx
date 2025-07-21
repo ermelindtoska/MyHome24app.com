@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { db } from '../firebase-config';
+import { db } from '../firebase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
 const SupportPage = () => {
