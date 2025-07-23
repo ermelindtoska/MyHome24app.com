@@ -1,26 +1,47 @@
-const functions = require('firebase-functions/v2');
 const { onDocumentCreated } = require('firebase-functions/v2/firestore');
 const { defineSecret } = require('firebase-functions/params');
-const logger = require('firebase-functions/logger');
-const admin = require('firebase-admin');
+const { logger } = require('firebase-functions');
 const sgMail = require('@sendgrid/mail');
 
-// Inicializo Firebase Admin
-admin.initializeApp();
+const { initializeApp, cert, getApps } = require('firebase-admin/app');
+const { getAuth } = require('firebase-admin/auth');
+const { getFirestore } = require('firebase-admin/firestore');
 
-// Merr API key nga secrets
+// 🔐 Sekretet për Firebase Admin
+const FIREBASE_PRIVATE_KEY = defineSecret('FIREBASE_PRIVATE_KEY');
+const FIREBASE_CLIENT_EMAIL = defineSecret('FIREBASE_CLIENT_EMAIL');
+const FIREBASE_PROJECT_ID = defineSecret('FIREBASE_PROJECT_ID');
+
+// 🔐 Sekreti për SendGrid
 const SENDGRID_API_KEY = defineSecret('SENDGRID_API_KEY');
 
-// Funksioni që dërgon email pas komentit të ri
+// 🧠 Funksion për inicializim të Firebase Admin brenda funksioneve
+function initializeAdminIfNeeded() {
+  if (!getApps().length) {
+    initializeApp({
+      credential: cert({
+        projectId: FIREBASE_PROJECT_ID.value(),
+        privateKey: FIREBASE_PRIVATE_KEY.value().replace(/\\n/g, '\n'),
+        clientEmail: FIREBASE_CLIENT_EMAIL.value(),
+      }),
+    });
+  }
+}
+
+// ---------------------------
+// 📩 Funksioni për koment të ri
+// ---------------------------
 exports.sendNewCommentNotificationFinalV2 = onDocumentCreated(
   {
     region: 'us-central1',
     document: 'listings/{listingId}/comments/{commentId}',
-    secrets: [SENDGRID_API_KEY],
+    secrets: [SENDGRID_API_KEY, FIREBASE_PRIVATE_KEY, FIREBASE_CLIENT_EMAIL, FIREBASE_PROJECT_ID],
     memory: '256MiB',
     timeoutSeconds: 60,
   },
   async (event) => {
+    initializeAdminIfNeeded();
+
     const comment = event.data?.data();
     const listingId = event.params?.listingId;
 
@@ -29,7 +50,9 @@ exports.sendNewCommentNotificationFinalV2 = onDocumentCreated(
       return;
     }
 
-    const listingSnap = await admin.firestore().collection('listings').doc(listingId).get();
+    const db = getFirestore();
+    const listingSnap = await db.collection('listings').doc(listingId).get();
+
     if (!listingSnap.exists) {
       logger.error(`❌ Listing with ID ${listingId} not found`);
       return;
@@ -63,17 +86,19 @@ exports.sendNewCommentNotificationFinalV2 = onDocumentCreated(
 );
 
 // ---------------------------
-// 📬 Kontakto Pronarin – Notifikim për mesazh të ri
+// 📬 Funksioni për kontakt të ri
 // ---------------------------
 exports.sendNewContactNotificationFinalV2 = onDocumentCreated(
   {
     region: 'us-central1',
     document: 'contacts/{contactId}',
-    secrets: [SENDGRID_API_KEY],
+    secrets: [SENDGRID_API_KEY, FIREBASE_PRIVATE_KEY, FIREBASE_CLIENT_EMAIL, FIREBASE_PROJECT_ID],
     memory: '256MiB',
     timeoutSeconds: 60,
   },
   async (event) => {
+    initializeAdminIfNeeded();
+
     const contact = event.data?.data();
 
     if (!contact || !contact.ownerEmail) {
