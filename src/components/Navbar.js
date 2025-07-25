@@ -1,13 +1,17 @@
-// src/components/Navbar.jsx — VERSIONI FINAL I RUAJTUR
+// src/components/Navbar.jsx
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 import logo from '../assets/logo.png';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { ThemeContext } from '../context/ThemeContext';
 import { HiMenu, HiX } from 'react-icons/hi';
+import { doc, getDoc } from 'firebase/firestore';
+
+
+
 
 const Navbar = () => {
   const { t } = useTranslation('navbar');
@@ -18,21 +22,23 @@ const Navbar = () => {
   const timeoutRef = useRef(null);
   const navigate = useNavigate();
 
- useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, async (user) => {
-    if (user && user.emailVerified) {
-      setCurrentUser(user);
-    } else {
-      setCurrentUser(null);
-      if (user && !user.emailVerified) {
-        console.warn("User email not verified. Signing out.");
-        await signOut(auth);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user && user.emailVerified) {
+        const roleDoc = await getDoc(doc(db, 'roles', user.uid));
+        const userRole = roleDoc.exists() ? roleDoc.data().role : null;
+        setCurrentUser({ ...user, role: userRole });
+      } else {
+        setCurrentUser(null);
+        if (user && !user.emailVerified) {
+          console.warn('User email not verified. Signing out.');
+          await signOut(auth);
+        }
       }
-    }
-  });
+    });
 
-  return () => unsubscribe();
-}, []);
+    return () => unsubscribe();
+  }, []);
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -48,6 +54,8 @@ const Navbar = () => {
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => setOpenMenu(null), 300);
   };
+
+  
 
   const leftMenus = [
     {
@@ -102,16 +110,32 @@ const Navbar = () => {
       ],
     },
     {
-      title: currentUser ? t('account') : t('login'),
-      items: currentUser
-        ? [
-            { label: t('dashboard'), to: '/dashboard' },
-            { label: t('logout'), to: '#', onClick: handleLogout },
-          ]
-        : [
-            { label: 'Login', to: '/login' },
-            { label: 'Registrieren', to: '/register' },
-          ],
+      title: currentUser ? (
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">
+            {currentUser.photoURL ? (
+              <img src={currentUser.photoURL} alt="avatar" className="w-full h-full rounded-full object-cover" />
+            ) : (
+              currentUser.email?.[0]?.toUpperCase()
+            )}
+          </div>
+          <span className="text-sm hidden sm:inline">{currentUser.email}</span>
+        </div>
+      ) : (
+        t('login')
+      ),
+     items: currentUser
+  ? [
+      {
+        label: t('dashboard'),
+        to: currentUser.role === 'owner' ? '/dashboard/owner' : '/dashboard',
+      },
+      { label: t('logout'), to: '#', onClick: handleLogout },
+    ]
+  : [
+      { label: 'Login', to: '/login' },
+      { label: 'Registrieren', to: '/register' },
+    ],
     },
     {
       title: t('help'),
@@ -149,13 +173,17 @@ const Navbar = () => {
                 {item.label}
               </button>
             ) : (
-              <a
-                key={idx}
-                href={item.to}
-                className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                {item.label}
-              </a>
+             <button
+            key={idx}
+            onClick={() => {
+              setOpenMenu(null);
+              navigate(item.to);
+            }}
+            className="w-full text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+          >
+            {item.label}
+          </button>
+              
             )
           )}
         </div>
@@ -181,6 +209,32 @@ const Navbar = () => {
         </button>
         <div className="flex items-center gap-6 text-sm font-medium text-gray-900 dark:text-gray-100">
           {rightMenus.map((menu, index) => renderDropdown(menu, index + 100, 'right'))}
+
+          {currentUser && (
+  <div title={currentUser.email} className="w-9 h-9 rounded-full overflow-hidden border-2 border-blue-600 dark:border-blue-300">
+    {currentUser.photoURL ? (
+      <img
+        src={currentUser.photoURL}
+        alt="Avatar"
+        className="w-full h-full object-cover"
+      />
+    ) : (
+      <div className="w-full h-full bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 flex items-center justify-center text-sm">
+        👤
+      </div>
+    )}
+  </div>
+)}
+
+          {currentUser?.role === 'owner' && (
+            <a
+              href="/publish"
+              className="inline-flex items-center px-4 py-2 text-sm font-semibold text-green-700 dark:text-green-300 border border-green-700 dark:border-green-300 rounded-full hover:bg-green-700 dark:hover:bg-green-600 hover:text-white transition"
+            >
+              ➕ {t('publishProperty')}
+            </a>
+          )}
+
           <a
             href="/compare"
             className="inline-flex items-center px-4 py-2 text-sm font-semibold text-blue-700 dark:text-blue-300 border border-blue-700 dark:border-blue-300 rounded-full hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white transition"
@@ -220,7 +274,35 @@ const Navbar = () => {
       {mobileOpen && (
         <div className="md:hidden bg-white dark:bg-gray-900 w-full px-4 pb-4 shadow">
           <div className="flex flex-col space-y-2 mt-2">
+
+            {currentUser && (
+  <div className="flex items-center mt-3 space-x-2">
+    <div title={currentUser.email} className="w-9 h-9 rounded-full overflow-hidden border-2 border-blue-600 dark:border-blue-300">
+      {currentUser.photoURL ? (
+        <img
+          src={currentUser.photoURL}
+          alt="Avatar"
+          className="w-full h-full object-cover"
+        />
+      ) : (
+        <div className="w-full h-full bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 flex items-center justify-center text-sm">
+          👤
+        </div>
+      )}
+    </div>
+    <span className="text-sm text-gray-800 dark:text-gray-100">{currentUser.email}</span>
+  </div>
+)}
+
+         {currentUser?.role === 'owner' && (
+        <a
+          href="/publish"
+          className="inline-flex items-center px-4 py-2 text-sm font-semibold text-green-700 dark:text-green-300 border border-green-700 dark:border-green-300 rounded-full hover:bg-green-700 dark:hover:bg-green-600 hover:text-white transition">{t('publishProperty')}</a>
+         )}
+
             {leftMenus.concat(rightMenus).map((menu, idx) => (
+
+          
               <div key={idx} className="flex flex-col">
                 <span className="text-gray-900 dark:text-gray-100 font-semibold">{menu.title}</span>
                 {menu.items?.map((item, j) =>
@@ -236,13 +318,16 @@ const Navbar = () => {
                       {item.label}
                     </button>
                   ) : (
-                    <a
-                      key={j}
-                      href={item.to}
-                      className="text-left pl-4 py-1 text-gray-700 dark:text-gray-300"
-                    >
-                      {item.label}
-                    </a>
+                <button
+                  key={j}
+                  onClick={() => {
+                    setMobileOpen(false);
+                    navigate(item.to);
+                  }}
+                  className="text-left pl-4 py-1 text-gray-700 dark:text-gray-300"
+                >
+                  {item.label}
+                </button>
                   )
                 )}
               </div>
