@@ -1,47 +1,55 @@
 // src/roles/RequireRole.jsx
-import React, { useContext } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { RoleContext } from './RoleContext';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { auth, db } from '../firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const RequireRole = ({ allowedRoles, children }) => {
-  const { currentUserRole, loading, user } = useContext(RoleContext);
-  const { t } = useTranslation();
-  const location = useLocation();
+  const [user, loading] = useAuthState(auth);
+  const [role, setRole] = useState(null);
+  const [checkingRole, setCheckingRole] = useState(true);
 
-  // Ende duke ngarkuar rolin
-  if (loading) {
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      if (user) {
+        try {
+          const roleDoc = await getDoc(doc(db, 'roles', user.uid));
+          if (roleDoc.exists()) {
+            setRole(roleDoc.data().role);
+          } else {
+            setRole(null);
+          }
+        } catch (error) {
+          console.error("Gabim gjatë leximit të rolit:", error);
+          setRole(null);
+        } finally {
+          setCheckingRole(false);
+        }
+      } else {
+        setCheckingRole(false);
+      }
+    };
+
+    fetchUserRole();
+  }, [user]);
+
+  if (loading || checkingRole) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
-        <div className="text-lg font-medium text-gray-700 dark:text-gray-200 animate-pulse">
-          {t('loading')}
-        </div>
+      <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-gray-900">
+        <p className="text-lg text-gray-700 dark:text-gray-300">Duke kontrolluar qasjen...</p>
       </div>
     );
   }
 
-  // Nëse nuk jemi të loguar
   if (!user) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to="/login" replace />;
   }
 
-  // Nëse roli i përdoruesit nuk është i lejuar
-  if (!allowedRoles.includes(currentUserRole)) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-red-100 dark:bg-red-900">
-        <div className="text-center p-6 max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-          <h1 className="text-xl font-bold text-red-700 dark:text-red-300 mb-4">
-            {t('unauthorized.title', { ns: 'auth' })}
-          </h1>
-          <p className="text-gray-700 dark:text-gray-300">
-            {t('unauthorized.message', { ns: 'auth' })}
-          </p>
-        </div>
-      </div>
-    );
+  if (!allowedRoles.includes(role)) {
+    return <Navigate to="/unauthorized" replace />;
   }
 
-  // Nëse gjithçka është në rregull
   return children;
 };
 

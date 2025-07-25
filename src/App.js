@@ -68,7 +68,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './auth/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import UnauthorizedPage from './pages/Unauthorized';
 
 
 
@@ -134,16 +134,49 @@ function AppRoutes() {
   <Route path="/map-leaflet" element={<GermanyMapLeaflet />} />
   <Route path="/explore" element={<ExplorePage />} />
   <Route path="/explore/germany" element={<ExplorePage />} />
-  <Route path="/owner-dashboard" element={<RequireRole allowedRoles={['owner']}><OwnerDashboard /></RequireRole>}/>
-  <Route path="/agent-dashboard" element={<RequireRole allowedRoles={['agent']}><AgentDashboard /></RequireRole>}/>
-  <Route path="/dashboard" element={<RequireRole allowedRoles={['user']}><UserDashboard /></RequireRole>}/>
+
+  {/* ✅ DASHBOARDS ME ROLE SPECIFIKE */}
+  <Route
+    path="/owner-dashboard"
+    element={
+      <RequireRole allowedRoles={['owner', 'admin']}>
+        <OwnerDashboard />
+      </RequireRole>
+    }
+  />
+  <Route
+    path="/agent-dashboard"
+    element={
+      <RequireRole allowedRoles={['agent', 'admin']}>
+        <AgentDashboard />
+      </RequireRole>
+    }
+  />
+  <Route
+    path="/dashboard"
+    element={
+      <RequireRole allowedRoles={['user', 'admin']}>
+        <UserDashboard />
+      </RequireRole>
+    }
+  />
+  <Route
+    path="/admin-dashboard"
+    element={
+      <RequireRole allowedRoles={['admin']}>
+        <AdminDashboard />
+      </RequireRole>
+    }
+  />
+
   <Route path="/add-property" element={<PublishProperty />} />
-  <Route path="/admin-dashboard" element={<RequireRole role="admin"><AdminDashboard /></RequireRole>} />
+  <Route path="/unauthorized" element={<UnauthorizedPage />} />
+
+
+
   
+</Routes>
 
-
-
-   </Routes>    
       </main>
       <Footer />
     </div>

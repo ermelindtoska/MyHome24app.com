@@ -1,4 +1,4 @@
-// ... importet ekzistuese
+// src/pages/RegisterForm.jsx
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
@@ -6,9 +6,7 @@ import { auth, db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid';
-
-
+import { EyeIcon, EyeOffIcon } from '@heroicons/react/solid';
 
 const RegisterForm = () => {
   const { t } = useTranslation('auth');
@@ -21,7 +19,7 @@ const RegisterForm = () => {
     confirmEmail: '',
     password: '',
     confirmPassword: '',
-    role: 'user'
+    role: 'user',
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -32,6 +30,8 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+
     const { firstName, lastName, email, confirmEmail, password, confirmPassword, role } = formData;
 
     if (email !== confirmEmail) return setError(t('emailMismatch') || "E-Mail-Adressen stimmen nicht überein.");
@@ -39,18 +39,26 @@ const RegisterForm = () => {
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      
       const user = userCredential.user;
 
+      // ✅ Ruaj të dhënat në koleksionin 'users'
       await setDoc(doc(db, 'users', user.uid), {
         firstName,
         lastName,
         email,
         role,
-        createdAt: serverTimestamp()
+        createdAt: serverTimestamp(),
       });
 
-      await sendEmailVerification(userCredential.user);
+      // ✅ Ruaj rolin veçmas edhe në koleksionin 'roles'
+      await setDoc(doc(db, 'roles', user.uid), {
+        role: role || 'user',
+        createdAt: serverTimestamp(),
+      });
+
+      // ✅ Dërgo verifikimin e email-it
+      await sendEmailVerification(user);
+
       navigate('/register-success');
     } catch (err) {
       if (err.code === 'auth/email-already-in-use') {
@@ -67,14 +75,17 @@ const RegisterForm = () => {
       <Helmet>
         <title>Registrieren – MyHome24app</title>
       </Helmet>
-      <h2 className="text-2xl font-bold mb-4 text-center text-gray-900 dark:text-white">Konto erstellen</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center text-gray-900 dark:text-white">
+        {t('createAccount') || "Konto erstellen"}
+      </h2>
+
       {error && <p className="text-red-500 mb-4 text-sm">{error}</p>}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input name="firstName" placeholder="Vorname" value={formData.firstName} onChange={handleChange} required className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-300" />
-        <input name="lastName" placeholder="Nachname" value={formData.lastName} onChange={handleChange} required className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-300" />
-        <input name="email" type="email" placeholder="E-Mail" value={formData.email} onChange={handleChange} required className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-300" />
-        <input name="confirmEmail" type="email" placeholder="E-Mail bestätigen" value={formData.confirmEmail} onChange={handleChange} required className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-300" />
+        <input name="firstName" placeholder="Vorname" value={formData.firstName} onChange={handleChange} required className="input-style" />
+        <input name="lastName" placeholder="Nachname" value={formData.lastName} onChange={handleChange} required className="input-style" />
+        <input name="email" type="email" placeholder="E-Mail" value={formData.email} onChange={handleChange} required className="input-style" />
+        <input name="confirmEmail" type="email" placeholder="E-Mail bestätigen" value={formData.confirmEmail} onChange={handleChange} required className="input-style" />
 
         {/* Password */}
         <div className="relative">
@@ -85,10 +96,10 @@ const RegisterForm = () => {
             value={formData.password}
             onChange={handleChange}
             required
-            className="w-full p-2 pr-10 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-300"
+            className="input-style pr-10"
           />
           <div className="absolute right-2 top-2 cursor-pointer text-gray-500 dark:text-gray-300" onClick={() => setShowPassword(!showPassword)}>
-            {showPassword ? (<EyeSlashIcon className="h-5 w-5" />) : (<EyeIcon className="h-5 w-5" />)}
+            {showPassword ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
           </div>
         </div>
 
@@ -101,19 +112,21 @@ const RegisterForm = () => {
             value={formData.confirmPassword}
             onChange={handleChange}
             required
-            className="w-full p-2 pr-10 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-300"
+            className="input-style pr-10"
           />
           <div className="absolute right-2 top-2 cursor-pointer text-gray-500 dark:text-gray-300" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-            {showConfirmPassword ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
+            {showConfirmPassword ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
           </div>
         </div>
 
-        <select name="role" value={formData.role} onChange={handleChange} className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
-          <option value="user">Nutzer</option>
-          <option value="owner">Eigentümer</option>
+        {/* Roli */}
+        <select name="role" value={formData.role} onChange={handleChange} className="input-style">
+          <option value="user">{t('roleUser') || "Nutzer"}</option>
+          <option value="owner">{t('roleOwner') || "Eigentümer"}</option>
         </select>
+
         <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded transition-colors duration-200">
-          Registrieren
+          {t('register') || "Registrieren"}
         </button>
       </form>
     </div>
