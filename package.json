@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@geoapify/geocoder-autocomplete": "^2.1.0",
-    "@heroicons/react": "^2.2.0",
+    "@heroicons/react": "^1.0.6",
     "@sendgrid/mail": "^8.1.5",
     "aos": "^2.3.4",
     "dotenv": "^17.2.0",

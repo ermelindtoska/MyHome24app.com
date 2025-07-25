@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { auth } from '../firebase';
 import { useTranslation } from 'react-i18next';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid';
+import { EyeIcon, EyeOffIcon } from '@heroicons/react/solid';
 
 const LoginForm = () => {
   const { t } = useTranslation('auth');
