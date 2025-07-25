@@ -1,5 +1,13 @@
 {
   "dashboardTitle": "Ihr Dashboard",
+    "view": "Ansehen",
+  "type": "Typ",
+  "purpose": "Zweck",
+  "house": "Haus",
+  "apartment": "Wohnung",
+  "office": "Büro",
+  "buy": "Kaufen",
+  "rent": "Mieten",
   "success": "Erfolgreich hinzugefügt!",
   "validation": "Bitte füllen Sie alle Felder aus.",
     "agent_dashboard_title": "Agenten-Dashboard",
