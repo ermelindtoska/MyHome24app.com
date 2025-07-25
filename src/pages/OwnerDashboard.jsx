@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { collection, query, where, getDocs, deleteDoc, doc, } from "firebase/firestore";
+import { collection, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { db, auth } from '../firebase';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-
-
+import { FaTrash, FaEdit, FaEye } from 'react-icons/fa';
 
 function OwnerDashboard() {
   const { t } = useTranslation("dashboard");
   const [user, loading] = useAuthState(auth);
   const [listings, setListings] = useState([]);
   const [confirmDelete, setConfirmDelete] = useState(null);
+  const [selectedListing, setSelectedListing] = useState(null);
 
   useEffect(() => {
     if (loading || !user) return;
@@ -43,6 +43,9 @@ function OwnerDashboard() {
     }
   };
 
+  const openDetails = (listing) => setSelectedListing(listing);
+  const closeDetails = () => setSelectedListing(null);
+
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white px-4 py-8">
       <div className="max-w-6xl mx-auto">
@@ -57,7 +60,6 @@ function OwnerDashboard() {
               {t("owner_dashboard_welcome")}
             </p>
           </div>
-
           <Link to="/add-property">
             <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded mt-4 md:mt-0">
               ➕ {t("add_property")}
@@ -127,17 +129,17 @@ function OwnerDashboard() {
                       <td className="px-4 py-2">{listing.title}</td>
                       <td className="px-4 py-2">{listing.city}</td>
                       <td className="px-4 py-2">{listing.price} €</td>
-                      <td className="px-4 py-2 space-x-2">
+                      <td className="px-4 py-2 flex flex-wrap gap-2 items-center">
+                        <button onClick={() => openDetails(listing)} className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">
+                          <FaEye />
+                        </button>
                         <Link to={`/edit-listing/${listing.id}`}>
                           <button className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded">
-                            {t("edit")}
+                            <FaEdit />
                           </button>
                         </Link>
-                        <button
-                          onClick={() => setConfirmDelete(listing.id)}
-                          className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
-                        >
-                          {t("delete")}
+                        <button onClick={() => setConfirmDelete(listing.id)} className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">
+                          <FaTrash />
                         </button>
                       </td>
                     </tr>
@@ -148,7 +150,33 @@ function OwnerDashboard() {
           )}
         </div>
 
-        {/* Delete confirmation */}
+        {/* Modal për Detaje */}
+        {selectedListing && (
+          <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center">
+            <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg max-w-md w-full relative">
+              <button onClick={closeDetails} className="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-xl">
+                ✖
+              </button>
+              <img
+                src={selectedListing.imageUrl}
+                alt={selectedListing.title}
+                className="w-full h-48 object-cover rounded mb-4"
+              />
+              <h2 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+                {selectedListing.title}
+              </h2>
+              <p className="text-gray-700 dark:text-gray-300 mb-1"><strong>{t("city")}:</strong> {selectedListing.city}</p>
+              <p className="text-gray-700 dark:text-gray-300 mb-1"><strong>{t("price")}:</strong> {selectedListing.price} €</p>
+              <p className="text-gray-700 dark:text-gray-300 mb-1"><strong>{t("type")}:</strong> {t(selectedListing.type?.toLowerCase())}</p>
+              <p className="text-gray-700 dark:text-gray-300 mb-1"><strong>{t("purpose")}:</strong> {t(selectedListing.purpose?.toLowerCase())}</p>
+              <p className="text-gray-700 dark:text-gray-300 mt-4 whitespace-pre-wrap">
+                {selectedListing.description}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Delete Confirmation Modal */}
         {confirmDelete && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white dark:bg-gray-800 p-6 rounded shadow-lg text-center">
