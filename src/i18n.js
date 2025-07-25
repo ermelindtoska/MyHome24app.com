@@ -52,6 +52,7 @@ import streetsDE from './locales/de/streets.json';
 import neighbourhoodsDE from './locales/de/neighbourhoods.json';
 import filterBarDE from './locales/de/filterBar.json';
 import filterSidebarDE from './locales/de/filterSidebar.json';
+import unauthorizedDE from './locales/de/unauthorized.json';
 
 // === EN English
 import homeEN from './locales/en/home.json';
@@ -104,6 +105,8 @@ import streetsEN from './locales/en/streets.json';
 import neighbourhoodsEN from './locales/en/neighbourhoods.json';
 import filterBarEN from './locales/en/filterBar.json';
 import filterSidebarEN from './locales/en/filterSidebar.json';
+import unauthorizedEN from './locales/en/unauthorized.json';
+
 
 const resources = {
   de: {
@@ -156,7 +159,8 @@ const resources = {
     districts: districtsDE,
     streets: streetsDE,
     neighbourhoods: neighbourhoodsDE,
-    filterSidebar: filterSidebarDE
+    filterSidebar: filterSidebarDE,
+    unauthorized: unauthorizedDE
   },
   en: {
     home: homeEN,
@@ -208,7 +212,8 @@ const resources = {
     districts: districtsEN,
     streets: streetsEN,
     neighbourhoods: neighbourhoodsEN,
-    filterSidebar: filterSidebarEN
+    filterSidebar: filterSidebarEN,
+    unauthorized: unauthorizedEN
   }
 };
 if (!localStorage.getItem('i18nextLng')) {
@@ -230,7 +235,7 @@ i18n
       'foreclosure', 'owner', 'bankPartners', 'manageRentals', 'newListing', 'bannerAds', 'premiumListing', 'dashboard',
       'support', 'howItWorks', 'userDashboard', 'listingDetails', 'filterBar', 'listingForm',
       'buy', 'rent', 'mortgage', 'findAgent', 'impressum', 'states', 'cities', 'districts',
-      'streets', 'neighbourhoods', 'filterSidebar'
+      'streets', 'neighbourhoods', 'filterSidebar', 'unauthorized'
     ],
     defaultNS: 'home',
     interpolation: {
