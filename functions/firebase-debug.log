@@ -353,3 +353,4 @@ Issues? Report them at https://github.com/firebase/firebase-tools/issues and att
 [debug] [2025-07-23T10:13:36.413Z] Failed to validate key FIREBASE_AUTH_PROVIDER_X509_CERT_URL: Error: Key FIREBASE_AUTH_PROVIDER_X509_CERT_URL starts with a reserved prefix (X_GOOGLE_ FIREBASE_ EXT_)
 [debug] [2025-07-23T10:13:36.414Z] Failed to validate key FIREBASE_CLIENT_X509_CERT_URL: Error: Key FIREBASE_CLIENT_X509_CERT_URL starts with a reserved prefix (X_GOOGLE_ FIREBASE_ EXT_)
 [error] !!  functions: Failed to load function definition from source: FirebaseError: Failed to load environment variables from .env. {"metadata":{"emulator":{"name":"functions"},"message":"Failed to load function definition from source: FirebaseError: Failed to load environment variables from .env."}}
+[debug] [2025-07-25T13:11:48.923Z] Received signal SIGHUP 1

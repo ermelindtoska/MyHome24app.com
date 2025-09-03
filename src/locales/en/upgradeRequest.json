@@ -1,0 +1,20 @@
+{
+  "title": "Request Owner Role Upgrade",
+  "description": "Please let us know why you want to upgrade your role to 'owner'.",
+  "placeholder": "Your message...",
+  "sendRequest": "Send Request",
+  "sending": "Sending...",
+  "successMessage": "Your request has been submitted successfully!",
+  "close": "Close",
+   
+  "submit": "Send Request",
+  "success": "Request sent successfully!",
+  "error": "Something went wrong. Please try again.",
+
+  "cancel": "Cancel",
+  "send": "Send Request",
+ 
+  "requestSent": "Your upgrade request has been sent successfully.",
+  
+  "fillReason": "Please provide a reason for your request."
+}

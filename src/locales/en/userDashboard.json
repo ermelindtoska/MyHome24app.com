@@ -20,6 +20,7 @@
   "welcomeMessage": "Welcome back, {{name}}!",
   "myListings": "My Listings",
   "favorites": "Saved Listings",
+  "requestOwnerUpgrade": "Request Owner Role",
   "messages": "Messages",
   "profile": "Edit Profile",
   "settings": "Account Settings",

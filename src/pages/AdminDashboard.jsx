@@ -19,6 +19,7 @@ const AdminDashboard = () => {
   const [userRoles, setUserRoles] = useState({});
   const itemsPerPage = 5;
   const storage = getStorage();
+  const [roleRequests, setRoleRequests] = useState([]);
 
 useEffect(() => {
   const fetchListings = async () => {
@@ -65,6 +66,20 @@ useEffect(() => {
     fetchSupportMessages();
     fetchRoles();
   }, []);
+  const fetchRoleRequests = async () => {
+  try {
+    const snapshot = await getDocs(collection(db, 'roleUpgradeRequests'));
+    const requests = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    setRoleRequests(requests);
+  } catch (err) {
+    console.error("Error fetching role upgrade requests:", err);
+  }
+};
+fetchRoleRequests();
+
 
   const logActivity = async (action, detail, userId = 'admin') => {
     try {
@@ -104,6 +119,27 @@ useEffect(() => {
       console.error('Error updating status:', error);
     }
   };
+  const handleApproveRequest = async (requestId, userId) => {
+  try {
+    await updateDoc(doc(db, 'roles', userId), { role: 'owner' });
+    await deleteDoc(doc(db, 'roleUpgradeRequests', requestId));
+    setRoleRequests(prev => prev.filter(req => req.id !== requestId));
+    await logActivity('Approved owner upgrade', `UserID: ${userId}`);
+  } catch (err) {
+    console.error("Error approving request:", err);
+  }
+};
+
+const handleRejectRequest = async (requestId) => {
+  try {
+    await deleteDoc(doc(db, 'roleUpgradeRequests', requestId));
+    setRoleRequests(prev => prev.filter(req => req.id !== requestId));
+    await logActivity('Rejected owner upgrade', `RequestID: ${requestId}`);
+  } catch (err) {
+    console.error("Error rejecting request:", err);
+  }
+};
+
 
   const handleViewImages = async (listingId) => {
     try {
@@ -195,6 +231,45 @@ useEffect(() => {
           </tbody>
         </table>
       </div>
+      <h2 className="text-xl font-semibold mt-10 mb-4">{t('roleUpgradeRequests')}</h2>
+<div className="overflow-x-auto">
+  <table className="min-w-full border text-sm md:text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+    <thead>
+      <tr className="bg-gray-100 dark:bg-gray-700">
+        <th className="py-2 px-4 border">{t('userId')}</th>
+        <th className="py-2 px-4 border">{t('reason')}</th>
+        <th className="py-2 px-4 border">{t('date')}</th>
+        <th className="py-2 px-4 border">{t('action')}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {roleRequests.map(req => (
+        <tr key={req.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+          <td className="py-2 px-4 border">{req.userId}</td>
+          <td className="py-2 px-4 border">{req.reason}</td>
+          <td className="py-2 px-4 border">
+            {req.timestamp?.toDate?.().toLocaleString?.() || '–'}
+          </td>
+          <td className="py-2 px-4 border flex space-x-2">
+            <button
+              onClick={() => handleApproveRequest(req.id, req.userId)}
+              className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+            >
+              {t('approve')}
+            </button>
+            <button
+              onClick={() => handleRejectRequest(req.id)}
+              className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+            >
+              {t('reject')}
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
 
       {/* Support Messages Table */}
       <h2 className="text-xl font-semibold mt-10 mb-4">{t('supportMessages')}</h2>
