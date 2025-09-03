@@ -11,6 +11,7 @@ import FilterControls from '../components/FilterControls';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import ContactOwnerModal from '../components/ContactOwnerModal';
 import ListingMapModal from '../components/ListingMapModal';
+import RequestOwnerUpgradeModal from '../components/RequestOwnerUpgradeModal';
 
 const UserDashboard = () => {
   const { t } = useTranslation('userDashboard');
@@ -27,6 +28,7 @@ const UserDashboard = () => {
   const [showConfirmId, setShowConfirmId] = useState(null);
   const [showContact, setShowContact] = useState(null);
   const [showMap, setShowMap] = useState(null);
+  const [showRequestModal, setShowRequestModal] = useState(false);
 
   useEffect(() => {
     const fetchUserListings = async () => {
@@ -101,9 +103,17 @@ const UserDashboard = () => {
         <h2 className="text-3xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
           <FiSearch className="text-blue-600 dark:text-blue-400" /> {t('title')}
         </h2>
-        <Link to="/add" className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-          <FiPlusCircle size={18} /> {t('addNew')}
-        </Link>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Link to="/add" className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <FiPlusCircle size={18} /> {t('addNew')}
+          </Link>
+          <button
+            onClick={() => setShowRequestModal(true)}
+            className="flex items-center gap-2 border border-blue-600 text-blue-600 px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-800"
+          >
+            <FiMessageCircle size={18} /> {t('requestOwnerUpgrade')}
+          </button>
+        </div>
       </div>
 
       <FilterControls
@@ -192,6 +202,14 @@ const UserDashboard = () => {
         />
       )}
 
+           {/* Modals */}
+      {showConfirmId && (
+        <ConfirmDeleteModal
+          onCancel={() => setShowConfirmId(null)}
+          onConfirm={() => handleDelete(showConfirmId)}
+        />
+      )}
+
       {selectedListing && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg max-w-lg w-full relative max-h-[90vh] overflow-y-auto">
@@ -230,6 +248,8 @@ const UserDashboard = () => {
 
       {showContact && <ContactOwnerModal listing={showContact} onClose={() => setShowContact(null)} />}
       {showMap && <ListingMapModal listing={showMap} onClose={() => setShowMap(null)} />}
+      <RequestOwnerUpgradeModal open={showRequestModal} onClose={() => setShowRequestModal(false)} />
+
     </div>
   );
 };

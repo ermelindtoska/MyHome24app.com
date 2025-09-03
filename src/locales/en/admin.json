@@ -24,5 +24,10 @@
   "category": "Category",
   "message": "Message",
   "date": "Date",
-  "markResolved": "Mark as Resolved"
+  "markResolved": "Mark as Resolved",
+   "roleUpgradeRequests":  "Role Upgrade Requests", 
+  "userId": "User ID", 
+  "reason": "Approve", 
+  "approve": "Approve", 
+  "reject": "Reject"
 }

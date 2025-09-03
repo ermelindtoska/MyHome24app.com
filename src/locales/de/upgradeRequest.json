@@ -1,0 +1,20 @@
+{
+  "title": "Upgrade auf Eigentümerkonto beantragen",
+  "description": "Bitte geben Sie uns einige Informationen, warum Sie Ihre Rolle auf 'Eigentümer' umstellen möchten.",
+  "placeholder": "Ihre Nachricht...",
+  "sendRequest": "Anfrage senden",
+  "sending": "Wird gesendet...",
+  "successMessage": "Ihre Anfrage wurde erfolgreich übermittelt!",
+  "close": "Schließen",
+   
+  "submit": "Anfrage senden",
+  "success": "Anfrage erfolgreich gesendet!",
+  "error": "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut.",
+   
+  "cancel": "Abbrechen",
+  "send": "Anfrage senden",
+
+  "requestSent": "Deine Anfrage wurde erfolgreich übermittelt.",
+
+  "fillReason": "Bitte gib einen Grund für deine Anfrage an."
+}

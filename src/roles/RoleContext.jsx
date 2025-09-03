@@ -13,29 +13,34 @@ export const RoleProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         if (!user.emailVerified) {
-          console.warn("User email is not verified. Signing out.");
-          await signOut(auth); // logout nëse nuk është verifikuar
+          console.warn("Email not verified. Signing out...");
+          await signOut(auth);
           setRole(null);
           setLoading(false);
           return;
         }
 
         try {
-          const docRef = doc(db, 'users', user.uid);
-          const docSnap = await getDoc(docRef);
-          if (docSnap.exists()) {
-            const userData = docSnap.data();
-            setRole(userData.role || null);
+          // ✅ Read role from 'users' collection
+          const userRef = doc(db, 'users', user.uid);
+          const userSnap = await getDoc(userRef);
+
+          if (userSnap.exists()) {
+            const fetchedRole = userSnap.data().role || null;
+            console.log("✅ User role fetched from Firestore:", fetchedRole);
+            setRole(fetchedRole);
           } else {
+            console.warn("⚠️ User document does not exist in Firestore.");
             setRole(null);
           }
         } catch (error) {
-          console.error("Error fetching role:", error);
+          console.error("❌ Error fetching user role:", error);
           setRole(null);
         }
       } else {
         setRole(null);
       }
+
       setLoading(false);
     });
 

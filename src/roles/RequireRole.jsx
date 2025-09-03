@@ -14,14 +14,18 @@ const RequireRole = ({ allowedRoles, children }) => {
     const fetchUserRole = async () => {
       if (user) {
         try {
-          const roleDoc = await getDoc(doc(db, 'roles', user.uid));
-          if (roleDoc.exists()) {
-            setRole(roleDoc.data().role);
+          // ✅ Lexojmë rolin nga 'users' dhe jo më nga 'roles'
+          const userDoc = await getDoc(doc(db, 'users', user.uid));
+          if (userDoc.exists()) {
+            const userRole = userDoc.data().role;
+            console.log("✅ Fetched role from Firestore:", userRole);
+            setRole(userRole);
           } else {
+            console.warn("⚠️ No user document found for:", user.uid);
             setRole(null);
           }
         } catch (error) {
-          console.error("Gabim gjatë leximit të rolit:", error);
+          console.error("❌ Error reading role:", error);
           setRole(null);
         } finally {
           setCheckingRole(false);
@@ -34,19 +38,28 @@ const RequireRole = ({ allowedRoles, children }) => {
     fetchUserRole();
   }, [user]);
 
+  useEffect(() => {
+    console.log("🧾 Auth loading:", loading);
+    console.log("👤 User:", user);
+    console.log("🔑 Allowed roles for this route:", allowedRoles);
+    console.log("👮‍♂️ User's role from Firestore:", role);
+  }, [loading, user, role, allowedRoles]);
+
   if (loading || checkingRole) {
     return (
       <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-gray-900">
-        <p className="text-lg text-gray-700 dark:text-gray-300">Duke kontrolluar qasjen...</p>
+        <p className="text-lg text-gray-700 dark:text-gray-300">Checking access...</p>
       </div>
     );
   }
 
   if (!user) {
+    console.warn("🚫 User not authenticated. Redirecting to login.");
     return <Navigate to="/login" replace />;
   }
 
   if (!allowedRoles.includes(role)) {
+    console.warn(`⛔ Access denied for role "${role}". Redirecting to /unauthorized.`);
     return <Navigate to="/unauthorized" replace />;
   }
 

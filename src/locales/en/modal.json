@@ -1,0 +1,11 @@
+{
+  "title": "Request Owner Role",
+  "placeholder": "Please explain why you want to request the owner role...",
+  "send": "Submit",
+  "sending": "Sending...",
+  "cancel": "Cancel",
+  "success": "Request Sent",
+  "error": "Error",
+  "requestSent": "Your request has been submitted successfully.",
+  "fillReason": "Please provide a reason."
+}

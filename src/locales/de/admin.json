@@ -23,5 +23,10 @@
   "category": "Kategorie",
   "message": "Nachricht",
   "date": "Datum",
-  "markResolved": "Als erledigt markieren"
+  "markResolved": "Als erledigt markieren",
+   "roleUpgradeRequests": "Rollenwechsel-Anfragen",
+  "userId": "Benutzer-ID",
+  "reason": "Begründung",
+  "approve": "Genehmigen",
+  "reject": "Ablehnen"
 }

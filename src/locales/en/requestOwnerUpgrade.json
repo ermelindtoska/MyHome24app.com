@@ -1,0 +1,11 @@
+{
+  "title": "Request owner role",
+  "placeholder": "Write your reason here...",
+  "send": "Send request",
+  "sending": "Sending...",
+  "cancel": "Cancel",
+  "success": "Success",
+  "error": "Error",
+  "fillReason": "Please write a reason before submitting.",
+  "requestSent": "Your request has been submitted."
+}
