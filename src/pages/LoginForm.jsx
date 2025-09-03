@@ -1,6 +1,5 @@
-// ... importet ekzistuese
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { auth } from '../firebase';
@@ -23,19 +22,27 @@ const LoginForm = () => {
     const { email, password } = formData;
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      if (!user.emailVerified) {
+        setError(t('emailNotVerified') || 'Please verify your email before logging in.');
+        await signOut(auth);
+        return;
+      }
+
       navigate('/dashboard');
     } catch (err) {
-      setError(t('loginError') || 'Anmeldung fehlgeschlagen. Bitte prüfen Sie Ihre Daten.');
+      setError(t('loginError') || 'Login failed. Please check your credentials.');
     }
   };
 
   return (
     <div className="max-w-md mx-auto p-6 mt-10 bg-gray-800 text-white shadow rounded">
       <Helmet>
-        <title>Anmelden – MyHome24App</title>
+        <title>Login – MyHome24App</title>
       </Helmet>
-      <h2 className="text-2xl font-bold mb-4 text-center">{t('loginTitle') || 'Anmelden'}</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center">{t('loginTitle') || 'Login'}</h2>
 
       {error && <p className="text-red-400 mb-4">{error}</p>}
 
@@ -43,7 +50,7 @@ const LoginForm = () => {
         <input
           name="email"
           type="email"
-          placeholder="E-Mail"
+          placeholder="Email"
           value={formData.email}
           onChange={handleChange}
           required
@@ -54,29 +61,29 @@ const LoginForm = () => {
           <input
             name="password"
             type={showPassword ? 'text' : 'password'}
-            placeholder="Passwort"
+            placeholder="Password"
             value={formData.password}
             onChange={handleChange}
             required
             className="w-full p-2 pr-10 border border-gray-600 bg-gray-700 text-white rounded placeholder-gray-400"
           />
           <div className="absolute right-2 top-2 cursor-pointer text-gray-400" onClick={() => setShowPassword(!showPassword)}>
-            {showPassword ? (<EyeSlashIcon className="h-5 w-5" />) : (<EyeIcon className="h-5 w-5" />)}
+            {showPassword ? (<EyeOffIcon className="h-5 w-5" />) : (<EyeIcon className="h-5 w-5" />)}
           </div>
         </div>
 
         <div className="flex items-center justify-between text-sm">
           <label className="flex items-center">
             <input type="checkbox" className="mr-2" />
-            <span className="text-gray-300">{t('stayLoggedIn') || 'Angemeldet bleiben'}</span>
+            <span className="text-gray-300">{t('stayLoggedIn') || 'Stay logged in'}</span>
           </label>
           <a href="/forgot-password" className="text-blue-400 hover:underline">
-            {t('forgotPassword') || 'Passwort vergessen?'}
+            {t('forgotPassword') || 'Forgot password?'}
           </a>
         </div>
 
         <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">
-          {t('loginButton') || 'Einloggen'}
+          {t('loginButton') || 'Login'}
         </button>
       </form>
     </div>

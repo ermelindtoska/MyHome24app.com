@@ -69,6 +69,8 @@ import { AuthProvider } from './auth/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UnauthorizedPage from './pages/Unauthorized';
+import { ToasterProvider } from "./components/ui/toaster";
+import { Toaster } from "sonner";
 
 
 
@@ -168,13 +170,23 @@ function AppRoutes() {
       </RequireRole>
     }
   />
+  <Route
+  path="/user-dashboard"
+  element={
+    <ProtectedRoute>
+      <RequireRole allowedRoles={['user']}>
+        <UserDashboard />
+      </RequireRole>
+    </ProtectedRoute>
+  }
+/>
 
   <Route path="/add-property" element={<PublishProperty />} />
   <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
 
 
-  
+
 </Routes>
 
       </main>
@@ -191,6 +203,9 @@ function App() {
             <RoleProvider>
          <AppRoutes />
          <ToastContainer />
+         
+       <ToasterProvider />
+       <Toaster richColors />
     </RoleProvider>
   </AuthProvider>
 </BrowserRouter>

@@ -1,0 +1,11 @@
+{
+  "title": "Eigentümerrolle beantragen",
+  "placeholder": "Gib hier deinen Grund an...",
+  "send": "Anfrage senden",
+  "sending": "Sende...",
+  "cancel": "Abbrechen",
+  "success": "Erfolg",
+  "error": "Fehler",
+  "fillReason": "Bitte gib einen Grund an, bevor du absendest.",
+  "requestSent": "Deine Anfrage wurde erfolgreich gesendet."
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Antrag auf Eigentümer-Rolle",
+  "placeholder": "Bitte erklären Sie, warum Sie die Rolle als Eigentümer:in erhalten möchten...",
+  "send": "Absenden",
+  "sending": "Sendet...",
+  "cancel": "Abbrechen",
+  "success": "Anfrage gesendet",
+  "error": "Fehler",
+  "requestSent": "Ihre Anfrage wurde erfolgreich übermittelt.",
+  "fillReason": "Bitte geben Sie einen Grund an."
+}
