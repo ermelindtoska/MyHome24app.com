@@ -59,6 +59,19 @@
     "lineChart": "Größen- und Preistrend",
     "pieChart": "Größenverteilung",
     "exportPDF": "PDF exportieren",
+    "metaTitle": "Immobilienvergleich – MyHome24App",
+  "metaDescription": "Vergleiche bis zu 3 Immobilien: Preis, Fläche, Bewertung u.v.m.",
+  "home": "Startseite",
+  
+    "toggleFilters": "Filter ein-/ausblenden",
+    "copy": "Zusammenfassung kopieren",
+    
+    "refresh": "Aktualisieren",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "clearAll": "Alles löschen",
+  
+  
    "compare_key_1": "compare value 1 (DE)",
   "compare_key_2": "compare value 2 (DE)",
   "compare_key_3": "compare value 3 (DE)",

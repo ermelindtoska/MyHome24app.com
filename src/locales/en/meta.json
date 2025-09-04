@@ -1,0 +1,111 @@
+{
+  "home": {
+    "title": "Find Homes to Buy & Rent",
+    "description": "Search homes across Germany with filters, maps, and pro tools.",
+      "home.title": "Find your perfect home",
+  "home.desc": "The modern platform to buy, rent and sell real estate in Germany.",
+  "register.title": "Create account",
+  "register.desc": "Register to post, save and compare listings.",
+  "admin.title": "Admin Dashboard",
+  "admin.desc": "Administration area for MyHome24App (admins only).",
+
+
+  "buy.title": "Buy real estate",
+  "buy.desc": "Find condos and houses for sale across Germany.",
+
+  "rent.title": "Rent real estate",
+  "rent.desc": "Discover apartments and houses for rent in your desired area.",
+
+  "map.title": "Germany property map",
+  "map.desc": "Interactive map with property listings, filters and details.",
+
+  "compare.title": "Compare",
+  "compare.desc": "Compare up to 3 properties by price, area and features.",
+
+  "favorites.title": "Favorites",
+  "favorites.desc": "Save and manage your favorite properties.",
+
+  "listings.title": "All listings",
+  "listings.desc": "Browse current property listings by city, price and type.",
+
+  "listing.title": "Property details",
+  "listing.desc": "Full property details with photos, description, features and location.",
+
+  "findAgent.title": "Find an agent",
+  "findAgent.desc": "Discover vetted real estate agents near you.",
+
+  "contact.title": "Contact",
+  "contact.desc": "Get in touch – we’re happy to help.",
+
+  "privacy.title": "Privacy policy",
+  "privacy.desc": "Learn how we protect your data.",
+
+  "terms.title": "Terms & Conditions",
+  "terms.desc": "General terms and conditions of MyHome24App.",
+
+  "impressum.title": "Imprint",
+  "impressum.desc": "Legal information and contact details.",
+
+  "support.title": "Help & support",
+  "support.desc": "FAQ answers and how to contact support.",
+
+  "howItWorks.title": "How it works",
+  "howItWorks.desc": "Use MyHome24App step by step.",
+
+  "login.title": "Log in",
+  "login.desc": "Log in to save and manage listings.",
+
+
+
+  "userDashboard.title": "User dashboard",
+  "userDashboard.desc": "Your listings, inquiries and settings.",
+
+  "ownerDashboard.title": "Owner dashboard",
+  "ownerDashboard.desc": "Manage your published properties.",
+
+  "agentDashboard.title": "Agent dashboard",
+  "agentDashboard.desc": "Manage client inquiries and offers as an agent.",
+
+
+
+  "publish.title": "Publish a new property",
+  "publish.desc": "Create a new listing with photos, description and price.",
+
+  "manage.title": "Manage my properties",
+  "manage.desc": "Edit, pause or delete your listings.",
+
+  "mortgage.calc.title": "Mortgage calculator",
+  "mortgage.calc.desc": "Calculate monthly payments and additional costs.",
+
+  "mortgage.partners.title": "Bank partners",
+  "mortgage.partners.desc": "Our financing and banking partners.",
+
+  "newConstruction.title": "New construction",
+  "newConstruction.desc": "Current new-build projects in Germany.",
+
+  "foreclosure.title": "Foreclosures",
+  "foreclosure.desc": "Discover properties from foreclosures.",
+
+  "ownerOffers.title": "Direct from owner",
+  "ownerOffers.desc": "No agent commission – direct owner listings.",
+
+  "explore.title": "Explore",
+  "explore.desc": "Cities, regions and trends at a glance.",
+
+  "search.title": "Search",
+  "search.desc": "Search results according to your filters.",
+
+  "compare.details.title": "Compare details",
+  "compare.details.desc": "Detailed view of your property comparison.",
+
+  "premiumListing.title": "Premium listings",
+  "premiumListing.desc": "Boost your visibility with premium packages.",
+
+  "bannerAds.title": "Banner ads",
+  "bannerAds.desc": "Advertising placements for companies and agents."
+  },
+  "register": {
+    "title": "Register",
+    "description": "Create your MyHome24App account."
+  }
+}

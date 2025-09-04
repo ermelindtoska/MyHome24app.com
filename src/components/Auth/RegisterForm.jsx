@@ -35,7 +35,7 @@ const RegisterForm = () => {
         />
         <input
           type="password"
-          placeholder="Fjalëkalimi"
+          placeholder="Password"
           className="w-full p-2 mb-3 border border-gray-300 rounded"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

@@ -4,6 +4,8 @@
       "rent": {
         "title": "Mietwohnungen und Häuser finden",
         "description": "Entdecken Sie verfügbare Mietobjekte in Ihrer bevorzugten Region.",
+        "metaTitle": "Wohnungen & Häuser mieten in Deutschland – MyHome24App",
+  "metaDescription": "Finde Mietwohnungen und Häuser in ganz Deutschland. Kartenansicht, smarte Filter und Vergleich.",
         "filters": {
             "monthlyRent": "Monatsmiete",
             "propertyType": "Immobilienart",
