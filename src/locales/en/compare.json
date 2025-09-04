@@ -59,6 +59,19 @@
     "lineChart": "Size and Price Trend",
     "pieChart": "Size Distribution",
     "exportPDF": "Export PDF",
+
+    "metaTitle": "Property Comparison – MyHome24App",
+"metaDescription": "Compare up to 3 properties: price, area, valuation, and much more.",
+"home": "Homepage",
+
+"toggleFilters": "Show/Hide Filters",
+"copy": "Copy Summary",
+
+"refresh": "Refresh",
+"darkMode": "Dark Mode",
+"lightMode": "Light Mode",
+"clearAll": "Clear All",
+
   "compare_key_1": "compare value 1 (EN)",
   "compare_key_2": "compare value 2 (EN)",
   "compare_key_3": "compare value 3 (EN)",

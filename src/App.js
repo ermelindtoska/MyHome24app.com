@@ -71,6 +71,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import UnauthorizedPage from './pages/Unauthorized';
 import { ToasterProvider } from "./components/ui/toaster";
 import { Toaster } from "sonner";
+import GlobalMeta from "./components/SEO/GlobalMeta";
 
 
 
@@ -88,6 +89,7 @@ function AppRoutes() {
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
       <Navbar />
+      <GlobalMeta />
       <main className="flex-grow">
      <Routes>
   <Route path="/" element={<HomePage />} />

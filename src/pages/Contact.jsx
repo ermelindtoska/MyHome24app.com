@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SiteMeta from "../components/SEO/SiteMeta";
 
 const Contact = () => {
   const { t } = useTranslation('contact');
@@ -28,6 +29,7 @@ const Contact = () => {
     <div className="max-w-2xl mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
+        <SiteMeta titleKey="contact.title" descKey="contact.desc" path="/contact" />
         <div>
           <label htmlFor="name" className="block font-semibold">Name</label>
           <input type="text" name="name" id="name" required className="w-full border px-3 py-2 rounded" />

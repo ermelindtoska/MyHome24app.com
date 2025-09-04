@@ -6,6 +6,7 @@ import { db } from '../firebase';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useTranslation } from 'react-i18next';
 import ImageModal from '../components/ImageModal';
+import SiteMeta from "../components/SEO/SiteMeta";
 
 const AdminDashboard = () => {
   const { t } = useTranslation('admin');
@@ -181,11 +182,8 @@ const handleRejectRequest = async (requestId) => {
 
   return (
     <div className="max-w-7xl mx-auto p-4">
-      <Helmet>
-        <title>Admin Dashboard – MyHome24app</title>
-        <meta name="description" content="Overview of all real estate listings and admin control for MyHome24app" />
-        <meta name="robots" content="noindex, nofollow" />
-      </Helmet>
+      <SiteMeta titleKey="admin.title" descKey="admin.desc" path="/admin-dashboard" noindex />
+     
 
       <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('allListings')}</h2>
 

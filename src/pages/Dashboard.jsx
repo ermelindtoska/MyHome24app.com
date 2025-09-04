@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import DashboardPage from "./DashboardPage";
 
+
 const Dashboard = ({ onAdd }) => {
   const { t } = useTranslation('dashboard');
 

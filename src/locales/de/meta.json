@@ -1,0 +1,111 @@
+{
+  "home": {
+    "title": "Immobilien zum Kauf & zur Miete finden",
+    "description": "Suche Immobilien in ganz Deutschland mit Filtern, Karte und Profi-Tools.",
+      "home.title": "Finde dein perfektes Zuhause",
+  "home.desc": "Die moderne Plattform zum Kaufen, Mieten und Verkaufen von Immobilien in Deutschland.",
+  "register.title": "Konto erstellen",
+  "register.desc": "Registrieren Sie sich, um Immobilien zu veröffentlichen, zu speichern und zu vergleichen.",
+  "admin.title": "Admin-Dashboard",
+  "admin.desc": "Administrationsbereich für MyHome24App (nur für Administratoren).",
+   
+
+  "buy.title": "Immobilien kaufen",
+  "buy.desc": "Finde Eigentumswohnungen und Häuser zum Kauf in ganz Deutschland.",
+
+  "rent.title": "Immobilien mieten",
+  "rent.desc": "Entdecke Mietwohnungen und Häuser in deiner Wunschregion.",
+
+  "map.title": "Immobilienkarte Deutschland",
+  "map.desc": "Interaktive Karte mit Immobilienangeboten, Filtern und Details.",
+
+  "compare.title": "Vergleichen",
+  "compare.desc": "Vergleiche bis zu 3 Immobilien nach Preis, Fläche und Ausstattung.",
+
+  "favorites.title": "Merkliste",
+  "favorites.desc": "Speichere und verwalte deine favorisierten Immobilien.",
+
+  "listings.title": "Alle Inserate",
+  "listings.desc": "Durchsuche aktuelle Immobilieninserate nach Stadt, Preis und Typ.",
+
+  "listing.title": "Immobilienexposé",
+  "listing.desc": "Exposé mit Bildern, Beschreibung, Ausstattung und Lage.",
+
+  "findAgent.title": "Makler finden",
+  "findAgent.desc": "Finde geprüfte Immobilienmakler in deiner Nähe.",
+
+  "contact.title": "Kontakt",
+  "contact.desc": "Kontaktiere uns – wir helfen dir gerne weiter.",
+
+  "privacy.title": "Datenschutz",
+  "privacy.desc": "Erfahre, wie wir deine Daten schützen.",
+
+  "terms.title": "AGB",
+  "terms.desc": "Allgemeine Geschäftsbedingungen von MyHome24App.",
+
+  "impressum.title": "Impressum",
+  "impressum.desc": "Rechtliche Angaben und Kontaktdaten.",
+
+  "support.title": "Hilfe & Support",
+  "support.desc": "Antworten auf häufige Fragen und Support-Kontakt.",
+
+  "howItWorks.title": "So funktioniert's",
+  "howItWorks.desc": "So nutzt du MyHome24App – Schritt für Schritt.",
+
+  "login.title": "Anmelden",
+  "login.desc": "Melde dich an, um Inserate zu speichern und zu verwalten.",
+
+ 
+
+  "userDashboard.title": "Benutzer-Dashboard",
+  "userDashboard.desc": "Deine Inserate, Anfragen und Einstellungen.",
+
+  "ownerDashboard.title": "Eigentümer-Dashboard",
+  "ownerDashboard.desc": "Verwalte deine veröffentlichten Immobilien.",
+
+  "agentDashboard.title": "Makler-Dashboard",
+  "agentDashboard.desc": "Kundenanfragen und Angebote als Makler verwalten.",
+
+ 
+
+  "publish.title": "Neue Immobilie veröffentlichen",
+  "publish.desc": "Erstelle ein neues Inserat mit Bildern, Beschreibung und Preis.",
+
+  "manage.title": "Meine Immobilien verwalten",
+  "manage.desc": "Bearbeite, pausiere oder lösche deine Inserate.",
+
+  "mortgage.calc.title": "Hypothekenrechner",
+  "mortgage.calc.desc": "Berechne monatliche Raten und Nebenkosten.",
+
+  "mortgage.partners.title": "Bankpartner",
+  "mortgage.partners.desc": "Unsere Finanzierungs- und Bankpartner.",
+
+  "newConstruction.title": "Neubauprojekte",
+  "newConstruction.desc": "Aktuelle Neubauprojekte in Deutschland.",
+
+  "foreclosure.title": "Zwangsversteigerungen",
+  "foreclosure.desc": "Immobilien aus Zwangsversteigerungen entdecken.",
+
+  "ownerOffers.title": "Direkt vom Eigentümer",
+  "ownerOffers.desc": "Angebote ohne Maklerprovision – direkt vom Eigentümer.",
+
+  "explore.title": "Entdecken",
+  "explore.desc": "Städte, Regionen und Trends auf einen Blick.",
+
+  "search.title": "Suche",
+  "search.desc": "Suchergebnisse nach deinen Filtern.",
+
+  "compare.details.title": "Vergleichsdetails",
+  "compare.details.desc": "Detailansicht deines Immobilienvergleichs.",
+
+  "premiumListing.title": "Premium-Anzeigen",
+  "premiumListing.desc": "Mehr Sichtbarkeit für dein Inserat mit Premium-Paketen.",
+
+  "bannerAds.title": "Banner-Werbung",
+  "bannerAds.desc": "Werbeplätze für Unternehmen und Makler."
+  },
+  "register": {
+    "title": "Registrieren",
+    "description": "Erstelle dein MyHome24App Konto."
+  }
+}

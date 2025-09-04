@@ -4,6 +4,9 @@
   "info1": "Bei uns finden Sie eine große Auswahl an Immobilien zum Kauf – von modernen Stadtwohnungen bis zu idyllischen Landhäusern.",
   "info2": "Wir unterstützen Sie auf dem gesamten Weg: von der Suche bis zur Schlüsselübergabe.",
   "info3": "Nutzen Sie unsere Filteroptionen, um genau das Objekt zu finden, das zu Ihnen passt.",
+   "metaTitle": "Immobilien kaufen in Deutschland – MyHome24App",
+  "metaDescription": "Kaufe Häuser & Wohnungen in ganz Deutschland. Smarte Filter, Kartenansicht und Vergleich.",
+  
   
         
         "filters": {
@@ -17,5 +20,6 @@
             "viewListings": "Anzeigen",
             "contactAgent": "Makler kontaktieren"
         }
+        
 }
 }
