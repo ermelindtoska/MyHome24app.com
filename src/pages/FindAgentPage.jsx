@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaUserTie } from 'react-icons/fa';
 import findAgentImage from '../assets/findagent.png';
+import SiteMeta from "../components/SEO/SiteMeta";
 
 const FindAgentPage = () => {
   const { t } = useTranslation('findAgent');
@@ -10,6 +11,8 @@ const FindAgentPage = () => {
   return (
     <div className="max-w-5xl mx-auto p-6 text-center">
       <div className="flex flex-col items-center gap-4">
+        <SiteMeta titleKey="findAgent.title" descKey="findAgent.desc" path="/agents" />
+
         <FaUserTie className="text-blue-600" size={36} />
         <h1 className="text-3xl font-bold text-gray-800">{t('title')}</h1>
         <p className="text-gray-600 max-w-2xl text-lg">{t('description')}</p>

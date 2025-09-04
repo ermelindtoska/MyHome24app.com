@@ -2,13 +2,28 @@
 <html lang="de">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="%PUBLIC_URL%/assets/logo.png" />
+
+    <!-- ✅ Favicon modern (heq ikonën e React / assets/logo.png) -->
+    <link rel="icon" type="image/svg+xml" href="%PUBLIC_URL%/icons/favicon.svg" />
+    <!-- (opsionale) fallback nëse do -->
+    <!-- <link rel="alternate icon" href="%PUBLIC_URL%/favicon.ico" sizes="any"> -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="MyHome24App – Immobilienplattform in Deutschland"
-    />
+    <meta name="theme-color" content="#0ea5e9" />
+
+    <!-- ✅ Manifest (zgjidh NJË skedar; këtu po përdorim manifest.webmanifest) -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.webmanifest" />
+
+    <!-- ✅ Apple touch icon për iOS Home Screen -->
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/icons/apple-touch-icon.png" />
+
+    <!-- (opsionale) iOS PWA look & feel -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <!-- Fallback meta SEO (faqet individuale mund ta mbulojnë me Helmet/SiteMeta) -->
+    <meta name="description" content="MyHome24App – Immobilienplattform in Deutschland" />
+
     <title>MyHome24App</title>
   </head>
   <body>

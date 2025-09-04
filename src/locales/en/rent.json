@@ -4,6 +4,8 @@
       "rent": {
         "title": "Find Rental Apartments and Houses",
         "description": "Explore available rentals in your preferred region.",
+        "metaTitle": "Rent apartments & houses in Germany – MyHome24App",
+  "metaDescription": "Find rentals across Germany. Map view, smart filters and compare.",
         "filters": {
             "monthlyRent": "Monthly Rent",
             "propertyType": "Property Type",

@@ -5,6 +5,7 @@ import { db, auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import PropertyCard from '../components/PropertyCard';
+import SiteMeta from "../components/SEO/SiteMeta";
 
 const FavoritesPage = () => {
   const { t } = useTranslation('favorites');
@@ -103,6 +104,8 @@ const FavoritesPage = () => {
           {t('compare')} {compareList.length} {t('entries')}
         </button>
       </div>
+      <SiteMeta titleKey="favorites.title" descKey="favorites.desc" path="/favorites" />
+
 
       {favorites.length === 0 ? (
         <p className="text-center text-gray-500">{t('empty')}</p>

@@ -4,6 +4,7 @@ import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 import ListingCard from '../components/ListingCard';
 import { useTranslation } from 'react-i18next';
+import SiteMeta from "../components/SEO/SiteMeta";
 
 
 const ListingsPage = () => {
@@ -27,11 +28,14 @@ const ListingsPage = () => {
   return (
     <div className="min-h-screen px-4 py-6">
       <h1 className="text-3xl font-bold mb-6 text-center">{t('createTitle')}</h1>
+      <SiteMeta titleKey="listings.title" descKey="listings.desc" path="/listings" />
+
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {listings.length > 0 ? (
           listings.map(listing => (
             <ListingCard key={listing.id} listing={listing} />
+            
           ))
         ) : (
           <p className="text-center col-span-full text-gray-500"><Leer></Leer>.</p>
