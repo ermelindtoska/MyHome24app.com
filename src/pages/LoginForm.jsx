@@ -1,93 +1,107 @@
-import React, { useState } from 'react';
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useTranslation } from 'react-i18next';
-import { EyeIcon, EyeOffIcon } from '@heroicons/react/solid';
 
-const LoginForm = () => {
+export default function LoginForm() {
   const { t } = useTranslation('auth');
-  const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [info, setInfo] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  // Show “check your email” message if redirected from registration
+  useEffect(() => {
+    const q = new URLSearchParams(location.search);
+    if (q.get('checkEmail') === '1') {
+      setInfo(
+        t('checkEmailMsg') ||
+          'We have sent a verification link to your email. Please check your inbox/spam.'
+      );
+    }
+  }, [location.search, t]);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const { email, password } = formData;
+    if (loading) return;
+
+    setError('');
+    setInfo('');
+    setLoading(true);
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+      const cred = await signInWithEmailAndPassword(auth, email, password);
 
-      if (!user.emailVerified) {
-        setError(t('emailNotVerified') || 'Please verify your email before logging in.');
+      if (!cred.user.emailVerified) {
+        // Re-send verification (nice UX)
+        try {
+          await sendEmailVerification(cred.user, {
+            url: `${window.location.origin}/login?checkEmail=1`,
+            handleCodeInApp: false,
+          });
+          setInfo(
+            t('verifyResent') ||
+              'Your email is not verified yet. We just sent the verification link again.'
+          );
+        } catch {
+          setInfo(
+            t('verifyPlease') ||
+              'Your email is not verified yet. Please check your inbox for the verification link.'
+          );
+        }
         await signOut(auth);
         return;
       }
 
-      navigate('/dashboard');
+      // Logged in and verified → go home
+      navigate('/', { replace: true });
     } catch (err) {
-      setError(t('loginError') || 'Login failed. Please check your credentials.');
+      setError(
+        err.code === 'auth/wrong-password'
+          ? t('wrongPassword') || 'Incorrect password.'
+          : err.code === 'auth/user-not-found'
+          ? t('userNotFound') || 'No account found with that email.'
+          : t('loginFailed') || 'Login failed. Please check your credentials.'
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 mt-10 bg-gray-800 text-white shadow rounded">
-      <Helmet>
-        <title>Login – MyHome24App</title>
-      </Helmet>
-      <h2 className="text-2xl font-bold mb-4 text-center">{t('loginTitle') || 'Login'}</h2>
+    <form onSubmit={handleLogin} className="space-y-4">
+      {info && <p className="text-blue-600 text-sm">{info}</p>}
+      {error && <p className="text-red-500 text-sm">{error}</p>}
 
-      {error && <p className="text-red-400 mb-4">{error}</p>}
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder={t('email') || 'Email'}
+        required
+        className="w-full px-3 py-2 border rounded"
+      />
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder={t('password') || 'Password'}
+        required
+        className="w-full px-3 py-2 border rounded"
+      />
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded placeholder-gray-400"
-        />
-
-        <div className="relative">
-          <input
-            name="password"
-            type={showPassword ? 'text' : 'password'}
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            className="w-full p-2 pr-10 border border-gray-600 bg-gray-700 text-white rounded placeholder-gray-400"
-          />
-          <div className="absolute right-2 top-2 cursor-pointer text-gray-400" onClick={() => setShowPassword(!showPassword)}>
-            {showPassword ? (<EyeOffIcon className="h-5 w-5" />) : (<EyeIcon className="h-5 w-5" />)}
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between text-sm">
-          <label className="flex items-center">
-            <input type="checkbox" className="mr-2" />
-            <span className="text-gray-300">{t('stayLoggedIn') || 'Stay logged in'}</span>
-          </label>
-          <a href="/forgot-password" className="text-blue-400 hover:underline">
-            {t('forgotPassword') || 'Forgot password?'}
-          </a>
-        </div>
-
-        <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">
-          {t('loginButton') || 'Login'}
-        </button>
-      </form>
-    </div>
+      <button
+        type="submit"
+        disabled={loading}
+        className={`w-full ${loading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'} text-white py-2 rounded`}
+      >
+        {loading ? (t('loggingIn') || 'Signing in...') : (t('login') || 'Sign in')}
+      </button>
+    </form>
   );
-};
-
-export default LoginForm;
+}
