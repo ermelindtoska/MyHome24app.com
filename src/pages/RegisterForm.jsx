@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/solid';
 
-const RegisterForm = () => {
+export default function RegisterForm() {
   const { t } = useTranslation('auth');
   const navigate = useNavigate();
 
@@ -27,7 +27,8 @@ const RegisterForm = () => {
     role: 'user',
   });
 
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,16 +37,17 @@ const RegisterForm = () => {
     setLoading(true);
 
     try {
-      const { firstName, lastName, email, confirmEmail, password, confirmPassword, role } = formData;
+      const { firstName, lastName, email, confirmEmail, password, confirmPassword, role } =
+        formData;
 
-      if (email !== confirmEmail) throw new Error(t('emailMismatch') || 'E-Mail-Adressen stimmen nicht überein.');
-      if (password !== confirmPassword) throw new Error(t('passwordMismatch') || 'Passwörter stimmen nicht überein.');
+      // ✅ Validime bazike
+      if (email !== confirmEmail) throw new Error(t('emailMismatch') || 'Emails do not match.');
+      if (password !== confirmPassword) throw new Error(t('passwordMismatch') || 'Passwords do not match.');
 
-      // 1) Krijo userin
+      // ✅ Krijo user-in
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
-      console.log('✅ Created user:', user.uid);
 
-      // 2) Ruaj në Firestore
+      // ✅ Ruaj në Firestore
       await setDoc(doc(db, 'users', user.uid), {
         firstName,
         lastName,
@@ -54,28 +56,29 @@ const RegisterForm = () => {
         createdAt: serverTimestamp(),
       });
 
-      // 3) Dërgo email verifikimi
-      await sendEmailVerification(user);
-      console.log('📨 Verification email triggered to:', user.email);
+      // ✅ Dergo email verifikimi (me redirect te login me një mesazh miqësor)
+      const actionCodeSettings = {
+        url: `${window.location.origin}/login?checkEmail=1`,
+        handleCodeInApp: false,
+      };
+      await sendEmailVerification(user, actionCodeSettings);
 
+      // (opsionale) mesazh i shkurtër para redirect
       setSuccessMessage(
         t('registerSuccessMessage') ||
-          'Ein Bestätigungslink wurde an Ihre E-Mail-Adresse gesendet.'
+          'A verification link has been sent to your email address.'
       );
 
-      // 4) Shko te faqja “Kontrollo emailin”
-      navigate('/register-success', {
-        replace: true,
-        state: { email },
-      });
+      // ✅ Shko te login, që përdoruesi ta shohë mesazhin “check your email”
+      navigate('/login?checkEmail=1', { replace: true });
     } catch (err) {
-      console.error('❌ Register error:', err);
+      console.error('Register error:', err);
       if (err.code === 'auth/email-already-in-use') {
-        setError(t('emailInUse') || 'E-Mail ist bereits registriert.');
+        setError(t('emailInUse') || 'This email is already registered.');
       } else if (err.code === 'auth/weak-password') {
-        setError(t('weakPassword') || 'Passwort ist zu schwach.');
+        setError(t('weakPassword') || 'Password is too weak.');
       } else {
-        setError(err.message || 'Etwas ist schief gelaufen.');
+        setError(err.message || (t('somethingWentWrong') || 'Something went wrong.'));
       }
     } finally {
       setLoading(false);
@@ -83,8 +86,10 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 mt-10 bg-white dark:bg-gray-800 shadow rounded transition-colors duration-300">
-      <Helmet><title>Register – MyHome24app</title></Helmet>
+    <div className="max-w-md mx-auto p-6 mt-10 bg-white dark:bg-gray-800 shadow rounded">
+      <Helmet>
+        <title>Register – MyHome24App</title>
+      </Helmet>
 
       <h2 className="text-2xl font-bold mb-4 text-center text-gray-900 dark:text-white">
         {t('createAccount') || 'Create Account'}
@@ -94,17 +99,53 @@ const RegisterForm = () => {
       {error && <p className="text-red-500 mb-4 text-sm">{error}</p>}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input name="firstName" placeholder={t('firstName') || 'First Name'} value={formData.firstName} onChange={handleChange} required className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white" />
-        <input name="lastName"  placeholder={t('lastName') || 'Last Name'}  value={formData.lastName}  onChange={handleChange} required className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white" />
-        <input name="email"      type="email" placeholder={t('email') || 'Email'} value={formData.email} onChange={handleChange} required className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white" />
-        <input name="confirmEmail" type="email" placeholder={t('confirmEmail') || 'Confirm Email'} value={formData.confirmEmail} onChange={handleChange} required className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white" />
+        <input
+          name="firstName"
+          placeholder={t('firstName') || 'First Name'}
+          value={formData.firstName}
+          onChange={handleChange}
+          required
+          className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white"
+        />
+        <input
+          name="lastName"
+          placeholder={t('lastName') || 'Last Name'}
+          value={formData.lastName}
+          onChange={handleChange}
+          required
+          className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white"
+        />
+        <input
+          name="email"
+          type="email"
+          placeholder={t('email') || 'Email'}
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white"
+        />
+        <input
+          name="confirmEmail"
+          type="email"
+          placeholder={t('confirmEmail') || 'Confirm Email'}
+          value={formData.confirmEmail}
+          onChange={handleChange}
+          required
+          className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white"
+        />
 
-        <select name="role" value={formData.role} onChange={handleChange} className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white">
+        <select
+          name="role"
+          value={formData.role}
+          onChange={handleChange}
+          className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white"
+        >
           <option value="user">{t('roleUser') || 'User'}</option>
           <option value="owner">{t('roleOwner') || 'Owner'}</option>
           <option value="agent">{t('roleAgent') || 'Agent'}</option>
         </select>
 
+        {/* Password */}
         <div className="relative">
           <input
             name="password"
@@ -115,11 +156,15 @@ const RegisterForm = () => {
             required
             className="w-full px-3 py-2 pr-10 border rounded bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white"
           />
-          <div className="absolute right-2 top-2.5 cursor-pointer text-gray-500 dark:text-gray-300" onClick={() => setShowPassword(!showPassword)}>
+          <div
+            className="absolute right-2 top-2.5 cursor-pointer text-gray-500 dark:text-gray-300"
+            onClick={() => setShowPassword(!showPassword)}
+          >
             {showPassword ? <EyeOffIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
           </div>
         </div>
 
+        {/* Confirm Password */}
         <div className="relative">
           <input
             name="confirmPassword"
@@ -130,7 +175,10 @@ const RegisterForm = () => {
             required
             className="w-full px-3 py-2 pr-10 border rounded bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white"
           />
-          <div className="absolute right-2 top-2.5 cursor-pointer text-gray-500 dark:text-gray-300" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+          <div
+            className="absolute right-2 top-2.5 cursor-pointer text-gray-500 dark:text-gray-300"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          >
             {showConfirmPassword ? <EyeOffIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
           </div>
         </div>
@@ -145,6 +193,4 @@ const RegisterForm = () => {
       </form>
     </div>
   );
-};
-
-export default RegisterForm;
+}
