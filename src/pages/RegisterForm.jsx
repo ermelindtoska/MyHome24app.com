@@ -1,20 +1,14 @@
 // src/pages/RegisterForm.jsx
 import React, { useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-  reload,
-} from "firebase/auth";
+import { Helmet } from "react-helmet";
+import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../firebase";
-import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
-import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
 
-export default function RegisterForm() {
+const RegisterForm = () => {
   const { t, i18n } = useTranslation("auth");
-  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -35,249 +29,151 @@ export default function RegisterForm() {
   const handleChange = (e) =>
     setFormData((s) => ({ ...s, [e.target.name]: e.target.value }));
 
-  // Try SDK first, then REST fallback
-  async function fireVerificationEmail(user) {
-    try {
-      await sendEmailVerification(user, {
-        url: `${window.location.origin}/login`,
-        handleCodeInApp: false,
-      });
-      console.log("[Register] verification via SDK");
-      return;
-    } catch (e) {
-      console.warn("[Register] SDK sendEmailVerification failed, fallback:", e);
-    }
-
-    const apiKey = auth.app.options.apiKey;
-    const idToken = await user.getIdToken();
-
-    const resp = await fetch(
-      `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ requestType: "VERIFY_EMAIL", idToken }),
-      }
-    );
-
-    if (!resp.ok) {
-      const txt = await resp.text();
-      throw new Error(`sendOobCode REST failed: ${resp.status} ${txt}`);
-    }
-    console.log("[Register] verification via REST fallback");
-  }
-
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // 🔒 avoid double-submit keeping the button stuck on "creating…"
-    if (loading) return;
-
     setError("");
     setSuccessMessage("");
     setLoading(true);
 
     try {
       const {
-        firstName,
-        lastName,
-        email,
-        confirmEmail,
-        password,
-        confirmPassword,
-        role,
+        firstName, lastName, email, confirmEmail,
+        password, confirmPassword, role,
       } = formData;
 
-      const emailNorm = email.trim().toLowerCase();
-      const confirmEmailNorm = confirmEmail.trim().toLowerCase();
+      if (email.trim().toLowerCase() !== confirmEmail.trim().toLowerCase()) {
+        throw new Error(t("emailMismatch") || "E-Mails stimmen nicht überein.");
+      }
+      if (password !== confirmPassword) {
+        throw new Error(t("passwordMismatch") || "Passwörter stimmen nicht überein.");
+      }
 
-      if (emailNorm !== confirmEmailNorm)
-        throw new Error(t("emailMismatch") || "E-mails do not match.");
-      if (password !== confirmPassword)
-        throw new Error(t("passwordMismatch") || "Passwords do not match.");
-
-      // 1) Create user
-      const cred = await createUserWithEmailAndPassword(
-        auth,
-        emailNorm,
-        password
-      );
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
       const user = cred.user;
-      console.log("[Register] signUp OK:", user.uid);
 
-      // 2) Save profile
-      await setDoc(doc(db, "users", user.uid), {
-        firstName: firstName.trim(),
-        lastName: lastName.trim(),
-        email: emailNorm,
-        role,
-        createdAt: serverTimestamp(),
-      });
-
-      // 3) Make sure email templates use the current language
+      // Gjuhë për e-mail templates
       auth.languageCode = i18n.language?.slice(0, 2) || "de";
-      await reload(user);
 
-      // 4) Send verification
-      await fireVerificationEmail(user);
+      // Dërgo verifikimin përmes REST
+      const apiKey =
+        (auth?.app?.options && auth.app.options.apiKey) ||
+        import.meta.env.VITE_FIREBASE_API_KEY || process.env.REACT_APP_FIREBASE_API_KEY;
 
-      // 5) Feedback + navigation
-      setSuccessMessage(
-        t("registerSuccessMessage") ||
-          "A verification link has been sent to your email."
+      if (!apiKey) throw new Error("Missing Firebase API key.");
+
+      const idToken = await user.getIdToken(true);
+      const resp = await fetch(
+        `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            requestType: "VERIFY_EMAIL",
+            idToken,
+            continueUrl: `${window.location.origin}/login`,
+          }),
+        }
       );
+      if (!resp.ok) {
+        const txt = await resp.text();
+        throw new Error(`sendOobCode failed: ${resp.status} ${txt}`);
+      }
 
-      // If you have a “check inbox” page:
-      navigate("/register-success", { replace: true, state: { email: emailNorm } });
-      return; // stop further execution after navigate
+      // Ruaj profilin (best-effort)
+      try {
+        await setDoc(doc(db, "users", user.uid), {
+          firstName,
+          lastName,
+          email,
+          role,
+          createdAt: serverTimestamp(),
+        });
+      } catch (w) {
+        console.warn("[Register] setDoc warning:", w);
+      }
+
+      setSuccessMessage(
+        t("verifyEmailSent") ||
+          "Wir haben Ihnen eine Bestätigungs-E-Mail gesendet. Bitte prüfen Sie auch den Spam-Ordner."
+      );
     } catch (err) {
       console.error("[Register] ERROR:", err);
-      if (err?.code === "auth/email-already-in-use") {
-        setError(t("emailInUse") || "E-mail is already registered.");
-      } else if (err?.code === "auth/weak-password") {
-        setError(t("weakPassword") || "Password is too weak.");
-      } else if (err?.code === "auth/too-many-requests") {
-        setError(
-          t("tooManyRequests") ||
-            "Too many attempts. Please try again in a few minutes."
-        );
-      } else {
-        setError(err?.message || "Something went wrong.");
-      }
+      let msg = err?.message || (t("somethingWrong") || "Etwas ist schiefgelaufen.");
+      if (err?.code === "auth/email-already-in-use")
+        msg = t("emailInUse") || "E-Mail ist bereits registriert.";
+      else if (err?.code === "auth/weak-password")
+        msg = t("weakPassword") || "Passwort ist zu schwach (min. 6 Zeichen).";
+      setError(msg);
     } finally {
-      // ✅ always release the button
       setLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="max-w-md mx-auto p-6 mt-10 bg-white dark:bg-gray-800 shadow rounded">
-      <Helmet>
-        <title>Register – MyHome24App</title>
-      </Helmet>
+    <div className="max-w-md mx-auto p-6 mt-10 bg-white dark:bg-gray-800 shadow rounded transition-colors duration-300">
+      <Helmet><title>{t("registerTitle") || "Registrieren – MyHome24app"}</title></Helmet>
 
-      <h2 className="text-2xl font-bold mb-4 text-center">
-        {t("createAccount") || "Create Account"}
+      <h2 className="text-2xl font-bold mb-2 text-center text-gray-900 dark:text-white">
+        {t("createAccount") || "Konto erstellen"}
       </h2>
 
-      {successMessage && (
-        <p className="text-green-600 mb-4 text-sm">{successMessage}</p>
-      )}
+      {successMessage && <p className="text-green-600 mb-4 text-sm">{successMessage}</p>}
       {error && <p className="text-red-500 mb-4 text-sm">{error}</p>}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          name="firstName"
-          placeholder={t("firstName") || "First Name"}
-          value={formData.firstName}
-          onChange={handleChange}
-          required
-          disabled={loading}
-          className="w-full px-3 py-2 border rounded"
-        />
-        <input
-          name="lastName"
-          placeholder={t("lastName") || "Last Name"}
-          value={formData.lastName}
-          onChange={handleChange}
-          required
-          disabled={loading}
-          className="w-full px-3 py-2 border rounded"
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder={t("email") || "Email"}
-          value={formData.email}
-          onChange={handleChange}
-          required
-          disabled={loading}
-          className="w-full px-3 py-2 border rounded"
-        />
-        <input
-          name="confirmEmail"
-          type="email"
-          placeholder={t("confirmEmail") || "Confirm Email"}
-          value={formData.confirmEmail}
-          onChange={handleChange}
-          required
-          disabled={loading}
-          className="w-full px-3 py-2 border rounded"
-        />
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <input name="firstName" placeholder={t("firstName") || "Vorname"}
+               value={formData.firstName} onChange={handleChange} required
+               className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 text-sm" />
+        <input name="lastName" placeholder={t("lastName") || "Nachname"}
+               value={formData.lastName} onChange={handleChange} required
+               className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 text-sm" />
+        <input name="email" type="email" autoComplete="email"
+               placeholder={t("email") || "E-Mail"}
+               value={formData.email} onChange={handleChange} required
+               className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 text-sm" />
+        <input name="confirmEmail" type="email" autoComplete="email"
+               placeholder={t("confirmEmail") || "E-Mail bestätigen"}
+               value={formData.confirmEmail} onChange={handleChange} required
+               className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 text-sm" />
 
-        <select
-          name="role"
-          value={formData.role}
-          onChange={handleChange}
-          disabled={loading}
-          className="w-full px-3 py-2 border rounded"
-        >
-          <option value="user">{t("roleUser") || "User"}</option>
-          <option value="owner">{t("roleOwner") || "Owner"}</option>
-          <option value="agent">{t("roleAgent") || "Agent"}</option>
+        <select name="role" value={formData.role} onChange={handleChange}
+                className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 text-sm">
+          <option value="user">{t("roleUser") || "Benutzer:in"}</option>
+          <option value="owner">{t("roleOwner") || "Eigentümer:in"}</option>
+          <option value="agent">{t("roleAgent") || "Makler:in"}</option>
         </select>
 
         <div className="relative">
-          <input
-            name="password"
-            type={showPassword ? "text" : "password"}
-            placeholder={t("password") || "Password"}
-            value={formData.password}
-            onChange={handleChange}
-            required
-            disabled={loading}
-            className="w-full px-3 py-2 pr-10 border rounded"
-          />
-          <div
-            className={`absolute right-2 top-2.5 ${
-              loading ? "opacity-40 cursor-not-allowed" : "cursor-pointer"
-            }`}
-            onClick={() => !loading && setShowPassword((s) => !s)}
-          >
-            {showPassword ? (
-              <EyeOffIcon className="h-5 w-5" />
-            ) : (
-              <EyeIcon className="h-5 w-5" />
-            )}
-          </div>
+          <input name="password" type={showPassword ? "text" : "password"}
+                 placeholder={t("password") || "Passwort"}
+                 value={formData.password} onChange={handleChange} required
+                 className="w-full px-3 py-2 pr-10 border rounded bg-white dark:bg-gray-700 text-sm" />
+          <button type="button" aria-label="toggle password"
+                  className="absolute right-2 top-2.5 text-gray-500"
+                  onClick={() => setShowPassword((s) => !s)}>
+            {showPassword ? <EyeOffIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
+          </button>
         </div>
 
         <div className="relative">
-          <input
-            name="confirmPassword"
-            type={showConfirmPassword ? "text" : "password"}
-            placeholder={t("confirmPassword") || "Confirm Password"}
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-            disabled={loading}
-            className="w-full px-3 py-2 pr-10 border rounded"
-          />
-          <div
-            className={`absolute right-2 top-2.5 ${
-              loading ? "opacity-40 cursor-not-allowed" : "cursor-pointer"
-            }`}
-            onClick={() => !loading && setShowConfirmPassword((s) => !s)}
-          >
-            {showConfirmPassword ? (
-              <EyeOffIcon className="h-5 w-5" />
-            ) : (
-              <EyeIcon className="h-5 w-5" />
-            )}
-          </div>
+          <input name="confirmPassword" type={showConfirmPassword ? "text" : "password"}
+                 placeholder={t("confirmPassword") || "Passwort bestätigen"}
+                 value={formData.confirmPassword} onChange={handleChange} required
+                 className="w-full px-3 py-2 pr-10 border rounded bg-white dark:bg-gray-700 text-sm" />
+          <button type="button" aria-label="toggle confirm"
+                  className="absolute right-2 top-2.5 text-gray-500"
+                  onClick={() => setShowConfirmPassword((s) => !s)}>
+            {showConfirmPassword ? <EyeOffIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
+          </button>
         </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          aria-busy={loading}
-          className={`w-full ${
-            loading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
-          } text-white py-2 rounded`}
-        >
-          {loading ? t("creating") || "Creating..." : t("register") || "Register"}
+        <button type="submit" disabled={loading}
+                className={`w-full ${loading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"} text-white py-2 rounded`}>
+          {loading ? (t("creating") || "Wird erstellt…") : (t("register") || "Registrieren")}
         </button>
       </form>
     </div>
   );
-}
+};
+
+export default RegisterForm;

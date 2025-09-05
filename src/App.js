@@ -72,6 +72,7 @@ import UnauthorizedPage from './pages/Unauthorized';
 import { ToasterProvider } from "./components/ui/toaster";
 import { Toaster } from "sonner";
 import GlobalMeta from "./components/SEO/GlobalMeta";
+import EmailActionGate from "./components/EmailActionGate";
 
 
 
@@ -138,6 +139,7 @@ function AppRoutes() {
   <Route path="/map-leaflet" element={<GermanyMapLeaflet />} />
   <Route path="/explore" element={<ExplorePage />} />
   <Route path="/explore/germany" element={<ExplorePage />} />
+  <Route path="/auth/action" element={<EmailActionGate />} />
 
   {/* ✅ DASHBOARDS ME ROLE SPECIFIKE */}
   <Route
@@ -203,6 +205,7 @@ function App() {
       <BrowserRouter>
          <AuthProvider>
             <RoleProvider>
+              
          <AppRoutes />
          <ToastContainer />
          
