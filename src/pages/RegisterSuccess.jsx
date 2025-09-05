@@ -1,26 +1,38 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { EyeIcon, EyeOffIcon } from '@heroicons/react/solid';
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { auth } from '../firebase';
+import { sendEmailVerification } from 'firebase/auth';
 
+export default function RegisterSuccess() {
+  const { state } = useLocation();
+  const email = state?.email;
+  const [msg, setMsg] = useState('');
 
-const RegisterSuccess = () => {
-  const { t } = useTranslation('auth');
+  const resend = async () => {
+    try {
+      if (auth.currentUser) {
+        await sendEmailVerification(auth.currentUser);
+        setMsg('Verification email sent again.');
+      } else {
+        setMsg('Please sign in to resend the verification email.');
+      }
+    } catch (e) {
+      console.error(e);
+      setMsg(e.message);
+    }
+  };
 
   return (
-    <div className="max-w-xl mx-auto mt-20 p-6 bg-white shadow rounded text-center dark:bg-gray-800 dark:text-white">
-      <Helmet>
-        <title>{t("registerSuccessTitle")}</title>
-      </Helmet>
-      <h1 className="text-3xl font-bold mb-4 text-green-600 dark:text-green-400">{t("registerSuccessHeading")}</h1>
-      <p className="mb-4">{t("registerSuccessMessage")}</p>
-      <p className="mb-6">{t("registerSuccessInstruction")}</p>
-      <Link to="/login" className="inline-block bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700">
-        {t("goToLogin")}
-      </Link>
+    <div className="max-w-lg mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-2">Check your email</h1>
+      <p className="mb-4">
+        We sent a verification link to <b>{email || 'your inbox'}</b>. 
+        Please check Spam/Junk too.
+      </p>
+      <button onClick={resend} className="px-4 py-2 rounded bg-blue-600 text-white">
+        Resend email
+      </button>
+      {msg && <p className="mt-3 text-sm">{msg}</p>}
     </div>
   );
-};
-
-export default RegisterSuccess;
+}
