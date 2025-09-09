@@ -11,6 +11,13 @@
   "studio": "Studio",
   "loft": "Loft",
   "bungalow": "Bungalow",
+    "searchLocation": "Search by city or address...",
+
+  "office": "Office",
+
+  "default": "Default",
+  "priceAsc": "Price Low to High",
+  "priceDesc": "Price High to Low",
   "farmhouse": "Farmhouse",
   "castle": "Castle",
   "chalet": "Chalet",

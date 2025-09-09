@@ -6,7 +6,24 @@
   "logout": "Abmelden",
   "register": "Registrieren",
   "buy": "Kaufen",
+
+  "user": "Benutzer",
+  "owner": "Eigentümer",
+  "agent": "Makler",
+  "settings": "Einstellungen",
+  
+  "officeCommercial": "Büro / Gewerbe",
+
+  "bankPartners": "Bankpartner",
+  "agentSearch": "Maklersuche",
+ 
+  "newListing": "Neue Anzeige",
+  "bannerAds": "Bannerwerbung",
+  
   "about": "Über uns",
+  "Benutzer": "User",
+  "Eigentümer" : "Owner",
+  "Makler" :"Agent",
   "publishProperty": "Immobilie veröffentlichen",
   "contact": "Kontakt",
    "favorites": "Favoriten",

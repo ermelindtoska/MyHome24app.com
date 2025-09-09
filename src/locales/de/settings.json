@@ -4,6 +4,18 @@
   "notifications": "Benachrichtigungen",
   "privacy": "Datenschutz",
   "account": "Kontoeinstellungen",
+    
+  "name": "Name",
+  "email": "E-Mail",
+  "phone": "Telefonnummer",
+  "dateOfBirth": "Geburtsdatum",
+  "profilePicture": "Profilbild",
+  "profilePictureUrl": "Profilbild URL",
+  "saveChanges": "Änderungen speichern",
+  "saving": "Speichern...",
+  "profileUpdated": "Profil erfolgreich aktualisiert!",
+  "updateFailed": "Fehler beim Aktualisieren des Profils.",
+  "loginRequired": "Bitte melden Sie sich an, um auf die Einstellungen zuzugreifen.",
   "save": "Speichern",
   "changePassword": "Passwort ändern",
       "settings": {
@@ -23,8 +35,20 @@
   "darkMode": "Dunkler Modus",
   "notifications": "Benachrichtigungen",
   "enableNotifications": "Benachrichtigungen aktivieren",
+    
+  "name": "Name",
+  "email": "E-Mail",
+  "phone": "Telefonnummer",
+  "dateOfBirth": "Geburtsdatum",
+  "profilePicture": "Profilbild",
+  "profilePictureUrl": "Profilbild URL",
   
-  "accountSettings": "Kontoeinstellungen",
+  "saving": "Speichern...",
+  "profileUpdated": "Profil erfolgreich aktualisiert!",
+  "updateFailed": "Fehler beim Aktualisieren des Profils.",
+  "loginRequired": "Bitte melden Sie sich an, um auf die Einstellungen zuzugreifen.",
+  
+  
   "changeEmail": "E-Mail-Adresse ändern",
   "changePassword": "Passwort ändern",
   "deleteAccount": "Konto löschen",

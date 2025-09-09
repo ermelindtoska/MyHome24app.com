@@ -1,5 +1,21 @@
 {
   "buy": "Buy",
+  
+  "findAgent": "Find Agent",
+
+  "user": "User",
+  "owner": "Owner",
+  "agent": "Agent",
+  "settings": "Settings",
+ 
+  "officeCommercial": "Office / Commercial",
+
+  "bankPartners": "Bank Partners",
+  "agentSearch": "Agent Search",
+  
+  "newListing": "New Listing",
+  "bannerAds": "Banner Ads",
+  
   "rent": "Rent",
   "sell": "Sell",
   "mortgage": "Mortgage",
@@ -20,8 +36,9 @@
     "backToSearch": "Back to search",
     "publishProperty": "Publish a property",
   "showMapButton": "Show Map",
-
-
+"Benutzer": "User",
+"Eigentümer": "Owner",
+"Makler": "Agent",
   "showMap": "Show map",
   "careers": "Careers",
   "newsletter": "Newsletter",

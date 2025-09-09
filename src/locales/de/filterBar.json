@@ -12,6 +12,10 @@
   "saveSearch": "Suche speichern",
   "clearAll": "Alle löschen",
   "propertyPurpose": "Zweck",
+    "searchLocation": "Nach Stadt oder Adresse suchen...",
+ 
+  "default": "Standard",
+
   "buy": "Kaufen",
   "rent": "Mieten",
   "shortTerm": "Kurzfristig",

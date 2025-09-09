@@ -2,8 +2,11 @@
 import './i18n';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+
+// Pages
 import HomePage from './pages/HomePage';
 import AddListingPage from './pages/AddListingPage';
 import LoginRegister from './components/LoginRegister';
@@ -51,7 +54,6 @@ import ImpressumPage from './pages/ImpressumPage';
 import SearchResultsPage from './pages/SearchResultsPage';
 import GermanyMapLeaflet from './components/GermanyMapLeaflet';
 import GermanyMapReal from './pages/GermanyMapReal';
-import { useTranslation } from 'react-i18next';
 import ComparePage from './pages/ComparePage';
 import CompareDetails from './pages/CompareDetails';
 import PropertyDetails from './components/PropertyDetails/PropertyDetails';
@@ -59,30 +61,29 @@ import ExplorePage from './pages/ExplorePage';
 import MapPage from './pages/MapPage';
 import BuyMapPage from './pages/BuyMapPage';
 import RentMapPage from './pages/RentMapPage';
-import { RoleProvider } from './roles/RoleContext';
-import RequireRole from './roles/RequireRole';
 import AgentDashboard from './pages/AgentDashboard';
 import PublishProperty from './publish/PublishProperty';
 import AdminDashboard from './pages/AdminDashboard';
-import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './auth/AuthContext';
+import UnauthorizedPage from './pages/Unauthorized';
+import EmailActionGate from './components/EmailActionGate';
+import SearchPage from './pages/SearchPage';
+import SettingsPage from './pages/SettingsPage';
+
+// Providers
+import { RoleProvider } from './roles/RoleContext';
+import RequireRole from './roles/RequireRole';
+import { AuthProvider } from './context/AuthContext'; // ✅ vetem kjo
+
+// Toasts / SEO
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import UnauthorizedPage from './pages/Unauthorized';
-import { ToasterProvider } from "./components/ui/toaster";
-import { Toaster } from "sonner";
-import GlobalMeta from "./components/SEO/GlobalMeta";
-import EmailActionGate from "./components/EmailActionGate";
-
-
-
-
-
+import { ToasterProvider } from './components/ui/toaster';
+import { Toaster } from 'sonner';
+import GlobalMeta from './components/SEO/GlobalMeta';
 
 const MapWrapper = ({ purpose }) => (
   <GermanyMapReal purpose={purpose} key={purpose} />
 );
-
 
 function AppRoutes() {
   const location = useLocation();
@@ -92,129 +93,145 @@ function AppRoutes() {
       <Navbar />
       <GlobalMeta />
       <main className="flex-grow">
-     <Routes>
-  <Route path="/" element={<HomePage />} />
-  <Route path="/listing/:id" element={<PropertyDetails />} />
-  <Route path="/edit/:id" element={<EditListingForm />} />
-  <Route path="/register" element={<RegisterForm />} />
-  <Route path="/login" element={<LoginForm />} />
-  <Route path="/register-success" element={<RegisterSuccess />} />
-  <Route path="/auth" element={<LoginRegister />} />
-  <Route path="/about" element={<AboutPage />} />
-  <Route path="/forgot-password" element={<ForgotPassword />} />
-  <Route path="/rent/house" element={<HousePage />} />
-  <Route path="/rent/apartment" element={<ApartmentPage />} />
-  <Route path="/rent/office" element={<OfficePage />} />
-  <Route path="/buy/owner" element={<OwnerPage />} />
-  <Route path="/buy/foreclosures" element={<ForeclosurePage />} />
-  <Route path="/new-construction" element={<NewConstructionPage />} />
-  <Route path="/mortgage/calculator" element={<MortgageCalculatorPage />} />
-  <Route path="/mortgage/partners" element={<BankPartnersPage />} />
-  <Route path="/advertise/banner" element={<BannerAdsPage />} />
-  <Route path="/advertise/premium" element={<PremiumListingPage />} />
-  <Route path="/manage/add" element={<NewListing />} />
-  <Route path="/manage/properties" element={<ManageRentalsPage />} />
-  <Route path="/agents" element={<FindAgentPage />} />
-  <Route path="/agent/search" element={<AgentSearchPage />} />
-  <Route path="/agent/rate" element={<RateAgentPage />} />
-  <Route path="/support" element={<SupportPage />} />
-  <Route path="/how-it-works" element={<HowItWorksPage />} />
-  <Route path="/contact" element={<ContactPage />} />
-  <Route path="/privacy" element={<PrivacyPage />} />
-  <Route path="/terms" element={<TermsPage />} />
-  <Route path="/impressum" element={<ImpressumPage />} />
-  <Route path="/create" element={<ListingCreatePage />} />
-  <Route path="/careers" element={<CareersPage />} />
-  <Route path="/favorites" element={<ProtectedRoute><FavoritesPage /></ProtectedRoute>} />
-  <Route path="/add" element={<ProtectedRoute><AddListingPage /></ProtectedRoute>} />
-  <Route path="/search" element={<SearchResultsPage />} />
-  <Route path="/listings" element={<ListingsPage />} />
-  <Route path="/compare" element={<ComparePage />} />
-  <Route path="/compare/details" element={<CompareDetails />} />
-  <Route path="/map" element={<MapPage purpose="all" />} />
-  <Route path="/buy" element={<MapPage purpose="buy" />} />
-  <Route path="/rent" element={<MapPage purpose="rent" />} />
-  <Route path="/buy/map" element={<MapPage purpose="buy" />} />
-  <Route path="/rent/map" element={<MapPage purpose="rent" />} />
-  <Route path="/map-leaflet" element={<GermanyMapLeaflet />} />
-  <Route path="/explore" element={<ExplorePage />} />
-  <Route path="/explore/germany" element={<ExplorePage />} />
-  <Route path="/auth/action" element={<EmailActionGate />} />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/listing/:id" element={<PropertyDetails />} />
+          <Route path="/edit/:id" element={<EditListingForm />} />
 
-  {/* ✅ DASHBOARDS ME ROLE SPECIFIKE */}
-  <Route
-    path="/owner-dashboard"
-    element={
-      <RequireRole allowedRoles={['owner', 'admin']}>
-        <OwnerDashboard />
-      </RequireRole>
-    }
-  />
-  <Route
-    path="/agent-dashboard"
-    element={
-      <RequireRole allowedRoles={['agent', 'admin']}>
-        <AgentDashboard />
-      </RequireRole>
-    }
-  />
-  <Route
-    path="/dashboard"
-    element={
-      <RequireRole allowedRoles={['user', 'admin']}>
-        <UserDashboard />
-      </RequireRole>
-    }
-  />
-  <Route
-    path="/admin-dashboard"
-    element={
-      <RequireRole allowedRoles={['admin']}>
-        <AdminDashboard />
-      </RequireRole>
-    }
-  />
-  <Route
-  path="/user-dashboard"
-  element={
-    <ProtectedRoute>
-      <RequireRole allowedRoles={['user']}>
-        <UserDashboard />
-      </RequireRole>
-    </ProtectedRoute>
-  }
-/>
+          <Route path="/register" element={<RegisterForm />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/register-success" element={<RegisterSuccess />} />
+          <Route path="/auth" element={<LoginRegister />} />
+          <Route path="/auth/action" element={<EmailActionGate />} />
 
-  <Route path="/add-property" element={<PublishProperty />} />
-  <Route path="/unauthorized" element={<UnauthorizedPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
+          {/* Rent/Buy */}
+          <Route path="/rent/house" element={<HousePage />} />
+          <Route path="/rent/apartment" element={<ApartmentPage />} />
+          <Route path="/rent/office" element={<OfficePage />} />
+          <Route path="/buy/owner" element={<OwnerPage />} />
+          <Route path="/buy/foreclosures" element={<ForeclosurePage />} />
+          <Route path="/new-construction" element={<NewConstructionPage />} />
 
+          {/* Mortgage */}
+          <Route path="/mortgage/calculator" element={<MortgageCalculatorPage />} />
+          <Route path="/mortgage/partners" element={<BankPartnersPage />} />
 
+          {/* Advertise */}
+          <Route path="/advertise/banner" element={<BannerAdsPage />} />
+          <Route path="/advertise/premium" element={<PremiumListingPage />} />
 
-</Routes>
+          {/* Manage */}
+          <Route path="/manage/add" element={<NewListing />} />
+          <Route path="/manage/properties" element={<ManageRentalsPage />} />
 
+          {/* Agents */}
+          <Route path="/agents" element={<FindAgentPage />} />
+          <Route path="/agent/search" element={<AgentSearchPage />} />
+          <Route path="/agent/rate" element={<RateAgentPage />} />
+
+          {/* Static */}
+          <Route path="/support" element={<SupportPage />} />
+          <Route path="/how-it-works" element={<HowItWorksPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/impressum" element={<ImpressumPage />} />
+          <Route path="/create" element={<ListingCreatePage />} />
+          <Route path="/careers" element={<CareersPage />} />
+
+          {/* User content */}
+          <Route path="/favorites" element={<ProtectedRoute><FavoritesPage /></ProtectedRoute>} />
+          <Route path="/add" element={<ProtectedRoute><AddListingPage /></ProtectedRoute>} />
+
+          {/* Search / Listings */}
+          <Route path="/search" element={<SearchResultsPage />} />
+          <Route path="/listings" element={<ListingsPage />} />
+          <Route path="/homes" element={<SearchPage />} />
+
+          {/* Compare */}
+          <Route path="/compare" element={<ComparePage />} />
+          <Route path="/compare/details" element={<CompareDetails />} />
+
+          {/* Maps – mbaje vetëm NJË /map */}
+          <Route path="/map" element={<MapPage purpose="all" />} />
+          <Route path="/buy" element={<MapPage purpose="buy" />} />
+          <Route path="/rent" element={<MapPage purpose="rent" />} />
+          <Route path="/buy/map" element={<MapPage purpose="buy" />} />
+          <Route path="/rent/map" element={<MapPage purpose="rent" />} />
+          <Route path="/map-leaflet" element={<GermanyMapLeaflet />} />
+          <Route path="/explore" element={<ExplorePage />} />
+          <Route path="/explore/germany" element={<ExplorePage />} />
+
+          {/* Settings */}
+          <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+
+          {/* Role-based dashboards */}
+          <Route
+            path="/owner-dashboard"
+            element={
+              <RequireRole allowedRoles={['owner', 'admin']}>
+                <OwnerDashboard />
+              </RequireRole>
+            }
+          />
+          <Route
+            path="/agent-dashboard"
+            element={
+              <RequireRole allowedRoles={['agent', 'admin']}>
+                <AgentDashboard />
+              </RequireRole>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <RequireRole allowedRoles={['user', 'admin']}>
+                <UserDashboard />
+              </RequireRole>
+            }
+          />
+          <Route
+            path="/admin-dashboard"
+            element={
+              <RequireRole allowedRoles={['admin']}>
+                <AdminDashboard />
+              </RequireRole>
+            }
+          />
+          <Route
+            path="/user-dashboard"
+            element={
+              <ProtectedRoute>
+                <RequireRole allowedRoles={['user']}>
+                  <UserDashboard />
+                </RequireRole>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/add-property" element={<PublishProperty />} />
+          <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        </Routes>
       </main>
       <Footer />
     </div>
   );
 }
 
-function App() {
+export default function App() {
   return (
-    
-      <BrowserRouter>
-         <AuthProvider>
-            <RoleProvider>
-              
-         <AppRoutes />
-         <ToastContainer />
-         
-       <ToasterProvider />
-       <Toaster richColors />
-    </RoleProvider>
-  </AuthProvider>
-</BrowserRouter>
-    
+    <Router>
+      <AuthProvider>
+        <RoleProvider>
+          <AppRoutes />
+          <ToastContainer />
+          <ToasterProvider />
+          <Toaster richColors />
+        </RoleProvider>
+      </AuthProvider>
+    </Router>
   );
 }
-export default App;

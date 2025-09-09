@@ -121,7 +121,20 @@
   "bathrooms": "Badezimmer",
   "area": "Fläche",
 
-  "latestListings": "Neueste Anzeigen"
+  "latestListings": "Neueste Anzeigen",
+    "title": "Ihre neue Heimat in Deutschland",
+  "subtitle": "Finden Sie Ihre perfekte Immobilie – schnell und einfach.",
+  "searchLocation": "Nach Stadt oder Adresse suchen…",
+  "allTypes": "Alle Typen",
+
+  "minPrice": "Min. Preis",
+  "maxPrice": "Max. Preis",
+  "minSize": "Min. Größe",
+  "maxSize": "Max. Größe",
+  "clear": "Löschen",
+ 
+  "exploreNow": "Jetzt erkunden",
+  "howItWorks": "Wie es funktioniert"
 
 
 
