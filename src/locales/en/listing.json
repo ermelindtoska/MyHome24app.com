@@ -2,6 +2,7 @@
   "addListing": "Add New Listing",
     "title": "Property Listings",
   "price": "Price",
+  "map.title": "MyHome24App",
   "type": "Property Type",
   "purpose": "Purpose",
   "bedrooms": "Bedrooms",

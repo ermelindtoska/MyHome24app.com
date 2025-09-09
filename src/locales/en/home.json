@@ -118,7 +118,20 @@
   "area": "Area",
   "noListings": "There are currently no listings available.",
  
-  "latestListings": "Latest Listings"
+  "latestListings": "Latest Listings",
+    "title": "Your New Home in Germany",
+  "subtitle": "Find your perfect property – fast and easy.",
+  "searchLocation": "Search by city or address...",
+  "allTypes": "All Types",
+
+  "minPrice": "Min. Price",
+  "maxPrice": "Max. Price",
+  "minSize": "Min. Size",
+  "maxSize": "Max. Size",
+  "clear": "Clear",
+  "search": "Search",
+  "exploreNow": "Explore Now",
+  "howItWorks": "How It Works"
 
 
 

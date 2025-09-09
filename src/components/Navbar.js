@@ -8,28 +8,32 @@ import { auth, db } from '../firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { ThemeContext } from '../context/ThemeContext';
 import { HiMenu, HiX } from 'react-icons/hi';
-import { doc, getDoc } from 'firebase/firestore';
-
-
-
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
-  const { t } = useTranslation('navbar');
+  const { t, i18n } = useTranslation('navbar');
   const { isDark, toggleTheme } = useContext(ThemeContext);
   const [openMenu, setOpenMenu] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const timeoutRef = useRef(null);
   const navigate = useNavigate();
+  
+
+  // Role change state
+  const [role, setRole] = useState('user');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user && user.emailVerified) {
         const roleDoc = await getDoc(doc(db, 'roles', user.uid));
-        const userRole = roleDoc.exists() ? roleDoc.data().role : null;
+        const userRole = roleDoc.exists() ? roleDoc.data().role : 'user';
         setCurrentUser({ ...user, role: userRole });
+        setRole(userRole);
       } else {
         setCurrentUser(null);
+        setRole('user');
         if (user && !user.emailVerified) {
           console.warn('User email not verified. Signing out.');
           await signOut(auth);
@@ -46,6 +50,29 @@ const Navbar = () => {
     navigate('/');
   };
 
+  const handleChangeRole = async (newRole) => {
+    if (!currentUser) return;
+
+    const roleRef = doc(db, 'roles', currentUser.uid);
+
+    try {
+      // Check if document exists
+      const roleDoc = await getDoc(roleRef);
+      if (roleDoc.exists()) {
+        await updateDoc(roleRef, { role: newRole });
+      } else {
+        // Create new document
+        await setDoc(roleRef, { role: newRole });
+      }
+      setRole(newRole);
+      // Reload page to reflect changes
+      window.location.reload();
+    } catch (error) {
+      console.error("Error updating role:", error);
+      alert("Could not update your role. Please try again.");
+    }
+  };
+
   const handleMouseEnter = (menu) => {
     clearTimeout(timeoutRef.current);
     setOpenMenu(menu);
@@ -55,41 +82,39 @@ const Navbar = () => {
     timeoutRef.current = setTimeout(() => setOpenMenu(null), 300);
   };
 
-  
-
   const leftMenus = [
     {
       title: t('buy'),
       to: '/buy',
       items: [
-        { label: 'Neubau', to: '/new-construction' },
-        { label: 'Zwangsversteigerungen', to: '/buy/foreclosures' },
-        { label: 'Direkt vom Eigentümer', to: '/buy/owner' },
+        { label: t('newConstruction'), to: '/new-construction' },
+        { label: t('foreclosures'), to: '/buy/foreclosures' },
+        { label: t('directFromOwner'), to: '/buy/owner' },
       ],
     },
     {
       title: t('rent'),
       to: '/rent',
       items: [
-        { label: 'Wohnung', to: '/rent/apartment' },
-        { label: 'Haus', to: '/rent/house' },
-        { label: 'Büro / Gewerbe', to: '/rent/office' },
+        { label: t('apartment'), to: '/rent/apartment' },
+        { label: t('house'), to: '/rent/house' },
+        { label: t('officeCommercial'), to: '/rent/office' },
       ],
     },
     {
       title: t('mortgage'),
       to: '/mortgage',
       items: [
-        { label: 'Rechner', to: '/mortgage/calculator' },
-        { label: 'Bankpartner', to: '/mortgage/partners' },
+        { label: t('calculator'), to: '/mortgage/calculator' },
+        { label: t('bankPartners'), to: '/mortgage/partners' },
       ],
     },
     {
       title: t('findAgent'),
       to: '/agents',
       items: [
-        { label: 'Maklersuche', to: '/agent/search' },
-        { label: 'Makler bewerten', to: '/agent/rate' },
+        { label: t('agentSearch'), to: '/agent/search' },
+        { label: t('rateAgent'), to: '/agent/rate' },
       ],
     },
   ];
@@ -98,44 +123,16 @@ const Navbar = () => {
     {
       title: t('manage'),
       items: [
-        { label: 'Meine Immobilien', to: '/manage/properties' },
-        { label: 'Neue Anzeige', to: '/manage/add' },
+        { label: t('myProperties'), to: '/manage/properties' },
+        { label: t('newListing'), to: '/manage/add' },
       ],
     },
     {
       title: t('advertise'),
       items: [
-        { label: 'Bannerwerbung', to: '/advertise/banner' },
-        { label: 'Premium-Listing', to: '/advertise/premium' },
+        { label: t('bannerAds'), to: '/advertise/banner' },
+        { label: t('premiumListing'), to: '/advertise/premium' },
       ],
-    },
-    {
-      title: currentUser ? (
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">
-            {currentUser.photoURL ? (
-              <img src={currentUser.photoURL} alt="avatar" className="w-full h-full rounded-full object-cover" />
-            ) : (
-              currentUser.email?.[0]?.toUpperCase()
-            )}
-          </div>
-          <span className="text-sm hidden sm:inline">{currentUser.email}</span>
-        </div>
-      ) : (
-        t('login')
-      ),
-     items: currentUser
-  ? [
-      {
-        label: t('dashboard'),
-        to: currentUser.role === 'owner' ? '/dashboard/owner' : '/dashboard',
-      },
-      { label: t('logout'), to: '#', onClick: handleLogout },
-    ]
-  : [
-      { label: 'Login', to: '/login' },
-      { label: 'Registrieren', to: '/register' },
-    ],
     },
     {
       title: t('help'),
@@ -173,17 +170,16 @@ const Navbar = () => {
                 {item.label}
               </button>
             ) : (
-             <button
-            key={idx}
-            onClick={() => {
-              setOpenMenu(null);
-              navigate(item.to);
-            }}
-            className="w-full text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-          >
-            {item.label}
-          </button>
-              
+              <button
+                key={idx}
+                onClick={() => {
+                  setOpenMenu(null);
+                  navigate(item.to);
+                }}
+                className="w-full text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                {item.label}
+              </button>
             )
           )}
         </div>
@@ -211,20 +207,74 @@ const Navbar = () => {
           {rightMenus.map((menu, index) => renderDropdown(menu, index + 100, 'right'))}
 
           {currentUser && (
-  <div title={currentUser.email} className="w-9 h-9 rounded-full overflow-hidden border-2 border-blue-600 dark:border-blue-300">
-    {currentUser.photoURL ? (
-      <img
-        src={currentUser.photoURL}
-        alt="Avatar"
-        className="w-full h-full object-cover"
-      />
-    ) : (
-      <div className="w-full h-full bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 flex items-center justify-center text-sm">
-        👤
-      </div>
-    )}
-  </div>
-)}
+            <div className="relative group">
+              <div
+                title={currentUser.email}
+                className="w-9 h-9 rounded-full overflow-hidden border-2 border-blue-600 dark:border-blue-300 cursor-pointer"
+              >
+                {currentUser.photoURL ? (
+                  <img
+                    src={currentUser.photoURL}
+                    alt="Avatar"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 flex items-center justify-center text-sm">
+                    👤
+                  </div>
+                )}
+              </div>
+
+              {/* Dropdown Menu */}
+              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className="px-4 py-2 text-sm text-gray-800 dark:text-gray-200">
+                  {currentUser.email}
+                </div>
+                <div className="border-t border-gray-200 dark:border-gray-700 px-4 py-2">
+                  <button
+                    onClick={() => handleChangeRole('user')}
+                    className={`block w-full text-left text-sm ${
+                      role === 'user' ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-800 dark:text-gray-200'
+                    } hover:bg-gray-100 dark:hover:bg-gray-700`}
+                  >
+                    {t('user')}
+                  </button>
+                  <button
+                    onClick={() => handleChangeRole('owner')}
+                    className={`block w-full text-left text-sm ${
+                      role === 'owner' ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-800 dark:text-gray-200'
+                    } hover:bg-gray-100 dark:hover:bg-gray-700`}
+                  >
+                    {t('owner')}
+                  </button>
+                  <button
+                    onClick={() => handleChangeRole('agent')}
+                    className={`block w-full text-left text-sm ${
+                      role === 'agent' ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : 'text-gray-800 dark:text-gray-200'
+                    } hover:bg-gray-100 dark:hover:bg-gray-700`}
+                  >
+                    {t('agent')}
+                  </button>
+                </div>
+                <div className="border-t border-gray-200 dark:border-gray-700 px-4 py-2">
+                  <button
+                    onClick={() => navigate('/settings')}
+                    className="block w-full text-left text-sm text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    {t('settings')}
+                  </button>
+                </div>
+                <div className="border-t border-gray-200 dark:border-gray-700 px-4 py-2">
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    {t('logout')}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
           {currentUser?.role === 'owner' && (
             <a
@@ -276,33 +326,31 @@ const Navbar = () => {
           <div className="flex flex-col space-y-2 mt-2">
 
             {currentUser && (
-  <div className="flex items-center mt-3 space-x-2">
-    <div title={currentUser.email} className="w-9 h-9 rounded-full overflow-hidden border-2 border-blue-600 dark:border-blue-300">
-      {currentUser.photoURL ? (
-        <img
-          src={currentUser.photoURL}
-          alt="Avatar"
-          className="w-full h-full object-cover"
-        />
-      ) : (
-        <div className="w-full h-full bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 flex items-center justify-center text-sm">
-          👤
-        </div>
-      )}
-    </div>
-    <span className="text-sm text-gray-800 dark:text-gray-100">{currentUser.email}</span>
-  </div>
-)}
+              <div className="flex items-center mt-3 space-x-2">
+                <div title={currentUser.email} className="w-9 h-9 rounded-full overflow-hidden border-2 border-blue-600 dark:border-blue-300">
+                  {currentUser.photoURL ? (
+                    <img
+                      src={currentUser.photoURL}
+                      alt="Avatar"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 flex items-center justify-center text-sm">
+                      👤
+                    </div>
+                  )}
+                </div>
+                <span className="text-sm text-gray-800 dark:text-gray-100">{currentUser.email}</span>
+              </div>
+            )}
 
-         {currentUser?.role === 'owner' && (
-        <a
-          href="/publish"
-          className="inline-flex items-center px-4 py-2 text-sm font-semibold text-green-700 dark:text-green-300 border border-green-700 dark:border-green-300 rounded-full hover:bg-green-700 dark:hover:bg-green-600 hover:text-white transition">{t('publishProperty')}</a>
-         )}
+            {currentUser?.role === 'owner' && (
+              <a
+                href="/publish"
+                className="inline-flex items-center px-4 py-2 mt-2 text-sm font-semibold text-green-700 dark:text-green-300 border border-green-700 dark:border-green-300 rounded-full hover:bg-green-700 dark:hover:bg-green-600 hover:text-white transition">{t('publishProperty')}</a>
+            )}
 
             {leftMenus.concat(rightMenus).map((menu, idx) => (
-
-          
               <div key={idx} className="flex flex-col">
                 <span className="text-gray-900 dark:text-gray-100 font-semibold">{menu.title}</span>
                 {menu.items?.map((item, j) =>
@@ -318,16 +366,16 @@ const Navbar = () => {
                       {item.label}
                     </button>
                   ) : (
-                <button
-                  key={j}
-                  onClick={() => {
-                    setMobileOpen(false);
-                    navigate(item.to);
-                  }}
-                  className="text-left pl-4 py-1 text-gray-700 dark:text-gray-300"
-                >
-                  {item.label}
-                </button>
+                    <button
+                      key={j}
+                      onClick={() => {
+                        setMobileOpen(false);
+                        navigate(item.to);
+                      }}
+                      className="text-left pl-4 py-1 text-gray-700 dark:text-gray-300"
+                    >
+                      {item.label}
+                    </button>
                   )
                 )}
               </div>

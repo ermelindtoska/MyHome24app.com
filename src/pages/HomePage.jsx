@@ -8,6 +8,7 @@ import ContactSection from "../components/HomeSections/ContactSection";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SiteMeta from "../components/SEO/SiteMeta";
+import HeroSearch from "../components/HeroSearch";
 
 
 
@@ -42,6 +43,7 @@ const HomePage = () => {
         <AgentsSection />
         <TestimonialsSection />
         <ContactSection />
+        
       </div>
 
       {/* 🌍 Show Map button — visible only on mobile */}
