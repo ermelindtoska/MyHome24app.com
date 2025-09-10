@@ -4,7 +4,19 @@
   "logout": "Abmelden",
   "myListings": "Meine Immobilien",
   "settings": "Einstellungen",
- 
+
+  "userInfo": "Benutzerinformationen",
+
+  "dateOfBirth": "Geburtsdatum",
+  "role": "Rolle",
+  "profilePicture": "Profilbild",
+  "stats": "Statistiken",
+  "totalListings": "Gesamtanzahl der Anzeigen",
+  "published": "Veröffentlicht",
+  "pending": "In Bearbeitung",
+  "rejected": "Abgelehnt",
+  "messages": "Nachrichten",
+  "noMessages": "Sie haben keine Nachrichten.",
   "myProfile": "Mein Profil",
   
   "viewPublicProfile": "Öffentliches Profil anzeigen",

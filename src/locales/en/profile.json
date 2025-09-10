@@ -3,5 +3,20 @@
   "editProfile": "Edit Profile",
   "logout": "Log Out",
   "myListings": "My Listings",
-  "settings": "Settings"
+  "settings": "Settings",
+  
+  "userInfo": "User Information",
+  "name": "Name",
+  "email": "Email",
+  "phone": "Phone Number",
+  "dateOfBirth": "Date of Birth",
+  "role": "Role",
+  "profilePicture": "Profile Picture",
+  "stats": "Statistics",
+  "totalListings": "Total Listings",
+  "published": "Published",
+  "pending": "Pending",
+  "rejected": "Rejected",
+  "messages": "Messages",
+  "noMessages": "You have no messages."
 }
