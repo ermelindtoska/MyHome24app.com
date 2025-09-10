@@ -55,6 +55,7 @@ import filterSidebarDE from './locales/de/filterSidebar.json';
 import unauthorizedDE from './locales/de/unauthorized.json';
 import upgradeRequestDE from './locales/de/upgradeRequest.json';
 import metaDE from './locales/de/meta.json';
+import profileDE from './locales/de/profile.json';
 
 // === EN English
 import homeEN from './locales/en/home.json';
@@ -110,6 +111,7 @@ import filterSidebarEN from './locales/en/filterSidebar.json';
 import unauthorizedEN from './locales/en/unauthorized.json';
 import upgradeRequestEN from './locales/en/upgradeRequest.json';
 import metaEN from './locales/en/meta.json';
+import profileEN from './locales/en/profile.json';
 
 
 const resources = {
@@ -166,7 +168,8 @@ const resources = {
     filterSidebar: filterSidebarDE,
     unauthorized: unauthorizedDE,
     upgradeRequest: upgradeRequestDE,
-    meta: metaDE 
+    meta: metaDE,
+    profile: profileDE
   },
   en: {
     home: homeEN,
@@ -221,7 +224,8 @@ const resources = {
     filterSidebar: filterSidebarEN,
     unauthorized: unauthorizedEN,
     upgradeRequest: upgradeRequestEN,
-    meta: metaEN  
+    meta: metaEN,
+    profile: profileEN  
   }
 };
 if (!localStorage.getItem('i18nextLng')) {
@@ -243,7 +247,7 @@ i18n
       'foreclosure', 'owner', 'bankPartners', 'manageRentals', 'newListing', 'bannerAds', 'premiumListing', 'dashboard',
       'support', 'howItWorks', 'userDashboard', 'listingDetails', 'filterBar', 'listingForm',
       'buy', 'rent', 'mortgage', 'findAgent', 'impressum', 'states', 'cities', 'districts',
-      'streets', 'neighbourhoods', 'filterSidebar', 'unauthorized', 'upgradeRequest', 'meta'
+      'streets', 'neighbourhoods', 'filterSidebar', 'unauthorized', 'upgradeRequest', 'meta', 'profile'
     ],
     defaultNS: 'home',
     interpolation: {

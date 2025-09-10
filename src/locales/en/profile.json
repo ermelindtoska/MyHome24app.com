@@ -1,10 +1,6 @@
 {
-  "title": "My Profile",
-  "editProfile": "Edit Profile",
-  "logout": "Log Out",
-  "myListings": "My Listings",
-  "settings": "Settings",
-  
+
+    "title": "My Profile",
   "userInfo": "User Information",
   "name": "Name",
   "email": "Email",
@@ -18,5 +14,33 @@
   "pending": "Pending",
   "rejected": "Rejected",
   "messages": "Messages",
-  "noMessages": "You have no messages."
+  
+  
+ 
+  "editProfile": "Edit Profile",
+  "logout": "Log Out",
+  "myListings": "My Listings",
+  "settings": "Settings",
+  
+
+  "noMessages": "You have no messages yet.",
+ 
+  "saveChanges": "Save Changes",
+  "cancel": "Cancel",
+  "uploadPhoto": "Upload Photo",
+  "loading": "Loading your profile...",
+  "success": "successfully!",
+ 
+  "error": {
+    "noUser": "No user logged in.",
+    "fetchingData": "Failed to load profile data.",
+    "saveFailed": "Save failed. Please try again.",
+    "nameRequired": "Name is required",
+    "futureDate": "Date of birth cannot be in the future"
+  },
+
+  
+  "user": "User",
+  "owner": "Owner",
+  "agent": "Agent"
 }
