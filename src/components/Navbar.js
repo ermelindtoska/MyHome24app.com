@@ -208,22 +208,23 @@ const Navbar = () => {
 
           {currentUser && (
             <div className="relative group">
-              <div
-                title={currentUser.email}
-                className="w-9 h-9 rounded-full overflow-hidden border-2 border-blue-600 dark:border-blue-300 cursor-pointer"
-              >
-                {currentUser.photoURL ? (
-                  <img
-                    src={currentUser.photoURL}
-                    alt="Avatar"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 flex items-center justify-center text-sm">
-                    👤
-                  </div>
-                )}
-              </div>
+            <div
+      onClick={() => navigate('/profile')}
+      title={currentUser.email}
+      className="w-9 h-9 rounded-full overflow-hidden border-2 border-blue-600 dark:border-blue-300 cursor-pointer"
+    >
+      {currentUser.photoURL ? (
+        <img
+          src={currentUser.photoURL}
+          alt="Avatar"
+          className="w-full h-full object-cover"
+        />
+      ) : (
+        <div className="w-full h-full bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 flex items-center justify-center text-sm">
+          👤
+        </div>
+      )}
+    </div>
 
               {/* Dropdown Menu */}
               <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
@@ -301,101 +302,149 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile */}
-      <nav className="flex md:hidden justify-between items-center px-4 py-3 w-full">
-        <button
-          onClick={() => {
-            navigate('/');
-            setTimeout(() => window.location.reload(), 50);
-          }}
-          className="flex items-center gap-2 focus:outline-none"
-        >
-          <img src={logo} alt="Logo" className="h-10 w-auto" />
-          <span className="text-xl font-bold text-blue-800 dark:text-blue-300">MyHome24App</span>
-        </button>
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="text-gray-800 dark:text-gray-100 text-2xl"
-        >
-          {mobileOpen ? <HiX /> : <HiMenu />}
-        </button>
-      </nav>
+  {/* Mobile header bar */}
+<nav className="flex md:hidden justify-between items-center px-4 py-3 w-full">
+  <button
+    onClick={() => {
+      navigate('/');
+      setTimeout(() => window.location.reload(), 50);
+    }}
+    className="flex items-center gap-2 focus:outline-none"
+  >
+    <img src={logo} alt="Logo" className="h-10 w-auto" />
+    <span className="text-xl font-bold text-blue-800 dark:text-blue-300">MyHome24App</span>
+  </button>
 
-      {mobileOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 w-full px-4 pb-4 shadow">
-          <div className="flex flex-col space-y-2 mt-2">
+  <button
+    onClick={() => setMobileOpen((v) => !v)}
+    className="text-gray-800 dark:text-gray-100 text-2xl"
+    aria-label="Menu"
+  >
+    {mobileOpen ? <HiX /> : <HiMenu />}
+  </button>
+</nav>
 
-            {currentUser && (
-              <div className="flex items-center mt-3 space-x-2">
-                <div title={currentUser.email} className="w-9 h-9 rounded-full overflow-hidden border-2 border-blue-600 dark:border-blue-300">
-                  {currentUser.photoURL ? (
-                    <img
-                      src={currentUser.photoURL}
-                      alt="Avatar"
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 flex items-center justify-center text-sm">
-                      👤
-                    </div>
-                  )}
+{/* Mobile drawer */}
+{mobileOpen && (
+  <div className="md:hidden bg-white dark:bg-gray-900 w-full px-4 pb-4 shadow">
+    <div className="flex flex-col space-y-3 mt-2">
+
+      {/* User strip (nëse është i loguar) */}
+      {currentUser ? (
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div
+              title={currentUser.email}
+              className="w-9 h-9 rounded-full overflow-hidden border-2 border-blue-600 dark:border-blue-300"
+            >
+              {currentUser.photoURL ? (
+                <img src={currentUser.photoURL} alt="Avatar" className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 flex items-center justify-center text-sm">
+                  👤
                 </div>
-                <span className="text-sm text-gray-800 dark:text-gray-100">{currentUser.email}</span>
-              </div>
-            )}
-
-            {currentUser?.role === 'owner' && (
-              <a
-                href="/publish"
-                className="inline-flex items-center px-4 py-2 mt-2 text-sm font-semibold text-green-700 dark:text-green-300 border border-green-700 dark:border-green-300 rounded-full hover:bg-green-700 dark:hover:bg-green-600 hover:text-white transition">{t('publishProperty')}</a>
-            )}
-
-            {leftMenus.concat(rightMenus).map((menu, idx) => (
-              <div key={idx} className="flex flex-col">
-                <span className="text-gray-900 dark:text-gray-100 font-semibold">{menu.title}</span>
-                {menu.items?.map((item, j) =>
-                  item.onClick ? (
-                    <button
-                      key={j}
-                      onClick={() => {
-                        setMobileOpen(false);
-                        item.onClick();
-                      }}
-                      className="text-left pl-4 py-1 text-gray-700 dark:text-gray-300"
-                    >
-                      {item.label}
-                    </button>
-                  ) : (
-                    <button
-                      key={j}
-                      onClick={() => {
-                        setMobileOpen(false);
-                        navigate(item.to);
-                      }}
-                      className="text-left pl-4 py-1 text-gray-700 dark:text-gray-300"
-                    >
-                      {item.label}
-                    </button>
-                  )
-                )}
-              </div>
-            ))}
-            <a
-              href="/compare"
-              className="inline-flex items-center px-4 py-2 mt-2 text-sm font-semibold text-blue-700 dark:text-blue-300 border border-blue-700 dark:border-blue-300 rounded-full hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white transition"
-            >
-              {t('compare')}
-            </a>
-            <LanguageSwitcher />
-            <button
-              onClick={toggleTheme}
-              className="flex items-center gap-1 mt-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 px-3 py-1 rounded"
-            >
-              <span className="text-lg">{isDark ? '☀️' : '🌙'}</span>
-            </button>
+              )}
+            </div>
+            <span className="text-sm text-gray-800 dark:text-gray-100 truncate max-w-[200px]">
+              {currentUser.email}
+            </span>
           </div>
+
+          {/* Abmelden (logout) për mobile */}
+          <button
+            onClick={async () => {
+              setMobileOpen(false);
+              await handleLogout();
+            }}
+            className="text-sm px-3 py-1 rounded bg-red-600 text-white hover:bg-red-700"
+          >
+            {t('logout') || 'Abmelden'}
+          </button>
+        </div>
+      ) : (
+        // Nëse NUK është i loguar → shfaq Anmelden / Registrieren
+        <div className="flex gap-2">
+          <button
+            onClick={() => { setMobileOpen(false); navigate('/login'); }}
+            className="flex-1 text-center px-4 py-2 rounded border border-blue-600 text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30"
+          >
+            {t('login') || 'Anmelden'}
+          </button>
+          <button
+            onClick={() => { setMobileOpen(false); navigate('/register'); }}
+            className="flex-1 text-center px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+          >
+            {t('register') || 'Registrieren'}
+          </button>
         </div>
       )}
+
+      {/* Butoni Publish vetëm për owner */}
+      {currentUser?.role === 'owner' && (
+        <button
+          onClick={() => { setMobileOpen(false); navigate('/publish'); }}
+          className="inline-flex items-center px-4 py-2 mt-1 text-sm font-semibold text-green-700 dark:text-green-300 border border-green-700 dark:border-green-300 rounded-full hover:bg-green-700 dark:hover:bg-green-600 hover:text-white transition"
+        >
+          ➕ {t('publishProperty')}
+        </button>
+      )}
+
+      {/* Menutë e majta + djathta */}
+      {[...leftMenus, ...rightMenus].map((menu, i) => (
+        <div key={i} className="flex flex-col">
+          <span className="text-gray-900 dark:text-gray-100 font-semibold">{menu.title}</span>
+          {menu.items?.map((item, j) =>
+            item.onClick ? (
+              <button
+                key={j}
+                onClick={() => { setMobileOpen(false); item.onClick(); }}
+                className="text-left pl-4 py-1 text-gray-700 dark:text-gray-300"
+              >
+                {item.label}
+              </button>
+            ) : (
+              <button
+                key={j}
+                onClick={() => { setMobileOpen(false); navigate(item.to); }}
+                className="text-left pl-4 py-1 text-gray-700 dark:text-gray-300"
+              >
+                {item.label}
+              </button>
+            )
+          )}
+        </div>
+      ))}
+
+      {/* Extra: Compare, Settings, Language, Theme */}
+      <button
+        onClick={() => { setMobileOpen(false); navigate('/compare'); }}
+        className="inline-flex items-center px-4 py-2 mt-1 text-sm font-semibold text-blue-700 dark:text-blue-300 border border-blue-700 dark:border-blue-300 rounded-full hover:bg-blue-700 dark:hover:bg-blue-600 hover:text-white transition"
+      >
+        {t('compare')}
+      </button>
+
+      {currentUser && (
+        <button
+          onClick={() => { setMobileOpen(false); navigate('/settings'); }}
+          className="text-left px-4 py-2 rounded bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+        >
+          {t('settings') || 'Einstellungen'}
+        </button>
+      )}
+
+      <LanguageSwitcher />
+
+      <button
+        onClick={() => { toggleTheme(); }}
+        className="flex items-center gap-2 mt-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 px-3 py-1 rounded"
+      >
+        <span className="text-lg">{isDark ? '☀️' : '🌙'}</span>
+        <span className="text-sm">{isDark ? 'Light' : 'Dark'}</span>
+      </button>
+    </div>
+  </div>
+)}
+
     </header>
   );
 };

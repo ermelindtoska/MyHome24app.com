@@ -68,6 +68,7 @@ import UnauthorizedPage from './pages/Unauthorized';
 import EmailActionGate from './components/EmailActionGate';
 import SearchPage from './pages/SearchPage';
 import SettingsPage from './pages/SettingsPage';
+import ProfilePage from './pages/ProfilePage';
 
 // Providers
 import { RoleProvider } from './roles/RoleContext';
@@ -167,6 +168,7 @@ function AppRoutes() {
 
           {/* Settings */}
           <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
 
           {/* Role-based dashboards */}
           <Route
@@ -211,6 +213,7 @@ function AppRoutes() {
               </ProtectedRoute>
             }
           />
+          <Route path="/publish"element={<RequireRole allowedRoles={['owner','admin']}><PublishProperty /></RequireRole>}/>
 
           <Route path="/add-property" element={<PublishProperty />} />
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
