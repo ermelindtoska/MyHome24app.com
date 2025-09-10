@@ -1,6 +1,8 @@
 {
+  
   "title": "Mein Profil",
   "editProfile": "Profil bearbeiten",
+  
   "logout": "Abmelden",
   "myListings": "Meine Immobilien",
   "settings": "Einstellungen",
@@ -26,6 +28,7 @@
   "address": "Adresse",
   "bio": "Biografie",
   "save": "Speichern",
+  
   "cancel": "Abbrechen",
   "changePhoto": "Foto ändern",
   "removePhoto": "Foto entfernen",
@@ -34,5 +37,26 @@
   "profileVisibility": "Sichtbarkeit des Profils",
   "public": "Öffentlich",
   "private": "Privat",
-  "edit": "Bearbeiten"
+  "edit": "Bearbeiten",
+   
+  "saveChanges": "Änderungen speichern",
+
+  "uploadPhoto": "Foto hochladen",
+  
+  "success": "erfolgreich!",
+ 
+  "error": {
+    "noUser": "Kein Benutzer angemeldet.",
+    "fetchingData": "Fehler beim Laden der Profildaten.",
+    "saveFailed": "Speichern fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "nameRequired": "Name ist erforderlich",
+    "futureDate": "Geburtsdatum kann nicht in der Zukunft liegen"
+  },
+
+  "loading": "Ihr Profil wird geladen...",
+
+  "user": "Benutzer",
+  "owner": "Eigentümer",
+  "agent": "Makler"
 }
+
