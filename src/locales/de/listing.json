@@ -317,13 +317,26 @@
   "Hagen": "Hagen",
   "Saarbrücken": "Saarbrücken",
   "Hamm": "Hamm",
+ 
+  "contactAgent": "Makler kontaktieren",
+  "scheduleVisit": "Besichtigung vereinbaren",
+  "overview": "Übersicht",
+  "status": "Status",
+  "amenities": "Ausstattung",
+  "legalStatus": "Rechtliches",
+  "propertyHistory": "Historie",
+  "forSale": "Zum Verkauf",
+  "forRent": "Zur Miete",
   "Mülheim": "Mülheim an der Ruhr",
   "Potsdam": "Potsdam",
   "Ludwigshafen": "Ludwigshafen am Rhein",
   "Oldenburg": "Oldenburg",
   "Leverkusen": "Leverkusen",
   "Osnabrück": "Osnabrück",
-  "Solingen": "Solingen"
+  "Solingen": "Solingen",
+   "similarListings": "Ähnliche Objekte",
+  "viewListing": "Ansehen",
+  "noSimilar": "Keine ähnlichen Objekte gefunden."
 },
   "items": [
     {

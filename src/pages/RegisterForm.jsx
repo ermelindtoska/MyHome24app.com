@@ -4,8 +4,9 @@ import { Helmet } from "react-helmet";
 import { EyeIcon, EyeOffIcon } from "@heroicons/react/solid";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
-import { auth, db } from "../firebase";
+
 import { useTranslation } from "react-i18next";
+import { auth, db, appCheckReady } from "../firebase";
 
 const RegisterForm = () => {
   const { t, i18n } = useTranslation("auth");
@@ -47,6 +48,7 @@ const RegisterForm = () => {
       if (password !== confirmPassword) {
         throw new Error(t("passwordMismatch") || "Passwörter stimmen nicht überein.");
       }
+      await Promise.race([appCheckReady, new Promise(r => setTimeout(r, 2000))]);
 
       const cred = await createUserWithEmailAndPassword(auth, email, password);
       const user = cred.user;

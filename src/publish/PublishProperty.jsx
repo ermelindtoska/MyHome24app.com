@@ -3,38 +3,16 @@ import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { db, storage } from "../firebase";
-import {
-  addDoc,
-  collection,
-  GeoPoint,
-  serverTimestamp,
-} from "firebase/firestore";
-import {
-  ref as storageRef,
-  uploadBytes,
-  getDownloadURL,
-} from "firebase/storage";
+import { addDoc, collection, GeoPoint, serverTimestamp } from "firebase/firestore";
+import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import { toast } from "sonner";
 
-/**
- * Wizard i thjeshtë “Publiko pronë” (MVP në stil Zillow).
- * Hapat:
- * 1) Info bazë
- * 2) Lokacion (me geocoding OS OpenStreetMap/Nominatim)
- * 3) Foto
- * 4) Rishikim & Publiko
- */
-
-const STEP = {
-  INFO: 0,
-  LOCATION: 1,
-  PHOTOS: 2,
-  REVIEW: 3,
-};
+/* -------------------- constants -------------------- */
+const STEP = { INFO: 0, LOCATION: 1, PHOTOS: 2, REVIEW: 3 };
 
 const initialState = {
-  purpose: "buy", // buy | rent
-  type: "apartment", // apartment | house | commercial
+  purpose: "buy",
+  type: "apartment",
   title: "",
   description: "",
   price: "",
@@ -43,33 +21,28 @@ const initialState = {
   bathrooms: "",
   size: "",
   yearBuilt: "",
-  amenities: {
-    balcony: false,
-    parking: false,
-    garden: false,
-    elevator: false,
-  },
+  amenities: { balcony: false, parking: false, garden: false, elevator: false },
 
-  // location
   address: "",
   zipCode: "",
   city: "",
   lat: null,
   lng: null,
 
-  // media
-  images: [], // File objects
-  imagePreviews: [], // local preview URLs
+  images: [],
+  imagePreviews: [],
 };
 
+/* -------------------- main component -------------------- */
 export default function PublishProperty() {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
+
   const [step, setStep] = useState(STEP.INFO);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState(initialState);
 
-  // Helper për update inputesh
+  // helpers
   const setField = (name, value) =>
     setForm((s) => ({
       ...s,
@@ -82,9 +55,7 @@ export default function PublishProperty() {
       amenities: { ...s.amenities, [name]: !s.amenities[name] },
     }));
 
-  // ==========================
-  // 1) Basic validation
-  // ==========================
+  // ---------- validation ----------
   const canContinueInfo = useMemo(() => {
     return (
       form.title.trim().length >= 6 &&
@@ -103,28 +74,16 @@ export default function PublishProperty() {
     );
   }, [form]);
 
-  // ==========================
-  // 2) Geocode me Nominatim (OSM)
-  // ==========================
+  // ---------- geocode ----------
   const geocode = async () => {
     try {
       const q = `${form.address}, ${form.zipCode} ${form.city}, Germany`;
-      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-        q
-      )}`;
-      const resp = await fetch(url, {
-        headers: {
-          "User-Agent": "MyHome24app/1.0 (contact@myhome24app.com)",
-        },
-      });
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}`;
+      const resp = await fetch(url); // Shënim: në browser s'mund të vendosësh User-Agent custom
       const arr = await resp.json();
       if (arr?.length) {
         const best = arr[0];
-        setForm((s) => ({
-          ...s,
-          lat: Number(best.lat),
-          lng: Number(best.lon),
-        }));
+        setForm((s) => ({ ...s, lat: Number(best.lat), lng: Number(best.lon) }));
         toast.success("Adresse gefunden und verortet.");
       } else {
         toast.warning("Adresse nicht gefunden. Du kannst trotzdem fortfahren.");
@@ -135,9 +94,7 @@ export default function PublishProperty() {
     }
   };
 
-  // ==========================
-  // 3) Ngarkimi i fotove
-  // ==========================
+  // ---------- photos ----------
   const handleImages = (files) => {
     const list = Array.from(files || []);
     if (!list.length) return;
@@ -172,9 +129,7 @@ export default function PublishProperty() {
     return urls;
   };
 
-  // ==========================
-  // 4) Ruajtja në Firestore
-  // ==========================
+  // ---------- save ----------
   const saveListing = async () => {
     if (!currentUser?.uid) {
       toast.error("Du musst angemeldet sein.");
@@ -194,7 +149,6 @@ export default function PublishProperty() {
         title: form.title.trim(),
         description: form.description.trim(),
 
-        // numerike
         price: Number(form.price) || 0,
         rooms: Number(form.rooms) || 0,
         bedrooms: Number(form.bedrooms) || 0,
@@ -202,19 +156,15 @@ export default function PublishProperty() {
         size: Number(form.size) || 0,
         yearBuilt: Number(form.yearBuilt) || null,
 
-        // amenities
         amenities: form.amenities,
 
-        // location
         address: form.address.trim(),
         city: form.city.trim(),
         zipCode: form.zipCode.trim(),
-        geopt:
-          form.lat && form.lng ? new GeoPoint(Number(form.lat), Number(form.lng)) : null,
+        geopt: form.lat && form.lng ? new GeoPoint(Number(form.lat), Number(form.lng)) : null,
         lat: form.lat || null,
         lng: form.lng || null,
 
-        // ndihmë për kërkim
         searchIndex: [
           form.city?.toLowerCase() || "",
           form.zipCode || "",
@@ -223,16 +173,14 @@ export default function PublishProperty() {
           form.purpose || "",
         ].filter(Boolean),
 
-        status: "active", // ose "draft" nëse do logjikë dy-fazëshe
+        status: "active",
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
-        images: [], // do t’i shtojmë pas upload-it
+        images: [],
       };
 
-      // 1) krijo dokumentin bosh (pa foto) për të marrë ID-në
       const docRef = await addDoc(collection(db, "listings"), payload);
 
-      // 2) ngarko fotot
       let urls = [];
       if (form.images.length) {
         urls = await uploadPhotos(docRef.id);
@@ -240,7 +188,6 @@ export default function PublishProperty() {
           urls,
           createdAt: serverTimestamp(),
         });
-        // për thjeshtësi vendosi edhe te “images” e dokumentit kryesor
         await addDoc(collection(db, "listings", docRef.id, "_events"), {
           type: "photos_uploaded",
           count: urls.length,
@@ -248,17 +195,7 @@ export default function PublishProperty() {
         });
       }
 
-      // 3) opsionale: ruaj fotot te dokumenti kryesor (më praktike për listime)
-      //   – duke ripërdorur addDoc mësipër vetëm si “event log”, ne mund të
-      //     vendosim set/update në dokumentin kryesor:
-      if (urls.length) {
-        // shmang double-imports: po bëjmë update me RESTO, por për
-        // thjeshtësi lëmë siç është – shumë projekte e bëjnë me updateDoc këtu
-        // për të mos rritur kodin, e lëmë siç është (images te event).
-      }
-
       toast.success("Immobilie veröffentlicht!");
-      // ridrejto te detajet ose te menaxhimi
       navigate(`/listing/${docRef.id}`);
     } catch (e) {
       console.error(e);
@@ -268,13 +205,88 @@ export default function PublishProperty() {
     }
   };
 
-  // ==========================
-  // UI: Stepper & Hapat
-  // ==========================
-  const Stepper = () => (
+  if (!currentUser) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-16">
+        <h1 className="text-2xl font-bold mb-2">Immobilie veröffentlichen</h1>
+        <p className="text-gray-600">Bitte zuerst anmelden.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <div className="max-w-4xl mx-auto px-4 py-10">
+        <h1 className="text-2xl font-bold mb-2">Immobilie veröffentlichen</h1>
+        <p className="text-gray-600 mb-6">
+          Fülle die Informationen aus, lade Fotos hoch und veröffentliche.
+        </p>
+
+        <Stepper step={step} />
+
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded p-5">
+          {step === STEP.INFO && (
+            <InfoStep form={form} setField={setField} setAmenity={setAmenity} />
+          )}
+          {step === STEP.LOCATION && (
+            <LocationStep form={form} setField={setField} geocode={geocode} />
+          )}
+          {step === STEP.PHOTOS && (
+            <PhotosStep
+              form={form}
+              handleImages={handleImages}
+              removeImage={removeImage}
+            />
+          )}
+          {step === STEP.REVIEW && <ReviewStep form={form} />}
+        </div>
+
+        <div className="mt-6 flex items-center justify-between">
+          <button
+            type="button"
+            onClick={() => setStep((s) => Math.max(STEP.INFO, s - 1))}
+            className="px-4 py-2 rounded border"
+            disabled={step === STEP.INFO}
+          >
+            Zurück
+          </button>
+
+          {step < STEP.REVIEW ? (
+            <button
+              type="button"
+              onClick={() => setStep((s) => s + 1)}
+              className="px-5 py-2 rounded bg-blue-600 text-white disabled:opacity-50"
+              disabled={
+                (step === STEP.INFO && !canContinueInfo) ||
+                (step === STEP.LOCATION && !canContinueLocation)
+              }
+            >
+              Weiter
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={saveListing}
+              disabled={saving}
+              className="px-5 py-2 rounded bg-green-600 text-white disabled:opacity-50"
+            >
+              {saving ? "Wird veröffentlicht…" : "Jetzt veröffentlichen"}
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* -------------------- subcomponents (outside!) -------------------- */
+
+function Stepper({ step }) {
+  const labels = ["Infos", "Standort", "Fotos", "Prüfen"];
+  return (
     <div className="flex items-center gap-2 text-sm mb-6">
-      {["Infos", "Standort", "Fotos", "Prüfen"].map((label, idx) => (
-        <div key={idx} className="flex items-center">
+      {labels.map((label, idx) => (
+        <div key={label} className="flex items-center">
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center font-semibold ${
               step >= idx ? "bg-blue-600 text-white" : "bg-gray-300 text-gray-700"
@@ -283,13 +295,15 @@ export default function PublishProperty() {
             {idx + 1}
           </div>
           <span className="ml-2 mr-4 text-gray-800 dark:text-gray-200">{label}</span>
-          {idx < 3 && <div className="w-8 h-[2px] bg-gray-400 opacity-50" />}
+          {idx < labels.length - 1 && <div className="w-8 h-[2px] bg-gray-400 opacity-50" />}
         </div>
       ))}
     </div>
   );
+}
 
-  const InfoStep = () => (
+function InfoStep({ form, setField, setAmenity }) {
+  return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
         <label className="block text-sm font-medium mb-1">Zweck</label>
@@ -414,7 +428,7 @@ export default function PublishProperty() {
             <label key={key} className="inline-flex items-center gap-2">
               <input
                 type="checkbox"
-                checked={form.amenities[key]}
+                checked={!!form.amenities[key]}
                 onChange={() => setAmenity(key)}
               />
               <span>{label}</span>
@@ -424,8 +438,10 @@ export default function PublishProperty() {
       </div>
     </div>
   );
+}
 
-  const LocationStep = () => (
+function LocationStep({ form, setField, geocode }) {
+  return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="md:col-span-2">
         <label className="block text-sm font-medium mb-1">Adresse</label>
@@ -469,26 +485,19 @@ export default function PublishProperty() {
       </div>
     </div>
   );
+}
 
-  const PhotosStep = () => (
+function PhotosStep({ form, handleImages, removeImage }) {
+  return (
     <div>
       <label className="block text-sm font-medium mb-2">Fotos (max 10)</label>
-      <input
-        type="file"
-        accept="image/*"
-        multiple
-        onChange={(e) => handleImages(e.target.files)}
-      />
+      <input type="file" accept="image/*" multiple onChange={(e) => handleImages(e.target.files)} />
 
       {form.imagePreviews.length > 0 && (
         <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
           {form.imagePreviews.map((src, idx) => (
             <div key={idx} className="relative group">
-              <img
-                src={src}
-                alt={`foto-${idx}`}
-                className="w-full h-32 object-cover rounded border"
-              />
+              <img src={src} alt={`foto-${idx}`} className="w-full h-32 object-cover rounded border" />
               <button
                 type="button"
                 onClick={() => removeImage(idx)}
@@ -502,13 +511,13 @@ export default function PublishProperty() {
       )}
     </div>
   );
+}
 
-  const ReviewStep = () => (
+function ReviewStep({ form }) {
+  return (
     <div className="space-y-3">
       <div className="text-lg font-semibold">{form.title || "—"}</div>
-      <div className="text-sm text-gray-700 dark:text-gray-300">
-        {form.description || "—"}
-      </div>
+      <div className="text-sm text-gray-700 dark:text-gray-300">{form.description || "—"}</div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
         <div><strong>Zweck:</strong> {form.purpose}</div>
         <div><strong>Typ:</strong> {form.type}</div>
@@ -519,7 +528,6 @@ export default function PublishProperty() {
         <div><strong>Badezimmer:</strong> {form.bathrooms || "—"}</div>
         <div><strong>Baujahr:</strong> {form.yearBuilt || "—"}</div>
       </div>
-
       <div className="text-sm">
         <strong>Adresse:</strong> {form.address}, {form.zipCode} {form.city}
       </div>
@@ -534,69 +542,6 @@ export default function PublishProperty() {
           </div>
         </>
       )}
-    </div>
-  );
-
-  if (!currentUser) {
-    return (
-      <div className="max-w-4xl mx-auto px-4 py-16">
-        <h1 className="text-2xl font-bold mb-2">Immobilie veröffentlichen</h1>
-        <p className="text-gray-600">Bitte zuerst anmelden.</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      <div className="max-w-4xl mx-auto px-4 py-10">
-        <h1 className="text-2xl font-bold mb-2">Immobilie veröffentlichen</h1>
-        <p className="text-gray-600 mb-6">
-          Fülle die Informationen aus, lade Fotos hoch und veröffentliche.
-        </p>
-
-        <Stepper />
-
-        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded p-5">
-          {step === STEP.INFO && <InfoStep />}
-          {step === STEP.LOCATION && <LocationStep />}
-          {step === STEP.PHOTOS && <PhotosStep />}
-          {step === STEP.REVIEW && <ReviewStep />}
-        </div>
-
-        <div className="mt-6 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={() => setStep((s) => Math.max(STEP.INFO, s - 1))}
-            className="px-4 py-2 rounded border"
-            disabled={step === STEP.INFO}
-          >
-            Zurück
-          </button>
-
-          {step < STEP.REVIEW ? (
-            <button
-              type="button"
-              onClick={() => setStep((s) => s + 1)}
-              className="px-5 py-2 rounded bg-blue-600 text-white disabled:opacity-50"
-              disabled={
-                (step === STEP.INFO && !canContinueInfo) ||
-                (step === STEP.LOCATION && !canContinueLocation)
-              }
-            >
-              Weiter
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={saveListing}
-              disabled={saving}
-              className="px-5 py-2 rounded bg-green-600 text-white disabled:opacity-50"
-            >
-              {saving ? "Wird veröffentlicht…" : "Jetzt veröffentlichen"}
-            </button>
-          )}
-        </div>
-      </div>
     </div>
   );
 }

@@ -1,57 +1,59 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
+// src/roles/RoleContext.jsx
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, db } from "../firebase";
+import { doc, onSnapshot, getDoc } from "firebase/firestore";
 
-export const RoleContext = createContext();
+const RoleCtx = createContext({ role: null, loading: true });
 
-export const RoleProvider = ({ children }) => {
+export function RoleProvider({ children }) {
+  const [uid, setUid] = useState(null);
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Ndiq login/logout
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        if (!user.emailVerified) {
-          console.warn("Email not verified. Signing out...");
-          await signOut(auth);
-          setRole(null);
-          setLoading(false);
-          return;
-        }
-
-        try {
-          // ✅ Read role from 'users' collection
-          const userRef = doc(db, 'users', user.uid);
-          const userSnap = await getDoc(userRef);
-
-          if (userSnap.exists()) {
-            const fetchedRole = userSnap.data().role || null;
-            console.log("✅ User role fetched from Firestore:", fetchedRole);
-            setRole(fetchedRole);
-          } else {
-            console.warn("⚠️ User document does not exist in Firestore.");
-            setRole(null);
-          }
-        } catch (error) {
-          console.error("❌ Error fetching user role:", error);
-          setRole(null);
-        }
-      } else {
-        setRole(null);
-      }
-
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
+    const off = onAuthStateChanged(auth, (u) => setUid(u?.uid || null));
+    return off;
   }, []);
 
-  return (
-    <RoleContext.Provider value={{ role, loading }}>
-      {children}
-    </RoleContext.Provider>
-  );
-};
+  // Dëgjo realtime dokumentin e user-it
+  useEffect(() => {
+    if (!uid) {
+      setRole(null);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    const unsub = onSnapshot(
+      doc(db, "users", uid),
+      (snap) => {
+        setRole(snap.data()?.role ?? "user");
+        setLoading(false);
+      },
+      (err) => {
+        console.error("[RoleContext] onSnapshot error:", err);
+        setLoading(false);
+      }
+    );
+    return unsub;
+  }, [uid]);
 
-export const useRole = () => useContext(RoleContext);
+  // Opsionale: refresh manual
+  const refresh = async () => {
+    if (!uid) return;
+    const snap = await getDoc(doc(db, "users", uid));
+    setRole(snap.data()?.role ?? "user");
+  };
+
+  // Lejo update optimist në UI
+  const setRoleLocal = (r) => setRole(r);
+
+  return (
+    <RoleCtx.Provider value={{ role, loading, refresh, setRoleLocal }}>
+      {children}
+    </RoleCtx.Provider>
+  );
+}
+
+export const useRole = () => useContext(RoleCtx);

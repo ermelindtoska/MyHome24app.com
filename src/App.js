@@ -157,11 +157,11 @@ function AppRoutes() {
           <Route path="/compare/details" element={<CompareDetails />} />
 
           {/* Maps – mbaje vetëm NJË /map */}
-          <Route path="/map" element={<MapPage purpose="all" />} />
-          <Route path="/buy" element={<MapPage purpose="buy" />} />
-          <Route path="/rent" element={<MapPage purpose="rent" />} />
-          <Route path="/buy/map" element={<MapPage purpose="buy" />} />
-          <Route path="/rent/map" element={<MapPage purpose="rent" />} />
+         <Route path="/map"      element={<MapPage key="all"  purpose="all"  />} />
+         <Route path="/buy"      element={<MapPage key="buy"  purpose="buy"  />} />
+         <Route path="/rent"     element={<MapPage key="rent" purpose="rent" />} />
+         <Route path="/buy/map"  element={<MapPage key="buy2"  purpose="buy"  />} />
+         <Route path="/rent/map" element={<MapPage key="rent2" purpose="rent" />} />
           <Route path="/map-leaflet" element={<GermanyMapLeaflet />} />
           <Route path="/explore" element={<ExplorePage />} />
           <Route path="/explore/germany" element={<ExplorePage />} />

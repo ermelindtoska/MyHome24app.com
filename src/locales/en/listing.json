@@ -2,8 +2,17 @@
   "addListing": "Add New Listing",
     "title": "Property Listings",
   "price": "Price",
+  "similarListings": "Similar Listings",
+"viewListing": "View",
+"noSimilar": "No similar listings found.",
   "map.title": "MyHome24App",
   "type": "Property Type",
+ 
+
+"showList": "Show list",
+"results": "Results",
+"scheduleVisit": "Schedule a Viewing",
+
   "purpose": "Purpose",
   "bedrooms": "Bedrooms",
     "resultsFound": "{{count}} results found",

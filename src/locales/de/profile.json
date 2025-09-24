@@ -2,6 +2,75 @@
   
   "title": "Mein Profil",
   "editProfile": "Profil bearbeiten",
+
+
+
+  "account": {
+    "title": "Konto",
+    "subtitle": "Hier können Sie Sicherheit, Passwort ändern, 2FA usw. verwalten."
+  },
+
+ 
+
+  "fields": {
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "name": "Anzeigename",
+    "email": "E-Mail",
+    "phone": "Telefonnummer",
+    "dateOfBirth": "Geburtsdatum",
+    "location": "Ort",
+    "bio": "Biografie",
+    "role": "Rolle",
+    "roles": {
+      "user": "Benutzer",
+      "owner": "Eigentümer",
+      "agent": "Makler"
+    }
+  },
+
+  "actions": {
+    "editProfile": "Profil bearbeiten",
+    "cancel": "Abbrechen",
+    "saveChanges": "Änderungen speichern"
+  },
+
+ 
+  "description": "Verwalten Sie Ihre persönlichen Angaben, Foto und Präferenzen.",
+    
+  "change": "Ändern",
+  "avatar": "Avatar",
+  "photoUpdated": "Foto aktualisiert.",
+  "errors": {
+    "onlyImages": "Nur JPG/PNG/WEBP sind erlaubt.",
+    "imageTooLarge": "Bild ist größer als 5 MB.",
+    "uploadFailed": "Upload fehlgeschlagen.",
+    "couldNotFetchUrl": "URL konnte nach dem Upload nicht geholt werden.",
+    "uploadError": "Fehler beim Hochladen."
+  },
+  
+ 
+
+  "firstName": "Vorname",
+  "lastName": "Nachname",
+ 
+  "location": "Ort",
+
+
+ 
+
+
+
+  "tabs": {
+    "profile": "Profil",
+    "account": "Konto",
+    "privacy": "Datenschutz",
+    "notifications": "Benachrichtigungen",
+    "savedHomes": "Gespeicherte Objekte",
+    "savedSearches": "Gespeicherte Suchen"
+  },
+
+ 
   
   "logout": "Abmelden",
   "myListings": "Meine Immobilien",
@@ -38,7 +107,10 @@
   "public": "Öffentlich",
   "private": "Privat",
   "edit": "Bearbeiten",
-   
+   "photoUploadedSuccessfully": "Foto erfolgreich hochgeladen!",
+"unsupportedImageType": "Nur JPG, PNG oder WEBP erlaubt.",
+"imageTooLarge": "Bild ist größer als 5 MB.",
+
   "saveChanges": "Änderungen speichern",
 
   "uploadPhoto": "Foto hochladen",

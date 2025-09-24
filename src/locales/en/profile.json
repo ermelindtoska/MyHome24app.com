@@ -2,6 +2,76 @@
 
     "title": "My Profile",
   "userInfo": "User Information",
+   
+
+
+
+  "account": {
+    "title": "Account",
+    "subtitle": "Manage security settings, change password, enable 2FA, etc."
+  },
+
+
+
+  "fields": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "name": "Display name",
+    "email": "Email",
+    "phone": "Phone number",
+    "dateOfBirth": "Date of birth",
+    "location": "Location",
+    "bio": "Bio",
+    "role": "Role",
+    "roles": {
+      "user": "User",
+      "owner": "Owner",
+      "agent": "Agent"
+    }
+  },
+
+  "actions": {
+    "editProfile": "Edit profile",
+    "cancel": "Cancel",
+    "saveChanges": "Save changes"
+  },
+
+
+  "description": "Manage your personal info, photo and preferences.",
+
+    
+  "change": "Change",
+  "avatar": "Avatar",
+  "photoUpdated": "Photo updated.",
+  "errors": {
+    "onlyImages": "Only JPG/PNG/WEBP are allowed.",
+    "imageTooLarge": "Image is larger than 5 MB.",
+    "uploadFailed": "Upload failed.",
+    "couldNotFetchUrl": "Could not fetch URL after upload.",
+    "uploadError": "Upload error."
+  },
+
+
+  "firstName": "First name",
+  "lastName": "Last name",
+
+  "location": "Location",
+  "bio": "About me",
+
+
+
+
+  "tabs": {
+    "profile": "Profile",
+    "account": "Account",
+    "privacy": "Privacy",
+    "notifications": "Notifications",
+    "savedHomes": "Saved Homes",
+    "savedSearches": "Saved Searches"
+  },
+
+
+  
   "name": "Name",
   "email": "Email",
   "phone": "Phone Number",
@@ -14,7 +84,10 @@
   "pending": "Pending",
   "rejected": "Rejected",
   "messages": "Messages",
-  
+  "photoUploadedSuccessfully": "Photo uploaded successfully!",
+"unsupportedImageType": "Only JPG, PNG or WEBP allowed.",
+"imageTooLarge": "Image is larger than 5 MB.",
+
   
  
   "editProfile": "Edit Profile",
@@ -27,12 +100,14 @@
  
   "saveChanges": "Save Changes",
   "cancel": "Cancel",
+  
   "uploadPhoto": "Upload Photo",
   "loading": "Loading your profile...",
   "success": "successfully!",
  
   "error": {
     "noUser": "No user logged in.",
+    
     "fetchingData": "Failed to load profile data.",
     "saveFailed": "Save failed. Please try again.",
     "nameRequired": "Name is required",
