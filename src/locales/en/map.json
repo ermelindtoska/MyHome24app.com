@@ -7,6 +7,9 @@
   "zoomIn": "Zoom in",
   "zoomOut": "Zoom out",
   "filter": "Filter",
+
+"showList": "Show list",
+
   "searchPlaceholder": "City, ZIP, Address...",
   "type": "Type",
   "category": "Category",

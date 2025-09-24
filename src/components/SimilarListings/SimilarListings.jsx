@@ -1,70 +1,111 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+// src/components/SimilarListings/SimilarListings.jsx
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-const SimilarListings = ({ currentListing, allListings }) => {
-  const { t } = useTranslation("listing");
+const FALLBACK_IMG = '/images/hero-1.jpg';
 
-  if (!currentListing || !allListings || allListings.length === 0) {
-    return null;
-  }
+function firstImage(l) {
+  return l?.images?.[0] || l?.imageUrls?.[0] || l?.image || FALLBACK_IMG;
+}
+function priceNumber(v) {
+  const n = Number(v);
+  return Number.isNaN(n) ? null : n;
+}
 
-  // Filtron listimet që janë të ngjashme
-  const similar = allListings.filter(
-    (item) =>
-      item.id !== currentListing.id &&
-      (item.city === currentListing.city || item.type === currentListing.type)
-  );
+/**
+ * Zgjedh listime të ngjashme duke prioritarizuar:
+ *  1) të njëjtin qytet (pikë të larta)
+ *  2) të njëjtin tip (pikë të mesme)
+ *  3) diferencë të vogël në çmim (sa më afër aq më mirë)
+ */
+export default function SimilarListings({
+  currentListing,
+  allListings = [],
+  limit = 6,
+  onPick, // opsionale; nëse nuk jepet -> navigon te /listing/:id
+}) {
+  const { t } = useTranslation('listing');
+  const navigate = useNavigate();
 
-  if (similar.length === 0) {
-    return null;
+  const basePrice = priceNumber(currentListing?.price);
+
+  const items = useMemo(() => {
+    if (!currentListing) return [];
+
+    return allListings
+      .filter((l) => l && l.id !== currentListing.id)
+      .map((l) => {
+        let score = 0;
+        if (l.city && currentListing.city && l.city === currentListing.city) score += 100;
+        if (l.type && currentListing.type && l.type === currentListing.type) score += 40;
+
+        const p = priceNumber(l.price);
+        const diff = basePrice != null && p != null ? Math.abs(basePrice - p) : Infinity;
+        // sa më afër çmimit, aq më shumë pikë
+        if (diff !== Infinity) score += Math.max(0, 30 - Math.min(30, diff / 10000)); // ~1 pikë / 10k €
+
+        return { ...l, _score: score, _priceDiff: diff };
+      })
+      .sort((a, b) => b._score - a._score || a._priceDiff - b._priceDiff)
+      .slice(0, limit);
+  }, [allListings, currentListing, basePrice]);
+
+  if (!items.length) {
+    return (
+      <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 text-sm text-gray-600 dark:text-gray-300">
+        {t('noSimilar', 'No similar listings found.')}
+      </div>
+    );
   }
 
   return (
-    <div className="mt-8 border-t pt-4">
-      <h3 className="text-lg font-semibold mb-3">{t("similarListings")}</h3>
-      <div className="flex overflow-x-auto gap-4 pb-2">
-        {similar.map((item) => (
-          <div
-            key={item.id}
-            className="min-w-[220px] bg-white rounded shadow hover:shadow-md transition flex-shrink-0 border"
-          >
-            <img
-              src={item.images?.[0]}
-              alt={`${t(item.type.toLowerCase(), { ns: 'listing' })} ${t('in', { ns: 'listing' })} ${t(`cityNames.${item.city}`, { defaultValue: item.city })}`}
-              className="w-full h-32 object-cover rounded-t"
-            />
-            <div className="p-2">
-              <p className="font-semibold text-blue-700 mb-1">
-                {t(item.type.toLowerCase(), { ns: 'listing' })}{" "}
-                {t('in', { ns: 'listing' })}{" "}
-                {t(`cityNames.${item.city}`, { defaultValue: item.city })}
+    <div className="grid grid-cols-1 gap-3">
+      {items.map((l) => (
+        <div
+          key={l.id}
+          className="flex items-center rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-2 shadow-sm"
+        >
+          <img
+            src={firstImage(l)}
+            alt={l.title}
+            className="w-16 h-16 object-cover rounded mr-3"
+            loading="lazy"
+          />
+          <div className="flex-1 min-w-0">
+            <p className="font-medium text-sm line-clamp-1">{l.title || '—'}</p>
+            <p className="text-xs text-gray-600 dark:text-gray-300 line-clamp-1">
+              {l.city || ''} {l.type ? `• ${l.type}` : ''}
+            </p>
+            {l.price != null && (
+              <p className="text-xs text-gray-700 dark:text-gray-200">
+                € {Number(l.price).toLocaleString()}
               </p>
-              <p className="text-gray-800 mb-1">
-                📍 {item.city}, {item.postalCode}
-              </p>
-              <p className="text-gray-600 mb-1">
-                💶 {item.price.toLocaleString()} €
-              </p>
-              <p className="text-gray-600 mb-1">
-                🛏 {item.bedrooms} · 📐 {item.size} m²
-              </p>
-              {item.agent && (
-                <p className="text-xs text-gray-500">
-                  👤 {t('contactAgent', { ns: 'listing' })}: {item.agent.name}
-                </p>
-              )}
-              <button
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                className="mt-2 block w-full bg-blue-600 text-white text-xs py-1 rounded hover:bg-blue-700 transition"
-              >
-                {t("viewMore", { ns: 'listing' })}
-              </button>
-            </div>
+            )}
           </div>
-        ))}
-      </div>
+          <button
+            onClick={() => {
+              if (onPick) {
+                onPick(l);
+              } else {
+                navigate(`/listing/${l.id}`);
+              }
+            }}
+            className="text-blue-600 dark:text-blue-400 text-xs underline ml-2 shrink-0"
+            title={t('viewListing', 'View listing')}
+          >
+            {t('viewListing', 'View listing')}
+          </button>
+        </div>
+      ))}
     </div>
   );
-};
+}
 
-export default SimilarListings;
+SimilarListings.propTypes = {
+  currentListing: PropTypes.object,
+  allListings: PropTypes.array,
+  limit: PropTypes.number,
+  onPick: PropTypes.func,
+};

@@ -6,6 +6,9 @@
   "listingsInArea": "Anzeigen in dieser Region",
   "zoomIn": "Hineinzoomen",
   "zoomOut": "Herauszoomen",
+
+  "showList": "Liste anzeigen",
+  
   "showMap": "Karte anzeigen",
   "backToSearch": "Zurück zur Suche",
   "listingsFound": "{{count}} Immobilien gefunden",

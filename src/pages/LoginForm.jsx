@@ -1,13 +1,21 @@
-// src/pages/LoginForm.jsx
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate, useLocation } from "react-router-dom";
 import { signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, appCheckReady } from "../firebase";
 import { useTranslation } from "react-i18next";
 
+function tryWithTimeout(promise, ms, label = "op") {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error(`timeout:${label}`)), ms)
+    ),
+  ]);
+}
+
 export default function LoginForm() {
-  const { t } = useTranslation("auth"); // opsionale; do të bjerë në fallback nëse s’ke keys
+  const { t, i18n } = useTranslation("auth");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -16,7 +24,6 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
 
-  // mesazh pas verifikimit ose nëse dështoi
   const q = new URLSearchParams(location.search);
   const justVerified = q.get("verified") === "1";
   const verifyFailed = q.get("verify") === "failed";
@@ -26,27 +33,36 @@ export default function LoginForm() {
     setErr("");
     setLoading(true);
     try {
-      const cred = await signInWithEmailAndPassword(auth, email, pw);
-      await cred.user.reload();
+      // Prit AppCheck max 1.5s (ose vazhdo)
+      await Promise.race([appCheckReady, new Promise((r) => setTimeout(r, 1500))]);
+
+      auth.languageCode = i18n?.language?.slice(0, 2) || "de";
+
+      const cred = await tryWithTimeout(
+        signInWithEmailAndPassword(auth, email.trim(), pw),
+        12000,
+        "signIn"
+      );
+
+      try { await tryWithTimeout(cred.user.reload(), 3000, "reload"); } catch {}
 
       if (!cred.user.emailVerified) {
-        // Mos lejo login pa verifikuar
         setErr(
           t("pleaseVerifyFirst") ||
             "Bitte bestätigen Sie zuerst Ihre E-Mail. Wir haben den Link erneut gesendet."
         );
-        try {
-          await sendEmailVerification(cred.user);
-        } catch {}
+        try { await sendEmailVerification(cred.user); } catch {}
         return;
       }
 
-      // OK -> shko ku do pas login (ndrysho /account nëse ke rrugë tjetër)
-      navigate("/account", { replace: true });
+      // Ke /profile në App.jsx – shko aty
+      navigate("/profile", { replace: true });
     } catch (e) {
-      setErr(
-        t("loginFailed") || "Anmeldung fehlgeschlagen. Bitte prüfen Sie Ihre Daten."
-      );
+      console.error("[login] error:", e);
+      const msg = e?.message?.startsWith?.("timeout:")
+        ? "Netzwerk-Timeout. Bitte versuchen Sie es erneut."
+        : (t("loginFailed") || "Anmeldung fehlgeschlagen. Bitte prüfen Sie Ihre Daten.");
+      setErr(msg);
     } finally {
       setLoading(false);
     }
@@ -58,7 +74,6 @@ export default function LoginForm() {
         <title>{t("loginTitle") || "Anmelden – MyHome24app"}</title>
       </Helmet>
 
-      {/* mesazhe nga verifikimi */}
       {justVerified && (
         <p className="text-green-600 text-sm mb-3">
           {t("emailVerifiedNowLogin") || "E-Mail bestätigt. Sie können sich jetzt anmelden."}

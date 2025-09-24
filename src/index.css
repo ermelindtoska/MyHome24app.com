@@ -95,3 +95,46 @@ html.dark .dropdown-menu {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+
+/* Zillow-like price marker pill */
+.mh24-marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  height: 28px;
+  padding: 0 10px;
+  background: #fff;
+  border: 1px solid #d1d5db;            /* border-gray-300 */
+  border-radius: 9999px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.12);
+  font: 600 12px/1 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  color: #111827;                        /* text-gray-900 */
+  cursor: pointer;
+  transition: transform .1s ease, background .1s ease;
+}
+.mh24-marker:hover { transform: translateY(-1px) scale(1.02); }
+.mh24-marker.active { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
+.mh24-marker .type { opacity: .8; font-weight: 500; margin-left: 6px; }
+
+/* Override për dark mode (sepse ke një rregull global me !important) */
+html.dark .mh24-marker { 
+  background: #fff; 
+  color: #111827 !important; 
+  border-color: #374151;                 /* gray-700 */
+}
+html.dark .mh24-marker.active {
+  background: #1d4ed8; 
+  color: #fff !important; 
+  border-color: #1d4ed8;
+}
+/* Mbaj hartën poshtë navbar/dropdown */
+.mapboxgl-map,
+.mapboxgl-canvas,
+.leaflet-container {
+  z-index: 0 !important;
+}
+.mapboxgl-control-container {
+  z-index: 10; /* kontrollet e hartës mbi hartë, por shumë poshtë navbar-it */
+}
