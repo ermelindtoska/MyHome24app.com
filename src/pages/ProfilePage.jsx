@@ -368,7 +368,7 @@ export default function ProfilePage() {
           {/* Stats si më parë */}
           <section className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow">
             <h2 className="text-xl font-semibold mb-5 text-green-600 dark:text-green-400">
-              {t("stats.title") || "Statistiken"}
+              {t("title") || "Statistiken"}
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <StatCard label={t("totalListings") || "Angebote gesamt"} value={stats.total} color="blue" />

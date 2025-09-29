@@ -90,7 +90,10 @@ export default function PublishProperty() {
       }
     } catch (e) {
       console.warn("Geocode error:", e);
-      toast.error("Geocoding fehlgeschlagen.");
+      toast.error("Geocoding fehlgeschlagen.", {
+        duration: 5000,
+        style: { backgroundColor: "#dc2626", color: "#ffffff" },
+      });
     }
   };
 
@@ -132,11 +135,17 @@ export default function PublishProperty() {
   // ---------- save ----------
   const saveListing = async () => {
     if (!currentUser?.uid) {
-      toast.error("Du musst angemeldet sein.");
+      toast.error("Du musst angemeldet sein.", {
+        duration: 5000,
+        style: { backgroundColor: "#dc2626", color: "#ffffff" },
+      });
       return;
     }
     if (!canContinueInfo || !canContinueLocation) {
-      toast.error("Bitte fülle die Pflichtfelder aus.");
+      toast.error("Bitte fülle die Pflichtfelder aus.", {
+        duration: 5000,
+        style: { backgroundColor: "#dc2626", color: "#ffffff" },
+      });
       return;
     }
 
@@ -179,27 +188,42 @@ export default function PublishProperty() {
         images: [],
       };
 
+      console.log("[DEBUG] Saving listing with payload:", payload);
+
       const docRef = await addDoc(collection(db, "listings"), payload);
+      console.log("[DEBUG] Listing saved with ID:", docRef.id);
 
       let urls = [];
       if (form.images.length) {
+        console.log("[DEBUG] Uploading", form.images.length, "images...");
         urls = await uploadPhotos(docRef.id);
+        console.log("[DEBUG] Images uploaded:", urls);
+
         await addDoc(collection(db, "listings", docRef.id, "_media"), {
           urls,
           createdAt: serverTimestamp(),
         });
+        console.log("[DEBUG] Media document created");
+
         await addDoc(collection(db, "listings", docRef.id, "_events"), {
           type: "photos_uploaded",
           count: urls.length,
           at: serverTimestamp(),
         });
+        console.log("[DEBUG] Event document created");
       }
 
-      toast.success("Immobilie veröffentlicht!");
+      toast.success("Immobilie veröffentlicht!", {
+        duration: 5000,
+        style: { backgroundColor: "#16a34a", color: "#ffffff" },
+      });
       navigate(`/listing/${docRef.id}`);
     } catch (e) {
-      console.error(e);
-      toast.error("Speichern fehlgeschlagen.");
+      console.error("[ERROR] Failed to save listing:", e);
+      toast.error("Speichern fehlgeschlagen: " + e.message, {
+        duration: 5000,
+        style: { backgroundColor: "#dc2626", color: "#ffffff" },
+      });
     } finally {
       setSaving(false);
     }

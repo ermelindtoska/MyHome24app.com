@@ -217,6 +217,7 @@ function AppRoutes() {
 
           <Route path="/add-property" element={<PublishProperty />} />
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
+          <Route path="*" element={<div className="text-center text-gray-500">404 Not Found</div>} />
         </Routes>
       </main>
       <Footer />

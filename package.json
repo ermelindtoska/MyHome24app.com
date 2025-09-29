@@ -6,10 +6,11 @@
     "start": "react-scripts start",
     "dev": "vite",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "preview": "vite preview",
-    "deploy": "git add . && git commit -m \"Auto deploy\" || echo \"Nothing to commit\" && git pull --rebase origin main && git push origin main"
+    "deploy": "git add . && git commit -m \"Auto deploy\" || echo \"Nothing to commit\" && git pull --rebase origin main && git push origin main",
+    "prepare": "husky"
   },
   "dependencies": {
     "@geoapify/geocoder-autocomplete": "^2.1.0",
@@ -42,7 +43,7 @@
     "react-map-gl": "^7.1.9",
     "react-player": "^2.16.0",
     "react-responsive-carousel": "^3.2.23",
-    "react-router-dom": "^7.6.0",
+    "react-router-dom": "^7.9.2",
     "react-scripts": "5.0.1",
     "react-simple-typewriter": "^5.0.1",
     "react-slick": "^0.30.3",
@@ -53,13 +54,19 @@
     "web-vitals": "^5.0.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "autoprefixer": "^10.4.17",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^9.1.7",
     "postcss": "^8.4.35",
     "prop-types": "^15.8.1",
-    "tailwindcss": "^3.4.3"
+    "tailwindcss": "^3.4.3",
+    "web-streams-polyfill": "^4.2.0",
+    "whatwg-fetch": "^3.6.20"
   },
   "browserslist": {
     "production": [
