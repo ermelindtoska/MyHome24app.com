@@ -1,0 +1,15 @@
+npm test
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Block accidental commits of .env or keys in source
+if git diff --cached --name-only | grep -E '(^|/)\.env($|\.|_)' >/dev/null; then
+  echo "❌ Refusing to commit: .env files are staged. Remove them from the commit."
+  exit 1
+fi
+
+# Optional: stop if any file contains "AIza" or "REACT_APP_FIREBASE_API_KEY="
+if git diff --cached -U0 | grep -E 'AIza|REACT_APP_FIREBASE_API_KEY=' >/dev/null; then
+  echo "❌ Potential API key detected in staged changes. Remove secrets before committing."
+  exit 1
+fi
