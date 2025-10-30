@@ -3,6 +3,7 @@
     "view": "Ansehen",
   "type": "Typ",
   "purpose": "Zweck",
+  "allPurposes": "Alle Zwecke",
   "house": "Haus",
   "apartment": "Wohnung",
   "office": "Büro",

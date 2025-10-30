@@ -3,6 +3,63 @@
   "addNew": "Neue Anzeige",
   "noListings": "Keine Anzeigen gefunden.",
   "new": "Neu",
+    "owner_dashboard_title": "Meine Immobilien",
+  "owner_dashboard_welcome": "Verwalte hier deine eigenen Inserate.",
+  "add_property": "Neue Anzeige",
+  "total_properties": "Gesamtanzahl Inserate",
+  "active_rentals": "Aktive Mietobjekte",
+  "pending_requests": "Offene Anfragen",
+  "support_tickets": "Support-Tickets",
+  "quick_actions": "Schnellaktionen",
+  "view_requests": "Anfragen ansehen",
+  "manage_rentals": "Mietobjekte verwalten",
+  "your_properties": "Deine Inserate",
+  "no_properties": "Keine Anzeigen gefunden.",
+
+ 
+  "city": "Stadt",
+  "price": "Preis",
+
+
+  "confirm_delete_title": "Anzeige löschen?",
+  "confirm_delete_message": "Möchtest du diese Anzeige wirklich dauerhaft löschen?",
+  "yes_delete": "Ja, löschen",
+  "cancel": "Abbrechen",
+
+ 
+  "purposeOptions": {
+    "buy": "Zum Kauf",
+    "rent": "Zur Miete"
+  },
+  "typeOptions": {
+    "apartment": "Wohnung",
+    "house": "Haus",
+    "office": "Büro / Gewerbe"
+  },
+  "allPurposes": "Alle Zwecke",
+  "searchPlaceholder": "Suche nach Stadt, PLZ, Region oder Stichwort",
+  "allTypes": "Alle Typen",
+  
+  "purpose": {
+    "buy": "Zum Kauf",
+    "rent": "Zur Miete"
+  },
+  "type": {
+    "apartment": "Wohnung",
+    "house": "Haus",
+    "office": "Büro / Gewerbe"
+  },
+  "newListing": "Neue Anzeige",
+  "requestOwnerRole": "Eigentümerrolle beantragen",
+  "noResults": "Keine Anzeigen gefunden.",
+  "actions": {
+    "edit": "Bearbeiten",
+    "delete": "Löschen"
+  },
+  "confirm": {
+    "deleteTitle": "Anzeige löschen?",
+    "deleteText": "Möchten Sie diese Anzeige wirklich dauerhaft löschen?"
+  },
   "requestOwnerUpgrade": "Eigentümerrolle beantragen",
   "details": "Details",
   "delete": "Löschen",
@@ -28,4 +85,5 @@
   "analytics": "Analysen & Statistiken",
   "notifications": "Benachrichtigungen"
   }
+  
 }

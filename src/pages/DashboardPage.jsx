@@ -3,7 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { FaPlus, FaCheckCircle } from 'react-icons/fa';
 
 const DashboardPage = ({ onAdd }) => {
-  const { t } = useTranslation('dashboard');
+  // NDRYSHOJE KËSHTU
+const { t } = useTranslation(['userDashboard', 'listing', 'filterBar']);
+
   const [form, setForm] = useState({
     title: '',
     city: '',

@@ -1,23 +1,22 @@
-// src/roles/RoleContext.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { doc, onSnapshot, getDoc } from "firebase/firestore";
 
-const RoleCtx = createContext({ role: null, loading: true });
+const RoleCtx = createContext({ role: null, loading: true, setRoleLocal: () => {} });
 
 export function RoleProvider({ children }) {
   const [uid, setUid] = useState(null);
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Ndiq login/logout
+  // Track login/logout
   useEffect(() => {
     const off = onAuthStateChanged(auth, (u) => setUid(u?.uid || null));
     return off;
   }, []);
 
-  // Dëgjo realtime dokumentin e user-it
+  // Live-Role aus users/{uid}
   useEffect(() => {
     if (!uid) {
       setRole(null);
@@ -27,8 +26,10 @@ export function RoleProvider({ children }) {
     setLoading(true);
     const unsub = onSnapshot(
       doc(db, "users", uid),
+      { includeMetadataChanges: true },
       (snap) => {
-        setRole(snap.data()?.role ?? "user");
+        const r = snap.data()?.role ?? "user";
+        setRole(r);
         setLoading(false);
       },
       (err) => {
@@ -39,14 +40,14 @@ export function RoleProvider({ children }) {
     return unsub;
   }, [uid]);
 
-  // Opsionale: refresh manual
+  // Optional: manuelles Refresh (selten nötig)
   const refresh = async () => {
     if (!uid) return;
     const snap = await getDoc(doc(db, "users", uid));
     setRole(snap.data()?.role ?? "user");
   };
 
-  // Lejo update optimist në UI
+  // Sofort im UI setzen (optimistic)
   const setRoleLocal = (r) => setRole(r);
 
   return (

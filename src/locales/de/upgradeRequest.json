@@ -6,7 +6,11 @@
   "sending": "Wird gesendet...",
   "successMessage": "Ihre Anfrage wurde erfolgreich übermittelt!",
   "close": "Schließen",
-   
+
+
+ 
+  "requestFailed": "Deine Anfrage konnte nicht gesendet werden. Bitte versuche es später erneut.",
+  "mustBeLoggedIn": "Du musst angemeldet sein, um eine Anfrage zu senden.",
   "submit": "Anfrage senden",
   "success": "Anfrage erfolgreich gesendet!",
   "error": "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut.",

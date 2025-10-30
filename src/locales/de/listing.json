@@ -1,7 +1,22 @@
 {
   "addListing": "Add New Listing",
     "resultsFound": "{{count}} Ergebnisse gefunden",
-     
+      
+"allPurposes": "Alle Zwecke",
+  "office": "Büro",
+ 
+  "images": "Bilder",
+  "chooseFiles": "Dateien auswählen",
+  
+
+  "successCreated": "Anzeige erfolgreich erstellt.",
+  "errorCreate": "Fehler beim Erstellen der Anzeige.",
+
+  "placeholders": {
+    "title": "Titel der Anzeige",
+    "city": "Stadt eingeben",
+    "price": "Preis eingeben"
+  },
   "perMonth": "pro Monat",
 
   "in": "in",

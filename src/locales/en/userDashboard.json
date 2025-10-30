@@ -3,6 +3,63 @@
   "addNew": "Add New",
   "noListings": "No listings found.",
   "new": "New",
+    "owner_dashboard_title": "My Properties",
+  "owner_dashboard_welcome": "Manage your own listings here.",
+  "add_property": "New Listing",
+  "total_properties": "Total listings",
+  "active_rentals": "Active rentals",
+  "pending_requests": "Pending requests",
+  "support_tickets": "Support tickets",
+  "quick_actions": "Quick actions",
+  "view_requests": "View requests",
+  "manage_rentals": "Manage rentals",
+  "your_properties": "Your listings",
+  "no_properties": "No listings found.",
+
+  
+  "city": "City",
+  "price": "Price",
+
+
+  "confirm_delete_title": "Delete listing?",
+  "confirm_delete_message": "Do you really want to permanently delete this listing?",
+  "yes_delete": "Yes, delete",
+  "cancel": "Cancel",
+
+
+  "purposeOptions": {
+    "buy": "For sale",
+    "rent": "For rent"
+  },
+  "typeOptions": {
+    "apartment": "Apartment",
+    "house": "House",
+    "office": "Office / Commercial"
+  },
+    "allPurposes": "All purposes",
+  "searchPlaceholder": "Search by city, ZIP, region or keyword",
+  "allTypes": "All types",
+  
+  "purpose": {
+    "buy": "For sale",
+    "rent": "For rent"
+  },
+  "type": {
+    "apartment": "Apartment",
+    "house": "House",
+    "office": "Office / Commercial"
+  },
+  "newListing": "New listing",
+  "requestOwnerRole": "Request owner role",
+  "noResults": "No listings found.",
+  "actions": {
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "confirm": {
+    "deleteTitle": "Delete listing?",
+    "deleteText": "Are you sure you want to permanently delete this listing?"
+  },
   "details": "Details",
   "delete": "Delete",
   "edit": "Edit",

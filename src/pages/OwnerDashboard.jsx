@@ -7,7 +7,11 @@ import { Link } from "react-router-dom";
 import { FaTrash, FaEdit, FaEye } from 'react-icons/fa';
 
 function OwnerDashboard() {
-  const { t } = useTranslation("dashboard");
+ // vendose pranë imports
+const tt = (key, opt={}) =>
+  t(key, { ns: ['userDashboard','listing','filterBar','dashboard'], ...opt });
+
+
   const [user, loading] = useAuthState(auth);
   const [listings, setListings] = useState([]);
   const [confirmDelete, setConfirmDelete] = useState(null);

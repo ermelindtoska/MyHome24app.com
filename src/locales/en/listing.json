@@ -6,8 +6,22 @@
 "viewListing": "View",
 "noSimilar": "No similar listings found.",
   "map.title": "MyHome24App",
-  "type": "Property Type",
  
+  "office": "Office",
+  
+  "images": "Images",
+  "chooseFiles": "Choose files",
+  
+
+  "successCreated": "Listing created successfully.",
+  "errorCreate": "Failed to create listing.",
+
+  "placeholders": {
+    "title": "Listing title",
+    "city": "Enter city",
+    "allPurposes": "All purposes" ,
+    "price": "Enter price"
+    },
 
 "showList": "Show list",
 "results": "Results",
