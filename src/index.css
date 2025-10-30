@@ -6,6 +6,9 @@
 body {
   @apply bg-white text-gray-900;
 }
+body.has-hero {
+  background: url('/public/images/myhomehintergrund.png') center/cover no-repeat fixed;
+}
 
 /* Dark mode për body */
 html.dark body {
@@ -138,3 +141,4 @@ html.dark .mh24-marker.active {
 .mapboxgl-control-container {
   z-index: 10; /* kontrollet e hartës mbi hartë, por shumë poshtë navbar-it */
 }
+.map-wrapper { height: calc(100vh - 64px); /* psh. minus navbar */ }

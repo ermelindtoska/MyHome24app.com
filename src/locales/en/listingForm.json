@@ -16,7 +16,7 @@
   "purpose": "Purpose",
   "price": "Price",
   "imageUrl": "Image URL",
-
+"allPurposes": "All purposes" ,
     "formTitle": "Add Property Listing",
   "propertyType": "Property Type",
   

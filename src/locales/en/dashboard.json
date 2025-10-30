@@ -3,6 +3,7 @@
     "view": "View",
   "type": "Type",
   "purpose": "Purpose",
+  
   "house": "House",
   "apartment": "Apartment",
   "office": "Office",

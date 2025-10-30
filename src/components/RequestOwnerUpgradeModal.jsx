@@ -9,7 +9,7 @@ import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { useToast } from "../components/ui/use-toast";
 
 const RequestOwnerUpgradeModal = ({ open, onClose }) => {
-  const { t } = useTranslation("requestOwnerUpgrade"); // ndryshim këtu
+  const { t } = useTranslation("upgradeRequest");
   const { toast } = useToast();
   const user = auth.currentUser;
 
@@ -17,6 +17,17 @@ const RequestOwnerUpgradeModal = ({ open, onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async () => {
+    // Guard: user muss eingeloggt sein
+    if (!user) {
+      toast({
+        title: t("error"),
+        description: t("mustBeLoggedIn"),
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Guard: Begründung
     if (!reason.trim()) {
       toast({
         title: t("error"),
@@ -28,25 +39,33 @@ const RequestOwnerUpgradeModal = ({ open, onClose }) => {
 
     try {
       setIsSubmitting(true);
-      await setDoc(doc(db, "roleUpgradeRequests", user.uid), {
-        userId: user.uid,
-        email: user.email,
-        fullName: user.displayName || "",
-        reason,
-        status: "pending",
-        requestedAt: serverTimestamp(),
-      });
 
+      await setDoc(
+        doc(db, "roleUpgradeRequests", user.uid),
+        {
+          userId: user.uid,
+          email: user.email || "",
+          fullName: user.displayName || "",
+          reason: reason.trim(),
+          status: "pending",
+          requestedAt: serverTimestamp(),
+        },
+        { merge: true }
+      );
+
+      // Nur AUFRUFEN, nicht rendern -> kein React-child-Objekt!
       toast({
         title: t("success"),
         description: t("requestSent"),
       });
 
+      setReason("");
       onClose();
     } catch (error) {
+      console.error("[RequestOwnerUpgrade] submit error:", error);
       toast({
         title: t("error"),
-        description: error.message,
+        description: t("requestFailed"),
         variant: "destructive",
       });
     } finally {

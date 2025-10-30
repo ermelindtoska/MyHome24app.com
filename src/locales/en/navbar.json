@@ -1,6 +1,12 @@
 {
   "buy": "Buy",
   
+  "role": "Role",
+  "signedInAs": "Signed in as",
+ 
+  "switchRole": "Switch role",
+ 
+
   "findAgent": "Find Agent",
 
   "user": "User",

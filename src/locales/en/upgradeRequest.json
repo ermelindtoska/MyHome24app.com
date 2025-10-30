@@ -11,6 +11,10 @@
   "success": "Request sent successfully!",
   "error": "Something went wrong. Please try again.",
 
+
+ 
+  "requestFailed": "We couldn’t send your request. Please try again later.",
+  "mustBeLoggedIn": "You must be logged in to submit a request.",
   "cancel": "Cancel",
   "send": "Send Request",
  

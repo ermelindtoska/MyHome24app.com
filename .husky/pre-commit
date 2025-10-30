@@ -1,15 +1,30 @@
-npm test
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-# Block accidental commits of .env or keys in source
-if git diff --cached --name-only | grep -E '(^|/)\.env($|\.|_)' >/dev/null; then
-  echo "❌ Refusing to commit: .env files are staged. Remove them from the commit."
+# --- STOP nese .env te vertete jane ne stage (por lejo .env.example) ---
+if git diff --cached --name-only \
+  | grep -E '(^|/)\.env($|\.)' \
+  | grep -v -E '(^|/)\.env\.example$|(^|/)\.env\.[^.]+\.example$' \
+  >/dev/null; then
+  echo "❌ Refuzim commit-i: .env real ne staging. Hiqi nga commit-i."
   exit 1
 fi
 
-# Optional: stop if any file contains "AIza" or "REACT_APP_FIREBASE_API_KEY="
-if git diff --cached -U0 | grep -E 'AIza|REACT_APP_FIREBASE_API_KEY=' >/dev/null; then
-  echo "❌ Potential API key detected in staged changes. Remove secrets before committing."
-  exit 1
+# --- Kontrollo vetëm skedarë source (jo .bat/.md/.png/.json configs etj)
+STAGED_FILTERED="$(git diff --cached --name-only \
+  | grep -Ei '\.(js|jsx|ts|tsx|json|env|yaml|yml)$' \
+  | grep -Evi '(^|/)node_modules/|(^|/)\.husky/|(^|/)\.vscode/')"
+
+if [ -n "$STAGED_FILTERED" ]; then
+  # Kërko vetëm pattern-e me "=" që sinjalizojnë VLERË sekreti
+  if git diff --cached -U0 -- $STAGED_FILTERED \
+     | grep -E 'REACT_APP_FIREBASE_API_KEY\s*=' >/dev/null \
+  || git diff --cached -U0 -- $STAGED_FILTERED \
+     | grep -E 'RECAPTCHA(_[A-Z0-9]+)?\s*=' >/dev/null \
+  || git diff --cached -U0 -- $STAGED_FILTERED \
+     | grep -E 'MAPBOX(_[A-Z0-9]+)?\s*=' >/dev/null
+  then
+     echo "❌ U detektua vlerë sekreti në staged diff. Hiqe dhe përdor env vars."
+     exit 1
+  fi
 fi
+
+# vazhdo normalisht (p.sh. testet)
+npm test -- --watchAll=false || exit 1

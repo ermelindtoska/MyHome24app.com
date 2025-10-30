@@ -6,6 +6,12 @@
   "logout": "Abmelden",
   "register": "Registrieren",
   "buy": "Kaufen",
+    
+  
+  "role": "Rolle",
+  "signedInAs": "Angemeldet als",
+ 
+  "switchRole": "Rolle wechseln",
   
 
   "user": "Benutzer",

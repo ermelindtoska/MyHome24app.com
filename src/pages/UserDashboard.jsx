@@ -14,7 +14,9 @@ import ListingMapModal from '../components/ListingMapModal';
 import RequestOwnerUpgradeModal from '../components/RequestOwnerUpgradeModal';
 
 const UserDashboard = () => {
-  const { t } = useTranslation('userDashboard');
+  // NDRYSHOJE KËSHTU
+const { t } = useTranslation(['userDashboard', 'listing', 'filterBar']);
+
 
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);

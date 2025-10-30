@@ -24,3 +24,38 @@ yarn-debug.log*
 yarn-error.log*
 .env
 .env.*
+# editor & lokale
+.vscode/
+*.code-workspace
+
+# skripte lokale deploy
+*.bat
+
+# çdo “scrap” i editorit në rrënjë (nëse i njeh me prefiks)
+scrap*.*
+# Node / build
+node_modules/
+build/
+
+# Env secrets
+.env
+.env.*
+!.env.example
+.env.example
+.firebase/
+# Editor & OS
+.vscode/
+*.code-workspace
+.DS_Store
+
+# Local tools / scripts
+*.bat
+git-filter-repo
+scripts-local/
+notes/
+
+# Experiments / junk
+tinker-cookbook/
+scrap*/
+((/
+(/

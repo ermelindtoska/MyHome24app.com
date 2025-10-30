@@ -1,12 +1,12 @@
 // src/components/profile/AvatarUploader.jsx
 import React, { useState } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { storage } from "../../firebase";
+import { storage, appCheckReady } from "../../firebase";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 
 export default function AvatarUploader({ uid, value, onChange }) {
-  const { t } = useTranslation("profile"); // ← përdor namespace "profile"
+  const { t } = useTranslation("profile");
   const [pct, setPct] = useState(null);
 
   const onPick = () => {
@@ -17,9 +17,13 @@ export default function AvatarUploader({ uid, value, onChange }) {
     el.click();
   };
 
-  const startUpload = (file) => {
+  const startUpload = async (file) => {
     try {
       if (!file || !uid) return;
+
+      // 🔐 WICHTIG: warte, bis App Check initialisiert ist
+      await appCheckReady;
+
       const allowed = ["image/jpeg", "image/png", "image/webp"];
       if (!allowed.includes(file.type)) {
         toast.error(t("errors.onlyImages", "Only JPG/PNG/WEBP are allowed."));
@@ -29,13 +33,17 @@ export default function AvatarUploader({ uid, value, onChange }) {
         toast.error(t("errors.imageTooLarge", "Image is larger than 5 MB."));
         return;
       }
+
       const safe = file.name.replace(/\s+/g, "_");
       const path = `users/${uid}/avatar/${Date.now()}_${safe}`;
+
       const task = uploadBytesResumable(ref(storage, path), file, {
         contentType: file.type,
         cacheControl: "public, max-age=3600",
       });
+
       setPct(0);
+
       task.on(
         "state_changed",
         (snap) => setPct(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)),
