@@ -5,6 +5,12 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
+
+// (opsionale) lejo mjedise dev-tool pa env të plota:
+const ALLOW_PARTIAL_ENV =
+  process.env.NODE_ENV === "development" &&
+  process.env.REACT_APP_ALLOW_PARTIAL_ENV === "1";
+
 // 🔐 require envs to exist (no hard-coded fallbacks)
 const required = [
   "REACT_APP_FIREBASE_API_KEY",
@@ -15,10 +21,13 @@ const required = [
   "REACT_APP_FIREBASE_APP_ID",
 ];
 required.forEach((k) => {
-  if (!process.env[k]) {
+  if (!process.env[k] && !ALLOW_PARTIAL_ENV) {
     throw new Error(`Missing env var: ${k}`);
   }
 });
+
+
+
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -34,24 +43,31 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 
-// --- App Check (optional in dev) ---
+// --- App Check (smart si Zillow: DEV=OFF, PROD=ON vetem nese ke site key) ---
 let appCheckReadyResolve;
 export const appCheckReady = new Promise((res) => (appCheckReadyResolve = res));
 
+export const appCheckEnabled = (() => {
+  if (typeof window === "undefined") return false;
+  const isDev = window.location.hostname === "localhost";
+  const disabledFlag = String(process.env.REACT_APP_DISABLE_APPCHECK || "") === "1";
+  const hasSiteKey = !!process.env.REACT_APP_RECAPTCHA_V3_SITE_KEY;
+  // DEV: OFF (ose nese ke vendosur flag-un)
+  // PROD: ON vetem nese ka site key dhe s’eshte deaktivuar me flag
+  return !isDev && !disabledFlag && hasSiteKey;
+})();
+
 if (typeof window !== "undefined") {
-  const disabled = String(process.env.REACT_APP_DISABLE_APPCHECK || "") === "1";
-  if (!disabled) {
-    try {
-      const siteKey = process.env.REACT_APP_RECAPTCHA_V3_SITE_KEY;
-      if (siteKey) {
-        initializeAppCheck(app, {
-          provider: new ReCaptchaV3Provider(siteKey),
-          isTokenAutoRefreshEnabled: true,
-        });
-      }
-    } catch (e) {
-      console.warn("[AppCheck] init failed:", e);
+  try {
+    if (appCheckEnabled) {
+      initializeAppCheck(app, {
+        provider: new ReCaptchaV3Provider(process.env.REACT_APP_RECAPTCHA_V3_SITE_KEY),
+        isTokenAutoRefreshEnabled: true,
+      });
     }
+  } catch (e) {
+    console.warn("[AppCheck] init failed:", e);
+  } finally {
+    appCheckReadyResolve();
   }
-  appCheckReadyResolve();
 }

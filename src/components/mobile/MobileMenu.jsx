@@ -1,3 +1,4 @@
+// src/components/mobile/MobileMenu.jsx
 import React, { useEffect, useState } from "react";
 import { HiX, HiChevronDown } from "react-icons/hi";
 import { useTranslation } from "react-i18next";
@@ -6,23 +7,40 @@ import { useAuth } from "../../context/AuthContext";
 import { useRole } from "../../roles/RoleContext";
 import LanguageSwitcher from "../LanguageSwitcher";
 import { createPortal } from "react-dom";
+import { toast } from "sonner";
 
-export default function MobileMenu({ onClose, isDark, toggleTheme }) {
+// (opsionale) nëse e përdor te Navbar:
+import { requestOrChangeRole } from "../../roles/changeRole";
+
+export default function MobileMenu({
+  onClose,
+  isDark,
+  toggleTheme,
+  // opsionale: nëse Navbar të kalon këtë handler, ne e përdorim
+  onChangeRole: onChangeRoleProp,
+}) {
   const { t } = useTranslation("navbar");
   const navigate = useNavigate();
+
+  // Nga konteksti yt ekzistues
   const { currentUser } = useAuth() ?? { currentUser: null };
-  const { role } = useRole();
+  const { role: ctxRole } = useRole();
+  const role = ctxRole || "user";
+  const { logout } = useAuth()
+
   const [openSubmenu, setOpenSubmenu] = useState(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 10);
 
-    // ngrij scroll-in e faqes
+    // Ngrij scroll-in e faqes
     const body = document.body;
-    const prevOverflow = body.style.overflow;
-    const prevPosition = body.style.position;
-    const prevTop = body.style.top;
+    const prev = {
+      overflow: body.style.overflow,
+      position: body.style.position,
+      top: body.style.top,
+    };
     const scrollY = window.scrollY;
     body.style.overflow = "hidden";
     body.style.position = "fixed";
@@ -30,109 +48,136 @@ export default function MobileMenu({ onClose, isDark, toggleTheme }) {
 
     return () => {
       clearTimeout(timer);
-      body.style.overflow = prevOverflow || "";
-      body.style.position = prevPosition || "";
-      body.style.top = prevTop || "";
+      body.style.overflow = prev.overflow || "";
+      body.style.position = prev.position || "";
+      body.style.top = prev.top || "";
       window.scrollTo(0, scrollY);
     };
   }, []);
+ 
 
- const handleNavigate = (path) => {
-  onClose();
-  navigate(path);
-  // Truko e vogël për Mapbox: vonesë dhe resize
-  setTimeout(() => {
-    window.dispatchEvent(new Event("resize"));
-  }, 600); // mjafton 0.6s për animacionin e drawer-it
-};
-
+  const handleNavigate = (path) => {
+    onClose();
+    navigate(path);
+    // Triku i hartës (Mapbox/GL)
+    setTimeout(() => window.dispatchEvent(new Event("resize")), 600);
+  };
 
   const toggleSubmenu = (menu) => {
     setOpenSubmenu(openSubmenu === menu ? null : menu);
   };
 
-  return createPortal(
-    <div className="fixed inset-0 z-[9999999]">
-      {/* backdrop */}
-      <div
-        className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
-          visible ? "opacity-100" : "opacity-0"
-        }`}
-        onClick={onClose}
-      ></div>
+  // Handler i unifikuar i ndërrimit të rolit:
+  const onChangeRole = async (targetRole) => {
+    try {
+      if (onChangeRoleProp) {
+        const ok = await onChangeRoleProp(targetRole);
+        if (ok === false) {
+          toast.error(t("roleChangeError", { defaultValue: "Rolle konnte nicht aktualisiert werden." }));
+          return;
+        }
+        toast.success(t("roleUpdated", { defaultValue: "Rolle wurde aktualisiert." }));
+      } else {
+        const res = await requestOrChangeRole(targetRole);
+        if (!res?.ok) {
+          toast.error(t("roleChangeError", { defaultValue: "Rolle konnte nicht aktualisiert werden." }));
+          return;
+        }
+        toast.success(
+          res.requested
+            ? t("upgradeRequested", { defaultValue: "Antrag gesendet. Die/der Admin wird es bald prüfen." })
+            : t("roleUpdated", { defaultValue: "Rolle wurde aktualisiert." })
+        );
+      }
+      onClose();
+      navigate("/dashboard");
+    } catch (e) {
+      console.error("[MobileMenu] onChangeRole error:", e);
+      toast.error(t("roleChangeError", { defaultValue: "Rolle konnte nicht aktualisiert werden." }));
+    }
+  };
 
-      {/* drawer */}
+
+  return createPortal(
+    <div className="fixed inset-0 z-[50000] pointer-events-none">
+      {/* Backdrop */}
+      <div
+       className={`absolute inset-0 z-[50000] bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
+         visible ? "opacity-100" : "opacity-0"
+       } pointer-events-auto`}
+       onClick={onClose}
+     />
+
+      {/* Drawer */}
       <aside
-        className={`absolute top-0 right-0 w-[85%] max-w-sm h-full bg-white dark:bg-gray-900 shadow-2xl border-l border-gray-200 dark:border-gray-700 transform transition-transform duration-300 ${
-          visible ? "translate-x-0" : "translate-x-full"
-        } flex flex-col overflow-y-auto`}
-      >
+       className={`absolute top-0 right-0 z-[50001] w-[85%] max-w-sm h-full bg-white dark:bg-gray-900 shadow-2xl border-l border-gray-200 dark:border-gray-700 transform transition-transform duration-300 ${
+         visible ? "translate-x-0" : "translate-x-full"
+       } flex flex-col overflow-y-auto pointer-events-auto`}
+     >
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200 dark:border-gray-700">
           <span className="font-semibold text-gray-900 dark:text-gray-100 text-lg">
-            {t("menu") || "Menü"}
+            {t("menu", { defaultValue: "Menü" })}
           </span>
           <button
             onClick={onClose}
             className="text-2xl text-gray-800 dark:text-gray-100"
+            aria-label="Schließen"
           >
             <HiX />
           </button>
         </div>
 
-        {/* Përmbajtja e menusë */}
+        {/* Përmbajtja */}
         <div className="p-4 space-y-3 flex-1 overflow-y-auto">
-
           {/* --- Kaufen --- */}
-          <div>
-            <button
-              onClick={() => toggleSubmenu("buy")}
-              className="w-full flex justify-between items-center px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 font-medium"
-            >
-              {t("buy")}
-              <HiChevronDown
-                className={`transition-transform ${
-                  openSubmenu === "buy" ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-            {openSubmenu === "buy" && (
-              <div className="ml-6 mt-1 space-y-2 text-gray-700 dark:text-gray-300">
-                <button onClick={() => handleNavigate("/buy/wohnung-verkauf")} className="block w-full text-left hover:text-blue-600">
-                  {t("apartmentsForSale")}
-                </button>
-                <button onClick={() => handleNavigate("/buy/haus-verkauf")} className="block w-full text-left hover:text-blue-600">
-                  {t("housesForSale")}
-                </button>
-              </div>
-            )}
-          </div>
+          
+            <div>
+              <button
+                onClick={() => toggleSubmenu("buy")}
+                className="w-full flex justify-between items-center px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 font-medium"
+              >
+                {t("buy")}
+                <HiChevronDown className={`transition-transform ${openSubmenu === "buy" ? "rotate-180" : ""}`} />
+              </button>
 
-          {/* --- Mieten --- */}
-          <div>
-            <button
-              onClick={() => toggleSubmenu("rent")}
-              className="w-full flex justify-between items-center px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 font-medium"
-            >
-              {t("rent")}
-              <HiChevronDown
-                className={`transition-transform ${
-                  openSubmenu === "rent" ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-            {openSubmenu === "rent" && (
-              <div className="ml-6 mt-1 space-y-2 text-gray-700 dark:text-gray-300">
-                <button onClick={() => handleNavigate("/rent/wohnung-miete")} className="block w-full text-left hover:text-blue-600">
-                  {t("apartmentsForRent")}
-                </button>
-                <button onClick={() => handleNavigate("/rent/haus-miete")} className="block w-full text-left hover:text-blue-600">
-                  {t("housesForRent")}
-                </button>
-              </div>
-            )}
-          </div>
+              {openSubmenu === "buy" && (
+                <div className="ml-6 mt-1 space-y-2 text-gray-700 dark:text-gray-300">
+                  {/* të dyja shkojnë te /buy (si te desktop) */}
+                  <button onClick={() => handleNavigate("/buy")} className="block w-full text-left hover:text-blue-600">
+                    {t("apartmentsForSale")}
+                  </button>
+                  <button onClick={() => handleNavigate("/buy")} className="block w-full text-left hover:text-blue-600">
+                    {t("housesForSale")}
+                  </button>
+                </div>
+              )}
+            </div>
 
-          {/* --- Finanzieren --- */}
+            {/* --- Mieten --- */}
+            <div>
+              <button
+                onClick={() => toggleSubmenu("rent")}
+                className="w-full flex justify-between items-center px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 font-medium"
+              >
+                {t("rent")}
+                <HiChevronDown className={`transition-transform ${openSubmenu === "rent" ? "rotate-180" : ""}`} />
+              </button>
+
+              {openSubmenu === "rent" && (
+                <div className="ml-6 mt-1 space-y-2 text-gray-700 dark:text-gray-300">
+                  {/* të dyja shkojnë te /rent (si te desktop) */}
+                  <button onClick={() => handleNavigate("/rent")} className="block w-full text-left hover:text-blue-600">
+                    {t("apartmentsForRent")}
+                  </button>
+                  <button onClick={() => handleNavigate("/rent")} className="block w-full text-left hover:text-blue-600">
+                    {t("housesForRent")}
+                  </button>
+                </div>
+              )}
+            </div>
+
+
+          {/* --- Finanzieren / Makler:innen --- */}
           <button
             onClick={() => handleNavigate("/mortgage")}
             className="block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 font-medium"
@@ -140,7 +185,6 @@ export default function MobileMenu({ onClose, isDark, toggleTheme }) {
             {t("mortgage")}
           </button>
 
-          {/* --- Makler:innen finden --- */}
           <button
             onClick={() => handleNavigate("/agents")}
             className="block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 font-medium"
@@ -148,7 +192,7 @@ export default function MobileMenu({ onClose, isDark, toggleTheme }) {
             {t("findAgent")}
           </button>
 
-          {/* --- Blog --- */}
+          {/* --- Blog / Map / Compare / Contact --- */}
           <button
             onClick={() => handleNavigate("/blog")}
             className="block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 font-medium"
@@ -156,7 +200,6 @@ export default function MobileMenu({ onClose, isDark, toggleTheme }) {
             {t("blog")}
           </button>
 
-          {/* --- Karte --- */}
           <button
             onClick={() => handleNavigate("/map")}
             className="block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 font-medium"
@@ -164,7 +207,6 @@ export default function MobileMenu({ onClose, isDark, toggleTheme }) {
             {t("map")}
           </button>
 
-          {/* --- Vergleichen --- */}
           <button
             onClick={() => handleNavigate("/compare")}
             className="block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 font-medium"
@@ -172,7 +214,6 @@ export default function MobileMenu({ onClose, isDark, toggleTheme }) {
             {t("compare")}
           </button>
 
-          {/* --- Kontakt --- */}
           <button
             onClick={() => handleNavigate("/contact")}
             className="block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 font-medium"
@@ -231,6 +272,31 @@ export default function MobileMenu({ onClose, isDark, toggleTheme }) {
                 </>
               )}
 
+              {/* --- ROLLE WECHSELN (JASHTË butonit “Profil”) --- */}
+              <div className="mt-2 px-4 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                {t("switchRole", { defaultValue: "Rolle wechseln" })}
+              </div>
+              <div className="px-4 py-2 space-y-2">
+                <button
+                  onClick={() => onChangeRole("user")}
+                  className="w-full text-left hover:bg-gray-100 dark:hover:bg-gray-800 rounded px-2 py-1"
+                >
+                  {t("user", { defaultValue: "Benutzer:in" })}
+                </button>
+                <button
+                  onClick={() => onChangeRole("owner")}
+                  className="w-full text-left hover:bg-gray-100 dark:hover:bg-gray-800 rounded px-2 py-1"
+                >
+                  {t("owner", { defaultValue: "Eigentümer:in" })}
+                </button>
+                <button
+                  onClick={() => onChangeRole("agent")}
+                  className="w-full text-left hover:bg-gray-100 dark:hover:bg-gray-800 rounded px-2 py-1"
+                >
+                  {t("agent", { defaultValue: "Makler:in" })}
+                </button>
+              </div>
+
               <button
                 onClick={() => handleNavigate("/settings")}
                 className="block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-100"
@@ -239,11 +305,19 @@ export default function MobileMenu({ onClose, isDark, toggleTheme }) {
               </button>
 
               <button
-                onClick={() => handleNavigate("/logout")}
-                className="block w-full text-left px-4 py-2 rounded text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-800"
-              >
-                {t("logout")}
-              </button>
+          onClick={async () => {
+            try {
+              await logout();
+              onClose();
+              navigate("/"); // oder /login – wie du magst
+            } catch (e) {
+              console.error(e);
+            }
+          }}
+          className="block w-full text-left px-4 py-2 rounded text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+        >
+          {t("logout")}
+        </button>
             </>
           )}
 

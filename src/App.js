@@ -70,10 +70,12 @@ import SearchPage from './pages/SearchPage';
 import SettingsPage from './pages/SettingsPage';
 import ProfilePage from './pages/ProfilePage';
 
+
 // Providers
 import { RoleProvider } from './roles/RoleContext';
 import RequireRole from './roles/RequireRole';
 import { AuthProvider } from './context/AuthContext'; // ✅ vetem kjo
+import { SearchStateProvider } from "./state/useSearchState";
 
 // Toasts / SEO
 import { ToastContainer } from 'react-toastify';
@@ -93,7 +95,7 @@ function AppRoutes() {
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
       <Navbar />
       <GlobalMeta />
-      <main className="flex-grow">
+      <main className="flex-grow pt-14 md:pt-0">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/listing/:id" element={<PropertyDetails />} />
@@ -168,7 +170,7 @@ function AppRoutes() {
 
           {/* Settings */}
           <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
-          <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><ProfilePage/></ProtectedRoute>} />
 
           {/* Role-based dashboards */}
           <Route
@@ -190,11 +192,12 @@ function AppRoutes() {
           <Route
             path="/dashboard"
             element={
-              <RequireRole allowedRoles={['user', 'admin']}>
-                <UserDashboard />
+              <RequireRole allowedRoles={['user', 'owner', 'agent', 'admin']}>
+              <UserDashboard />
               </RequireRole>
             }
           />
+
           <Route
             path="/admin-dashboard"
             element={
@@ -204,16 +207,22 @@ function AppRoutes() {
             }
           />
           <Route
-            path="/user-dashboard"
-            element={
-              <ProtectedRoute>
-                <RequireRole allowedRoles={['user']}>
+          path="/user-dashboard"
+          element={
+              <RequireRole allowedRoles={['user']}>
                   <UserDashboard />
-                </RequireRole>
-              </ProtectedRoute>
+                  </RequireRole>
             }
           />
-          <Route path="/publish"element={<RequireRole allowedRoles={['owner','admin']}><PublishProperty /></RequireRole>}/>
+          <Route
+              path="/publish"
+              element={
+                <RequireRole allowedRoles={['owner','agent','admin']}>
+                <PublishProperty />
+                </RequireRole>
+            }
+          />
+
 
           <Route path="/add-property" element={<PublishProperty />} />
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
@@ -230,10 +239,12 @@ export default function App() {
     <Router>
       <AuthProvider>
         <RoleProvider>
+          <SearchStateProvider>
           <AppRoutes />
           <ToastContainer />
           <ToasterProvider />
           <Toaster richColors />
+          </SearchStateProvider>
         </RoleProvider>
       </AuthProvider>
     </Router>

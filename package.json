@@ -62,6 +62,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "http-proxy-middleware": "^3.0.5",
     "husky": "^9.1.7",
     "postcss": "^8.4.35",
     "prop-types": "^15.8.1",

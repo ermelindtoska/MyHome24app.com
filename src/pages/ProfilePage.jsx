@@ -11,6 +11,7 @@ import AccountSidebar from "../components/profile/AccountSidebar";
 import AvatarUploader from "../components/profile/AvatarUploader";
 import { useSearchParams } from "react-router-dom";
 
+
 export default function ProfilePage() {
   const { t } = useTranslation("profile");
   const { currentUser } = useAuth();

@@ -1,23 +1,25 @@
 // src/components/RequestOwnerUpgradeModal.jsx
 import React, { useState } from "react";
-import { Dialog } from "../components/ui/dialog";
-import { Button } from "../components/ui/button";
-import { Textarea } from "../components/ui/textarea";
 import { useTranslation } from "react-i18next";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { useToast } from "../components/ui/use-toast";
 
-const RequestOwnerUpgradeModal = ({ open, onClose }) => {
+// shadcn/ui – kujdes me path-in (je brenda src/components)
+import { Dialog, DialogContent, DialogTitle, DialogFooter } from "./ui/dialog";
+import { Button } from "./ui/button";
+import { Textarea } from "./ui/textarea";
+import { useToast } from "./ui/use-toast";
+
+export default function RequestOwnerUpgradeModal({ open, onClose }) {
   const { t } = useTranslation("upgradeRequest");
   const { toast } = useToast();
-  const user = auth.currentUser;
+  const [user] = useAuthState(auth);
 
   const [reason, setReason] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async () => {
-    // Guard: user muss eingeloggt sein
     if (!user) {
       toast({
         title: t("error"),
@@ -26,8 +28,6 @@ const RequestOwnerUpgradeModal = ({ open, onClose }) => {
       });
       return;
     }
-
-    // Guard: Begründung
     if (!reason.trim()) {
       toast({
         title: t("error"),
@@ -41,26 +41,21 @@ const RequestOwnerUpgradeModal = ({ open, onClose }) => {
       setIsSubmitting(true);
 
       await setDoc(
-        doc(db, "roleUpgradeRequests", user.uid),
+        doc(db, "roleUpgradeRequests", user.uid), // një dokument /user.uid
         {
           userId: user.uid,
           email: user.email || "",
           fullName: user.displayName || "",
           reason: reason.trim(),
           status: "pending",
-          requestedAt: serverTimestamp(),
+          requestedAt: serverTimestamp(), // emër konsistent me AdminDashboard
         },
         { merge: true }
       );
 
-      // Nur AUFRUFEN, nicht rendern -> kein React-child-Objekt!
-      toast({
-        title: t("success"),
-        description: t("requestSent"),
-      });
-
+      toast({ title: t("success"), description: t("requestSent") });
       setReason("");
-      onClose();
+      onClose?.();
     } catch (error) {
       console.error("[RequestOwnerUpgrade] submit error:", error);
       toast({
@@ -75,24 +70,26 @@ const RequestOwnerUpgradeModal = ({ open, onClose }) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <div className="p-6 space-y-4 bg-white dark:bg-gray-900 rounded-xl max-w-md mx-auto">
-        <h2 className="text-xl font-semibold">{t("title")}</h2>
+      <DialogContent className="max-w-md">
+        <div className="mb-2">
+        <DialogTitle>{t("title")}</DialogTitle>
+        </div>
+
         <Textarea
           placeholder={t("placeholder")}
           value={reason}
           onChange={(e) => setReason(e.target.value)}
         />
-        <div className="flex justify-end gap-2">
+
+        <DialogFooter className="gap-2">
           <Button variant="ghost" onClick={onClose}>
             {t("cancel")}
           </Button>
           <Button onClick={handleSubmit} disabled={isSubmitting}>
             {isSubmitting ? t("sending") : t("send")}
           </Button>
-        </div>
-      </div>
+        </DialogFooter>
+      </DialogContent>
     </Dialog>
   );
-};
-
-export default RequestOwnerUpgradeModal;
+}

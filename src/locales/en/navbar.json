@@ -13,7 +13,13 @@
   "owner": "Owner",
   "agent": "Agent",
   "settings": "Settings",
- 
+ "roleChange": {
+
+"updated": "Role has been updated."
+
+
+
+},
   "officeCommercial": "Office / Commercial",
 
   "bankPartners": "Bank Partners",
@@ -21,7 +27,10 @@
   
   "newListing": "New Listing",
   "bannerAds": "Banner Ads",
-  
+  "apartments For Sale":  "apartment-for-sale",
+ "housesForSale":  "house-for-sale", 
+"apartments For Rent":  "apartment-for-rent",
+ "housesForRent": "house-for-rent",
   "rent": "Rent",
   "sell": "Sell",
   "mortgage": "Mortgage",
