@@ -1,79 +1,88 @@
 // src/components/Map/MapFilters.jsx
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import { useSearchState } from "../../state/useSearchState";
+import { useTranslation } from "react-i18next";
 
-export default function MapFilters({ filters, sortBy, onFilterChange, onSortChange }) {
-  const { t } = useTranslation(['listing', 'filterBar']);
+export default function MapFilters() {
+  const { t } = useTranslation(["filterBar"]);
+  const { filters, setFilters, sortBy, setSortBy, search, setSearch } = useSearchState();
 
-  const set = (patch) => onFilterChange({ ...filters, ...patch });
-  const reset = () =>
-    onFilterChange({ city: '', type: '', priceMin: '', priceMax: '' });
+  const onChange = (patch) => setFilters((prev) => ({ ...prev, ...patch }));
 
   return (
-    <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur rounded-xl shadow-lg p-3 md:p-4 flex flex-wrap items-center gap-2 border border-gray-200 dark:border-gray-700">
-      {/* City */}
-      <input
-        type="text"
-        placeholder={t('city', { ns: 'filterBar' })}
-        value={filters.city}
-        onChange={(e) => set({ city: e.target.value })}
-        className="min-w-[140px] px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
-      />
+    <div className="rounded-xl bg-gray-900/80 dark:bg-gray-900/80 text-white px-4 py-3 shadow-xl border border-white/10">
+      {/* Stadt */}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+        <input
+          value={filters.city}
+          onChange={(e) => onChange({ city: e.target.value })}
+          placeholder={t("city", { defaultValue: "Stadt" })}
+          className="col-span-2 md:col-span-2 px-3 py-2 rounded bg-gray-800 border border-gray-700 placeholder-gray-400"
+        />
 
-      {/* Type */}
-      <select
-        value={filters.type}
-        onChange={(e) => set({ type: e.target.value })}
-        className="min-w-[140px] px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
-      >
-        <option value="">{t('typeAll', { ns: 'filterBar' })}</option>
-        <option value="Apartment">{t('apartment', { ns: 'filterBar' })}</option>
-        <option value="House">{t('house', { ns: 'filterBar' })}</option>
-        <option value="Office">{t('office', { ns: 'filterBar' })}</option>
-      </select>
+        {/* Typ */}
+        <select
+          value={filters.type}
+          onChange={(e) => onChange({ type: e.target.value })}
+          className="px-3 py-2 rounded bg-gray-800 border border-gray-700"
+        >
+          <option value="">{t("allTypes", { defaultValue: "Alle Typen" })}</option>
+          <option value="apartment">{t("apartment", { defaultValue: "Wohnung" })}</option>
+          <option value="house">{t("house", { defaultValue: "Haus" })}</option>
+          <option value="commercial">{t("commercial", { defaultValue: "Gewerbe" })}</option>
+        </select>
 
-      {/* Min price */}
-      <input
-        type="number"
-        min="0"
-        inputMode="numeric"
-        placeholder={t('minPrice', { ns: 'filterBar' })}
-        value={filters.priceMin}
-        onChange={(e) => set({ priceMin: e.target.value })}
-        className="w-28 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
-      />
+        {/* Preis min/max */}
+        <input
+          type="number"
+          inputMode="numeric"
+          value={filters.priceMin}
+          onChange={(e) => onChange({ priceMin: e.target.value })}
+          placeholder={t("minPrice", { defaultValue: "Mindestpreis" })}
+          className="px-3 py-2 rounded bg-gray-800 border border-gray-700 placeholder-gray-400"
+        />
+        <input
+          type="number"
+          inputMode="numeric"
+          value={filters.priceMax}
+          onChange={(e) => onChange({ priceMax: e.target.value })}
+          placeholder={t("maxPrice", { defaultValue: "Höchstpreis" })}
+          className="px-3 py-2 rounded bg-gray-800 border border-gray-700 placeholder-gray-400"
+        />
 
-      {/* Max price */}
-      <input
-        type="number"
-        min="0"
-        inputMode="numeric"
-        placeholder={t('maxPrice', { ns: 'filterBar' })}
-        value={filters.priceMax}
-        onChange={(e) => set({ priceMax: e.target.value })}
-        className="w-28 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
-      />
+        {/* Sort */}
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+          className="col-span-2 md:col-span-1 px-3 py-2 rounded bg-gray-800 border border-gray-700"
+        >
+          <option value="">{t("default", { defaultValue: "Standard" })}</option>
+          <option value="priceAsc">{t("priceAsc", { defaultValue: "Preis ⬆︎" })}</option>
+          <option value="priceDesc">{t("priceDesc", { defaultValue: "Preis ⬇︎" })}</option>
+        </select>
+      </div>
 
-      {/* Sort */}
-      <select
-        value={sortBy}
-        onChange={(e) => onSortChange(e.target.value)}
-        className="min-w-[150px] px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
-      >
-        <option value="">{t('default', { ns: 'filterBar' })}</option>
-        <option value="priceAsc">{t('priceAsc', { ns: 'filterBar' })}</option>
-        <option value="priceDesc">{t('priceDesc', { ns: 'filterBar' })}</option>
-      </select>
+      {/* Freitextsuche */}
+      <div className="mt-2">
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder={t("searchLocation", { defaultValue: "Nach Stadt oder Adresse suchen…" })}
+          className="w-full px-3 py-2 rounded bg-gray-800 border border-gray-700 placeholder-gray-400"
+        />
+      </div>
 
       {/* Reset */}
-      <button
-        type="button"
-        onClick={reset}
-        className="ml-auto px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200"
-        title={t('reset', { ns: 'filterBar', defaultValue: 'Zurücksetzen' })}
-      >
-        {t('reset', { ns: 'filterBar', defaultValue: 'Zurücksetzen' })}
-      </button>
+      <div className="mt-2">
+        <button
+          onClick={() =>
+            setFilters({ city: "", type: "", priceMin: "", priceMax: "" })
+          }
+          className="px-3 py-1.5 rounded bg-gray-800 border border-gray-700 hover:bg-gray-700"
+        >
+          {t("reset", { defaultValue: "Zurücksetzen" })}
+        </button>
+      </div>
     </div>
   );
 }

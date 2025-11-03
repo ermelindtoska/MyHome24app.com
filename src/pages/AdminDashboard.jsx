@@ -67,19 +67,22 @@ useEffect(() => {
     fetchSupportMessages();
     fetchRoles();
   }, []);
+useEffect(() => {
   const fetchRoleRequests = async () => {
-  try {
-    const snapshot = await getDocs(collection(db, 'roleUpgradeRequests'));
-    const requests = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
-    setRoleRequests(requests);
-  } catch (err) {
-    console.error("Error fetching role upgrade requests:", err);
-  }
-};
-fetchRoleRequests();
+    try {
+      const snapshot = await getDocs(collection(db, "roleUpgradeRequests"));
+      const requests = snapshot.docs.map((d) => ({
+        id: d.id,
+        ...d.data(),
+      }));
+      setRoleRequests(requests);
+    } catch (err) {
+      console.error("Error fetching role upgrade requests:", err);
+    }
+  };
+
+  fetchRoleRequests();
+}, []);
 
 
   const logActivity = async (action, detail, userId = 'admin') => {
@@ -120,12 +123,20 @@ fetchRoleRequests();
       console.error('Error updating status:', error);
     }
   };
-  const handleApproveRequest = async (requestId, userId) => {
+  // AdminDashboard.jsx
+// MIRATIMI I KËRKESËS: vendos rolin te users/{uid}, fshi kërkesën, rifresko UI
+const handleApproveRequest = async (requestId, userId) => {
   try {
-    await updateDoc(doc(db, 'roles', userId), { role: 'owner' });
-    await deleteDoc(doc(db, 'roleUpgradeRequests', requestId));
-    setRoleRequests(prev => prev.filter(req => req.id !== requestId));
-    await logActivity('Approved owner upgrade', `UserID: ${userId}`);
+    // 1) vendos rolin 'owner' te users/{uid}
+    await updateDoc(doc(db, "users", userId), { role: "owner" });
+
+    // 2) fshi dokumentin e kërkesës
+    await deleteDoc(doc(db, "roleUpgradeRequests", requestId));
+
+    // 3) përditëso state-in lokalisht
+    setRoleRequests((prev) => prev.filter((req) => req.id !== requestId));
+
+    await logActivity("Approved owner upgrade", `UserID: ${userId}`);
   } catch (err) {
     console.error("Error approving request:", err);
   }
@@ -133,9 +144,9 @@ fetchRoleRequests();
 
 const handleRejectRequest = async (requestId) => {
   try {
-    await deleteDoc(doc(db, 'roleUpgradeRequests', requestId));
-    setRoleRequests(prev => prev.filter(req => req.id !== requestId));
-    await logActivity('Rejected owner upgrade', `RequestID: ${requestId}`);
+    await deleteDoc(doc(db, "roleUpgradeRequests", requestId));
+    setRoleRequests((prev) => prev.filter((req) => req.id !== requestId));
+    await logActivity("Rejected owner upgrade", `RequestID: ${requestId}`);
   } catch (err) {
     console.error("Error rejecting request:", err);
   }
@@ -246,7 +257,7 @@ const handleRejectRequest = async (requestId) => {
           <td className="py-2 px-4 border">{req.userId}</td>
           <td className="py-2 px-4 border">{req.reason}</td>
           <td className="py-2 px-4 border">
-            {req.timestamp?.toDate?.().toLocaleString?.() || '–'}
+            {req.requestedAt?.toDate?.().toLocaleString?.() || '–'}
           </td>
           <td className="py-2 px-4 border flex space-x-2">
             <button
@@ -307,6 +318,8 @@ const handleRejectRequest = async (requestId) => {
                     </button>
                   )}
                 </td>
+                
+
               </tr>
             ))}
           </tbody>

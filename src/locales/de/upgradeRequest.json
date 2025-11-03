@@ -1,13 +1,38 @@
 {
-  "title": "Upgrade auf Eigentümerkonto beantragen",
+  
   "description": "Bitte geben Sie uns einige Informationen, warum Sie Ihre Rolle auf 'Eigentümer' umstellen möchten.",
   "placeholder": "Ihre Nachricht...",
   "sendRequest": "Anfrage senden",
   "sending": "Wird gesendet...",
   "successMessage": "Ihre Anfrage wurde erfolgreich übermittelt!",
   "close": "Schließen",
+"title": "Eigentümerrolle beantragen",
+  "upgradeToOwner": "Upgrade zur Eigentümer:in-Rolle",
+  "requestOwnerUpgrade": "Eigentümerrolle beantragen",
+  "goToPublish": "Zum Veröffentlichen",
+  "noRequestYet": "Sie haben noch keinen Antrag gestellt.",
+  "statusPending": "Antrag ausstehend",
+  "statusApproved": "Antrag genehmigt",
+  "statusRejected": "Antrag abgelehnt",
+  "youAreOwner": "Sie sind bereits Eigentümer:in.",
+  "youCanPublishNow": "Sie können jetzt Immobilien veröffentlichen.",
+  "waitForDecision": "Bitte warten Sie auf die Entscheidung des Admins.",
+  "reloginHint": "Bitte melden Sie sich ggf. ab und wieder an, damit die Rechte aktiv werden.",
+  "yourReasonWas": "Ihr angegebener Grund war",
+  "cannotRequestNow": "Aktuell kann kein Antrag gestellt werden.",
+  "helperText": "Beschreiben Sie kurz, warum Sie die Eigentümerrolle benötigen (z. B. Sie möchten eigene Immobilien veröffentlichen).",
 
 
+  "becomeOwnerTitle": "Upgrade zur Owner-Rolle",
+  "becomeOwnerDesc": "Owners können Inserate veröffentlichen und verwalten. Sende eine kurze Anfrage an die Admins.",
+  "btnRequest": "Upgrade anfragen",
+  "btnPending": "Anfrage ausstehend…",
+  "checking": "Prüfe…",
+  "status": {
+    "pending": "Ausstehend",
+    "approved": "Genehmigt",
+    "rejected": "Abgelehnt"
+  },
  
   "requestFailed": "Deine Anfrage konnte nicht gesendet werden. Bitte versuche es später erneut.",
   "mustBeLoggedIn": "Du musst angemeldet sein, um eine Anfrage zu senden.",

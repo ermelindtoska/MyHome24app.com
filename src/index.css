@@ -2,105 +2,95 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Default light mode body */
+/* ---------- Base / Light ---------- */
 body {
   @apply bg-white text-gray-900;
 }
+
+/* Hero background (shmang webpack resolve; përdor rrugën absolute te PUBLIC) */
 body.has-hero {
   background: url('/public/images/myhomehintergrund.png') center/cover no-repeat fixed;
 }
 
-/* Dark mode për body */
+
+/* ---------- Dark mode i shëndoshë (jo agresiv) ---------- */
 html.dark body {
   @apply bg-gray-900 text-gray-100;
 }
 
-/* Navbar dark */
-html.dark header {
+/* Navbar – targeto vetëm navbar-in (shto klasën site-navbar te <header>) */
+.site-navbar { /* light, nëse do të shtosh diçka */
+}
+html.dark .site-navbar {
   @apply bg-neutral-900 text-gray-100 shadow-none;
 }
 
-/* Nëse do që të mos selektosh tekst specifik, specifiko vetëm logon ose pjesë të header-it në vend që të bësh gjithë header: */
-/* Shembull: */
-/* header .logo { user-select: none; } */
-
-/* Mos prek selektimin global të tekstit */
+/* Përzgjedhja e tekstit */
 ::selection {
-  background: rgba(59, 130, 246, 0.4); /* blu e lehtë */
+  background: rgba(59, 130, 246, 0.4);
   color: #fff;
 }
 html.dark ::selection {
-  background: rgba(59, 130, 246, 0.4); /* njësoj në dark */
+  background: rgba(59, 130, 246, 0.4);
   color: #fff;
 }
 
-/* Opsionale: një outline minimal që të mos humbet fokusin */
+/* Focus outline i butë */
 *:focus {
   outline: 2px solid rgba(59, 130, 246, 0.5);
   outline-offset: 2px;
 }
 
-/* Sidebar / Filters */
+/* ---------- Panele / Karta / Forma ---------- */
 html.dark .sidebar,
 html.dark .filter-panel,
 html.dark .filter-container {
   @apply bg-neutral-800 text-gray-100 border-gray-700;
 }
 
-/* Kartat e listimeve */
 html.dark .listing-card {
   @apply bg-neutral-800 text-gray-100 border-gray-700;
 }
 
-/* Input dhe select */
+/* Input & Select – dark */
 html.dark input,
 html.dark select,
 html.dark textarea {
   @apply bg-neutral-700 text-gray-100 placeholder-gray-400 border-gray-600;
 }
 
-/* Për të gjitha input/select që nuk janë dark mode */
-input, select, textarea {
+/* Input & Select – light (default) */
+input,
+select,
+textarea {
   @apply bg-white text-gray-900 border-gray-300;
 }
 
-/* Butonat në dark mode (kujdes: kjo prek *çdo* buton!) */
-html.dark button {
-  @apply text-white;
+/* Buttons: mos e prek çdo button globalisht; përdor klasa specifike */
+.btn-primary {
+  @apply bg-blue-600 text-white;
 }
-/* Për dark mode - tekst automatikisht i hapur */
-html.dark body,
-html.dark body * {
-  color: #e5e7eb !important; /* text-gray-100 */
+.btn-primary:hover {
+  @apply bg-blue-700;
 }
-
-/* Nëse dëshiron që vetëm disa buttona të jenë blu, përdor klasë specifike */
 html.dark .btn-primary {
-  @apply bg-blue-600;
+  @apply bg-blue-600 text-white;
 }
 html.dark .btn-primary:hover {
   @apply bg-blue-700;
 }
 
-/* Dropdown menu */
+/* Dropdown menu container (nëse përdoret klasë) */
 html.dark .dropdown-menu {
   @apply bg-neutral-800 text-gray-100 border-gray-700;
 }
 
-/* Scrollbar modern */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
 
-
-/* Zillow-like price marker pill */
+/* ---------- Zillow-like price marker pill ---------- */
 .mh24-marker {
   display: inline-flex;
   align-items: center;
@@ -109,11 +99,11 @@ html.dark .dropdown-menu {
   height: 28px;
   padding: 0 10px;
   background: #fff;
-  border: 1px solid #d1d5db;            /* border-gray-300 */
+  border: 1px solid #d1d5db; /* gray-300 */
   border-radius: 9999px;
   box-shadow: 0 1px 6px rgba(0,0,0,.12);
   font: 600 12px/1 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-  color: #111827;                        /* text-gray-900 */
+  color: #111827; /* gray-900 */
   cursor: pointer;
   transition: transform .1s ease, background .1s ease;
 }
@@ -121,24 +111,27 @@ html.dark .dropdown-menu {
 .mh24-marker.active { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
 .mh24-marker .type { opacity: .8; font-weight: 500; margin-left: 6px; }
 
-/* Override për dark mode (sepse ke një rregull global me !important) */
-html.dark .mh24-marker { 
-  background: #fff; 
-  color: #111827 !important; 
-  border-color: #374151;                 /* gray-700 */
+/* Marker në dark – shfaqet i lexueshëm */
+html.dark .mh24-marker {
+  background: #fff;
+  color: #111827;
+  border-color: #374151; /* gray-700 */
 }
 html.dark .mh24-marker.active {
-  background: #1d4ed8; 
-  color: #fff !important; 
+  background: #1d4ed8;
+  color: #fff;
   border-color: #1d4ed8;
 }
-/* Mbaj hartën poshtë navbar/dropdown */
+
+/* ---------- Harta gjithmonë poshtë UI ---------- */
 .mapboxgl-map,
 .mapboxgl-canvas,
 .leaflet-container {
-  z-index: 0 !important;
+  z-index: 0 !important; /* harta poshtë */
 }
 .mapboxgl-control-container {
-  z-index: 10; /* kontrollet e hartës mbi hartë, por shumë poshtë navbar-it */
+  z-index: 10; /* kontrollet e hartës mbi hartë, por poshtë navbar-it/menyve */
 }
-.map-wrapper { height: calc(100vh - 64px); /* psh. minus navbar */ }
+
+/* Lartësia e wrapper-it të hartës (p.sh. minus navbar ~64px) */
+.map-wrapper { height: calc(100vh - 64px); }

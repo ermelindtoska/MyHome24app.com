@@ -1,3 +1,4 @@
+// src/components/Navbar.jsx
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -11,9 +12,10 @@ import { auth, db } from "../firebase";
 import { signOut } from "firebase/auth";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import MobileMenu from "./mobile/MobileMenu";
+import { toast } from "sonner";
 
 const Navbar = () => {
-  const { t } = useTranslation("navbar");
+  const { t, i18n } = useTranslation("navbar");
   const { isDark, toggleTheme } = useContext(ThemeContext);
   const [openMenu, setOpenMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -26,11 +28,11 @@ const Navbar = () => {
   const { currentUser, loading: loadingAuth } =
     useAuth() ?? { currentUser: null, loading: true };
 
-  // Role Context: jetzt inklusive setRoleLocal
+  // Role Context: përditësim i menjëhershëm në UI
   const { role, setRoleLocal } = useRole();
   const effectiveRole = role || "user";
 
-  // Body lock, wenn Mobile-Drawer offen ist
+  // Body lock kur është hapur mobile drawer
   useEffect(() => {
     const body = document.body;
     const prev = {
@@ -67,9 +69,17 @@ const Navbar = () => {
     navigate("/");
   };
 
-  // <<< WICHTIG: Rollenwechsel — schreibt in users & roles, updatet Context & navigiert
+  // 🔒 Ndryshimi i rolit direkt: shkruaj në users/{uid} dhe roles/{uid}
   const handleChangeRole = async (newRole) => {
-    if (!currentUser) return;
+    if (!currentUser) {
+      toast.error(
+        i18n.t("roleChange.loginFirst", {
+          ns: "navbar",
+          defaultValue: "Bitte zuerst anmelden.",
+        })
+      );
+      return;
+    }
     const uid = currentUser.uid;
 
     try {
@@ -90,16 +100,28 @@ const Navbar = () => {
         ),
       ]);
 
-      // sofort im UI / Guards sichtbar
+      // përditëso UI menjëherë
       setRoleLocal(newRole);
-
       setAccountOpen(false);
 
-      // optional: direkt ins Dashboard
+      toast.success(
+        i18n.t("roleChange.updated", {
+          ns: "navbar",
+          defaultValue: "Rolle wurde aktualisiert.",
+        })
+      );
+
+      // opsionale: dërgoje te dashboard
       navigate("/dashboard");
     } catch (e) {
       console.error("Error updating role:", e);
-      alert("Rolle konnte nicht aktualisiert werden. Bitte erneut versuchen.");
+      toast.error(
+        i18n.t("roleChange.failed", {
+          ns: "navbar",
+          defaultValue:
+            "Rolle konnte nicht aktualisiert werden. Bitte erneut versuchen.",
+        })
+      );
     }
   };
 
@@ -189,6 +211,7 @@ const Navbar = () => {
     },
   ];
 
+  // ✅ dropdown pa elemente të huaja brenda
   const renderDropdown = (menu, index, align = "left") => (
     <div
       key={index}
@@ -215,7 +238,7 @@ const Navbar = () => {
               key={idx}
               href={item.to}
               onClick={() => setOpenMenu(null)}
-              className="w-full text-left block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+              className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
             >
               {item.label}
             </a>
@@ -230,7 +253,8 @@ const Navbar = () => {
     effectiveRole;
 
   return (
-    <header className="sticky top-0 z-[2000] bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow">
+    <header className="fixed md:sticky top-0 left-0 right-0 z-[3000] bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow">
+
       {/* DESKTOP */}
       <nav className="hidden md:flex justify-between items-center px-6 py-4 w-full">
         <div className="flex gap-12 text-sm font-medium text-gray-900 dark:text-gray-100">
@@ -299,14 +323,19 @@ const Navbar = () => {
                   role="menu"
                   className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg z-[2100] overflow-hidden"
                 >
-                  <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {t("signedInAs", { defaultValue: "Angemeldet als" })}
-                    </p>
-                    <p className="font-semibold text-gray-900 dark:text-gray-100 truncate">
-                      {currentUser?.email}
-                    </p>
-                  </div>
+                                <div
+                  className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                  onClick={() => { setAccountOpen(false); navigate("/profile"); }}
+                  title={t("profile", { defaultValue: "Profil" })}
+                >
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    {t("signedInAs", { defaultValue: "Angemeldet als" })}
+                  </p>
+                  <p className="font-semibold text-gray-900 dark:text-gray-100 truncate">
+                    {currentUser?.email}
+                  </p>
+                </div>
+
 
                   <div className="py-1">
                     <a
@@ -348,12 +377,27 @@ const Navbar = () => {
                       {t("agent", { defaultValue: "Makler:in" })}
                     </button>
                   </div>
+                  <a     
+                    href="/profile"
+                    className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
+                  >
+                    {t("profile", { defaultValue: "Profil" })}
+                  </a>
+                  <p
+                    className="font-semibold text-gray-900 dark:text-gray-100 truncate cursor-pointer"
+                    onClick={() => navigate("/profile")}
+                    title={currentUser?.email}
+                  >
+                    {currentUser?.email}
+                  </p>
 
                   <div className="py-1 border-t border-gray-200 dark:border-gray-700">
                     <button
                       onClick={handleLogout}
                       className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30"
                     >
+                    
+
                       {t("logout", { defaultValue: "Abmelden" })}
                     </button>
                   </div>
@@ -378,9 +422,6 @@ const Navbar = () => {
       <nav className="flex md:hidden justify-between items-center px-4 py-3 w-full">
         <a href="/" className="flex items-center gap-2 focus:outline-none">
           <img src={logo} alt="Logo" className="h-10 w-auto" />
-          <span className="text-xl font-bold text-blue-800 dark:text-blue-300">
-            MyHome24App
-          </span>
         </a>
         <button
           onClick={() => setMobileOpen(true)}
@@ -397,6 +438,10 @@ const Navbar = () => {
           onClose={() => setMobileOpen(false)}
           isDark={isDark}
           toggleTheme={toggleTheme}
+          // shto këto props nëse ke variantin tim të MobileMenu që i pranon:
+          currentUser={currentUser}
+          role={effectiveRole}
+          onChangeRole={handleChangeRole}
         />
       )}
     </header>

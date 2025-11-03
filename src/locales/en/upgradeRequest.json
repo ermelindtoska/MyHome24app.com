@@ -1,5 +1,5 @@
 {
-  "title": "Request Owner Role Upgrade",
+  
   "description": "Please let us know why you want to upgrade your role to 'owner'.",
   "placeholder": "Your message...",
   "sendRequest": "Send Request",
@@ -11,8 +11,33 @@
   "success": "Request sent successfully!",
   "error": "Something went wrong. Please try again.",
 
-
+  "title": "Request Owner Role",
+  "upgradeToOwner": "Upgrade to Owner Role",
+  "requestOwnerUpgrade": "Request Owner Upgrade",
+  "goToPublish": "Go to Publish",
+  "noRequestYet": "You have not submitted any request yet.",
+  "statusPending": "Request pending",
+  "statusApproved": "Request approved",
+  "statusRejected": "Request rejected",
+  "youAreOwner": "You already have the Owner role.",
+  "youCanPublishNow": "You can publish properties now.",
+  "waitForDecision": "Please wait for the admin decision.",
+  "reloginHint": "Please sign out and sign in again if needed so the new role becomes active.",
+  "yourReasonWas": "Your provided reason was",
+  "cannotRequestNow": "You cannot request at this time.",
+  "helperText": "Briefly describe why you need the Owner role (e.g., you plan to publish your own properties).",
  
+
+  "becomeOwnerTitle": "Upgrade to Owner",
+  "becomeOwnerDesc": "Owners can publish and manage listings. Send a short request to the admins.",
+  "btnRequest": "Request upgrade",
+  "btnPending": "Request pending…",
+  "checking": "Checking…",
+  "status": {
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected"
+  },
   "requestFailed": "We couldn’t send your request. Please try again later.",
   "mustBeLoggedIn": "You must be logged in to submit a request.",
   "cancel": "Cancel",

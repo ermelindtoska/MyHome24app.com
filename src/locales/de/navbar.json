@@ -6,14 +6,23 @@
   "logout": "Abmelden",
   "register": "Registrieren",
   "buy": "Kaufen",
-    
-  
+   "apartmentsForSale": "wohnung-verkauf", 
+  "housesForSale": "haus-verkauf",
+"apartmentsForRent": "wohnung-miete",
+"housesForRent": "haus-miete",
   "role": "Rolle",
   "signedInAs": "Angemeldet als",
  
   "switchRole": "Rolle wechseln",
   
-
+  "roleChange": {
+    "updated": "Rolle wurde aktualisiert.",
+    "failed": "Rolle konnte nicht aktualisiert werden. Bitte erneut versuchen.",
+      "roleUpdated": "Rolle wurde aktualisiert.",
+  "upgradeRequested": "Antrag gesendet. Die/der Admin wird es bald prüfen.",
+  "roleChangeError": "Rolle konnte nicht aktualisiert werden. Bitte erneut versuchen.",
+    "loginFirst": "Bitte zuerst anmelden."
+  },
   "user": "Benutzer",
   "owner": "Eigentümer",
   "agent": "Makler",
