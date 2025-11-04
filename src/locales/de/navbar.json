@@ -11,6 +11,7 @@
 "apartmentsForRent": "wohnung-miete",
 "housesForRent": "haus-miete",
   "role": "Rolle",
+  "map": "Karte",
   "signedInAs": "Angemeldet als",
  
   "switchRole": "Rolle wechseln",
