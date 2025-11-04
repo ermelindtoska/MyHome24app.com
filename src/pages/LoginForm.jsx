@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate, useLocation } from "react-router-dom";
-import { signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence,
+  inMemoryPersistence,
+} from "firebase/auth";
 import { auth, appCheckReady } from "../firebase";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 function tryWithTimeout(promise, ms, label = "op") {
   return Promise.race([
@@ -12,6 +20,19 @@ function tryWithTimeout(promise, ms, label = "op") {
       setTimeout(() => reject(new Error(`timeout:${label}`)), ms)
     ),
   ]);
+}
+
+// 🔒 Persistencë “triple-fallback” (lokale → session → in-memory)
+async function ensurePersistence() {
+  try {
+    await setPersistence(auth, browserLocalPersistence);
+  } catch {
+    try {
+      await setPersistence(auth, browserSessionPersistence);
+    } catch {
+      await setPersistence(auth, inMemoryPersistence);
+    }
+  }
 }
 
 export default function LoginForm() {
@@ -29,14 +50,16 @@ export default function LoginForm() {
   const verifyFailed = q.get("verify") === "failed";
 
   async function onSubmit(e) {
-    e.preventDefault();
+    e.preventDefault();               // 🚫 parandalon refresh në mobile
+    if (loading) return;              // 🚫 double submit
     setErr("");
     setLoading(true);
     try {
-      // Prit AppCheck max 1.5s (ose vazhdo)
+      // ⏳ prit AppCheck max 1.5s (nëse është ON në prod)
       await Promise.race([appCheckReady, new Promise((r) => setTimeout(r, 1500))]);
 
       auth.languageCode = i18n?.language?.slice(0, 2) || "de";
+      await ensurePersistence();      // ✅ persistencë e sigurt për telefonët
 
       const cred = await tryWithTimeout(
         signInWithEmailAndPassword(auth, email.trim(), pw),
@@ -55,14 +78,14 @@ export default function LoginForm() {
         return;
       }
 
-      // Ke /profile në App.jsx – shko aty
       navigate("/profile", { replace: true });
+      toast.success(t("loggedIn") || "Angemeldet.");
     } catch (e) {
-      console.error("[login] error:", e);
+      console.error("[login] error:", e?.code, e?.message);
       const msg = e?.message?.startsWith?.("timeout:")
-        ? "Netzwerk-Timeout. Bitte versuchen Sie es erneut."
+        ? (t("timeout") || "Netzwerk-Timeout. Bitte erneut versuchen.")
         : (t("loginFailed") || "Anmeldung fehlgeschlagen. Bitte prüfen Sie Ihre Daten.");
-      setErr(msg);
+      setErr(`${msg}${e?.code ? ` (${e.code})` : ""}`);
     } finally {
       setLoading(false);
     }
@@ -86,9 +109,10 @@ export default function LoginForm() {
       )}
       {err && <p className="text-red-500 text-sm mb-3">{err}</p>}
 
-      <form onSubmit={onSubmit} className="space-y-3">
+      <form onSubmit={onSubmit} className="space-y-3" autoComplete="on">
         <input
           type="email"
+          autoComplete="email"
           placeholder={t("email") || "E-Mail"}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -97,6 +121,7 @@ export default function LoginForm() {
         />
         <input
           type="password"
+          autoComplete="current-password"
           placeholder={t("password") || "Passwort"}
           value={pw}
           onChange={(e) => setPw(e.target.value)}
@@ -106,9 +131,7 @@ export default function LoginForm() {
         <button
           type="submit"
           disabled={loading}
-          className={`w-full ${
-            loading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
-          } text-white py-2 rounded`}
+          className={`w-full ${loading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"} text-white py-2 rounded`}
         >
           {loading ? (t("pleaseWait") || "Bitte warten…") : (t("login") || "Einloggen")}
         </button>
