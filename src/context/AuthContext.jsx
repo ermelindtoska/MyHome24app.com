@@ -1,10 +1,9 @@
-// src/context/AuthContext.jsx
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { auth } from "../firebase";
 import { onAuthStateChanged, onIdTokenChanged, signOut } from "firebase/auth";
 import { db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { appCheckEnabled } from "../firebase"; // ⬅️ përdorim flamurin ekzistues
+import { appCheckEnabled } from "../firebase";
 
 const AuthContext = createContext({
   currentUser: null,
@@ -22,14 +21,11 @@ const AuthContext = createContext({
 
 export const useAuth = () => useContext(AuthContext);
 
-// Helper: merr claims pa prishur login-in në dev kur App Check s’është gati
 async function getTokenResultSafe(user) {
   try {
-    // Rifresko token-in vetëm nëse App Check është realisht aktiv (prod/enable)
     const forceRefresh = Boolean(appCheckEnabled);
     return await user.getIdTokenResult(forceRefresh);
   } catch (e) {
-    // Nëse ka 403 apo bllokim nga App Check, kthehu me claims bosh që UI të mos shembet
     console.warn("[Auth] getIdTokenResult failed (continuing with empty claims):", e?.message || e);
     return { claims: {} };
   }
@@ -55,13 +51,11 @@ export const AuthProvider = ({ children }) => {
     latestUid.current = user.uid;
 
     try {
-      // ⚠️ Këtu s’po detyrojmë refresh në dev; shmang 403-at e App Check
       const [tokenResult, userSnap] = await Promise.all([
         getTokenResultSafe(user),
         getDoc(doc(db, "users", user.uid)),
       ]);
-
-      if (latestUid.current !== user.uid) return; // user u ndërrua gjatë pritjes
+      if (latestUid.current !== user.uid) return;
 
       const customRole = tokenResult?.claims?.role;
       const fsRole = userSnap.exists() ? userSnap.data()?.role : undefined;
@@ -74,7 +68,6 @@ export const AuthProvider = ({ children }) => {
       setError(null);
     } catch (e) {
       console.error("[Auth] loadAuthProfile error:", e);
-      // Edhe nëse Firestore dështon, mbaj të paktën user-in aktiv që ProtectedRoute të mos godasë
       setCurrentUser(user);
       setClaims(null);
       setRole("user");
@@ -83,7 +76,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Reagim në login/logout
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       setLoading(true);
@@ -93,15 +85,15 @@ export const AuthProvider = ({ children }) => {
     return () => unsub();
   }, []);
 
-  // Reagim në ndryshime token-i (p.sh. kur vendosen claims nga admin)
+  // nuk prekim 'loading' këtu që të shmangim flash/race
   useEffect(() => {
     const unsub = onIdTokenChanged(auth, async (user) => {
-      if (user) {
-        await loadAuthProfile(user);
-      } else {
+      if (user) await loadAuthProfile(user);
+      else {
         setCurrentUser(null);
         setRole("guest");
         setClaims(null);
+        setEmailVerified(false);
       }
     });
     return () => unsub();
@@ -144,11 +136,7 @@ export const AuthProvider = ({ children }) => {
     };
   }, [currentUser, loading, error, claims, role, emailVerified]);
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
 };
 
 export default AuthContext;

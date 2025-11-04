@@ -1,6 +1,6 @@
 // src/firebase.js
 import { initializeApp, getApps } from "firebase/app";
-import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth";
+import { getAuth, setPersistence, browserLocalPersistence, browserSessionPersistence, inMemoryPersistence } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
@@ -40,6 +40,18 @@ export const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfi
 
 // Services
 export const auth = getAuth(app);
+// ✅ Persistenz robust auch auf Mobile (Safari/Private Mode, Android WebView)
+(async () => {
+  try {
+    await setPersistence(auth, browserLocalPersistence);
+  } catch {
+    try {
+      await setPersistence(auth, browserSessionPersistence);
+    } catch {
+      await setPersistence(auth, inMemoryPersistence);
+    }
+  }
+})();
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 
