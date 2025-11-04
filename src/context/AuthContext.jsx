@@ -55,6 +55,9 @@ export const AuthProvider = ({ children }) => {
         getTokenResultSafe(user),
         getDoc(doc(db, "users", user.uid)),
       ]);
+      if (!tokenResult?.claims) {
+      console.warn("[Auth] keine App-Check/Firebase-Claims vorhanden (weiter mit Fallback-Rolle).");
+    }
       if (latestUid.current !== user.uid) return;
 
       const customRole = tokenResult?.claims?.role;
