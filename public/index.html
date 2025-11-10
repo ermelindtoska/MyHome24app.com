@@ -3,98 +3,76 @@
   <head>
     <meta charset="utf-8" />
 
-    <!-- ✅ Favicon modern (heq ikonën e React / assets/logo.png) -->
     <link rel="icon" type="image/svg+xml" href="%PUBLIC_URL%/icons/favicon.svg" />
-    <!-- (opsionale) fallback nëse do -->
-    <!-- <link rel="alternate icon" href="%PUBLIC_URL%/favicon.ico" sizes="any"> -->
-
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0ea5e9" />
-
-    <!-- ✅ Manifest (zgjidh NJË skedar; këtu po përdorim manifest.webmanifest) -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.webmanifest" />
-
-    <!-- ✅ Apple touch icon për iOS Home Screen -->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
-    <!-- (opsionale) iOS PWA look & feel -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-
-    <!-- Fallback meta SEO (faqet individuale mund ta mbulojnë me Helmet/SiteMeta) -->
     <meta name="description" content="MyHome24App – Immobilienplattform in Deutschland" />
-<!-- App Check debug për lokalin (gjeneron token në console) -->
-<script>
-  self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
-</script>
-<!-- CSP për Firebase + App Check + dev server -->
-<meta http-equiv="Content-Security-Policy"
-content="
-  default-src 'self';
-  base-uri 'self';
 
-  img-src
-    'self' data: blob:
-    https://*.gstatic.com https://*.googleapis.com https://lh3.googleusercontent.com
-    https://firebasestorage.googleapis.com
-    https://api.mapbox.com https://*.tiles.mapbox.com https://*.mapbox.com;
+    <!-- ✅ CSP: KEIN <script> innerhalb des content-Attributs -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        base-uri 'self';
 
-  font-src
-    'self' data: https://*.gstatic.com;
+        img-src
+          'self' data: blob:
+          https://*.gstatic.com https://*.googleapis.com https://lh3.googleusercontent.com
+          https://firebasestorage.googleapis.com
+          https://api.mapbox.com https://*.tiles.mapbox.com https://*.mapbox.com;
 
-  style-src
-    'self' 'unsafe-inline'
-    https://api.mapbox.com;
+        font-src
+          'self' data: https://*.gstatic.com;
 
-    <script>self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;</script>
+        style-src
+          'self' 'unsafe-inline'
+          https://api.mapbox.com;
 
-  script-src
-    'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval'
-    https://www.gstatic.com https://www.google.com https://www.googleapis.com https://www.googletagmanager.com
-    https://api.mapbox.com;
+        script-src
+          'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval'
+          https://www.gstatic.com https://www.google.com https://www.googleapis.com https://www.googletagmanager.com
+          https://api.mapbox.com;
 
-  connect-src
-    'self'
-    https://identitytoolkit.googleapis.com
-    https://securetoken.googleapis.com
-    https://firestore.googleapis.com
-    https://firebase.googleapis.com
-    https://*.googleapis.com
-    https://apis.google.com
-    https://*.googleusercontent.com
-    https://www.googleapis.com
-    https://*.firebaseio.com
-    wss://*.firebaseio.com
-    https://www.gstatic.com
-    https://*.gstatic.com
-    https://api.mapbox.com
-    https://events.mapbox.com
-    https://*.tiles.mapbox.com
-    https://*.mapbox.com
-    https://firebasestorage.googleapis.com
-    https://nominatim.openstreetmap.org;
+        connect-src
+          'self'
+          https://identitytoolkit.googleapis.com
+          https://securetoken.googleapis.com
+          https://firestore.googleapis.com
+          https://firebase.googleapis.com
+          https://*.googleapis.com
+          https://apis.google.com
+          https://*.googleusercontent.com
+          https://www.googleapis.com
+          https://*.firebaseio.com
+          wss://*.firebaseio.com
+          https://www.gstatic.com
+          https://*.gstatic.com
+          https://api.mapbox.com
+          https://events.mapbox.com
+          https://*.tiles.mapbox.com
+          https://*.mapbox.com
+          https://firebasestorage.googleapis.com
+          https://nominatim.openstreetmap.org;
 
-  worker-src 'self' blob:;
-  child-src blob:;
+        worker-src 'self' blob:;
+        child-src blob:;
+        frame-src 'self' https://*.google.com https://*.firebaseapp.com;
+        object-src 'none';
+        frame-ancestors 'self';
+        upgrade-insecure-requests;
+      "
+    />
 
-  frame-src 'self' https://*.google.com https://*.firebaseapp.com;
-  object-src 'none';
-  frame-ancestors 'self';
-  upgrade-insecure-requests;
-">
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- ✅ Separat (außerhalb der CSP): App Check Debug (nur für DEV) -->
+    <script>
+      // Entferne diese Zeile in PROD, falls nicht nötig:
+      self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+    </script>
 
     <title>MyHome24App</title>
   </head>

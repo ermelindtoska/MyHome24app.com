@@ -174,14 +174,14 @@ export default function MobileMenu({
           >
             {t("findAgent")}
           </button>
-
-          {/* --- Blog / Map / Compare / Contact --- */}
           <button
-            onClick={() => handleNavigate("/blog")}
-            className="block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 font-medium"
-          >
-            {t("blog")}
-          </button>
+          onClick={() => handleNavigate("/how-it-works")}
+          className="block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 font-medium"
+        >
+          {t("guide", { defaultValue: "Ratgeber" })}
+        </button>
+
+          
 
           <button
             onClick={() => handleNavigate("/map")}

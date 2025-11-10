@@ -185,6 +185,10 @@ function AppRoutes() {
           <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><ProfilePage/></ProtectedRoute>} />
           <Route path="/my-listings" element={<Navigate to="/owner-dashboard" replace />} />
+          <Route path="/meine-immobilien" element={<Navigate to="/owner-dashboard" replace />} />
+          <Route path="/manage/properties" element={<Navigate to="/owner-dashboard" replace />} />
+          <Route path="/ratgeber" element={<Navigate to="/how-it-works" replace />} />
+          <Route path="/ratgeber/*" element={<Navigate to="/how-it-works" replace />} />
 
 
           <Route path="/owner" element={<Navigate to="/owner-dashboard" replace />} />

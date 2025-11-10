@@ -342,8 +342,10 @@ const renderDropdown = (menu, index, align = "left") => {
                   </div>
 
                   <div className="py-1">
-                    <Link
-                      to="/manage/properties"
+                    
+
+                      <Link
+                      to="/owner-dashboard"
                       className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
                     >
                       {t("myProperties", { defaultValue: "Meine Immobilien" })}
