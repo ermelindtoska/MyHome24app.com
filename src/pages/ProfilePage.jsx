@@ -11,7 +11,6 @@ import AccountSidebar from "../components/profile/AccountSidebar";
 import AvatarUploader from "../components/profile/AvatarUploader";
 import { useSearchParams } from "react-router-dom";
 
-
 export default function ProfilePage() {
   const { t } = useTranslation("profile");
   const { currentUser } = useAuth();
@@ -24,11 +23,11 @@ export default function ProfilePage() {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
-  // ngarko Auth + Firestore
+  // ---- Daten laden (Auth + Firestore)
   async function load() {
     try {
       if (!currentUser) {
-        setFetchError("You're out of the account.");
+        setFetchError("Du bist abgemeldet.");
         setLoading(false);
         return;
       }
@@ -68,7 +67,7 @@ export default function ProfilePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser?.uid]);
 
-  // stats
+  // ---- Statistiken
   const stats = useMemo(() => {
     const lst = userData?.listings || [];
     const Published = lst.filter((x) => x?.status === "published").length;
@@ -77,7 +76,7 @@ export default function ProfilePage() {
     return { total: lst.length, published: Published, pending: Pending, rejected: Rejected };
   }, [userData]);
 
-  // dirty state
+  // ---- Dirty-State
   const dirty = useMemo(() => {
     if (!userData) return false;
     const a = { ...userData };
@@ -98,7 +97,7 @@ export default function ProfilePage() {
     return () => window.removeEventListener("beforeunload", onBeforeUnload);
   }, [dirty]);
 
-  // helpers
+  // ---- Helpers
   const onChange = (e) => {
     const { name, value } = e.target;
     setForm((s) => ({ ...s, [name]: value }));
@@ -118,7 +117,7 @@ export default function ProfilePage() {
     return Object.keys(e).length === 0;
   };
 
-  // save
+  // ---- Speichern
   const onSave = async () => {
     if (!currentUser) return;
     if (!validate()) return;
@@ -154,7 +153,7 @@ export default function ProfilePage() {
     }
   };
 
-  // UI states
+  // ---- UI States
   if (loading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center text-gray-500">
@@ -171,9 +170,10 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      {/* Sticky save bar (si Zillow) */}
-      <div className={`sticky top-0 z-40 transition ${dirty ? "" : "-translate-y-full"}`}>
+    // ⬇️ Platz unter der fixen Navbar: pt-16 (mobile). Desktop wie gehabt.
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 pt-16 md:pt-0">
+      {/* Sticky Save-Bar sitzt unter der Navbar */}
+      <div className={`sticky top-16 md:top-0 z-40 transition ${dirty ? "" : "-translate-y-full"}`}>
         <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur border-b border-gray-200 dark:border-gray-700">
           <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
             <div className="font-medium">
@@ -206,7 +206,7 @@ export default function ProfilePage() {
         <AccountSidebar />
 
         <div className="flex-1 space-y-8">
-          {/* Zillow-like header + avatar (jashtë kartës) */}
+          {/* Header + Avatar */}
           <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
             <div className="max-w-6xl mx-auto px-4 md:px-6 py-6 flex items-center justify-between">
               <div>
@@ -224,9 +224,7 @@ export default function ProfilePage() {
             </div>
           </header>
 
-          
-
-          {/* Tab content */}
+          {/* Tabs-Inhalt */}
           {tab === "profile" && (
             <section className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow">
               <h2 className="text-xl font-semibold mb-5 text-blue-600 dark:text-blue-400">
@@ -361,12 +359,12 @@ export default function ProfilePage() {
 
           {tab === "account" && (
             <section className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow">
-             <h2 className="text-xl font-semibold mb-5">{t("account.title")}</h2>
-              <p className="text-gray-500 text-sm"> {t("account.subtitle")}</p>
+              <h2 className="text-xl font-semibold mb-5">{t("account.title")}</h2>
+              <p className="text-gray-500 text-sm">{t("account.subtitle")}</p>
             </section>
           )}
 
-          {/* Stats si më parë */}
+          {/* Stats */}
           <section className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 shadow">
             <h2 className="text-xl font-semibold mb-5 text-green-600 dark:text-green-400">
               {t("title") || "Statistiken"}
@@ -381,7 +379,7 @@ export default function ProfilePage() {
         </div>
       </main>
 
-      {/* Bottom floating save (mobile) */}
+      {/* Bottom Save (mobile) */}
       <div className={`fixed md:hidden bottom-4 inset-x-0 px-4 z-40 ${dirty ? "" : "pointer-events-none opacity-0"}`}>
         <div className="max-w-6xl mx-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow p-3 flex gap-2">
           <button

@@ -1,17 +1,12 @@
 // src/firebase.js
 import { initializeApp, getApps } from "firebase/app";
-import { getAuth, setPersistence, browserLocalPersistence, browserSessionPersistence, inMemoryPersistence } from "firebase/auth";
+import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
+import {  initializeAppCheck,  ReCaptchaV3Provider,  onTokenChanged,} from "firebase/app-check";
 
-// Lejo env të paplota vetëm në dev kur REACT_APP_ALLOW_PARTIAL_ENV=1
-const ALLOW_PARTIAL_ENV =
-  process.env.NODE_ENV === "development" &&
-  process.env.REACT_APP_ALLOW_PARTIAL_ENV === "1";
-
-// Env të domosdoshme për Firebase
-const required = [
+// ==== ENV-Guard (ohne Hardcode-Fallbacks) ====
+const REQUIRED = [
   "REACT_APP_FIREBASE_API_KEY",
   "REACT_APP_FIREBASE_AUTH_DOMAIN",
   "REACT_APP_FIREBASE_PROJECT_ID",
@@ -19,11 +14,8 @@ const required = [
   "REACT_APP_FIREBASE_MESSAGING_SENDER_ID",
   "REACT_APP_FIREBASE_APP_ID",
 ];
-
-required.forEach((k) => {
-  if (!process.env[k] && !ALLOW_PARTIAL_ENV) {
-    throw new Error(`Missing env var: ${k}`);
-  }
+REQUIRED.forEach((k) => {
+  if (!process.env[k]) throw new Error(`Missing env var: ${k}`);
 });
 
 const firebaseConfig = {
@@ -35,62 +27,50 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
-// Initialize app (singleton)
 export const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
-
-// Services
 export const auth = getAuth(app);
-// ✅ Persistenz robust auch auf Mobile (Safari/Private Mode, Android WebView)
-(async () => {
-  try {
-    await setPersistence(auth, browserLocalPersistence);
-  } catch {
-    try {
-      await setPersistence(auth, browserSessionPersistence);
-    } catch {
-      await setPersistence(auth, inMemoryPersistence);
-    }
-  }
-})();
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 
-// ✅ Mbaje login-in edhe pas refresh-it
-setPersistence(auth, browserLocalPersistence).catch(() => { /* noop */ });
+// Optional: Default-Persistenz (eingeloggt bleiben)
+setPersistence(auth, browserLocalPersistence).catch(() => {});
 
-// -------- App Check (DEV off, PROD on vetëm kur ka key) --------
-let appCheckReadyResolve;
-export const appCheckReady = new Promise((res) => (appCheckReadyResolve = res));
+// ==== App Check: per Flags steuerbar ====
+// DEV: Schalte aus mit REACT_APP_DISABLE_APPCHECK=1
+// PROD: Nutze REACT_APP_RECAPTCHA_V3_SITE_KEY
+const DISABLE = String(process.env.REACT_APP_DISABLE_APPCHECK || "") === "1";
+const SITE_KEY = String(process.env.REACT_APP_RECAPTCHA_V3_SITE_KEY || "");
+export const appCheckEnabled = !DISABLE && !!SITE_KEY;
 
-// Prano të dy format e env-it për site key
-const SITE_KEY =
-  process.env.REACT_APP_FIREBASE_APPCHECK_KEY ||
-  process.env.REACT_APP_RECAPTCHA_V3_SITE_KEY ||
-  "";
-
-export const appCheckEnabled = (() => {
-  if (typeof window === "undefined") return false;
-  const isDev = window.location.hostname === "localhost";
-  const disabledFlag = String(process.env.REACT_APP_DISABLE_APPCHECK || "") === "1";
-  const hasSiteKey = SITE_KEY.length > 0;
-  // DEV: OFF;  PROD: ON vetëm nëse ka site key dhe s’është deaktivuar me flag
-  return !isDev && !disabledFlag && hasSiteKey;
-})();
+let resolveReady;
+export const appCheckReady = new Promise((res) => (resolveReady = res));
 
 if (typeof window !== "undefined") {
   try {
     if (appCheckEnabled) {
-      initializeAppCheck(app, {
+      const appCheck = initializeAppCheck(app, {
         provider: new ReCaptchaV3Provider(SITE_KEY),
         isTokenAutoRefreshEnabled: true,
       });
-      // console.info("[AppCheck] enabled");
+      // Notfalls nach 2s „ready“, damit UI nie hängt
+      setTimeout(() => resolveReady(), 2000);
+            // ✅ WIRKLICH auf einen gültigen Token warten:
+      let resolved = false;
+      onTokenChanged(appCheck, (tokenResult) => {
+        if (!resolved && tokenResult) {
+          resolved = true;
+          resolveReady();
+        }
+      });
+      // Fallback, falls onTokenChanged nicht feuert (z. B. Adblocker)
+      setTimeout(() => {
+        if (!resolved) resolveReady();
+      }, 4000);
     } else {
-      // console.info("[AppCheck] disabled (dev ose pa key)");
+      resolveReady();
     }
   } catch (e) {
     console.warn("[AppCheck] init failed:", e);
-  } finally {
-    appCheckReadyResolve();
+    resolveReady();
   }
 }

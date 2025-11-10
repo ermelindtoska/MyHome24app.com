@@ -8,6 +8,14 @@ import { auth, db } from "../../firebase";
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
+const mapStorageError = (err) => {
+  const code = err?.code || "";
+  if (code.includes("storage/unauthorized")) return "Kein Schreibzugriff auf Firebase Storage.";
+  if (code.includes("storage/canceled")) return "Upload wurde abgebrochen.";
+  if (code.includes("storage/retry-limit-exceeded")) return "Netzwerk- oder Serverproblem. Bitte später erneut versuchen.";
+  return err?.message || "Upload fehlgeschlagen.";
+};
+
 export default function AvatarUploader({ uid, value, onChange }) {
   const { t } = useTranslation("profile");
   const [pct, setPct] = useState(null);
@@ -21,13 +29,12 @@ export default function AvatarUploader({ uid, value, onChange }) {
     el.onchange = (e) => startUpload(e.target.files?.[0]);
     el.click();
   };
-  // zëvendëson hostin e Storage me proxy-n lokal në dev:
-const patchStorageUploadURL = (url) => {
-  if (process.env.NODE_ENV !== 'development') return url;
-  // Storage SDK thërret firebasestorage.googleapis.com; e rutelezojmë te /__fs__
-  return url.replace('https://firebasestorage.googleapis.com', `${window.location.origin}/__fs__`);
-};
 
+  // (Optional) lokaler Proxy für Storage im Dev – bleibt ungenutzt, nur als Notiz
+  const patchStorageUploadURL = (url) => {
+    if (process.env.NODE_ENV !== "development") return url;
+    return url.replace("https://firebasestorage.googleapis.com", `${window.location.origin}/__fs__`);
+  };
 
   const startUpload = async (file) => {
     try {
@@ -36,11 +43,11 @@ const patchStorageUploadURL = (url) => {
 
       const allowed = ["image/jpeg", "image/png", "image/webp"];
       if (!allowed.includes(file.type)) {
-        toast.error(t("errors.onlyImages", "Only JPG/PNG/WEBP are allowed."));
+        toast.error(t("errors.onlyImages", "Bitte wählen Sie eine Bilddatei (JPG/PNG/WEBP)."));
         return;
       }
       if (file.size > 5 * 1024 * 1024) {
-        toast.error(t("errors.imageTooLarge", "Image is larger than 5 MB."));
+        toast.error(t("errors.imageTooLarge", "Das Bild ist größer als 5 MB."));
         return;
       }
 
@@ -55,25 +62,58 @@ const patchStorageUploadURL = (url) => {
       setBusy(true);
       setPct(0);
 
+      // —— WATCHDOG gegen „0 % hängt fest“ ——
+      let lastBytes = 0;
+      let stuckFor = 0;
+      const watchdog = setInterval(() => {
+        if (lastBytes === task.snapshot.bytesTransferred) {
+          stuckFor += 1000;
+          if (stuckFor >= 10000) {
+            try { task.cancel(); } catch {}
+            clearInterval(watchdog);
+            setBusy(false);
+            setPct(null);
+            toast.error(
+              "Upload blockiert (0 %). Bitte prüfen Sie Ihre Content-Security-Policy: " +
+              "Erlauben Sie Verbindungen/Bilder zu securetoken.googleapis.com und firebasestorage.googleapis.com " +
+              "sowie App Check (in der Entwicklung nicht erzwingen)."
+            );
+          }
+        } else {
+          lastBytes = task.snapshot.bytesTransferred;
+          stuckFor = 0;
+        }
+      }, 1000);
+      // ————————————————————————————————
+
       task.on(
         "state_changed",
-        (snap) => setPct(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)),
+        (snap) => {
+          const p = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+          setPct(Number.isFinite(p) ? p : 0);
+        },
         (err) => {
+          clearInterval(watchdog);
           console.error("[avatar] upload error:", err);
           setBusy(false);
           setPct(null);
-          toast.error(err?.message || t("errors.uploadFailed", "Upload failed."));
+          toast.error(mapStorageError(err));
         },
         async () => {
+          clearInterval(watchdog);
           try {
             const url = await getDownloadURL(task.snapshot.ref);
             try { await updateProfile(auth.currentUser, { photoURL: url }); } catch {}
-            await setDoc(doc(db, "users", uid), { photoURL: url, updatedAt: new Date().toISOString() }, { merge: true });
+            await setDoc(
+              doc(db, "users", uid),
+              { photoURL: url, updatedAt: new Date().toISOString() },
+              { merge: true }
+            );
             onChange?.(url);
-            toast.success(t("photoUpdated", "Photo updated."));
+            toast.success(t("photoUpdated", "Foto wurde aktualisiert."));
           } catch (e) {
             console.error(e);
-            toast.error(t("errors.couldNotFetchUrl", "Could not fetch URL after upload."));
+            toast.error(t("errors.couldNotFetchUrl", "Die Bild-URL konnte nach dem Upload nicht abgerufen werden."));
           } finally {
             setBusy(false);
             setPct(null);
@@ -84,7 +124,7 @@ const patchStorageUploadURL = (url) => {
       console.error(e);
       setBusy(false);
       setPct(null);
-      toast.error(e?.message || t("errors.uploadError", "Upload error."));
+      toast.error(e?.message || t("errors.uploadError", "Upload-Fehler."));
     }
   };
 
@@ -101,9 +141,9 @@ const patchStorageUploadURL = (url) => {
           onClick={onPick}
           disabled={busy}
           className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 text-white text-xs transition flex items-center justify-center disabled:opacity-60"
-          title={t("change", "Change")}
+          title={t("change", "Ändern")}
         >
-          {busy ? t("uploading", "Uploading…") : t("change", "Change")}
+          {busy ? t("uploading", "Wird hochgeladen…") : t("change", "Ändern")}
         </button>
       </div>
 
@@ -113,7 +153,7 @@ const patchStorageUploadURL = (url) => {
         disabled={busy}
         className="px-3 py-1.5 rounded-md bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-60"
       >
-        {busy ? `${pct ?? 0}%` : t("uploadPhoto", "Upload photo")}
+        {busy ? `${pct ?? 0}%` : t("uploadPhoto", "Foto hochladen")}
       </button>
     </div>
   );

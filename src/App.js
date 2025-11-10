@@ -2,7 +2,7 @@
 import './i18n';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-
+import { Navigate } from "react-router-dom";
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -69,6 +69,9 @@ import EmailActionGate from './components/EmailActionGate';
 import SearchPage from './pages/SearchPage';
 import SettingsPage from './pages/SettingsPage';
 import ProfilePage from './pages/ProfilePage';
+import RoleRedirect from './pages/RoleRedirect';
+import VerifyNeeded from './pages/VerifyNeeded';
+
 
 
 // Providers
@@ -76,6 +79,8 @@ import { RoleProvider } from './roles/RoleContext';
 import RequireRole from './roles/RequireRole';
 import { AuthProvider } from './context/AuthContext'; // ✅ vetem kjo
 import { SearchStateProvider } from "./state/useSearchState";
+import PathTracker from './components/PathTracker';
+
 
 // Toasts / SEO
 import { ToastContainer } from 'react-toastify';
@@ -106,9 +111,14 @@ function AppRoutes() {
           <Route path="/register-success" element={<RegisterSuccess />} />
           <Route path="/auth" element={<LoginRegister />} />
           <Route path="/auth/action" element={<EmailActionGate />} />
+          <Route path="/auth/redirect" element={<RoleRedirect />} />
 
           <Route path="/about" element={<AboutPage />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/auth/redirect" element={<RoleRedirect />} />
+          <Route path="/verify-needed" element={<VerifyNeeded />} />
+
+
 
           {/* Rent/Buy */}
           <Route path="/rent/house" element={<HousePage />} />
@@ -118,9 +128,12 @@ function AppRoutes() {
           <Route path="/buy/foreclosures" element={<ForeclosurePage />} />
           <Route path="/new-construction" element={<NewConstructionPage />} />
 
-          {/* Mortgage */}
-          <Route path="/mortgage/calculator" element={<MortgageCalculatorPage />} />
-          <Route path="/mortgage/partners" element={<BankPartnersPage />} />
+           {/* Mortgage */}
+            <Route path="/mortgage" element={<MortgagePage />} />
+            <Route path="/mortgage/calculator" element={<MortgageCalculatorPage />} />
+            <Route path="/mortgage/partners" element={<BankPartnersPage />} />
+           {/* 🔁 Deutsche Alias-Weiterleitung, falls Mobile irgendwo /hypothek nutzt */}
+           <Route path="/hypothek" element={<Navigate to="/mortgage" replace />} />
 
           {/* Advertise */}
           <Route path="/advertise/banner" element={<BannerAdsPage />} />
@@ -171,6 +184,13 @@ function AppRoutes() {
           {/* Settings */}
           <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><ProfilePage/></ProtectedRoute>} />
+          <Route path="/my-listings" element={<Navigate to="/owner-dashboard" replace />} />
+
+
+          <Route path="/owner" element={<Navigate to="/owner-dashboard" replace />} />
+          <Route path="/agent" element={<Navigate to="/agent-dashboard" replace />} />
+          <Route path="/admin" element={<Navigate to="/admin-dashboard" replace />} />
+
 
           {/* Role-based dashboards */}
           <Route
@@ -241,6 +261,7 @@ export default function App() {
         <RoleProvider>
           <SearchStateProvider>
           <AppRoutes />
+          <PathTracker />
           <ToastContainer />
           <ToasterProvider />
           <Toaster richColors />

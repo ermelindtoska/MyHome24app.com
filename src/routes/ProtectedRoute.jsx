@@ -1,17 +1,26 @@
 // src/routes/ProtectedRoute.jsx
-import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import React from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
-export default function ProtectedRoute({ children }) {
-  const { currentUser, loading } = useAuth();
-  const loc = useLocation();
+export default function ProtectedRoute({ children, allow = ['user','owner','agent','admin'] }) {
+  const { currentUser, role, loading } = useAuth();
+  const location = useLocation();
 
-  if (loading) {
-    return <div className="p-6 text-center text-gray-500">Laden…</div>;
-  }
+  if (loading) return null; // oder Spinner
+
+  // nicht eingeloggt → zum RoleRedirect, der kümmert sich um Ziel
   if (!currentUser) {
-    return <Navigate to="/login" replace state={{ from: loc }} />;
+    const next = encodeURIComponent(location.pathname + location.search);
+    return <Navigate to={`/auth/redirect?next=${next}`} replace />;
   }
+
+  // rolle prüfen
+  const r = (role || 'user').toLowerCase();
+  if (!allow.includes(r)) {
+    // keine Berechtigung → schick auf Start
+    return <Navigate to="/" replace />;
+  }
+
   return children;
 }
