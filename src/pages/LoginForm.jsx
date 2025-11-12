@@ -101,6 +101,9 @@ export default function LoginForm() {
 
       // ✅ iOS-robuste Persistenz:
       try {
+
+
+        
         const ua = navigator.userAgent || "";
         const isIOS = /iP(hone|ad|od)/.test(ua);
 
@@ -128,10 +131,15 @@ export default function LoginForm() {
           }
         }
       } catch {
+
+        
         // ignorieren – Default (in-memory) ist ok
       }
 
       // Sign-in mit Timeout
+
+        
+
       await withTimeout(
         signInWithEmailAndPassword(auth, email.trim(), pw),
         12000,
@@ -154,22 +162,19 @@ export default function LoginForm() {
           window.location.assign(target);
         }
       }, 120);
-    } catch (e) {
-      const code = e?.code || e?.message || "";
-      const isTimeout = String(e?.message || "").startsWith("timeout:");
-      const msg = isTimeout
-        ? t("timeout") || "Netzwerk-Timeout. Bitte erneut versuchen."
-        : mapAuthError(code, t);
+   } catch (e) {
+  const code = e?.code || e?.message || "";
+  const isTimeout = String(e?.message || "").startsWith("timeout:");
+  const msg = isTimeout
+    ? (t("timeout") || "Netzwerk-Timeout. Bitte erneut versuchen.")
+    : mapAuthError(code, t);
 
-      if (debug) {
-        console.error("[login-debug]", { code, message: e?.message, raw: e });
-        setErr(`${msg}  [${code || "unknown"}]`);
-      } else {
-        setErr(msg);
-      }
-    } finally {
-      setLoading(false);
-    }
+  setErr(`${msg} (${code})`); // <-- Code mit anzeigen
+  console.error("[login] error:", e);
+} finally {
+  setLoading(false);
+}
+
   }
 
   return (

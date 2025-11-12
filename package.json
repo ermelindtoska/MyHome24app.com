@@ -19,7 +19,7 @@
     "@sendgrid/mail": "^8.1.5",
     "aos": "^2.3.4",
     "dotenv": "^17.2.0",
-    "firebase": "^10.14.1",
+    "firebase": "^12.5.0",
     "firebase-admin": "^13.4.0",
     "framer-motion": "^10.16.4",
     "google-map-react": "^2.2.5",
