@@ -11,5 +11,145 @@
   "tipTitle": "Tip for Buyers",
   "tipText": "Many foreclosed properties are far cheaper than market price – but proper preparation is key.",
   "ready": "Ready for your next investment?",
-  "button": "Browse properties now"
+  "button": "Browse properties now",
+  "metaTitle": "Foreclosure auctions in Germany – MyHome24App",
+  "metaDescription": "Discover properties from foreclosure auctions in Germany. Opportunities for owner-occupiers and investors – transparent, digital and easy to understand.",
+  "hero": {
+    "badge": "Opportunities in foreclosure auctions",
+    "title": "Foreclosure auctions at a glance",
+    "subtitle": "MyHome24App helps you discover interesting properties from foreclosure auctions – digital, structured and with clear hints about minimum bids, dates and risks.",
+    "ctaPrimary": "View current opportunities",
+    "ctaSecondary": "Get advice on risks & process",
+    "highlights": {
+      "direct": "Direct access",
+      "directDesc": "Overview of properties, dates and indicative minimum bids – all in one place.",
+      "transparency": "High transparency",
+      "transparencyDesc": "Clear hints about documents, risks and the legal framework (no legal advice)."
+    },
+    "imageAlt": "House with foreclosure sign",
+    "imageBadge": "Sample image – not a real auction"
+  },
+  "perks": {
+    "title": "Why search foreclosures with MyHome24App?",
+    "subtitle": "We want you to recognize opportunities without underestimating the risks. Our platform supports your initial orientation.",
+    "items": [
+      {
+        "title": "Diverse properties",
+        "description": "Flats, houses and plots – from inner city locations to rural areas."
+      },
+      {
+        "title": "Indicative price advantages",
+        "description": "Depending on demand and condition, properties may be acquired below typical market value."
+      },
+      {
+        "title": "Transparent information",
+        "description": "Hints about minimum bids, auction dates and relevant documents."
+      },
+      {
+        "title": "Legal orientation",
+        "description": "Checklists for appraisals, viewings, financing and liability topics (no legal advice)."
+      },
+      {
+        "title": "Digital overview",
+        "description": "Central overview instead of scattered information on different court websites."
+      },
+      {
+        "title": "Support for your questions",
+        "description": "We show you which experts you can contact for legal, tax or technical questions."
+      }
+    ]
+  },
+  "steps": {
+    "title": "Typical steps in a foreclosure auction",
+    "subtitle": "Every auction is different – these steps help you get started. In case of doubt, please consult specialised legal or tax advisors.",
+    "items": [
+      {
+        "title": "1. Screen suitable properties",
+        "description": "Filter by region, property type and budget to find relevant auctions."
+      },
+      {
+        "title": "2. Check appraisal & documents",
+        "description": "Carefully read the court appraisal, land register extracts and all available documents."
+      },
+      {
+        "title": "3. Clarify your financing",
+        "description": "Talk to your bank or financing partner early on to know your bidding limit."
+      },
+      {
+        "title": "4. Note the auction date",
+        "description": "Save the date and ask the responsible court about procedure, deadlines and formalities."
+      },
+      {
+        "title": "5. Get professional advice",
+        "description": "For legal, tax or structural questions, you should involve qualified experts."
+      }
+    ]
+  },
+  "table": {
+    "title": "Example auction dates (demo)",
+    "subtitle": "This table is for illustration only. Real auction dates and properties depend on the respective court and region.",
+    "cta": "Go to property search",
+    "headers": {
+      "date": "Date",
+      "city": "City / Region",
+      "type": "Property type",
+      "minBid": "Minimum bid (approx.)",
+      "court": "District court",
+      "actions": "Action"
+    },
+    "sampleRows": [
+      {
+        "date": "15.03.2026 · 10:00",
+        "city": "Hamburg",
+        "type": "Condominium",
+        "minBid": "approx. €220,000",
+        "court": "AG Hamburg"
+      },
+      {
+        "date": "28.04.2026 · 09:30",
+        "city": "Munich",
+        "type": "Single-family house",
+        "minBid": "approx. €480,000",
+        "court": "AG München"
+      },
+      {
+        "date": "12.05.2026 · 11:00",
+        "city": "Cologne",
+        "type": "Multi-family house",
+        "minBid": "approx. €750,000",
+        "court": "AG Köln"
+      }
+    ],
+    "details": "Request details",
+    "disclaimer": "Note: This is a demo table without any claim to completeness or up-to-dateness. Binding information is only available from the competent court."
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "subtitle": "These answers provide an initial overview and do not replace professional legal advice.",
+    "items": [
+      {
+        "question": "Is the auction price always a bargain?",
+        "answer": "Not necessarily. The final price depends on demand, condition and risks of the property. Renovation backlog, legal issues or contamination have to be considered in your calculation."
+      },
+      {
+        "question": "Can I visit the property beforehand?",
+        "answer": "Viewings are not always possible but often can be arranged via the appraiser or other parties. Details can be found in the official documents."
+      },
+      {
+        "question": "How does financing work?",
+        "answer": "Many banks finance foreclosure auctions but often require equity and a fast payout after the auction. Clarify your financing before you attend the auction."
+      },
+      {
+        "question": "Which risks should I keep in mind?",
+        "answer": "Potential risks include unclear occupancy, existing tenancy agreements, refurbishment needs or hidden defects. In case of doubt, involve legal and technical experts."
+      }
+    ]
+  },
+  "contactRibbon": {
+    "label": "Questions about auctions?",
+    "title": "We guide you through the first steps.",
+    "subtitle": "Our team helps you plan your next steps and shows which documents you should prepare. For legal and tax questions we recommend specialised advisors.",
+    "ctaPrimary": "Contact us",
+    "ctaSecondary": "View help & guides"
+  }
 }

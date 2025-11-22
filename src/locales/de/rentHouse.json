@@ -1,0 +1,98 @@
+{
+  
+    "metaTitle": "Haus mieten – Komfortable Mietshäuser in Deutschland",
+  "metaDescription": "Entdecken Sie familienfreundliche Häuser zur Miete – große Räume, Gärten, Privatsphäre und flexible Wohnmöglichkeiten.",
+  "hero": {
+    "badge": "Mietangebote für Häuser",
+    "title": "Haus mieten – mehr Platz, mehr Komfort",
+    "subtitle": "Finden Sie Ihr neues Zuhause: geräumige Häuser zur Miete – ideal für Familien, Paare oder alle, die mehr Platz und Privatsphäre suchen.",
+    "ctaPrimary": "Alle Hausangebote anzeigen",
+    "ctaSecondary": "Zur Immobiliensuche",
+    "imgAlt": "Wohnzimmer eines modernen Hauses",
+    "imageLabel": "Beispielfoto"
+  },
+  "perks": {
+    "title": "Vorteile eines Mietshauses",
+    "subtitle": "Ein eigenes Haus zu mieten bietet Komfort, Freiheit und Platz – ohne langfristige Kaufverpflichtung.",
+    "items": [
+      {
+        "title": "Geräumigkeit",
+        "description": "Mehrere Zimmer, Garten, Terrasse und flexible Nutzungsmöglichkeiten."
+      },
+      {
+        "title": "Privatsphäre",
+        "description": "Kein direkter Nachbar über oder unter Ihnen – mehr Ruhe und Freiheit."
+      },
+      {
+        "title": "Familienfreundlich",
+        "description": "Ideal für Kinder – in der Nähe von Schulen, Spielplätzen und Parks."
+      },
+      {
+        "title": "Flexibilität",
+        "description": "Oft mit Keller, Dachboden oder zusätzlichem Raum für Büro/Homeoffice."
+      },
+      {
+        "title": "Outdoor-Bereich",
+        "description": "Garten, Grillbereich und Platz für Freizeitgestaltung."
+      },
+      {
+        "title": "Hohes Wohlbefinden",
+        "description": "Mehr Licht, mehr Platz und ein angenehmes Wohngefühl."
+      }
+    ]
+  },
+  "steps": {
+    "title": "So finden Sie das perfekte Mietshaus",
+    "subtitle": "Unsere Plattform hilft Ihnen bei jedem Schritt – von der Suche bis zur Kontaktaufnahme.",
+    "items": [
+      {
+        "title": "Standort festlegen",
+        "description": "Wählen Sie Ihre gewünschte Region, Nachbarschaft und Umgebung."
+      },
+      {
+        "title": "Budget & Größe bestimmen",
+        "description": "Filtern Sie nach Mietpreis, Zimmeranzahl und Wohnfläche."
+      },
+      {
+        "title": "Ausstattung prüfen",
+        "description": "Garten, Parkplatz, Balkon, Homeoffice – finden Sie das Haus, das zu Ihnen passt."
+      },
+      {
+        "title": "Besichtigung vereinbaren",
+        "description": "Kontaktieren Sie Vermieter:innen direkt für einen Besichtigungstermin."
+      },
+      {
+        "title": "Mietvertrag klären",
+        "description": "Alle Konditionen prüfen und offene Fragen rechtzeitig klären."
+      }
+    ]
+  },
+  "faq": {
+    "title": "Häufige Fragen zum Haus mieten",
+    "items": [
+      {
+        "question": "Ist ein Mietshaus teurer als eine Wohnung?",
+        "answer": "Ein Haus bietet mehr Platz und Privatsphäre, daher sind die Mietkosten oft höher."
+      },
+      {
+        "question": "Kann ich Haustiere im Mietshaus halten?",
+        "answer": "Das hängt vom Mietvertrag ab. Viele Vermieter:innen erlauben Haustiere in Häusern eher als in Wohnungen."
+      },
+      {
+        "question": "Gibt es Mindestmietzeiten?",
+        "answer": "Viele Mietverträge haben Mindestlaufzeiten von 12 Monaten oder mehr."
+      },
+      {
+        "question": "Kann ich ein Mietshaus später kaufen?",
+        "answer": "Einige Vermieter:innen bieten Mietkauf an – dies hängt vom Einzelfall ab."
+      }
+    ]
+  },
+  "contactRibbon": {
+    "label": "Noch Fragen?",
+    "title": "Wir unterstützen Sie bei der Haussuche.",
+    "subtitle": "Unser Team hilft Ihnen, das passende Mietshaus zu finden und den Vermieter zu kontaktieren.",
+    "ctaPrimary": "Kontakt aufnehmen",
+    "ctaSecondary": "Weitere Mietangebote anzeigen"
+  }
+}

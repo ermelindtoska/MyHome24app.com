@@ -4,5 +4,22 @@
   "cancel": "Abbrechen",
   "delete": "Löschen",
   "success": "Anzeige wurde erfolgreich aktualisiert.",
-  "error": "Fehler beim Aktualisieren der Anzeige."
+  "saveButton": "Änderungen speichern",
+  "error": "Fehler beim Aktualisieren der Anzeige.",
+    "titlePage": "Anzeige bearbeiten",
+  "loading": "Anzeige wird geladen…",
+  "notFoundAlert": "Anzeige nicht gefunden.",
+  "notOwnerAlert": "Du darfst diese Anzeige nicht bearbeiten.",
+  "loadError": "Fehler beim Laden der Anzeige.",
+  "updateSuccess": "Anzeige wurde aktualisiert.",
+  "updateError": "Fehler beim Aktualisieren.",
+  
+  "fields": {
+    "title": "Titel",
+    "city": "Stadt",
+    "price": "Preis",
+    "type": "Immobilientyp",
+    "purpose": "Zweck (buy/rent)",
+    "imageUrl": "Bild-URL"
+  }
 }

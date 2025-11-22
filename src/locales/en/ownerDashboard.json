@@ -1,0 +1,114 @@
+{
+"offers": {
+  "sectionTitle": "Purchase offers",
+  "sectionSubtitle": "Manage offers that buyers have submitted for your listings.",
+  "loading": "Loading offers…",
+  "empty": "There are no offers yet.",
+  "columns": {
+    "date": "Date",
+    "listing": "Listing",
+    "buyer": "Buyer",
+    "amount": "Offer",
+    "status": "Status",
+    "message": "Message",
+    "actions": "Actions"
+  },
+  
+    "title": "Owner Dashboard",
+  "subtitle": "Manage your listings, offers and inquiries – all in one place.",
+  
+  "noUser": "Please log in first.",
+
+  "ctaNewListing": "Publish new property",
+
+  "stats": {
+    "total": "Total",
+    "active": "Active",
+    "inactive": "Inactive / Draft",
+    "noStatus": "No Status"
+  },
+    "listings": {
+    "title": "Your Listings",
+    "subtitle": "Edit, delete or open your listings in detail view.",
+    "loading": "Loading listings…",
+    "empty": "You haven't published any listings yet.",
+
+    "columns": {
+      "image": "Image",
+      "title": "Title",
+      "location": "Location",
+      "price": "Price",
+      "status": "Status",
+      "actions": "Actions"
+    }
+  },
+  
+
+  "delete": {
+    "title": "Delete listing?",
+    "text": "This action cannot be undone.",
+    "cancel": "Cancel",
+    "confirm": "Yes, delete"
+  },
+
+  "offers": {
+    "title": "Offers for your listings",
+    "subtitle": "All received purchase offers and negotiation statuses.",
+
+    "tabs": {
+      "all": "All",
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "rejected": "Rejected"
+    },
+
+    "columns": {
+      "listing": "Listing",
+      "buyer": "Buyer",
+      "amount": "Offer",
+      "message": "Message",
+      "status": "Status",
+      "date": "Date",
+      "actions": "Actions"
+    },
+
+    "status": {
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "rejected": "Rejected"
+    },
+
+    "noOffers": "No offers available.",
+    "viewDetails": "View details",
+    "acceptOffer": "Accept offer",
+    "rejectOffer": "Reject",
+    "openChat": "Open chat"
+  },
+  
+    "quickActions": {
+    "title": "Quick Actions",
+    "newListing": "Create new listing",
+    "viewPublic": "View public page",
+    "support": "Contact support"
+  },
+  "status": {
+    "pending": "Pending",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "withdrawn": "Withdrawn"
+  },
+  "filters": {
+    "all": "All"
+  },
+  "actions": {
+    "accept": "Accept",
+    "reject": "Reject",
+    "details": "Details"
+  },
+  "toast": {
+    "updated": "Offer status updated.",
+    "error": "Failed to update offer."
+  }
+  
+}
+}

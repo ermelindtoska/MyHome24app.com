@@ -4,5 +4,22 @@
   "cancel": "Cancel",
   "delete": "Delete",
   "success": "Listing updated successfully.",
-  "error": "Error updating listing."
+  "error": "Error updating listing.",
+  "saveButton": "Save changes",
+    "titlePage": "Edit listing",
+  "loading": "Loading listing…",
+  "notFoundAlert": "Listing not found.",
+  "notOwnerAlert": "You are not allowed to edit this listing.",
+  "loadError": "Failed to load listing.",
+  "updateSuccess": "Listing has been updated.",
+  "updateError": "Failed to update listing.",
+  
+  "fields": {
+    "title": "Title",
+    "city": "City",
+    "price": "Price",
+    "type": "Property type",
+    "purpose": "Purpose (buy/rent)",
+    "imageUrl": "Image URL"
+  }
 }

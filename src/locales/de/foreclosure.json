@@ -11,5 +11,147 @@
   "tipTitle": "Tipp für Interessenten",
   "tipText": "Viele Immobilien aus Zwangsversteigerungen sind deutlich günstiger als der Marktpreis – aber es ist wichtig, sich gut vorzubereiten.",
   "ready": "Bereit für Ihre nächste Investition?",
-  "button": "Jetzt Objekte entdecken"
+  "button": "Jetzt Objekte entdecken",
+
+    "metaTitle": "Zwangsversteigerungen in Deutschland – MyHome24App",
+  "metaDescription": "Entdecken Sie Immobilien aus Zwangsversteigerungen in Deutschland. Chancen für Eigennutzer:innen und Kapitalanleger:innen – transparent, digital, übersichtlich.",
+  "hero": {
+    "badge": "Chancen bei Zwangsversteigerungen",
+    "title": "Zwangsversteigerungen transparent im Blick",
+    "subtitle": "MyHome24App bündelt für Sie spannende Objekte aus Zwangsversteigerungen – digital, übersichtlich und mit klaren Hinweisen zu Mindestgeboten, Terminen und Risiken.",
+    "ctaPrimary": "Zu den aktuellen Angeboten",
+    "ctaSecondary": "Beratung zu Risiken & Ablauf",
+    "highlights": {
+      "direct": "Direkter Zugang",
+      "directDesc": "Einblicke in Objekte, Termine und Mindestgebote – alles an einem Ort.",
+      "transparency": "Hohe Transparenz",
+      "transparencyDesc": "Klare Hinweise zu Unterlagen, Risiken und rechtlichen Rahmenbedingungen."
+    },
+    "imageAlt": "Haus mit Schild Zwangsversteigerung",
+    "imageBadge": "Beispielbild – keine echte Auktion"
+  },
+  "perks": {
+    "title": "Warum Zwangsversteigerungen mit MyHome24App suchen?",
+    "subtitle": "Wir möchten, dass Sie Chancen erkennen – ohne die Risiken zu unterschätzen. Unsere Plattform unterstützt Sie bei der ersten Orientierung.",
+    "items": [
+      {
+        "title": "Vielfältige Objekte",
+        "description": "Wohnungen, Häuser und Grundstücke – von der Stadtlage bis zum ländlichen Raum."
+      },
+      {
+        "title": "Indikative Preisvorteile",
+        "description": "Objekte können unter dem üblichen Marktwert ersteigert werden – je nach Nachfrage und Zustand."
+      },
+      {
+        "title": "Transparente Hinweise",
+        "description": "Infos zu Mindestgeboten, Versteigerungsterminen und notwendigen Unterlagen."
+      },
+      {
+        "title": "Rechtliche Orientierung",
+        "description": "Checklisten zu Gutachten, Besichtigung, Finanzierung und Haftungsfragen (keine Rechtsberatung!)."
+      },
+      {
+        "title": "Digitaler Überblick",
+        "description": "Zentrale Übersicht statt verstreuter Einträge auf verschiedenen Amtsseiten."
+      },
+      {
+        "title": "Unterstützung bei Fragen",
+        "description": "Wir zeigen Ihnen, an wen Sie sich bei rechtlichen und steuerlichen Fragen wenden können."
+      }
+    ]
+  },
+  "steps": {
+    "title": "So gehen Sie typischerweise vor",
+    "subtitle": "Jede Zwangsversteigerung ist individuell – diese Schritte helfen bei der ersten Orientierung. Im Zweifel wenden Sie sich bitte an Fachanwält:innen oder Steuerberater:innen.",
+    "items": [
+      {
+        "title": "1. Objekte sichten",
+        "description": "Filtern Sie nach Region, Objektart und Budget, um relevante Versteigerungen zu finden."
+      },
+      {
+        "title": "2. Gutachten & Unterlagen prüfen",
+        "description": "Lesen Sie das gerichtliche Gutachten, Grundbuchauszüge und weitere Unterlagen sorgfältig."
+      },
+      {
+        "title": "3. Finanzierung klären",
+        "description": "Sprechen Sie frühzeitig mit Ihrer Bank oder einem Finanzierungspartner, um Ihr Bietlimit zu kennen."
+      },
+      {
+        "title": "4. Biettermin vormerken",
+        "description": "Merken Sie sich den Auktionstermin vor und informieren Sie sich über Ablauf und Fristen beim zuständigen Gericht."
+      },
+      {
+        "title": "5. Professionellen Rat einholen",
+        "description": "Bei rechtlichen, steuerlichen oder baulichen Fragen sollten Sie Expert:innen einbeziehen."
+      }
+    ]
+  },
+  "table": {
+    "title": "Beispielhafte Versteigerungstermine (Demo)",
+    "subtitle": "Zur Veranschaulichung sehen Sie hier eine Musterübersicht. Konkrete Termine und Objekte können je nach Region und Gericht abweichen.",
+    "cta": "Zur Immobiliensuche",
+    "headers": {
+      "date": "Termin",
+      "city": "Ort / Region",
+      "type": "Objekttyp",
+      "minBid": "Mindestgebot (ca.)",
+      "court": "Amtsgericht",
+      "actions": "Aktion"
+    },
+    "sampleRows": [
+      {
+        "date": "15.03.2026 · 10:00 Uhr",
+        "city": "Hamburg",
+        "type": "Eigentumswohnung",
+        "minBid": "ca. 220.000 €",
+        "court": "AG Hamburg"
+      },
+      {
+        "date": "28.04.2026 · 09:30 Uhr",
+        "city": "München",
+        "type": "Einfamilienhaus",
+        "minBid": "ca. 480.000 €",
+        "court": "AG München"
+      },
+      {
+        "date": "12.05.2026 · 11:00 Uhr",
+        "city": "Köln",
+        "type": "Mehrfamilienhaus",
+        "minBid": "ca. 750.000 €",
+        "court": "AG Köln"
+      }
+    ],
+    "details": "Details anfragen",
+    "disclaimer": "Hinweis: Es handelt sich um Beispieltermine ohne Anspruch auf Vollständigkeit oder Aktualität. Verbindliche Informationen erhalten Sie ausschließlich beim zuständigen Gericht."
+  },
+  "faq": {
+    "title": "Häufige Fragen zu Zwangsversteigerungen",
+    "subtitle": "Diese Fragen ersetzen keine Rechtsberatung, geben Ihnen aber einen ersten Überblick.",
+    "items": [
+      {
+        "question": "Ist der Zuschlagspreis immer ein Schnäppchen?",
+        "answer": "Nicht zwangsläufig. Der Zuschlagspreis hängt von Nachfrage, Zustand und Risiken des Objekts ab. Instandhaltungsstau, baurechtliche Themen oder Altlasten sollten in die Kalkulation einfließen."
+      },
+      {
+        "question": "Kann ich das Objekt vorab besichtigen?",
+        "answer": "Eine Besichtigung ist nicht immer möglich, häufig aber über den Gutachter oder nach Absprache realisierbar. Informationen dazu finden Sie im Exposé bzw. Gutachten."
+      },
+      {
+        "question": "Wie funktioniert die Finanzierung?",
+        "answer": "Viele Banken finanzieren Zwangsversteigerungen, verlangen aber oft Eigenkapital und eine zügige Auszahlung nach Zuschlag. Klären Sie die Finanzierung unbedingt vor dem Termin."
+      },
+      {
+        "question": "Welche Risiken muss ich beachten?",
+        "answer": "Mögliche Risiken sind z. B. unklare Besitzverhältnisse, bestehen bleibende Mietverträge, Sanierungsbedarf oder versteckte Mängel. Lassen Sie sich im Zweifel professionell beraten."
+      }
+    ]
+  },
+  "contactRibbon": {
+    "label": "Individuelle Fragen?",
+    "title": "Wir begleiten Sie bei den ersten Schritten.",
+    "subtitle": "Unser Team hilft Ihnen, die nächsten Schritte zu planen und zeigt, welche Unterlagen Sie benötigen. Für rechtliche und steuerliche Details empfehlen wir spezialisierte Fachberatung.",
+    "ctaPrimary": "Kontakt aufnehmen",
+    "ctaSecondary": "Hilfe & Ratgeber ansehen"
+  }
+
 }

@@ -1,0 +1,97 @@
+{
+  "metaTitle": "Rent a house – Comfortable rental homes in Germany",
+  "metaDescription": "Discover family-friendly houses for rent – spacious rooms, gardens, privacy and flexible living options.",
+  "hero": {
+    "badge": "House rentals",
+    "title": "Rent a house – more space, more comfort",
+    "subtitle": "Find your new home: spacious houses for rent – ideal for families, couples or anyone who wants more space and privacy.",
+    "ctaPrimary": "View all house listings",
+    "ctaSecondary": "Go to search",
+    "imgAlt": "Living room of a modern house",
+    "imageLabel": "Sample photo"
+  },
+  "perks": {
+    "title": "Advantages of renting a house",
+    "subtitle": "Renting a house gives you comfort, freedom and space – without the long-term commitment of buying.",
+    "items": [
+      {
+        "title": "Spacious living",
+        "description": "Several rooms, garden, terrace and flexible use of space."
+      },
+      {
+        "title": "Privacy",
+        "description": "No direct neighbours above or below you – more peace and freedom."
+      },
+      {
+        "title": "Family-friendly",
+        "description": "Ideal for children – close to schools, playgrounds and parks."
+      },
+      {
+        "title": "Flexibility",
+        "description": "Often with basement, attic or extra room for office or home office."
+      },
+      {
+        "title": "Outdoor area",
+        "description": "Garden, barbecue area and space for leisure activities."
+      },
+      {
+        "title": "High well-being",
+        "description": "More light, more space and a comfortable living atmosphere."
+      }
+    ]
+  },
+  "steps": {
+    "title": "How to find the perfect rental house",
+    "subtitle": "Our platform supports you at every step – from searching to contacting the landlord.",
+    "items": [
+      {
+        "title": "Define location",
+        "description": "Choose your preferred region, neighbourhood and surroundings."
+      },
+      {
+        "title": "Set budget and size",
+        "description": "Filter by rent price, number of rooms and living space."
+      },
+      {
+        "title": "Check features",
+        "description": "Garden, parking, balcony, home office – find the house that fits your needs."
+      },
+      {
+        "title": "Arrange a viewing",
+        "description": "Contact landlords directly to schedule a viewing appointment."
+      },
+      {
+        "title": "Clarify rental agreement",
+        "description": "Check all conditions carefully and clarify open questions in advance."
+      }
+    ]
+  },
+  "faq": {
+    "title": "Frequently asked questions about renting a house",
+    "items": [
+      {
+        "question": "Is renting a house more expensive than renting an apartment?",
+        "answer": "Houses usually offer more space and privacy, so monthly rent is often higher than for an apartment."
+      },
+      {
+        "question": "Are pets allowed in a rental house?",
+        "answer": "This depends on the rental contract. Many landlords are more open to pets in houses than in apartments."
+      },
+      {
+        "question": "Are there minimum rental periods?",
+        "answer": "Many rental agreements have minimum terms of 12 months or longer."
+      },
+      {
+        "question": "Can I buy the house later on?",
+        "answer": "Some landlords offer rent-to-own models, but this always depends on the individual property."
+      }
+    ]
+  },
+  "contactRibbon": {
+    "label": "Any questions?",
+    "title": "We help you find the right house.",
+    "subtitle": "Our team supports you in finding the right rental house and contacting the landlord.",
+    "ctaPrimary": "Contact us",
+    "ctaSecondary": "Show more rentals"
+  }
+}

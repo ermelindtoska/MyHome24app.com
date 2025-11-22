@@ -41,7 +41,26 @@
   "viewMore": "Mehr erfahren",
   "virtualTour": "Virtueller Rundgang",
     "title": "Immobilienangebote",
-  
+    
+  "offer": {
+    "makeOfferButton": "Kaufangebot abgeben",
+    "title": "Kaufangebot abgeben",
+    "subtitle": "Sende der/dem Eigentümer:in ein verbindliches Kaufangebot.",
+    "amountLabel": "Ihr Kaufpreis-Angebot (€)",
+    "moveInLabel": "Wunscheinzugstermin",
+    "financingLabel": "Finanzierungsart",
+    "financing": {
+      "cash": "Eigenkapital / Bar",
+      "mortgage": "Mit Finanzierung",
+      "other": "Sonstiges"
+    },
+    "messageLabel": "Nachricht (optional)",
+    "messagePlaceholder": "Stellen Sie sich kurz vor und erklären Sie Ihr Angebot.",
+    "cancel": "Abbrechen",
+    "submit": "Kaufangebot senden",
+    "submitting": "Wird gesendet…",
+    "errorGeneric": "Das Kaufangebot konnte nicht gespeichert werden. Bitte später erneut versuchen."
+  },
   "type": "Immobilientyp",
   "purpose": "Zweck",
   
@@ -56,4 +75,5 @@
   
   "postedBy": "Eingestellt von"
 }
+
 

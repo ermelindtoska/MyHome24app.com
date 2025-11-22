@@ -1,0 +1,94 @@
+{
+"offers": {
+  "sectionTitle": "Kaufangebote",
+  "sectionSubtitle": "Verwalte Angebote, die Interessent:innen für deine Inserate abgegeben haben.",
+  "loading": "Angebote werden geladen …",
+  "empty": "Bisher gibt es keine Angebote.",
+    "title": "Owner-Dashboard",
+  "subtitle": "Verwalte deine Inserate, Angebote und Anfragen – alles an einem Ort.",
+  
+  "noUser": "Bitte zuerst einloggen.",
+
+  "ctaNewListing": "Neue Immobilie veröffentlichen",
+  "columns": {
+    "date": "Datum",
+      "image": "Bild",
+      "title": "Titel",
+      "location": "Ort",
+      "price": "Preis",
+     
+    "listing": "Inserat",
+    
+    "buyer": "Interessent:in",
+    "amount": "Angebot",
+    "status": "Status",
+    "message": "Nachricht",
+    "actions": "Aktionen"
+  },
+  "status": {
+    "pending": "Offen",
+       "total": "Gesamt",
+    "active": "Aktiv",
+    "inactive": "Inaktiv / Entwurf",
+    "noStatus": "Ohne Status",
+    "accepted": "Angenommen",
+    "rejected": "Abgelehnt",
+    "withdrawn": "Zurückgezogen"
+  },
+  
+  "listings": {
+    "title": "Deine Inserate",
+    "subtitle": "Bearbeite, lösche oder öffne deine Inserate in der Detailansicht.",
+    "loading": "Inserate werden geladen…",
+    "empty": "Du hast noch keine Inserate veröffentlicht."
+  },
+  "filters": {
+    "all": "Alle"
+  },
+  "actions": {
+    "accept": "Annehmen",
+      "view": "Ansehen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "title": "Schnellaktionen",
+    "newListing": "Neue Anzeige erstellen",
+    "viewPublic": "Öffentliche Seite anzeigen",
+    "support": "Support kontaktieren",
+    "reject": "Ablehnen",
+    "details": "Details"
+  },
+    "delete": {
+    "title": "Inserat löschen?",
+    "text": "Diese Aktion kann nicht rückgängig gemacht werden.",
+    "cancel": "Abbrechen",
+    "confirm": "Ja, löschen"
+  },
+  "toast": {
+    "updated": "Angebotsstatus aktualisiert.",
+    "error": "Aktualisierung des Angebots ist fehlgeschlagen."
+  },
+    "tabs": {
+      "all": "Alle Angebote",
+      "pending": "Offen",
+      "accepted": "Angenommen",
+      "rejected": "Abgelehnt"
+    },
+       
+      "listing": "Inserat",
+      "buyer": "Käufer:in",
+      "amount": "Angebot",
+      "message": "Nachricht",
+       "noOffers": "Keine Angebote vorhanden.",
+    "viewDetails": "Details ansehen",
+    "acceptOffer": "Angebot annehmen",
+    "rejectOffer": "Ablehnen",
+    "openChat": "Chat öffnen"
+  },
+      "date": "Datum"
+      
+    
+  
+
+
+
+}

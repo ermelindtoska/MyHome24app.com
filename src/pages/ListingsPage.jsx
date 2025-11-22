@@ -38,7 +38,7 @@ const ListingsPage = () => {
             
           ))
         ) : (
-          <p className="text-center col-span-full text-gray-500"><Leer></Leer>.</p>
+          <p className="text-center col-span-full text-gray-500"></p>
         )}
       </div>
     </div>

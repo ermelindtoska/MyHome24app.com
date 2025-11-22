@@ -11,7 +11,26 @@
   "createdAt": "Posted on",
 "allPurposes": "All purposes" ,
     "details": "Details",
- 
+   
+  "offer": {
+    "makeOfferButton": "Make an offer",
+    "title": "Submit purchase offer",
+    "subtitle": "Send the owner a binding purchase offer for this property.",
+    "amountLabel": "Your offer price (€)",
+    "moveInLabel": "Preferred move-in date",
+    "financingLabel": "Type of financing",
+    "financing": {
+      "cash": "Cash / own funds",
+      "mortgage": "With mortgage",
+      "other": "Other"
+    },
+    "messageLabel": "Message (optional)",
+    "messagePlaceholder": "Briefly introduce yourself and explain your offer.",
+    "cancel": "Cancel",
+    "submit": "Send offer",
+    "submitting": "Sending…",
+    "errorGeneric": "Your offer could not be saved. Please try again later."
+  },
   "city": "City",
   "state": "State",
   "zip": "ZIP Code",

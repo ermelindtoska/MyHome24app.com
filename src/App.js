@@ -1,3 +1,4 @@
+
 // src/App.jsx
 import './i18n';
 import React from 'react';
@@ -103,7 +104,7 @@ function AppRoutes() {
       <main className="flex-grow pt-14 md:pt-0">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/listing/:id" element={<PropertyDetails />} />
+          <Route path="/listing/:id" element={<ListingDetails />} />
           <Route path="/edit/:id" element={<EditListingForm />} />
 
           <Route path="/register" element={<RegisterForm />} />

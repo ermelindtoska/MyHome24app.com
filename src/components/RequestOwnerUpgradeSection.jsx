@@ -1,168 +1,151 @@
 // src/components/RequestOwnerUpgradeSection.jsx
 import React, { useEffect, useState } from "react";
-import { auth, db } from "../firebase";
-import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "../firebase";
+import { doc, onSnapshot } from "firebase/firestore";
+import { useRole } from "../roles/RoleContext";
+import { FiUser, FiAlertCircle, FiCheckCircle } from "react-icons/fi";
+import RequestOwnerUpgradeModal from "./RequestOwnerUpgradeModal";
 
-// NB: tek ti nuk ka DialogHeader – import vetëm këto katër:
-import { Dialog, DialogContent, DialogFooter, DialogTitle } from "./ui/dialog";
-import { Button } from "./ui/button";
-import { Textarea } from "./ui/textarea";
-import { useToast } from "./ui/use-toast";
+const STATUS_COLORS = {
+  pending: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100",
+  approved: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100",
+  rejected: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100",
+};
+
+function prettyRole(t, role) {
+  if (!role) return t("upgradeRequest:currentRole.unknown");
+  if (role === "owner") return t("upgradeRequest:currentRole.owner");
+  if (role === "agent") return t("upgradeRequest:currentRole.agent");
+  return t("upgradeRequest:currentRole.user");
+}
 
 export default function RequestOwnerUpgradeSection() {
-  const { t } = useTranslation("upgradeRequest");
-  const { toast } = useToast();
+  const { t } = useTranslation(["userDashboard", "upgradeRequest"]);
+  const { role } = useRole();
+  const [user] = useAuthState(auth);
 
-  const user = auth.currentUser;
-  const [open, setOpen] = useState(false);
-  const [reason, setReason] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [request, setRequest] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
 
-  const [existing, setExisting] = useState(null); // {status, reason, requestedAt} ose null
-  const [role, setRole] = useState("user");
-
+  // Lexo në kohë reale kërkesën e user-it aktual (nëse ekziston)
   useEffect(() => {
-    const load = async () => {
-      if (!user) return;
-      try {
-        const u = await getDoc(doc(db, "users", user.uid));
-        if (u.exists()) setRole(u.data()?.role || "user");
-
-        const r = await getDoc(doc(db, "roleUpgradeRequests", user.uid));
-        setExisting(r.exists() ? r.data() : null);
-      } catch (e) {
-        console.error("[RequestOwnerUpgradeSection] load error:", e);
-      }
-    };
-    load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.uid]);
-
-  const submit = async () => {
     if (!user) {
-      toast({ title: t("error"), description: t("mustBeLoggedIn"), variant: "destructive" });
-      return;
-    }
-    if (!reason.trim()) {
-      toast({ title: t("error"), description: t("fillReason"), variant: "destructive" });
-      return;
-    }
-    try {
-      setLoading(true);
-      await setDoc(
-        doc(db, "roleUpgradeRequests", user.uid),
-        {
-          userId: user.uid,
-          email: user.email || "",
-          fullName: user.displayName || "",
-          reason: reason.trim(),
-          status: "pending",
-          requestedAt: serverTimestamp(),
-        },
-        { merge: true }
-      );
-      toast({ title: t("success"), description: t("requestSent") });
-      setOpen(false);
-      setReason("");
-
-      const r = await getDoc(doc(db, "roleUpgradeRequests", user.uid));
-      setExisting(r.exists() ? r.data() : null);
-    } catch (e) {
-      console.error("[RequestOwnerUpgradeSection] submit error:", e);
-      toast({ title: t("error"), description: t("requestFailed"), variant: "destructive" });
-    } finally {
+      setRequest(null);
       setLoading(false);
+      return;
     }
-  };
 
-  const renderStatus = () => {
-    if (role === "owner" || role === "admin") {
-      return (
-        <p className="text-sm">
-          <span className="font-medium">{t("youAreOwner")}</span> {t("youCanPublishNow")}
-        </p>
-      );
-    }
-    if (!existing) return <p className="text-sm">{t("noRequestYet")}</p>;
+    const ref = doc(db, "roleUpgradeRequests", user.uid);
+    const unsub = onSnapshot(
+      ref,
+      (snap) => {
+        if (snap.exists()) {
+          setRequest({ id: snap.id, ...snap.data() });
+        } else {
+          setRequest(null);
+        }
+        setLoading(false);
+      },
+      (err) => {
+        console.error("[RequestOwnerUpgradeSection] onSnapshot error:", err);
+        setLoading(false);
+      }
+    );
 
-    const s = existing.status || "pending";
-    if (s === "pending") {
-      return (
-        <p className="text-sm">
-          <span className="font-medium">{t("statusPending")}</span> — {t("waitForDecision")}
-        </p>
-      );
-    }
-    if (s === "approved") {
-      return (
-        <p className="text-sm">
-          <span className="font-medium text-green-600">{t("statusApproved")}</span> — {t("reloginHint")}
-        </p>
-      );
-    }
-    if (s === "rejected") {
-      return (
-        <p className="text-sm">
-          <span className="font-medium text-red-600">{t("statusRejected")}</span>
-          {existing.reason ? <> — {t("yourReasonWas")} “{existing.reason}”</> : null}
-        </p>
-      );
-    }
-    return <p className="text-sm">{t("noRequestYet")}</p>;
-  };
+    return unsub;
+  }, [user]);
 
-  const canRequest =
-    role === "user" && (!existing || (existing && existing.status === "rejected"));
+  if (!user) return null; // nëse s'është loguar, mos shfaq asgjë
+
+  const hasElevatedRole = role === "owner" || role === "agent";
+  const status = request?.status || null;
 
   return (
-    <div className="rounded-xl border border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-900/30 p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-      <div>
-        <h3 className="text-base font-semibold mb-1">{t("upgradeToOwner")}</h3>
-        {renderStatus()}
-      </div>
+    <section className="mt-4 mb-8">
+      <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 sm:p-5 shadow-sm">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex items-start gap-3">
+            <div className="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-300">
+              <FiUser className="text-xl" />
+            </div>
+            <div>
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">
+                {t("upgradeRequest:card.title")}
+              </h3>
+              <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                {t("upgradeRequest:card.subtitle")}
+              </p>
 
-      <div className="flex gap-2">
-        <Button
-          variant="outline"
-          onClick={() => setOpen(true)}
-          disabled={!canRequest}
-          title={!canRequest ? t("cannotRequestNow") : undefined}
-        >
-          {t("requestOwnerUpgrade")}
-        </Button>
-        <Button asChild>
-          <a href="/publish">{t("goToPublish")}</a>
-        </Button>
-      </div>
+              <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
+                <span className="font-medium text-gray-700 dark:text-gray-200">
+                  {t("upgradeRequest:card.currentRoleLabel")}{" "}
+                </span>
+                <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-800 dark:bg-gray-800 dark:text-gray-100">
+                  {prettyRole(t, role)}
+                </span>
 
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
-          {/* Zëvendëson DialogHeader */}
-          <div className="mb-2">
-            <DialogTitle>{t("title")}</DialogTitle>
+                {loading ? (
+                  <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">
+                    {t("upgradeRequest:card.loadingStatus")}
+                  </span>
+                ) : status ? (
+                  <span
+                    className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold ${
+                      STATUS_COLORS[status] || STATUS_COLORS.pending
+                    }`}
+                  >
+                    {status === "pending" && <FiAlertCircle className="text-sm" />}
+                    {status === "approved" && <FiCheckCircle className="text-sm" />}
+                    {status === "rejected" && <FiAlertCircle className="text-sm" />}
+                    {t(`upgradeRequest:status.${status}`)}
+                  </span>
+                ) : null}
+              </div>
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <p className="text-sm text-gray-600 dark:text-gray-300">{t("helperText")}</p>
-            <Textarea
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-              placeholder={t("placeholder")}
-              rows={5}
-            />
+          {/* Butoni kryesor */}
+          <div className="flex items-center">
+            {hasElevatedRole ? (
+              <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700 dark:bg-green-900 dark:text-green-100">
+                {t("upgradeRequest:card.alreadyOwner")}
+              </span>
+            ) : status === "pending" ? (
+              <button
+                type="button"
+                disabled
+                className="rounded-full border border-yellow-300 bg-yellow-50 px-3 py-1 text-xs font-semibold text-yellow-800 dark:border-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-100"
+              >
+                {t("upgradeRequest:card.requestPending")}
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setOpenModal(true)}
+                className="rounded-full bg-blue-600 px-4 py-2 text-xs sm:text-sm font-semibold text-white shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+              >
+                {t("upgradeRequest:card.ctaRequestOwner")}
+              </button>
+            )}
           </div>
+        </div>
 
-          <DialogFooter>
-            <Button variant="ghost" onClick={() => setOpen(false)}>
-              {t("cancel")}
-            </Button>
-            <Button onClick={submit} disabled={loading}>
-              {loading ? t("sending") : t("send")}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
+        {/* Info e vogël poshtë */}
+        {!hasElevatedRole && (
+          <p className="mt-3 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+            {t("upgradeRequest:card.helperText")}
+          </p>
+        )}
+      </div>
+
+      {/* Modal */}
+      <RequestOwnerUpgradeModal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+      />
+    </section>
   );
 }

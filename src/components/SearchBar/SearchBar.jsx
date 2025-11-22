@@ -31,12 +31,12 @@ const SearchBar = ({ placeholder = 'searchPlaceholder' }) => {
           className="flex-grow px-4 py-3 text-gray-900 dark:text-gray-100 bg-transparent placeholder-gray-500 dark:placeholder-gray-400 outline-none text-base sm:text-lg"
         />
         <button
-          onClick={handleSearch}
-          className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-r-full transition"
-          aria-label="{t('searchButton')}"
-        >
-          <HiSearch className="w-5 h-5" />
-        </button>
+  onClick={handleSearch}
+  className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-r-full transition"
+  aria-label={t("searchButton")}
+>
+  <HiSearch className="w-5 h-5" />
+</button>
       </div>
     </div>
   );
