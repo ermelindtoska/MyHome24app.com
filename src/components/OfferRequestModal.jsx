@@ -1,35 +1,23 @@
-// src/components/ContactOwnerModal.jsx
-import React, { useState, useEffect } from 'react';
+// src/components/OfferRequestModal.jsx
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../context/AuthContext';
 
-const ContactOwnerModal = ({ isOpen, onClose, ownerEmail, listing }) => {
-  const { t } = useTranslation(['contact', 'listingDetails']);
+const OfferRequestModal = ({ isOpen, onClose, listing }) => {
+  const { t } = useTranslation('offers');
   const { currentUser } = useAuth() || {};
 
   const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
+    amount: '',
+    financing: '',
+    moveInDate: '',
     message: '',
   });
   const [sending, setSending] = useState(false);
 
-  useEffect(() => {
-    if (!isOpen) return;
-    setForm((prev) => ({
-      ...prev,
-      name:
-        currentUser?.displayName ||
-        prev.name ||
-        '',
-      email: currentUser?.email || prev.email || '',
-    }));
-  }, [isOpen, currentUser]);
-
-  if (!isOpen) return null;
+  if (!isOpen || !listing) return null;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,29 +28,31 @@ const ContactOwnerModal = ({ isOpen, onClose, ownerEmail, listing }) => {
     e.preventDefault();
     setSending(true);
     try {
-      await addDoc(collection(db, 'contacts'), {
-        listingId: listing?.id,
-        listingTitle: listing?.title || '',
-        ownerEmail: ownerEmail || listing?.ownerEmail || '',
-        userId: currentUser?.uid || null,
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
+      await addDoc(collection(db, 'offers'), {
+        listingId: listing.id,
+        ownerId: listing.ownerId || listing.userId || null,
+        ownerEmail: listing.ownerEmail || null,
+        buyerId: currentUser?.uid || null,
+        buyerEmail: currentUser?.email || null,
+        amount: Number(form.amount) || form.amount,
+        financing: form.financing,
+        moveInDate: form.moveInDate || null,
         message: form.message,
-        sentAt: serverTimestamp(),
+        status: 'pending',
+        createdAt: serverTimestamp(),
       });
 
       alert(
-        t('contact:success', {
-          defaultValue: 'Deine Nachricht wurde gesendet.',
+        t('submitSuccess', {
+          defaultValue: 'Dein Angebot wurde übermittelt.',
         })
       );
       onClose?.();
     } catch (err) {
-      console.error('[ContactOwnerModal] error:', err);
+      console.error('[OfferRequestModal] error:', err);
       alert(
-        t('contact:error', {
-          defaultValue: 'Fehler beim Senden der Nachricht.',
+        t('submitError', {
+          defaultValue: 'Fehler beim Senden des Angebots.',
         })
       );
     } finally {
@@ -81,19 +71,21 @@ const ContactOwnerModal = ({ isOpen, onClose, ownerEmail, listing }) => {
         </button>
 
         <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
-          {t('listingDetails:contactSeller', {
-            defaultValue: 'Verkäufer kontaktieren',
-          })}
+          {t('title', { defaultValue: 'Kaufangebot abgeben' })}
         </h2>
+        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+          {listing.title} – {listing.city}
+        </p>
 
         <form onSubmit={handleSubmit} className="space-y-3">
           <div>
             <label className="block text-sm font-medium mb-1">
-              {t('contact:name', { defaultValue: 'Name' })}
+              {t('fields.amount', { defaultValue: 'Angebotspreis (€)' })}
             </label>
             <input
-              name="name"
-              value={form.name}
+              name="amount"
+              type="number"
+              value={form.amount}
               onChange={handleChange}
               className="w-full rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2"
             />
@@ -101,12 +93,27 @@ const ContactOwnerModal = ({ isOpen, onClose, ownerEmail, listing }) => {
 
           <div>
             <label className="block text-sm font-medium mb-1">
-              {t('contact:email', { defaultValue: 'E-Mail' })}
+              {t('fields.financing', { defaultValue: 'Finanzierung' })}
             </label>
             <input
-              name="email"
-              type="email"
-              value={form.email}
+              name="financing"
+              value={form.financing}
+              onChange={handleChange}
+              placeholder={t('fields.financingPlaceholder', {
+                defaultValue: 'z.B. 20 % Eigenkapital, Rest Finanzierung…',
+              })}
+              className="w-full rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              {t('fields.moveInDate', { defaultValue: 'Gewünschter Einzugstermin' })}
+            </label>
+            <input
+              name="moveInDate"
+              type="date"
+              value={form.moveInDate}
               onChange={handleChange}
               className="w-full rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2"
             />
@@ -114,25 +121,13 @@ const ContactOwnerModal = ({ isOpen, onClose, ownerEmail, listing }) => {
 
           <div>
             <label className="block text-sm font-medium mb-1">
-              {t('contact:phone', { defaultValue: 'Telefon (optional)' })}
-            </label>
-            <input
-              name="phone"
-              value={form.phone}
-              onChange={handleChange}
-              className="w-full rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              {t('contact:message', { defaultValue: 'Nachricht' })}
+              {t('fields.message', { defaultValue: 'Nachricht (optional)' })}
             </label>
             <textarea
               name="message"
+              rows={3}
               value={form.message}
               onChange={handleChange}
-              rows={4}
               className="w-full rounded border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-2"
             />
           </div>
@@ -140,11 +135,11 @@ const ContactOwnerModal = ({ isOpen, onClose, ownerEmail, listing }) => {
           <button
             type="submit"
             disabled={sending}
-            className="w-full rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 disabled:opacity-60"
+            className="w-full rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 disabled:opacity-60"
           >
             {sending
-              ? t('contact:sending', { defaultValue: 'Wird gesendet…' })
-              : t('contact:send', { defaultValue: 'Nachricht senden' })}
+              ? t('sending', { defaultValue: 'Wird gesendet…' })
+              : t('submit', { defaultValue: 'Angebot senden' })}
           </button>
         </form>
       </div>
@@ -152,4 +147,4 @@ const ContactOwnerModal = ({ isOpen, onClose, ownerEmail, listing }) => {
   );
 };
 
-export default ContactOwnerModal;
+export default OfferRequestModal;

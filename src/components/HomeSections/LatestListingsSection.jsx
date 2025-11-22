@@ -1,9 +1,10 @@
+// src/components/HomeSections/LatestListingsSection.jsx
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import PropertyList from "../PropertyList/PropertyList";
-import { FaExclamationTriangle } from "react-icons/fa"; // SHTO KËTË IMPORT!
+import { FaExclamationTriangle } from "react-icons/fa";
 
 const LatestListingsSection = () => {
   const { t } = useTranslation("home");
@@ -18,12 +19,23 @@ const LatestListingsSection = () => {
           orderBy("createdAt", "desc")
         );
         const snapshot = await getDocs(q);
-        const listingsData = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+
+        const listingsData = snapshot.docs.map((docSnap) => {
+          const data = docSnap.data() || {};
+          const imagesArray =
+            data.imageUrls ||
+            data.images ||
+            [];
+
+          return {
+            id: docSnap.id,
+            ...data,
+            imageUrls: imagesArray, // 👉 sigurojmë që ekziston gjithmonë
+          };
+        });
+
         setListings(listingsData);
-        setError(null); // Pastro error në sukses
+        setError(null);
       } catch (err) {
         console.error("Fehler beim Laden der Anzeigen:", err);
         setError(

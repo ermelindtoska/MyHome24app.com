@@ -1,14 +1,54 @@
 {
-  "imgAlt": "House for Rent",
-  "title": "Family-Friendly Houses for Rent",
-  "description": "Find your new home in a spacious house – perfect for families or anyone who wants more space and privacy. Our rental offers provide comfortable living in attractive residential areas.",
-  "features": [
-    { "title": "Spaciousness", "text": "Multiple rooms, garden, and parking space" },
-    { "title": "Privacy", "text": "Private entrance, no direct neighbors" },
-    { "title": "Family-Friendly", "text": "Near schools, playgrounds, and parks" },
-    { "title": "Flexibility", "text": "Often with basement, attic, or extra office" }
+  "imgAlt": "Modern living room in a family house",
+  "hero": {
+    "badge": "Rent a house",
+    "title": "Family-friendly houses for rent in Germany",
+    "subtitle": "Enjoy more space, your own four walls and a private garden – without having to buy a property right away."
+  },
+  "introText": "Renting a house combines flexibility with the feeling of having your own home. It is ideal for families, people working from home or anyone who needs more space and appreciates a quieter neighbourhood.",
+  "perksTitle": "Why renting a house is a great choice",
+  "perks": [
+    {
+      "title": "More space for everyone",
+      "text": "Generous living areas, several rooms and often additional storage or hobby rooms – perfect for families, home office and guests."
+    },
+    {
+      "title": "Private garden",
+      "text": "Whether it’s a sandbox, barbecue evenings or your own vegetable patch: An outdoor area offers freedom and quality of life, especially for children and pets."
+    },
+    {
+      "title": "Privacy & peace",
+      "text": "No neighbours above or below you. A house usually offers more distance to others and a calmer living environment."
+    },
+    {
+      "title": "Flexible instead of tied down",
+      "text": "Renting instead of buying keeps you flexible. If your job or life situation changes, you can move more easily and are not tied to one location for decades."
+    }
   ],
-  "tipTitle": "Tip",
-  "tipText": "Compare different districts and use our filter options for pet-friendliness, gardens, garages, and more.",
-  "button": "Discover Houses Now"
+  "stepsTitle": "How to find your rental house with MyHome24App",
+  "steps": [
+    {
+      "title": "Choose your preferred area",
+      "text": "Filter by city, region or ZIP code and narrow down your search by price range, number of rooms and living space."
+    },
+    {
+      "title": "Compare listings",
+      "text": "Use favourites and comparison features to put different houses side by side – including equipment, location and price."
+    },
+    {
+      "title": "Arrange a viewing & move in",
+      "text": "Contact landlords directly via MyHome24App, schedule viewing appointments and prepare documents like proof of income and credit report."
+    }
+  ],
+  "infoBoxTitle": "Tip: Prepare your documents early",
+  "infoBoxText": "For popular rental houses, speed matters. Have your proof of income, a recent credit report and a short self-disclosure ready so you can react quickly when you find the right home.",
+  "disclaimer": "Note: The information on this page is for general guidance only and does not replace individual legal or financial advice. Available listings, conditions and requirements may vary by region and provider.",
+  "cta": {
+    "primary": "Show houses for rent",
+    "secondary": "Switch to houses for sale"
+  },
+  "seo": {
+    "title": "Rent a house – family-friendly homes | MyHome24App",
+    "description": "Discover family-friendly houses for rent across Germany. Use filters, favourites and comparison tools to find the right rental house with MyHome24App."
+  }
 }

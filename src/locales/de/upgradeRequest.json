@@ -1,12 +1,11 @@
 {
   
-  "description": "Bitte geben Sie uns einige Informationen, warum Sie Ihre Rolle auf 'Eigentümer' umstellen möchten.",
-  "placeholder": "Ihre Nachricht...",
+  
   "sendRequest": "Anfrage senden",
-  "sending": "Wird gesendet...",
+  
   "successMessage": "Ihre Anfrage wurde erfolgreich übermittelt!",
   "close": "Schließen",
-"title": "Eigentümerrolle beantragen",
+
   "upgradeToOwner": "Upgrade zur Eigentümer:in-Rolle",
   "requestOwnerUpgrade": "Eigentümerrolle beantragen",
   "goToPublish": "Zum Veröffentlichen",
@@ -21,18 +20,45 @@
   "yourReasonWas": "Ihr angegebener Grund war",
   "cannotRequestNow": "Aktuell kann kein Antrag gestellt werden.",
   "helperText": "Beschreiben Sie kurz, warum Sie die Eigentümerrolle benötigen (z. B. Sie möchten eigene Immobilien veröffentlichen).",
-
+  "title": "Rollen-Upgrade beantragen",
+  "description": "Wenn du eigene Immobilien veröffentlichen oder als Profi auftreten möchtest, kannst du hier eine höhere Rolle beantragen.",
+  "targetRoleLabel": "Gewünschte Rolle",
+  "roles": {
+    "owner": "Eigentümer:in",
+    "agent": "Makler:in"
+  },
+  "placeholder": "Beschreibe kurz, warum du die Rolle benötigst (z. B. Anzahl der Objekte, professionelle Nutzung, Firmendaten ...)",
+  
+  "sending": "Senden...",
+ 
+  "currentRole": {
+    "user": "Standard-Nutzer:in",
+    "owner": "Eigentümer:in",
+    "agent": "Makler:in",
+    "unknown": "Unbekannt"
+  },
+  "status": {
+    "pending": "In Prüfung",
+    "approved": "Genehmigt",
+    "rejected": "Abgelehnt"
+  },
+  "card": {
+    "title": "Rollen-Upgrade",
+    "subtitle": "Verwalte hier deine Berechtigungen für MyHome24App.",
+    "currentRoleLabel": "Aktuelle Rolle:",
+    "loadingStatus": "Status wird geladen ...",
+    "alreadyOwner": "Du besitzt bereits eine erweiterte Rolle.",
+    "requestPending": "Anfrage ist in Bearbeitung",
+    "ctaRequestOwner": "Rolle \"Eigentümer:in\" beantragen",
+    "helperText": "Nach der Genehmigung kannst du eigene Immobilien professionell einstellen und verwalten."
+  },
 
   "becomeOwnerTitle": "Upgrade zur Owner-Rolle",
   "becomeOwnerDesc": "Owners können Inserate veröffentlichen und verwalten. Sende eine kurze Anfrage an die Admins.",
   "btnRequest": "Upgrade anfragen",
   "btnPending": "Anfrage ausstehend…",
   "checking": "Prüfe…",
-  "status": {
-    "pending": "Ausstehend",
-    "approved": "Genehmigt",
-    "rejected": "Abgelehnt"
-  },
+ 
  
   "requestFailed": "Deine Anfrage konnte nicht gesendet werden. Bitte versuche es später erneut.",
   "mustBeLoggedIn": "Du musst angemeldet sein, um eine Anfrage zu senden.",

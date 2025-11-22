@@ -1,0 +1,44 @@
+{
+  "title": "Kaufangebot abgeben",
+  "intro": "Geben Sie hier ein unverbindliches Kaufangebot für diese Immobilie ab. Der:die Eigentümer:in erhält Ihre Angaben und kann sich bei Interesse melden.",
+  "amountLabel": "Angebotsbetrag",
+  "amountPlaceholder": "z. B. 450000",
+  "financingLabel": "Finanzierung",
+  "financingOptions": {
+    "none": "Nicht angegeben",
+    "cash": "Bar / Eigenkapital",
+    "mortgageApproved": "Finanzierung bereits zugesagt",
+    "mortgagePlanned": "Finanzierung noch in Planung"
+  },
+  "moveInDateLabel": "Gewünschtes Einzugsdatum",
+  "messageLabel": "Nachricht an Eigentümer:in",
+  "messagePlaceholder": "Stellen Sie sich kurz vor und erklären Sie Ihr Angebot (z. B. Haushaltsgröße, Zeitplan, besondere Bedingungen)…",
+  "cancel": "Abbrechen",
+  "submit": "Angebot senden",
+  "submitOfferShort": "Kaufangebot abgeben",
+  "loginRequired": "Bitte melden Sie sich an, um ein Kaufangebot abzugeben.",
+  "success": "Ihr Kaufangebot wurde erfolgreich übermittelt.",
+  "error": "Beim Senden des Angebots ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
+  "amountRequired": "Bitte geben Sie einen gültigen Angebotsbetrag ein.",
+    
+  "makeOfferButton": "Kaufangebot abgeben",
+  "loginHint": "Bitte einloggen, um ein Angebot abzugeben.",
+  "fields": {
+    "amount": "Ihr Angebotspreis",
+    "moveInDate": "Gewünschter Einzugstermin",
+    "message": "Nachricht an den Eigentümer"
+  },
+  "placeholders": {
+    "message": "Stellen Sie sich kurz vor und erklären Sie Ihr Angebot…"
+  },
+  "actions": {
+    "cancel": "Abbrechen",
+    "submit": "Angebot senden",
+    "submitting": "Wird gesendet…"
+  },
+  "errors": {
+    "notLoggedIn": "Bitte zuerst einloggen.",
+    "noAmount": "Bitte einen Angebotspreis eingeben.",
+    "submitFailed": "Das Angebot konnte nicht gespeichert werden. Bitte versuchen Sie es später erneut."
+  }
+}

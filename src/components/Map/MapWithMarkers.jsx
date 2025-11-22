@@ -15,7 +15,10 @@ const DE_ZOOM = 5.5;
 // util i vogël për debounce
 const debounce = (fn, ms) => {
   let t;
-  return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+  return (...args) => {
+    clearTimeout(t);
+    t = setTimeout(() => fn(...args), ms);
+  };
 };
 
 const MapWithMarkers = ({ listings = [], selectedId, onListingSelect, onVisibleChange }) => {
@@ -30,6 +33,7 @@ const MapWithMarkers = ({ listings = [], selectedId, onListingSelect, onVisibleC
   // ---------------- Map init ----------------
   useEffect(() => {
     if (!mapEl.current) return;
+
     const map = new mapboxgl.Map({
       container: mapEl.current,
       style: "mapbox://styles/mapbox/streets-v12",
@@ -38,18 +42,32 @@ const MapWithMarkers = ({ listings = [], selectedId, onListingSelect, onVisibleC
     });
     mapRef.current = map;
 
-    // raportim i parë i bounds
+    // raportim i parë i bounds Pasi stili është ngarkuar
     map.on("load", () => {
       const b = map.getBounds();
-      store.setBounds({ w: b.getWest(), e: b.getEast(), s: b.getSouth(), n: b.getNorth() });
-      // trigër i vogël që Mapbox të layout-ojë saktë në mobile
+      store.setBounds({
+        w: b.getWest(),
+        e: b.getEast(),
+        s: b.getSouth(),
+        n: b.getNorth(),
+      });
+
+      // trigger i vogël që Mapbox të layout-ojë saktë në mobile
       setTimeout(() => window.dispatchEvent(new Event("resize")), 200);
     });
 
     // në çdo lëvizje -> rifiltro markerat + dërgo onVisibleChange
     const onMoveEnd = debounce(() => {
-      const b = map.getBounds();
-      const bounds = { w: b.getWest(), e: b.getEast(), s: b.getSouth(), n: b.getNorth() };
+      const m = mapRef.current;
+      if (!m || !m.isStyleLoaded?.()) return;
+
+      const b = m.getBounds();
+      const bounds = {
+        w: b.getWest(),
+        e: b.getEast(),
+        s: b.getSouth(),
+        n: b.getNorth(),
+      };
       store.setBounds(bounds);
       renderMarkers(); // bazuar në bounds+filters
       reportVisible();
@@ -60,46 +78,56 @@ const MapWithMarkers = ({ listings = [], selectedId, onListingSelect, onVisibleC
     return () => {
       map.off("moveend", onMoveEnd);
       map.remove();
+      mapRef.current = null;
+      clearMarkers();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ---------------- Filtro + sort ----------------
-  const applyFilters = useCallback((items) => {
-    let arr = (items || []).filter((it) => {
-      // koordinatat duhet të jenë numerike
-      if (typeof it.latitude !== "number" || typeof it.longitude !== "number") return false;
+  const applyFilters = useCallback(
+    (items) => {
+      let arr = (items || []).filter((it) => {
+        // koordinatat duhet të jenë numerike
+        if (typeof it.latitude !== "number" || typeof it.longitude !== "number") return false;
 
-      if (filters.city && !(it.city || "").toLowerCase().includes(filters.city.toLowerCase()))
-        return false;
-      if (filters.type && it.type !== filters.type) return false;
+        if (
+          filters.city &&
+          !(it.city || "").toLowerCase().includes(filters.city.toLowerCase())
+        )
+          return false;
+        if (filters.type && it.type !== filters.type) return false;
 
-      const price = Number(it.price ?? 0);
-      if (filters.priceMin && price < Number(filters.priceMin)) return false;
-      if (filters.priceMax && price > Number(filters.priceMax)) return false;
-      return true;
-    });
+        const price = Number(it.price ?? 0);
+        if (filters.priceMin && price < Number(filters.priceMin)) return false;
+        if (filters.priceMax && price > Number(filters.priceMax)) return false;
+        return true;
+      });
 
-    if (searchInArea) {
-      const b = store.get().bounds;
-      if (b) {
-        arr = arr.filter(
-          (it) =>
-            it.longitude >= b.w &&
-            it.longitude <= b.e &&
-            it.latitude >= b.s &&
-            it.latitude <= b.n
-        );
+      if (searchInArea) {
+        const b = store.get().bounds;
+        if (b) {
+          arr = arr.filter(
+            (it) =>
+              it.longitude >= b.w &&
+              it.longitude <= b.e &&
+              it.latitude >= b.s &&
+              it.latitude <= b.n
+          );
+        }
       }
-    }
 
-    if (store.get().sortBy === "priceAsc")  arr.sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
-    if (store.get().sortBy === "priceDesc") arr.sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
-    if (store.get().sortBy === "newest")    arr.sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0));
+      if (store.get().sortBy === "priceAsc")
+        arr.sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
+      if (store.get().sortBy === "priceDesc")
+        arr.sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+      if (store.get().sortBy === "newest")
+        arr.sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0));
 
-    return arr;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, searchInArea, store]);
+      return arr;
+    },
+    [filters, searchInArea, store]
+  );
 
   // ---------------- Render markers ----------------
   const clearMarkers = () => {
@@ -109,7 +137,8 @@ const MapWithMarkers = ({ listings = [], selectedId, onListingSelect, onVisibleC
 
   const renderMarkers = useCallback(() => {
     const map = mapRef.current;
-    if (!map) return;
+    if (!map || !map.isStyleLoaded?.()) return;
+
     clearMarkers();
 
     const filtered = applyFilters(listings);
@@ -142,13 +171,11 @@ const MapWithMarkers = ({ listings = [], selectedId, onListingSelect, onVisibleC
     });
   }, [applyFilters, listings, onListingSelect, store]);
 
-  // Rirender në çdo ndryshim të filtrave/sortimit/bounds
-  useEffect(() => { renderMarkers(); reportVisible(); }, [renderMarkers]);
-
   // ---------------- Visible to Sidebar ----------------
   const reportVisible = useCallback(() => {
     const map = mapRef.current;
-    if (!map) return;
+    if (!map || !map.isStyleLoaded?.()) return;
+
     const b = map.getBounds();
     const visible = applyFilters(listings).filter(
       (it) =>
@@ -159,6 +186,14 @@ const MapWithMarkers = ({ listings = [], selectedId, onListingSelect, onVisibleC
     );
     onVisibleChange?.(visible);
   }, [applyFilters, listings, onVisibleChange]);
+
+  // Rirender në çdo ndryshim të filtrave/sortimit/bounds PASI stili është gati
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !map.isStyleLoaded?.()) return;
+    renderMarkers();
+    reportVisible();
+  }, [renderMarkers, reportVisible]);
 
   // ---------------- Selected/Active highlight ----------------
   // nga prop selectedId
@@ -184,18 +219,25 @@ const MapWithMarkers = ({ listings = [], selectedId, onListingSelect, onVisibleC
     if (!q || q.length < 2) return setSuggestions([]);
     try {
       const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&countrycodes=de&addressdetails=1&limit=5`
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+          q
+        )}&countrycodes=de&addressdetails=1&limit=5`
       );
       setSuggestions(await res.json());
-    } catch { /* noop */ }
+    } catch {
+      /* noop */
+    }
   };
 
   const handleSuggestionClick = (item) => {
     setSearch(item.display_name);
     setSuggestions([]);
     const map = mapRef.current;
-    if (map) {
-      map.flyTo({ center: [parseFloat(item.lon), parseFloat(item.lat)], zoom: 12 });
+    if (map && map.isStyleLoaded?.()) {
+      map.flyTo({
+        center: [parseFloat(item.lon), parseFloat(item.lat)],
+        zoom: 12,
+      });
     }
   };
 
@@ -208,7 +250,10 @@ const MapWithMarkers = ({ listings = [], selectedId, onListingSelect, onVisibleC
             type="text"
             placeholder={t("searchLocation", { ns: "filterBar" })}
             value={search}
-            onChange={(e) => { setSearch(e.target.value); fetchSuggestions(e.target.value); }}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              fetchSuggestions(e.target.value);
+            }}
             className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm shadow-sm"
           />
           {suggestions.length > 0 && (
@@ -239,19 +284,35 @@ const MapWithMarkers = ({ listings = [], selectedId, onListingSelect, onVisibleC
             <input
               type="checkbox"
               checked={searchInArea}
-              onChange={(e) => { store.setSearchInArea(e.target.checked); renderMarkers(); reportVisible(); }}
+              onChange={(e) => {
+                store.setSearchInArea(e.target.checked);
+                renderMarkers();
+                reportVisible();
+              }}
             />
-            {t("searchInArea", { ns: "filterBar", defaultValue: "In diesem Kartenausschnitt suchen" })}
+            {t("searchInArea", {
+              ns: "filterBar",
+              defaultValue: "In diesem Kartenausschnitt suchen",
+            })}
           </label>
           <button
             onClick={() => {
               const map = mapRef.current;
-              if (!map) return;
-              map.fitBounds([[5.9, 47.2],[15.0, 55.1]], { padding: 40, duration: 400 });
+              if (!map || !map.isStyleLoaded?.()) return;
+              map.fitBounds(
+                [
+                  [5.9, 47.2],
+                  [15.0, 55.1],
+                ],
+                { padding: 40, duration: 400 }
+              );
             }}
             className="ml-auto px-3 py-1.5 rounded border text-sm bg-white/80 dark:bg-gray-800/80 border-gray-300 dark:border-gray-600"
           >
-            {t("resetArea", { ns: "filterBar", defaultValue: "Deutschland" })}
+            {t("resetArea", {
+              ns: "filterBar",
+              defaultValue: "Deutschland",
+            })}
           </button>
         </div>
       </div>

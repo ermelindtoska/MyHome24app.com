@@ -1,0 +1,44 @@
+{
+  "title": "Submit purchase offer",
+  "intro": "Send a non-binding purchase offer for this property. The owner will receive your details and can contact you if interested.",
+  "amountLabel": "Offer amount",
+  "amountPlaceholder": "e.g. 450000",
+  "financingLabel": "Financing",
+  "financingOptions": {
+    "none": "Not specified",
+    "cash": "Cash / equity",
+    "mortgageApproved": "Mortgage already approved",
+    "mortgagePlanned": "Mortgage still in planning"
+  },
+  "moveInDateLabel": "Preferred move-in date",
+  "messageLabel": "Message to the owner",
+  "messagePlaceholder": "Introduce yourself briefly and explain your offer (e.g. household size, timeline, special conditions)…",
+  "cancel": "Cancel",
+  "submit": "Send offer",
+  "submitOfferShort": "Submit purchase offer",
+  "loginRequired": "Please log in to submit a purchase offer.",
+  "success": "Your purchase offer has been sent successfully.",
+  "error": "An error occurred while sending your offer. Please try again later.",
+  "amountRequired": "Please enter a valid offer amount.",
+  
+  "makeOfferButton": "Make an offer",
+  "loginHint": "Please log in to submit an offer.",
+  "fields": {
+    "amount": "Your offer price",
+    "moveInDate": "Preferred move-in date",
+    "message": "Message to the owner"
+  },
+  "placeholders": {
+    "message": "Briefly introduce yourself and explain your offer…"
+  },
+  "actions": {
+    "cancel": "Cancel",
+    "submit": "Send offer",
+    "submitting": "Submitting…"
+  },
+  "errors": {
+    "notLoggedIn": "Please log in first.",
+    "noAmount": "Please enter an offer price.",
+    "submitFailed": "Your offer could not be saved. Please try again later."
+  }
+}

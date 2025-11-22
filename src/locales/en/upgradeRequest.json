@@ -1,17 +1,15 @@
 {
   
-  "description": "Please let us know why you want to upgrade your role to 'owner'.",
-  "placeholder": "Your message...",
+  
   "sendRequest": "Send Request",
-  "sending": "Sending...",
+  
   "successMessage": "Your request has been submitted successfully!",
   "close": "Close",
    
   "submit": "Send Request",
-  "success": "Request sent successfully!",
-  "error": "Something went wrong. Please try again.",
+  
 
-  "title": "Request Owner Role",
+  
   "upgradeToOwner": "Upgrade to Owner Role",
   "requestOwnerUpgrade": "Request Owner Upgrade",
   "goToPublish": "Go to Publish",
@@ -27,7 +25,37 @@
   "cannotRequestNow": "You cannot request at this time.",
   "helperText": "Briefly describe why you need the Owner role (e.g., you plan to publish your own properties).",
  
-
+  "title": "Request role upgrade",
+  "description": "If you want to publish your own listings or act as a professional, you can request a higher role here.",
+  "targetRoleLabel": "Desired role",
+  "roles": {
+    "owner": "Owner",
+    "agent": "Agent"
+  },
+  "placeholder": "Briefly describe why you need this role (e.g. number of properties, professional usage, company details ...)",
+  
+  "sending": "Sending...",
+  "success": "Request sent",
+ 
+  "error": "Error",
+  
+  "currentRole": {
+    "user": "Standard user",
+    "owner": "Owner",
+    "agent": "Agent",
+    "unknown": "Unknown"
+  },
+ 
+  "card": {
+    "title": "Role upgrade",
+    "subtitle": "Manage your permissions for MyHome24App here.",
+    "currentRoleLabel": "Current role:",
+    "loadingStatus": "Loading status ...",
+    "alreadyOwner": "You already have an elevated role.",
+    "requestPending": "Request is being reviewed",
+    "ctaRequestOwner": "Request \"Owner\" role",
+    "helperText": "After approval you can publish and manage your own listings professionally."
+  },
   "becomeOwnerTitle": "Upgrade to Owner",
   "becomeOwnerDesc": "Owners can publish and manage listings. Send a short request to the admins.",
   "btnRequest": "Request upgrade",

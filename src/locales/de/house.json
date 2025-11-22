@@ -1,14 +1,54 @@
 {
-  "imgAlt": "Haus zur Miete",
-  "title": "Familienfreundliche Häuser zur Miete",
-  "description": "Finden Sie Ihr neues Zuhause in einem geräumigen Haus – perfekt für Familien oder alle, die mehr Platz und Privatsphäre wünschen. Unsere Mietangebote bieten komfortables Wohnen in attraktiven Wohngegenden.",
-  "features": [
-    { "title": "Geräumigkeit", "text": "Mehrere Zimmer, Garten und Stellplatz" },
-    { "title": "Privatsphäre", "text": "Eigener Eingang, keine direkten Nachbarn" },
-    { "title": "Familienfreundlich", "text": "In der Nähe von Schulen, Spielplätzen und Parks" },
-    { "title": "Flexibilität", "text": "Oft mit Keller, Dachboden oder zusätzlichem Büro" }
+  "imgAlt": "Modernes Wohnzimmer in einem Einfamilienhaus",
+  "hero": {
+    "badge": "Haus mieten",
+    "title": "Familienfreundliche Häuser zur Miete in Deutschland",
+    "subtitle": "Mehr Platz, eigene vier Wände und ein Stück Garten – ohne sich direkt fest an eine Immobilie binden zu müssen."
+  },
+  "introText": "Mit einem Miethaus kombinieren Sie Flexibilität mit dem Wohngefühl eines eigenen Zuhauses. Ideal für Familien, Paare mit Platzbedarf oder Menschen, die ruhig und zugleich gut angebunden wohnen möchten.",
+  "perksTitle": "Ihre Vorteile mit einem Miethaus",
+  "perks": [
+    {
+      "title": "Mehr Platz für alle",
+      "text": "Großzügige Wohnflächen, mehrere Zimmer und oft zusätzliche Räume wie Keller oder Hobbyräume – perfekt für Familien, Homeoffice oder Gäste."
+    },
+    {
+      "title": "Eigener Garten",
+      "text": "Ob Sandkasten, Grillabende oder Gemüsegarten: Ein eigener Außenbereich bietet Freiheit und Lebensqualität, besonders für Kinder und Haustiere."
+    },
+    {
+      "title": "Privatsphäre & Ruhe",
+      "text": "Kein Lärm aus der Wohnung über oder unter Ihnen. Ein Haus bietet Ihnen mehr Abstand zu den Nachbar:innen und ein ruhigeres Wohnumfeld."
+    },
+    {
+      "title": "Flexibel statt fest gebunden",
+      "text": "Mieten statt kaufen: Sie bleiben flexibel, können bei Jobwechsel oder veränderten Lebensumständen leichter umziehen und binden sich nicht dauerhaft an einen Standort."
+    }
   ],
-  "tipTitle": "Tipp",
-  "tipText": "Vergleichen Sie verschiedene Stadtteile und nutzen Sie unsere Filteroptionen für Haustierhaltung, Garten, Garagen und mehr.",
-  "button": "Jetzt Häuser entdecken"
+  "stepsTitle": "So finden Sie Ihr Miethaus mit MyHome24App",
+  "steps": [
+    {
+      "title": "Wunschregion auswählen",
+      "text": "Filtern Sie nach Stadt, Region oder Postleitzahl und grenzen Sie die Suche nach Hausgröße, Zimmeranzahl und Preisspanne ein."
+    },
+    {
+      "title": "Angebote vergleichen",
+      "text": "Nutzen Sie unsere Merkliste und Vergleichsfunktionen, um verschiedene Häuser gegenüberzustellen – inklusive Ausstattung, Lage und Preis."
+    },
+    {
+      "title": "Besichtigung & Einzug planen",
+      "text": "Kontaktieren Sie Vermieter:innen direkt über MyHome24App, vereinbaren Sie Besichtigungstermine und bereiten Sie Unterlagen wie Gehaltsnachweise und SCHUFA-Auskunft vor."
+    }
+  ],
+  "infoBoxTitle": "Tipp: Unterlagen frühzeitig vorbereiten",
+  "infoBoxText": "Gerade bei gefragten Miethäusern zählt Schnelligkeit. Halten Sie Einkommensnachweise, eine aktuelle SCHUFA-Auskunft und eine kurze Selbstauskunft bereit, damit Sie bei Interesse direkt reagieren können.",
+  "disclaimer": "Hinweis: Die Inhalte auf dieser Seite dienen der allgemeinen Information und ersetzen keine individuelle Beratung. Verfügbare Objekte, Konditionen und Anforderungen können je nach Region und Anbieter variieren.",
+  "cta": {
+    "primary": "Miethäuser anzeigen",
+    "secondary": "Zu Kaufangeboten wechseln"
+  },
+  "seo": {
+    "title": "Haus mieten – familienfreundliche Mietshäuser | MyHome24App",
+    "description": "Entdecken Sie familienfreundliche Häuser zur Miete in ganz Deutschland. Nutzen Sie Filter, Merkliste und Vergleich, um Ihr passendes Miethaus mit MyHome24App zu finden."
+  }
 }
