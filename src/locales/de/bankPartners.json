@@ -1,14 +1,61 @@
 {
-  "title": "Vertrauenswürdige Bankpartner für Ihre Finanzierung",
-  "imageAlt": "Bankpartner",
-  "description": "Unsere Partnerbanken bieten Ihnen attraktive Finanzierungsmöglichkeiten, persönliche Beratung und schnelle Kreditentscheidungen. Ob Baufinanzierung oder Anschlussfinanzierung – hier finden Sie starke Partner an Ihrer Seite.",
+  "metaTitle": "Finanzierungspartner an Ihrer Seite – MyHome24App",
+  "metaDescription": "Regionale Banken, Vermittler:innen und Berater:innen präsentieren ihre Finanzierungsangebote direkt bei MyHome24App. Transparent, digital und persönlich.",
+  "imgAlt": "Handshake zwischen Bankpartner und MyHome24App",
+  "hero": {
+    "badge": "Finanzierungspartner:innen",
+    "title": "Vertrauenswürdige Partner für Ihre Immobilienfinanzierung",
+    "subtitle": "Gemeinsam mit Banken und Vermittler:innen unterstützen wir Ihre Kund:innen auf dem Weg ins eigene Zuhause."
+  },
+  "title": "Finanzierungspartner an Ihrer Seite",
+  "description": "Unsere Partnerbanken und Finanzierungspartner:innen bieten attraktive Konditionen, schnelle Entscheidungen und persönliche Beratung – abgestimmt auf den Immobilienmarkt in Deutschland.",
+  "featuresTitle": "Was Sie als Partner:in erwartet",
   "features": [
-    { "title": "Individuelle Angebote", "text": "Maßgeschneiderte Finanzierungslösungen" },
-    { "title": "Zuverlässigkeit", "text": "Zusammenarbeit mit etablierten Bankinstituten" },
-    { "title": "Transparenz", "text": "Klare Konditionen und nachvollziehbare Angebote" },
-    { "title": "Beratung", "text": "Persönliche Ansprechpartner mit Expertise" }
+    {
+      "title": "Sichtbarkeit bei aktiven Immobiliensuchenden",
+      "text": "Präsentieren Sie Ihre Finanzierungsangebote genau dort, wo Nutzer:innen nach ihrem neuen Zuhause suchen."
+    },
+    {
+      "title": "Qualifizierte Anfragen",
+      "text": "Interessent:innen können über MyHome24App direkt Kontakt aufnehmen – inklusive Basisdaten zur Immobilie."
+    },
+    {
+      "title": "Digitale Prozesse",
+      "text": "Vereinfachte Erstansprache, klare Strukturen und die Möglichkeit, Ihre eigenen Tools einzubinden."
+    },
+    {
+      "title": "Langfristige Partnerschaft",
+      "text": "Transparente Zusammenarbeit, regelmäßiges Feedback und Weiterentwicklung des Portals mit Ihren Anforderungen."
+    }
   ],
-  "tipTitle": "Tipp:",
-  "tipText": "Nutzen Sie unseren Bankenvergleich, um das passende Angebot für Ihre Situation zu finden – schnell, unkompliziert und unverbindlich.",
-  "button": "Jetzt Partnerbanken entdecken"
+  "columnsTitle": "Mit Finanzierungspartner:innen zusammenarbeiten",
+  "columns": {
+    "banks": {
+      "title": "Für Banken",
+      "text": "Präsentieren Sie Ihre regionalen oder bundesweiten Immobilienfinanzierungen direkt bei passenden Objekten. Erreichen Sie Kund:innen, die bereits konkret planen."
+    },
+    "brokers": {
+      "title": "Für Vermittler:innen",
+      "text": "Positionieren Sie sich als unabhängige:r Ansprechpartner:in für komplexe Finanzierungsfälle. Nutzen Sie MyHome24App als digitalen Erstkontakt."
+    },
+    "clients": {
+      "title": "Für Kund:innen",
+      "text": "Nutzer:innen finden schneller die passende Ansprechpartner:in und sparen Zeit bei der Suche nach Finanzierungsangeboten."
+    }
+  },
+  "cta": {
+    "primary": "Partner:in für Finanzierung werden",
+    "secondary": "Zum Hypothekenrechner"
+  },
+  "tipTitle": "Interesse an einer Zusammenarbeit?",
+  "tipText": "Wir planen eine eigene Partnersektion, in der seriöse Anbieter:innen ihre Finanzierungen transparent präsentieren können.",
+  "tipSubtext": "Über das Kontaktformular können Sie uns erste Informationen zu Ihrem Institut oder Unternehmen senden. Wir melden uns mit weiteren Details.",
+  "legalTitle": "Wichtige Hinweise",
+  "legalItems": [
+    "MyHome24App vermittelt derzeit keine eigenen Darlehen, sondern bietet eine unverbindliche Orientierungshilfe.",
+    "Für eine verbindliche Auskunft zu Konditionen und Genehmigung wenden Sie sich bitte direkt an Ihre Bank oder Ihre:n Finanzierungsvermittler:in.",
+    "Die Ergebnisse des Hypothekenrechners ersetzen keine individuelle rechtliche, steuerliche oder finanzielle Beratung.",
+    "Kooperationen werden nur mit regulierten und seriösen Finanzdienstleistungsunternehmen eingegangen."
+  ],
+  "buttonDummy": "Kontakt zur Plattform aufnehmen"
 }

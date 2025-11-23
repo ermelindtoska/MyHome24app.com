@@ -1,15 +1,48 @@
 {
-  "title": "Direkt vom Eigentümer",
+  
   "imageAlt": "Immobilien direkt vom Eigentümer kaufen",
-  "description": "Auf MyHome24App finden Sie Immobilienangebote, die direkt von privaten Eigentümer*innen veröffentlicht wurden – ganz ohne Maklerprovision und mit persönlichem Kontakt. Diese Objekte bieten oft einen authentischeren Eindruck und mehr Spielraum für individuelle Absprachen.",
+    "metaTitle": "Direkt vom Eigentümer:innen – ohne Maklerprovision",
+  "metaDescription": "Auf MyHome24App finden Sie Immobilienangebote, die direkt von Eigentümer:innen veröffentlicht wurden – ohne Maklerprovision, mit persönlichem Kontakt und flexiblen Vereinbarungen.",
+
+  "badge": "Direkt vom Eigentümer:innen",
+  "title": "Direkt vom Eigentümer:in kaufen oder mieten",
+  "description": "Direktangebote bieten Ihnen oft mehr Flexibilität bei Preis, Übergabetermin und individuellen Vereinbarungen. Auf MyHome24App finden Sie Objekte, bei denen Sie unmittelbar mit dem:der Eigentümer:in verhandeln.",
+"ctaListings": "Direktangebote ansehen",
+  "ctaSecondary": "Vorteile entdecken",
+
+  "featuresTitle": "Ihre Vorteile bei Direktangeboten",
+  "featuresLead": "Wenn Sie direkt mit Eigentümer:innen sprechen, gewinnen Sie mehr Transparenz, Flexibilität und persönliche Einblicke.",
+ 
+ 
   "features": [
-    { "title": "Keine Provision", "text": "Direkter Kauf vom Eigentümer spart Maklerkosten" },
-    { "title": "Persönlicher Kontakt", "text": "Fragen klären Sie direkt mit dem Eigentümer" },
-    { "title": "Individuelle Vereinbarungen", "text": "Flexiblere Absprachen möglich" },
-    { "title": "Echte Einblicke", "text": "Eigentümer kennen ihre Immobilie am besten" }
+    {
+      "title": "Keine Provision",
+      "text": "Bei Direktangeboten entsteht in der Regel keine Maklercourtage – das senkt Ihre Kauf- oder Mietnebenkosten."
+    },
+    {
+      "title": "Persönlicher Kontakt",
+      "text": "Sie klären alle Fragen direkt mit dem:der Eigentümer:in – vom ersten Eindruck bis zur Schlüsselübergabe."
+    },
+    {
+      "title": "Individuelle Absprachen",
+      "text": "Ob Renovierungswünsche, Übergabetermin oder Möblierung – viele Details lassen sich flexibler direkt verhandeln."
+    },
+    {
+      "title": "Echte Einblicke",
+      "text": "Eigentümer:innen kennen ihre Immobilie am besten und können Ihnen Hintergründe, Historie und Besonderheiten aus erster Hand erklären."
+    }
   ],
   "tipTitle": "💡 Tipp für Interessenten",
   "tipText": "Verhandeln Sie fair und transparent. Viele Eigentümer schätzen direkte Kommunikation und unkomplizierte Abwicklung – das schafft Vertrauen auf beiden Seiten.",
   "ready": "Jetzt stöbern und direkt Kontakt aufnehmen",
-  "button": "Angebote entdecken"
+  "button": "Angebote entdecken",
+    "highlight": {
+    "label": "Keine Maklerprovision",
+    "text": "Sie sparen Courtage und verhandeln Konditionen direkt mit dem:der Eigentümer:in.",
+      "ownerCta": {
+    "title": "Sie sind selbst Eigentümer:in?",
+    "text": "Veröffentlichen Sie Ihre Immobilie in wenigen Schritten auf MyHome24App und erreichen Sie passende Interessent:innen – transparent und ohne versteckte Gebühren.",
+    "button": "Immobilie veröffentlichen"
+  }
+  }
 }

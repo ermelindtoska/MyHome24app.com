@@ -1,0 +1,179 @@
+{
+  "metaTitle": "Mortgage calculator – estimate your monthly payment",
+  "metaDescription": "Estimate your monthly mortgage payment, total interest and overall costs. Includes legal notes and an entry point for financial partners.",
+  "hero": {
+    "imgAlt": "Illustration of a mortgage calculator",
+    "badge": "Plan your financing",
+    "title": "How much will your home cost per month?",
+    "subtitle": "Our mortgage calculator gives you a first indication of what a property might cost you per month – before you talk to a bank."
+  },
+  "form": {
+    "title": "Basic financing details",
+    "purchasePriceLabel": "Purchase price of the property",
+    "purchasePricePlaceholder": "e.g. 450000",
+    "downPaymentLabel": "Down payment / equity",
+    "downPaymentPlaceholder": "e.g. 90000",
+    "interestLabel": "Interest rate p.a.",
+    "termLabel": "Term",
+    "termSuffix": "years",
+    "calculateButton": "Calculate monthly payment",
+    "resetButton": "Reset to example values",
+    
+    "purchasePriceSuffix": "€",
+   
+    "downPaymentSuffix": "€",
+   
+    "interestSuffix": "%"
+   
+  },
+     "errors": {
+      "priceRequired": "Please enter the purchase price.",
+      "interestRequired": "Please enter an interest rate.",
+      "termRequired": "Please choose a term.",
+      "numbersOnly": "Please enter valid numbers."
+    },
+  "results": {
+    "title": "Result (simplified example only)",
+    "disclaimer": "All results are non-binding examples and do not replace individual advice from a bank or licensed advisor.",
+    "monthlyPayment": "Estimated monthly payment",
+    "loanAmount": "Loan amount",
+    "totalInterest": "Total interest over the term",
+    "totalPayment": "Total payments (principal + interest)",
+       
+    "monthlyPaymentLabel": "Estimated monthly payment",
+    "loanAmountLabel": "Loan amount",
+    "totalInterestLabel": "Total interest over the term",
+    "totalPaymentLabel": "Total payment (principal + interest)",
+    "currency": "€"
+  },
+  "featuresTitle": "Why this calculator is useful",
+  "features": [
+    {
+      "title": "Quick orientation",
+      "text": "Get a first feeling whether a property roughly fits your budget before requesting official offers."
+    },
+    {
+      "title": "Transparent breakdown",
+      "text": "Monthly payment, total costs and interest are shown separately so you can better understand the impact."
+    },
+    {
+      "title": "Test different scenarios",
+      "text": "Play with interest rates, equity and term and instantly see how your monthly payment changes."
+    },
+    {
+      "title": "Basis for professional advice",
+      "text": "Use the results as talking points with your bank, mortgage broker or tax advisor."
+    }
+  ],
+  "legalTitle": "Important legal information",
+  "legalText": "This calculator provides a non-binding, strongly simplified example. It does not replace legal, tax or financial advice.",
+  "legalNotes": [
+    "This is a strongly simplified example calculation with no claim to completeness.",
+    "Actual loan conditions (interest, fees, special repayments, fixed-rate period etc.) are determined by banks and licensed advisors.",
+    "The calculation is not a financing offer, not an approval and not a regulatory investment recommendation.",
+    "For binding information, please contact your bank, a licensed mortgage broker or your tax advisor.",
+    "MyHome24App does not currently grant loans itself and only provides an orientation tool for users."
+  ],
+   "legalPoints": [
+    "MyHome24App does not grant loans and does not provide investment or tax advice.",
+    "For binding information, please contact your bank, financing broker or tax advisor.",
+    "Regulatory obligations remain with the respective financing providers."
+  ],
+  "partnerSection": {
+    "title": "Financial partners & mortgage advisors",
+    "text": "You are a bank or independent mortgage advisor and would like to work with MyHome24App? We are planning a dedicated partner area where trusted providers can present their services to our users.",
+    "ctaPrimary": "Become a financing partner",
+    "ctaSecondary": "Contact the platform"
+  },
+  "partnerCallouts": [
+    {
+      "title": "For banks",
+      "text": "Show your regional and national mortgage products right where users are searching for homes."
+    },
+    {
+      "title": "For brokers",
+      "text": "Offer tailored advice for complex financing cases and build long-term client relationships."
+    },
+    {
+      "title": "For users",
+      "text": "Users can quickly find the right contact person instead of comparing dozens of offers on their own."
+    }
+  ],
+  "partner": {
+    "title": "Work with financing partners",
+    "subtitle": "You are a bank, broker or independent advisor and would like to present your financing solutions via MyHome24App?",
+    "banksTitle": "For banks",
+    "banksText": "Present your regional or national mortgage products directly next to suitable properties.",
+    "brokersTitle": "For brokers",
+    "brokersText": "Position yourself as a personal contact for complex cases – from first orientation to closing.",
+    "clientsTitle": "For customers",
+    "clientsText": "Users find the right contact faster and save time when searching for offers.",
+    "buttonBecomePartner": "Become a financing partner",
+    "buttonSendLead": "Save non-binding financing request",
+    "buttonSeePartners": "Learn more about financing partners",
+    "leadSuccess": "Your financing request has been saved. This calculator does not replace financial advice – our partners may contact you if needed.",
+    "leadError": "We could not save your request. Please try again later.",
+    "buttonContactPlatform": "Contact the platform"
+  },
+  "partnerPage": {
+    "seoTitle": "Become a financing partner – MyHome24App",
+    "seoDescription": "Information for banks, brokers and advisors who want to offer financing via MyHome24App.",
+    "hero": {
+      "badge": "For banks & brokers",
+      "title": "Show your financing solutions where people search for homes",
+      "subtitle": "MyHome24App combines property search with first financing ideas. Join our partner network and present your products in the right context.",
+      "imgAlt": "Financing partners discussing documents"
+    },
+    "intro": "We are planning a dedicated partner area where reputable providers can present their financing products in a transparent and comparable way. Together we want to help users find the right financing contact faster – without replacing personal advice.",
+    "segments": [
+      {
+        "title": "For banks",
+        "text": "Increase your visibility among users actively searching for property and place your rate models in the right environment."
+      },
+      {
+        "title": "For brokers",
+        "text": "Position yourself as a contact for complex financing cases – transparent and on equal footing with your clients."
+      },
+      {
+        "title": "For advisors",
+        "text": "Use the calculator as a conversation starter and discuss chances and risks together with your clients."
+      }
+    ],
+    "benefits": [
+      {
+        "title": "More qualified leads",
+        "text": "Users have already thought about budget and payment before they contact you – this saves time in the first consultation."
+      },
+      {
+        "title": "Clear responsibilities",
+        "text": "All binding offers are made solely by you as the regulated provider. MyHome24App only offers orientation."
+      },
+      {
+        "title": "Joint development",
+        "text": "We build new features together with our partners – from additional calculator options to information areas for users."
+      }
+    ],
+    "faqTitle": "Frequently asked questions",
+    "faq": [
+      {
+        "q": "Does the calculator replace advice?",
+        "a": "No. The calculator only provides a rough example calculation. Personal advice from a bank, broker or tax advisor is still essential."
+      },
+      {
+        "q": "Who is the contract partner of the customer?",
+        "a": "The contractual partner for any loan agreement is always the respective bank or financing broker, not MyHome24App."
+      },
+      {
+        "q": "How does a cooperation work?",
+        "a": "After your request we discuss your goals and target groups, then we check if and how a cooperation makes sense."
+      }
+    ],
+    "cta": {
+      "primary": "Contact us about cooperation",
+      "secondary": "Go to mortgage calculator",
+      "registerHint": "Register interest in future partner onboarding"
+    },
+    "footerTitle": "Interested in working with us?",
+    "footerText": "Send us a short message with your products and regions. We will get back to you with ideas for possible cooperation models."
+  }
+}

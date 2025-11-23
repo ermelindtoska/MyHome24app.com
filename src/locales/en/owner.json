@@ -1,15 +1,53 @@
 {
-  "title": "Directly from Owner",
-  "imageAlt": "Buy property directly from owner",
-  "description": "On MyHome24App you'll find property listings posted directly by private owners – with no broker fees and direct communication. These listings often offer a more authentic impression and more room for individual agreements.",
+  "metaTitle": "Direct from owner – no broker commission",
+  "metaDescription": "On MyHome24App you can find listings offered directly by owners – without broker commission, with personal contact and flexible agreements.",
+
+  "badge": "Direct from owner",
+  "title": "Buy or rent directly from the owner",
+  "description": "Direct-from-owner listings often provide more flexibility on price, move-in date and individual agreements. On MyHome24App you negotiate conditions directly with the owner.",
+
+  "imageAlt": "House with for sale sign offered by the owner",
+  "highlight": {
+    "label": "No broker commission",
+    "text": "Save on commission and negotiate all terms directly with the owner."
+  },
+
+  "ctaListings": "View direct listings",
+  "ctaSecondary": "See the benefits",
+
+  "featuresTitle": "Why choose direct-from-owner listings?",
+  "featuresLead": "Talking directly to owners gives you more transparency, flexibility and authentic insights into the property.",
+
   "features": [
-    { "title": "No Commission", "text": "Direct purchase from owner saves brokerage fees" },
-    { "title": "Personal Contact", "text": "Communicate directly with the owner" },
-    { "title": "Flexible Agreements", "text": "Easier to negotiate special arrangements" },
-    { "title": "Real Insight", "text": "Owners know their property best" }
+    {
+      "title": "No commission",
+      "text": "Direct listings usually do not include a broker fee – this reduces your overall purchase or rental costs."
+    },
+    {
+      "title": "Personal contact",
+      "text": "Clarify all questions directly with the owner – from the first viewing up to handing over the keys."
+    },
+    {
+      "title": "Flexible agreements",
+      "text": "Move-in date, minor repairs or furniture can often be negotiated more flexibly when you speak directly to the owner."
+    },
+    {
+      "title": "Real insights",
+      "text": "Owners know their property best and can share history, background and special features first-hand."
+    }
   ],
-  "tipTitle": "💡 Tip for Interested Buyers",
-  "tipText": "Negotiate fairly and transparently. Many owners value direct communication and uncomplicated transactions – it builds trust on both sides.",
-  "ready": "Start browsing and contact the owner directly",
-  "button": "View Listings"
+
+  "tipTitle": "Tip: Use the search filters",
+  "tipText": "Use the filters in the search or map view to focus on “Direct from owner” listings. This way you immediately see all suitable properties in your preferred area.",
+
+  "readyTitle": "Ready to explore direct-from-owner listings?",
+  "readyText": "Start your search for properties offered directly by owners and compare conditions at your own pace.",
+
+  "button": "Start direct-from-owner search",
+
+  "ownerCta": {
+    "title": "You are an owner yourself?",
+    "text": "Publish your property on MyHome24App in just a few steps and reach interested buyers or tenants – transparent and without hidden fees.",
+    "button": "Publish your property"
+  }
 }

@@ -20,7 +20,9 @@
  
   "bedrooms": "Schlafzimmer",
   "bathrooms": "Badezimmer",
- 
+ "makeOffer": "Kaufangebot abgeben",
+  
+  "loginToContact": "Bitte melden Sie sich an, um den Verkäufer zu kontaktieren oder ein Angebot abzugeben.",
   "yearBuilt": "Baujahr",
   "availableFrom": "Verfügbar ab",
   "parking": "Parkplätze",

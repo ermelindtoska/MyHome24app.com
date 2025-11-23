@@ -1,14 +1,36 @@
 {
-  "imgAlt": "Office and Commercial Spaces",
-  "title": "Modern Office and Commercial Spaces",
-  "description": "Discover attractive office and commercial units in various sizes and locations. Ideal for startups, agencies, practices or established companies looking for a new location.",
+  "seo": {
+    "title": "Rent offices & commercial spaces – MyHome24App",
+    "description": "Find modern offices and commercial spaces for rent across Germany – with map view, filters and direct contact."
+  },
+  "imgAlt": "Modern office or commercial workspace",
+  "hero": {
+    "title": "Modern Offices & Commercial Spaces for Rent",
+    "subtitle": "Discover flexible workspaces, coworking areas and commercial properties in top locations – with transparent details and easy direct contact.",
+    "button": "Show offices on map"
+  },
+  "featuresTitle": "Why search for offices with MyHome24App?",
   "features": [
-    { "title": "Flexible", "text": "Various sizes – from single offices to open-plan offices" },
-    { "title": "Location Advantage", "text": "City center, business parks, good transport connections" },
-    { "title": "Equipment", "text": "Modern infrastructure, fiber-optic internet, air conditioning" },
-    { "title": "Ready to move in", "text": "Many units are ready for immediate use or flexible adaptation" }
+    {
+      "title": "Prime locations",
+      "text": "Find office spaces in central areas with excellent accessibility."
+    },
+    {
+      "title": "Flexible layouts",
+      "text": "From small offices to large commercial units – we show you the best options."
+    },
+    {
+      "title": "Transparent rental details",
+      "text": "View rental prices, utilities and contract terms at a glance."
+    },
+    {
+      "title": "Direct contact",
+      "text": "Contact owners or agents directly through the built-in contact form."
+    }
   ],
-  "tipTitle": "Tip",
-  "tipText": "When choosing, also consider parking, proximity to clients, and potential for future expansion.",
-  "button": "Discover Offices Now"
+  "tipTitle": "Search tip",
+  "tipText": "Refresh the map regularly to discover newly listed offices in your area.",
+  "cta": {
+    "primary": "Show offices on the map"
+  }
 }

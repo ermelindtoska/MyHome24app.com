@@ -30,13 +30,14 @@ import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import ForeclosurePage from './pages/ForeclosurePage';
 import MortgageCalculatorPage from './pages/MortgageCalculatorPage';
+import FinancePartnerPage from './pages/FinancePartnerPage';
 import BankPartnersPage from './pages/BankPartnersPage';
 import AgentSearchPage from './pages/AgentSearchPage';
 import RateAgentPage from './pages/RateAgentPage';
 import HousePage from './pages/HousePage';
 import NewListing from './pages/NewListing';
 import BannerAdsPage from './pages/BannerAdsPage';
-import NewConstructionPage from './pages/NewConstructionPage';
+import NewConstructionPage from "./pages/NewConstructionPage";
 import PremiumListingPage from './pages/PremiumListingPage';
 import ListingCreatePage from './pages/ListingCreatePage';
 import OwnerPage from './pages/OwnerPage';
@@ -72,6 +73,8 @@ import SettingsPage from './pages/SettingsPage';
 import ProfilePage from './pages/ProfilePage';
 import RoleRedirect from './pages/RoleRedirect';
 import VerifyNeeded from './pages/VerifyNeeded';
+import OwnerContactInbox from './roles/dashboard/OwnerContactInbox';
+import FinancePartnerDashboard from './pages/FinancePartnerDashboard';
 
 
 
@@ -135,6 +138,7 @@ function AppRoutes() {
             <Route path="/mortgage/partners" element={<BankPartnersPage />} />
            {/* 🔁 Deutsche Alias-Weiterleitung, falls Mobile irgendwo /hypothek nutzt */}
            <Route path="/hypothek" element={<Navigate to="/mortgage" replace />} />
+           <Route path="/partner/finance" element={<FinancePartnerPage />} />
 
           {/* Advertise */}
           <Route path="/advertise/banner" element={<BannerAdsPage />} />
@@ -206,6 +210,22 @@ function AppRoutes() {
               </RequireRole>
             }
           />
+          <Route
+  path="/owner/messages"
+  element={
+    <RequireRole allowedRoles={["owner", "agent"]}>
+      <OwnerContactInbox />
+    </RequireRole>
+  }
+/>
+<Route
+  path="/dashboard/finance-partner"
+  element={
+    <RequireRole allowedRoles={["financePartner", "admin"]}>
+      <FinancePartnerDashboard />
+    </RequireRole>
+  }
+/>
           <Route
             path="/agent-dashboard"
             element={

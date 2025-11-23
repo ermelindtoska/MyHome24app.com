@@ -6,6 +6,9 @@ import {
   collection,
   deleteDoc,
   doc,
+  query,
+  orderBy,
+  onSnapshot,
   updateDoc,
   addDoc,
   serverTimestamp,
@@ -30,7 +33,7 @@ const AdminDashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [financeLeads, setFinanceLeads] = useState([]);
   const [modalImages, setModalImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
@@ -39,6 +42,24 @@ const AdminDashboard = () => {
 
   const itemsPerPage = 5;
   const storage = getStorage();
+
+  // 🔹 Finance Leads – live nga Firestore
+  useEffect(() => {
+    const q = query(
+      collection(db, "financeLeads"),
+      orderBy("createdAt", "desc")
+    );
+
+    const unsub = onSnapshot(q, (snapshot) => {
+      const items = snapshot.docs.map((docSnap) => ({
+        id: docSnap.id,
+        ...docSnap.data(),
+      }));
+      setFinanceLeads(items);
+    });
+
+    return () => unsub();
+  }, []);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -150,6 +171,27 @@ const AdminDashboard = () => {
       }
     } catch (error) {
       console.error("Error updating status:", error);
+    }
+  };
+
+  // 🔹 Finance Leads – ndryshimi i statusit
+  const handleFinanceLeadStatusChange = async (id, newStatus) => {
+    try {
+      await updateDoc(doc(db, "financeLeads", id), {
+        status: newStatus,
+        updatedAt: serverTimestamp(),
+      });
+      setFinanceLeads((prev) =>
+        prev.map((lead) =>
+          lead.id === id ? { ...lead, status: newStatus } : lead
+        )
+      );
+      await logActivity(
+        "Updated finance lead status",
+        `financeLeadId: ${id} → ${newStatus}`
+      );
+    } catch (err) {
+      console.error("Error updating finance lead:", err);
     }
   };
 
@@ -274,6 +316,7 @@ const AdminDashboard = () => {
                   >
                     {t("delete")}
                   </button>
+
                   <button
                     onClick={() => handleViewImages(listing.id)}
                     className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded"
@@ -402,13 +445,88 @@ const AdminDashboard = () => {
             ))}
           </tbody>
         </table>
-
-        <ImageModal
-          images={modalImages}
-          isOpen={showModal}
-          onClose={() => setShowModal(false)}
-        />
       </div>
+
+      {/* Finance Leads */}
+      <h2 className="text-xl font-semibold mt-10 mb-4">
+        Finance Leads (Hypotheken-Anfragen)
+      </h2>
+      {financeLeads.length === 0 ? (
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          Aktuell liegen keine Finanzierungsanfragen vor.
+        </p>
+      ) : (
+        <div className="space-y-4">
+          {financeLeads.map((lead) => (
+            <div
+              key={lead.id}
+              className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+            >
+              {/* LEFT SIDE */}
+              <div>
+                <p className="font-semibold text-gray-900 dark:text-gray-100">
+                  Anfrage vom Hypothekenrechner
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  {lead.createdAt?.toDate
+                    ? lead.createdAt.toDate().toLocaleString()
+                    : "Kein Datum"}
+                </p>
+
+                <div className="mt-2 text-sm text-gray-800 dark:text-gray-200 space-y-1">
+                  <p><strong>Kaufpreis:</strong> {lead.purchasePrice} €</p>
+                  <p><strong>Eigenkapital:</strong> {lead.downPayment} €</p>
+                  <p><strong>Zinssatz:</strong> {lead.interest} %</p>
+                  <p><strong>Laufzeit:</strong> {lead.termYears} Jahre</p>
+                  <p><strong>Monatsrate:</strong> {lead.monthlyPayment} €</p>
+                  <p><strong>Gesamte Zinskosten:</strong> {lead.totalInterest} €</p>
+
+                  {lead.userId ? (
+                    <p className="text-emerald-500">
+                      Benutzer-ID: {lead.userId}
+                    </p>
+                  ) : (
+                    <p className="text-gray-500 dark:text-gray-400">
+                      Gast-Anfrage
+                    </p>
+                  )}
+
+                  {lead.notes && (
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Notizen: {lead.notes}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* RIGHT SIDE */}
+              <div className="flex flex-col gap-2 w-full md:w-auto">
+                <select
+                  value={lead.status || "open"}
+                  onChange={(e) =>
+                    handleFinanceLeadStatusChange(lead.id, e.target.value)
+                  }
+                  className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-sm rounded-md px-3 py-2"
+                >
+                  <option value="open">Offen</option>
+                  <option value="in_progress">In Bearbeitung</option>
+                  <option value="closed">Abgeschlossen</option>
+                </select>
+                <span className="text-xs text-gray-500 dark:text-gray-400">
+                  Status: {lead.status || "open"}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Modal për imazhet e listing */}
+      <ImageModal
+        images={modalImages}
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+      />
     </div>
   );
 };

@@ -1,0 +1,71 @@
+{
+  "metaTitle": "Financing partner dashboard – MyHome24App",
+  "metaDescription": "Overview for banks, brokers and financial advisors who cooperate with MyHome24App for property financing.",
+  "badge": "Partner area",
+  "title": "Financing partner dashboard",
+  "subtitle": "This will become your central space for leads, statistics and the integration of your own financing processes.",
+  "welcome": "Signed in as {{email}}",
+  "actions": {
+    "goToCalculator": "Go to mortgage calculator",
+    "contactPlatform": "Contact the platform team"
+  },
+  "stats": {
+    "title": "Current overview (demo)",
+    "activeListings": "Linked listings",
+    "openLeads": "Open financing requests",
+    "pendingApplications": "Ongoing financing cases",
+    "integrations": "Active integrations",
+    "hint": "The numbers are placeholders and will later be replaced with real data from your partner profile and MyHome24App leads."
+  },
+  "sections": {
+    "profile": {
+      "badge": "Profile & visibility",
+      "title": "Your profile on MyHome24App",
+      "text": "Keep your contact details, regions and product focus up to date so that users can quickly find the right contact person.",
+      "items": [
+        "Bank or company profile with logo and short description",
+        "Define regional focus and target groups",
+        "Store named contacts with direct phone number and e-mail"
+      ]
+    },
+    "integration": {
+      "badge": "Integration",
+      "title": "Digital integration",
+      "text": "In the future you will be able to integrate your own tools and forms – for example pre-applications, document upload or appointment booking.",
+      "items": [
+        "Link to your own online forms",
+        "Option for API integration in a later expansion stage",
+        "Export of leads into your internal systems (planned)"
+      ]
+    },
+    "compliance": {
+      "badge": "Compliance",
+      "title": "Legal framework",
+      "text": "MyHome24App helps to display financing information transparently but does not replace statutory information and advisory duties.",
+      "items": [
+        "Notes on information duties under German law",
+        "Clear separation between non-binding guidance and offers",
+        "Cooperation only with regulated financial institutions"
+      ]
+    }
+  },
+  "roadmap": {
+    "title": "Roadmap – what is planned next",
+    "text": "The partner area is under construction. These are the next steps so that you can use MyHome24App as a professional platform.",
+    "items": [
+      {
+        "title": "Leads from concrete listing enquiries",
+        "text": "Linking users from the mortgage calculator and specific listings directly to your partner profile."
+      },
+      {
+        "title": "Dedicated login area for partners",
+        "text": "Manage contacts, regions, products and notifications directly inside the dashboard."
+      },
+      {
+        "title": "Analytics & performance overview",
+        "text": "Simple analytics on incoming requests, successful closings and frequently used products."
+      }
+    ],
+    "disclaimer": "The functions on this page are still being built and currently serve as a preview only. Concrete integrations and access details will be agreed individually."
+  }
+}

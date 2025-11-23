@@ -43,6 +43,7 @@ import listingDetailsDE from './locales/de/listingDetails.json';
 import buyDE from './locales/de/buy.json';
 import rentDE from './locales/de/rent.json';
 import mortgageDE from './locales/de/mortgage.json';
+import mortgageCalculatorDE from './locales/de/mortgageCalculator.json';
 import findAgentDE from './locales/de/findAgent.json';
 import impressumDE from './locales/de/impressum.json';
 import statesDE from './locales/de/states.json';
@@ -99,6 +100,7 @@ import listingDetailsEN from './locales/en/listingDetails.json';
 import buyEN from './locales/en/buy.json';
 import rentEN from './locales/en/rent.json';
 import mortgageEN from './locales/en/mortgage.json';
+import mortgageCalculatorEN from './locales/en/mortgageCalculator.json';
 import findAgentEN from './locales/en/findAgent.json';
 import impressumEN from './locales/en/impressum.json';
 import statesEN from './locales/en/states.json';
@@ -158,6 +160,7 @@ const resources = {
     buy: buyDE,
     rent: rentDE,
     mortgage: mortgageDE,
+    mortgageCalculator: mortgageCalculatorDE,
     findAgent: findAgentDE,
     impressum: impressumDE,
     states: statesDE,
@@ -214,6 +217,7 @@ const resources = {
     buy: buyEN,
     rent: rentEN,
     mortgage: mortgageEN,
+    mortgageCalculator: mortgageCalculatorEN,
     findAgent: findAgentEN,
     impressum: impressumEN,
     states: statesEN,
@@ -247,7 +251,7 @@ i18n
       'foreclosure', 'owner', 'bankPartners', 'manageRentals', 'newListing', 'bannerAds', 'premiumListing', 'dashboard',
       'support', 'howItWorks', 'userDashboard', 'listingDetails', 'filterBar', 'listingForm',
       'buy', 'rent', 'mortgage', 'findAgent', 'impressum', 'states', 'cities', 'districts',
-      'streets', 'neighbourhoods', 'filterSidebar', 'unauthorized', 'upgradeRequest', 'meta', 'profile'
+      'streets', 'neighbourhoods', 'filterSidebar', 'unauthorized', 'upgradeRequest', 'meta', 'profile', 'mortgageCalculator'
     ],
     defaultNS: 'home',
     interpolation: {

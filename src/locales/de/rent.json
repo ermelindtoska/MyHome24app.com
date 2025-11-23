@@ -1,20 +1,46 @@
 {
-  "title": "Mieten",
-  "description": "Entdecken Sie unsere Mietangebote, perfekt für jeden Lebensstil und jedes Budget. Finden Sie noch heute Ihr neues Zuhause.",
-      "rent": {
-        "title": "Mietwohnungen und Häuser finden",
-        "description": "Entdecken Sie verfügbare Mietobjekte in Ihrer bevorzugten Region.",
-        "metaTitle": "Wohnungen & Häuser mieten in Deutschland – MyHome24App",
-  "metaDescription": "Finde Mietwohnungen und Häuser in ganz Deutschland. Kartenansicht, smarte Filter und Vergleich.",
-        "filters": {
-            "monthlyRent": "Monatsmiete",
-            "propertyType": "Immobilienart",
-            "furnished": "Möbliert",
-            "petsAllowed": "Haustiere erlaubt"
-        },
-        "actions": {
-            "applyNow": "Jetzt bewerben",
-            "viewMore": "Mehr anzeigen"
-        }
+  "metaTitle": "Wohnungen & Häuser mieten in Deutschland – MyHome24App",
+  "metaDescription": "Finden Sie Mietwohnungen und Häuser in ganz Deutschland. Kartenansicht, smarte Filter und Vergleich – schnell wie bei Zillow, lokalisiert für Deutschland.",
+  "hero": {
+    "badge": "Mieten in ganz Deutschland",
+    "title": "Moderne Wohnungen & Häuser zur Miete – passend zu Ihrem Leben",
+    "subtitle": "Nutzen Sie smarte Filter, Kartenansicht und persönliche Merkliste, um genau die Mietimmobilie zu finden, die zu Ihrem Alltag, Budget und Ihrer Lebensphase passt.",
+    "ctaPrimary": "Mietangebote auf der Karte anzeigen",
+    "ctaSecondary": "Mehr über Mietangebote erfahren",
+    "highlight": {
+      "label": "Live-Suche",
+      "title": "Mietangebote in Ihrer Wunschlage",
+      "text": "Filtern Sie nach Stadt, Budget, Größe und Ausstattung – und vergleichen Sie Objekte bequem wie bei großen Portalen.",
+      "chips": "1.200+",
+      "chipsLabel": "Mietangebote in Vorbereitung*",
+      "rooms": "1–5 Zimmer",
+      "roomsLabel": "Vom Apartment bis zum Familienhaus",
+      "flex": "Flexibel",
+      "flexLabel": "Kurz- & Langzeitmiete geplant"
     }
+  },
+  "benefits": {
+    "title": "Warum Ihre Miete mit MyHome24App suchen?",
+    "intro": "Unsere Plattform unterstützt Sie dabei, schnell einen Überblick über passende Mietangebote zu gewinnen – mit klaren Informationen, transparenter Darstellung und Funktionen, die Sie aus modernen Immobilienportalen kennen.",
+    "items": [
+      {
+        "title": "Große Auswahl an Mietobjekten",
+        "text": "Entdecken Sie Wohnungen, Häuser und Gewerbeflächen in verschiedenen Städten Deutschlands – sortiert nach Lage, Preis, Größe und Ausstattung."
+      },
+      {
+        "title": "Transparente Preise & Filter",
+        "text": "Nutzen Sie Filter für Kaltmiete, Warmmiete, Zimmeranzahl, Wohnfläche, Baujahr und mehr. So sehen Sie nur die Angebote, die wirklich zu Ihnen passen."
+      },
+      {
+        "title": "Schneller Kontakt zur:zum Anbieter:in",
+        "text": "Stellen Sie Anfragen direkt über das Kontaktformular der Anzeige. Eigentümer:innen und Makler:innen erhalten Ihre Nachricht zentral in ihrem Profilbereich."
+      }
+    ]
+  },
+  "mapSection": {
+    "title": "Mietangebote direkt auf der Karte entdecken",
+    "text": "Bewegen Sie die Karte, filtern Sie nach Ihrem Wunschprofil und sehen Sie sofort, welche Wohnungen und Häuser in Frage kommen. Durch Klick auf einen Marker öffnen Sie alle Details zur jeweiligen Anzeige.",
+    "button": "Zur Kartenansicht für Mietangebote",
+    "buttonMobile": "Mietangebote auf der Karte anzeigen"
+  }
 }

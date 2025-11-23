@@ -1,13 +1,32 @@
 {
-  "title": "Modern Apartments for Rent",
-  "description": "Discover a wide selection of stylish apartments in attractive locations.",
-  "features": [
-    "1-room, family apartments, accessible options",
-    "Top infrastructure, public transport, shopping facilities",
-    "Elevator, balcony, fitted kitchen, smart home features",
-    "Local contact person, easy rental process"
-  ],
-  "tipTitle": "Tip",
-  "tipText": "Use the filter options in your search to quickly find your perfect apartment – e.g. by size, price, features or pet-friendliness.",
-  "button": "Explore Apartments Now"
+  "metaTitle": "Rent apartments – MyHome24App",
+  "metaDescription": "Modern apartments in Germany: 1–5 rooms, flexible rent, map view, filters, top locations – Zillow-style.",
+  "imageAlt": "Modern apartment living room",
+  "hero": {
+    "badge": "Modern apartments",
+    "title": "Stylish apartments for rent – fit for your lifestyle",
+    "subtitle": "Discover modern 1–5 room apartments, smart filters, map view and easy contact options.",
+    "ctaPrimary": "View apartments on the map",
+    "ctaSecondary": "Learn more about apartments"
+  },
+  "benefits": {
+    "title": "Why search apartments with MyHome24App?",
+    "intro": "Our apartment category offers clear information, modern filters and a clean map search.",
+    "items": [
+      {
+        "title": "Large selection",
+        "text": "Find modern apartments in cities and popular living areas across Germany."
+      },
+      {
+        "title": "Flexible sizes & styles",
+        "text": "From single apartments to family flats – including new construction and renovated units."
+      },
+      {
+        "title": "Easy contact",
+        "text": "Contact landlords and agents directly through the listing’s contact form."
+      }
+    ]
+  },
+  "ready": "Ready to find your new apartment?",
+  "button": "Show apartment listings"
 }
