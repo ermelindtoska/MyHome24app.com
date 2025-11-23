@@ -1,14 +1,36 @@
 {
-  "imgAlt": "Büro und Gewerbeflächen",
-  "title": "Moderne Büro- und Gewerbeflächen",
-  "description": "Entdecken Sie attraktive Büro- und Gewerbeeinheiten in verschiedenen Größen und Lagen. Ideal für Startups, Agenturen, Praxen oder etablierte Unternehmen, die einen neuen Standort suchen.",
+  "seo": {
+    "title": "Büros & Gewerbeflächen mieten – MyHome24App",
+    "description": "Finden Sie moderne Büros & Gewerbeflächen zur Miete in Deutschland – mit Kartenansicht, Filtern und direktem Kontakt."
+  },
+  "imgAlt": "Modernes Büro oder Gewerbefläche",
+  "hero": {
+    "title": "Moderne Büros & Gewerbeflächen zur Miete",
+    "subtitle": "Entdecken Sie flexible Arbeitsräume, Coworking Spaces und Gewerbeflächen in Top-Lagen – mit transparenter Preisübersicht und direktem Kontakt.",
+    "button": "Büros auf der Karte anzeigen"
+  },
+  "featuresTitle": "Vorteile bei der Suche nach Büros & Gewerbeflächen",
   "features": [
-    { "title": "Flexibel", "text": "Verschiedene Größen – vom Einzelbüro bis zum Großraumbüro" },
-    { "title": "Standortvorteil", "text": "Citylage, Gewerbeparks, gute Verkehrsanbindung" },
-    { "title": "Ausstattung", "text": "Moderne Infrastruktur, Glasfaser-Internet, Klimaanlage" },
-    { "title": "Sofort bezugsfertig", "text": "Viele Objekte sind sofort nutzbar oder flexibel anpassbar" }
+    {
+      "title": "Zentrale Lage",
+      "text": "Finden Sie Büroflächen in attraktiven Stadtlagen mit guter Verkehrsanbindung."
+    },
+    {
+      "title": "Flexible Grundrisse",
+      "text": "Ob Einzelbüro oder große Gewerbefläche – wir zeigen passende Angebote."
+    },
+    {
+      "title": "Transparente Konditionen",
+      "text": "Mietpreise, Nebenkosten und Vertragsbedingungen auf einen Blick."
+    },
+    {
+      "title": "Direkter Kontakt",
+      "text": "Kontaktieren Sie Eigentümer:innen oder Makler:innen direkt über das Formular."
+    }
   ],
-  "tipTitle": "Tipp",
-  "tipText": "Berücksichtigen Sie bei der Auswahl auch Parkmöglichkeiten, Nähe zu Kund*innen sowie Erweiterungspotenzial für die Zukunft.",
-  "button": "Jetzt Büroflächen entdecken"
+  "tipTitle": "Tipp für Ihre Suche",
+  "tipText": "Aktualisieren Sie regelmäßig die Karte, um neue Büroangebote in Ihrer Region zu sehen.",
+  "cta": {
+    "primary": "Büros auf der Karte anzeigen"
+  }
 }

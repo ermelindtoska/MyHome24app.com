@@ -1,15 +1,92 @@
 {
 
     "title": "My Profile",
-  "userInfo": "User Information",
+  
    
+  "description": "Manage your personal data, photo and preferences.",
+  "loading": "Loading…",
+  "unsaved": "Unsaved changes",
+
+  
+
+  "saveChanges": "Save changes",
+  "cancel": "Cancel",
 
 
+ 
 
-  "account": {
-    "title": "Account",
-    "subtitle": "Manage security settings, change password, enable 2FA, etc."
+  "sidebar": {
+    "sectionProfile": "Profile",
+    "sectionMessages": "Communication",
+    "profile": "Profile",
+    "account": "Account & security",
+    "messages": "Contact requests"
   },
+
+ 
+
+
+
+  "stats": {
+    "title": "Statistics",
+    "totalListings": "Total listings",
+    "published": "Published",
+    "pending": "In progress",
+    "rejected": "Rejected"
+  },
+
+  "toast": {
+    "saved": "Changes saved."
+  },
+
+  
+  "error": {
+    "notLoggedIn": "You are logged out.",
+    "loadFailed": "There was an error loading your profile data.",
+    "saveFailed": "Saving your changes failed.",
+    "nameRequired": "Please enter a name.",
+    "futureDate": "The date of birth cannot be in the future."
+  },
+
+  "banner": {
+    "text": "You can find contact requests for your listings in the \"Contact requests\" section.",
+    "button": "Go to contact requests"
+  },
+  "userInfo": "User information",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "name": "Display name",
+  "email": "Email",
+  "phone": "Phone number",
+  "dateOfBirth": "Date of birth",
+  "location": "Location",
+  "bio": "About me",
+  "role": "Role",
+  "user": "User",
+  "owner": "Owner",
+  "agent": "Agent",
+  "account": {
+    "title": "Account & security",
+    "subtitle": "Manage security, password, two-factor authentication and login options.",
+    "hintEmail": "Your email address is used for login, notifications and contact requests.",
+    "hintPassword": "Password changes are done via the reset password link we send by email."
+  },
+  "messages": {
+    "title": "Contact requests",
+    "loading": "Loading contact requests…",
+    "empty": "You haven’t received any contact requests yet.",
+    "from": "From",
+    "onListing": "For listing",
+    "sentAt": "Sent on",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message"
+  },
+
+
+
+
+ 
 
 
 
@@ -37,7 +114,7 @@
   },
 
 
-  "description": "Manage your personal info, photo and preferences.",
+ 
 
     
   "change": "Change",
@@ -52,11 +129,7 @@
   },
 
 
-  "firstName": "First name",
-  "lastName": "Last name",
 
-  "location": "Location",
-  "bio": "About me",
 
 
 
@@ -72,18 +145,14 @@
 
 
   
-  "name": "Name",
-  "email": "Email",
-  "phone": "Phone Number",
-  "dateOfBirth": "Date of Birth",
-  "role": "Role",
+  
   "profilePicture": "Profile Picture",
-  "stats": "Statistics",
+  
   "totalListings": "Total Listings",
   "published": "Published",
   "pending": "Pending",
   "rejected": "Rejected",
-  "messages": "Messages",
+ 
   "photoUploadedSuccessfully": "Photo uploaded successfully!",
 "unsupportedImageType": "Only JPG, PNG or WEBP allowed.",
 "imageTooLarge": "Image is larger than 5 MB.",
@@ -98,24 +167,14 @@
 
   "noMessages": "You have no messages yet.",
  
-  "saveChanges": "Save Changes",
-  "cancel": "Cancel",
-  
-  "uploadPhoto": "Upload Photo",
-  "loading": "Loading your profile...",
-  "success": "successfully!",
- 
-  "error": {
-    "noUser": "No user logged in.",
-    
-    "fetchingData": "Failed to load profile data.",
-    "saveFailed": "Save failed. Please try again.",
-    "nameRequired": "Name is required",
-    "futureDate": "Date of birth cannot be in the future"
-  },
 
   
-  "user": "User",
-  "owner": "Owner",
-  "agent": "Agent"
+  "uploadPhoto": "Upload Photo",
+  
+  "success": "successfully!"
+ 
+ 
+
+  
+  
 }

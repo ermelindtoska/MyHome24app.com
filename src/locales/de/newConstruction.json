@@ -1,26 +1,140 @@
 {
   "title": "Neubau Immobilien in Deutschland",
   "description": "Neubauten bieten moderne Architektur, Energieeffizienz und eine langfristige Gewährleistung. Ideal für Käufer*innen, die eine sorgenfreie und zukunftssichere Immobilie suchen.",
-  "features": [
-    {
-      "title": "Energieeffizienz",
-      "text": "Moderne Wärmedämmung, Solartechnik und niedrige Nebenkosten."
-    },
-    {
-      "title": "Individuelle Gestaltung",
-      "text": "Flexible Grundrisse und smarte Wohnkonzepte."
-    },
-    {
-      "title": "Rechtssicherheit",
-      "text": "Erstbezug mit Herstellergarantie & Mängelfreiheit."
-    },
-    {
-      "title": "Direkter Kontakt",
-      "text": "Kommunikation direkt mit dem Bauträger – keine Maklergebühren."
+ 
+    
+  
+    "metaTitle": "Neubau-Immobilien in Deutschland | MyHome24App",
+  "metaDescription": "Entdecken Sie moderne, energieeffiziente Neubau-Immobilien in Deutschland – Häuser und Wohnungen direkt vom Bauträger.",
+ 
+    "imageAlt": "Neubau-Immobilie in Deutschland",
+  "hero": {
+    "badge": "Neubau – modern, effizient, zukunftssicher",
+    "imgAlt": "Moderner Neubau in Deutschland",
+    
+    "headline": "Neubau-Immobilien in Deutschland",
+    "subline": "Energieeffiziente Häuser & Wohnungen mit moderner Architektur und nachhaltiger Technik.",
+    "title": "Neubau-Immobilien in Deutschland",
+    "subtitle": "Planen Sie Ihren Neubau mit MyHome24App – von der ersten Idee bis zum Einzug. Wir bündeln Marktkenntnis, Bau-Know-how und Finanzierungstipps an einem Ort.",
+    "primaryCta": "Zu den Neubau-Angeboten",
+    "secondaryCta": "Beratung & Ablauf ansehen",
+    "note": "Erste Orientierung in wenigen Minuten – unverbindlich und kostenlos.",
+    "overlay": {
+      "badge": "Beispielbild – keine echte Anzeige",
+      "text": "Moderne Neubau-Siedlung mit Energieeffizienz und klarer Architektur."
     }
-  ],
-  "tipTitle": "Tipp: KfW-Förderung nutzen",
-  "tipText": "Viele Neubauten sind förderfähig – profitieren Sie von attraktiven Finanzierungsmöglichkeiten.",
-  "ready": "Bereit für Ihr neues Zuhause?",
-  "button": "Jetzt entdecken"
+  },
+  "benefits": {
+    "heading": "Warum Neubau mit MyHome24App planen?",
+    "lead": "Neubau bedeutet viele Entscheidungen: Grundstück, Bauträger, Finanzierung und Ausstattung. Wir helfen Ihnen, den Überblick zu behalten und Risiken zu minimieren.",
+    "items": [
+      {
+        "title": "Alles an einem Ort",
+        "text": "Objekte, Beratung und Finanzierungshinweise bequem gebündelt – ohne stundenlange Recherche."
+      },
+      {
+        "title": "Transparente Informationen",
+        "text": "Klare Hinweise zu Energieeffizienz, Bauqualität, rechtlichen Rahmenbedingungen und Fördermöglichkeiten."
+      },
+      {
+        "title": "Planung nach Bedarf",
+        "text": "Egal ob Einfamilienhaus, Doppelhaus oder Mehrfamilienhaus – wir zeigen passende Wege für Ihr Budget."
+      },
+      {
+        "title": "Unterstützung bei Fragen",
+        "text": "Sie sind nicht allein: Orientierung zu Unterlagen, Gesprächen mit Banken und Angeboten von Bauträger:innen."
+      }
+    ]
+  },
+  "features": {
+    "heading": "Vorteile von Neubau-Immobilien",
+    "lead": "Neubauten bieten moderne Architektur, Energieeffizienz und eine langfristige Gewährleistung – ideal für Käufer:innen, die eine sorgenfreie und zukunftssichere Immobilie suchen.",
+    "items": [
+      {
+        "title": "Energieeffizienz",
+        "text": "Moderne Wärmedämmung, Solartechnik und niedrige Nebenkosten machen Neubau besonders attraktiv."
+      },
+      {
+        "title": "Individuelle Gestaltung",
+        "text": "Flexible Grundrisse, smarte Wohnkonzepte und die Möglichkeit, viele Entscheidungen selbst zu treffen."
+      },
+      {
+        "title": "Rechtssicherheit",
+        "text": "Erstbezug mit Herstellergarantie, aktuellem Baurecht und klar definierten Gewährleistungsfristen."
+      },
+      {
+        "title": "Direkter Kontakt",
+        "text": "Kommunikation direkt mit dem Bauträger oder Verkäufer:in – ohne versteckte Maklergebühren."
+      }
+    ]
+  },
+  
+  
+
+  "tip": {
+    "title": "Tipp: KfW-Förderung & Zuschüsse prüfen",
+    "heading": "Tipp: KfW-Förderung nutzen",
+    "note": "Hinweis: Dies ist keine Finanzberatung. Lassen Sie sich von Ihrer Bank oder einem unabhängigen Finanzberater individuell beraten.",
+    "text": "Viele Neubauprojekte sind förderfähig. Informieren Sie sich über KfW-Kredite, Tilgungszuschüsse und regionale Förderprogramme, um Ihre Finanzierung zu optimieren."
+  },
+  "reasons": {
+    "title": "Warum Neubau mit MyHome24App?",
+    "intro": "Mit Neubau-Immobilien investieren Sie in moderne Standards, sichere Technik und planbare Kosten. Unsere Plattform unterstützt Sie bei der Auswahl und Orientierung.",
+    "items": [
+      {
+        "title": "Energieeffizienz & Nachhaltigkeit",
+        "text": "Moderne Wärmedämmung, effiziente Heizsysteme und häufig erneuerbare Energien sorgen für geringere Nebenkosten und mehr Klimaschutz."
+      },
+      {
+        "title": "Planbare Instandhaltung",
+        "text": "Alles ist neu: Sie profitieren von Herstellergarantien und müssen in den ersten Jahren meist keine größeren Renovierungen einplanen."
+      },
+      {
+        "title": "Zeitgemäße Grundrisse",
+        "text": "Offene Wohnkonzepte, Homeoffice-Lösungen und barrierearme Zugänge – Neubauprojekte orientieren sich an modernen Lebensrealitäten."
+      },
+      {
+        "title": "Rechtssicherheit & Transparenz",
+        "text": "Klare Verträge, Baubeschreibungen und feste Abnahmeprozesse geben Ihnen Sicherheit beim Erwerb eines Neubaus."
+      }
+    ]
+  },
+  "steps": {
+    "title": "Ihr Weg zum passenden Neubau-Projekt",
+    "intro": "Schritt für Schritt von der ersten Orientierung bis zur Schlüsselübergabe.",
+    "items": [
+      {
+        "title": "1. Orientierung & Budgetrahmen",
+        "text": "Sie verschaffen sich einen Überblick über typische Preise, Nebenkosten und mögliche Förderungen."
+      },
+      {
+        "title": "2. Projekte & Bauträger vergleichen",
+        "text": "Sie sehen passende Neubau-Projekte, vergleichen Lage, Ausstattung und Baukonzept."
+      },
+      {
+        "title": "3. Finanzierung & Förderung klären",
+        "text": "Gemeinsam mit Ihrer Bank oder Berater:in prüfen Sie Machbarkeit, KfW-Förderung und Zinsmodelle."
+      },
+      {
+        "title": "4. Vertrag, Bauphase & Abnahme",
+        "text": "Sie begleiten Ihr Bauvorhaben bis zur Abnahme und planen frühzeitig Einzug und Ausstattung."
+      }
+    ]
+  },
+ 
+  "contactCta": {
+    "heading": "Fragen zu Ihrem Neubau-Projekt?",
+    "title": "Fragen zu Ihrem Neubau-Projekt?",
+    "text": "Sie planen aktuell einen Neubau oder denken über den nächsten Schritt nach? Über unser Kontaktformular können Sie uns Ihr Vorhaben kurz schildern – wir helfen Ihnen bei der Orientierung.",
+    "button": "Kontakt aufnehmen"
+  },
+  
+  "button": "Jetzt entdecken",
+    "tipTitle": "Tipp: KfW-Förderung & Zuschüsse prüfen",
+  "tipText": "Viele Neubauprojekte sind förderfähig. Informieren Sie sich über KfW-Kredite, Tilgungszuschüsse und regionale Förderprogramme, um Ihre Finanzierung zu optimieren.",
+  "ready": "Bereit für Ihren Neubau?",
+  "readyDescription": "Stellen Sie Ihre Suche auf Neubau-Immobilien um oder lassen Sie sich persönlich beraten.",
+  "ctaPrimary": "Neubau-Angebote anzeigen",
+  "ctaSecondary": "Beratung anfragen"
+  
 }

@@ -3,17 +3,45 @@
   "save": "Save",
   "cancel": "Cancel",
   "delete": "Delete",
-  "success": "Listing updated successfully.",
+  
   "error": "Error updating listing.",
   "saveButton": "Save changes",
     "titlePage": "Edit listing",
-  "loading": "Loading listing…",
+  
   "notFoundAlert": "Listing not found.",
   "notOwnerAlert": "You are not allowed to edit this listing.",
   "loadError": "Failed to load listing.",
   "updateSuccess": "Listing has been updated.",
   "updateError": "Failed to update listing.",
   
+  "loading": "Loading listing…",
+
+
+
+  "placeholders": {
+    "title": "Listing title",
+    "city": "City, location",
+    "price": "Price in €",
+    "type": "e.g. apartment, house…",
+    "purpose": "e.g. buy, rent…",
+    "imageUrl": "https://…"
+  },
+
+  "buttons": {
+    "cancel": "Cancel",
+    "save": "Save changes"
+  },
+
+  "success": {
+    "updated": "Listing has been updated."
+  },
+
+  "errors": {
+    "notFound": "This listing was not found.",
+    "notAllowed": "You are not allowed to edit this listing.",
+    "loadFailed": "Could not load the listing.",
+    "saveFailed": "Could not save the changes."
+  },
   "fields": {
     "title": "Title",
     "city": "City",

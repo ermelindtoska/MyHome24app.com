@@ -1,9 +1,17 @@
+// src/components/ListingDetailsModal.jsx
 import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
+import ListingContactSection from './ListingContactSection';
 import {
-  FaPhoneAlt, FaEnvelope, FaCheckCircle, FaInfoCircle,
-  FaTag, FaTools, FaBalanceScale, FaHistory
+  FaPhoneAlt,
+  FaEnvelope,
+  FaCheckCircle,
+  FaInfoCircle,
+  FaTag,
+  FaTools,
+  FaBalanceScale,
+  FaHistory,
 } from 'react-icons/fa';
 
 import SimilarListings from './SimilarListings/SimilarListings';
@@ -12,17 +20,19 @@ const FALLBACK_IMG = '/images/hero-1.jpg';
 
 const ListingDetailsModal = ({ listing, onClose, allListings }) => {
   const { t } = useTranslation('listing');
+
   const safeImages = useMemo(() => {
     const arr =
       listing?.images ||
       listing?.imageUrls ||
       (listing?.image ? [listing.image] : []);
-    return (Array.isArray(arr) && arr.length > 0) ? arr : [FALLBACK_IMG];
+    return Array.isArray(arr) && arr.length > 0 ? arr : [FALLBACK_IMG];
   }, [listing]);
 
   const [current, setCurrent] = useState(0);
   const nextImage = () => setCurrent((current + 1) % safeImages.length);
-  const prevImage = () => setCurrent((current - 1 + safeImages.length) % safeImages.length);
+  const prevImage = () =>
+    setCurrent((current - 1 + safeImages.length) % safeImages.length);
 
   useEffect(() => {
     const handleKey = (e) => e.key === 'Escape' && onClose();
@@ -34,7 +44,10 @@ const ListingDetailsModal = ({ listing, onClose, allListings }) => {
 
   const typeLabel = listing?.type || '—';
   const typeKey = listing?.type ? listing.type.toLowerCase() : null;
-  const priceText = (listing?.price ?? '') !== '' ? `€ ${Number(listing.price).toLocaleString()}` : '—';
+  const priceText =
+    (listing?.price ?? '') !== ''
+      ? `€ ${Number(listing.price).toLocaleString()}`
+      : '—';
 
   return (
     <AnimatePresence>
@@ -99,23 +112,42 @@ const ListingDetailsModal = ({ listing, onClose, allListings }) => {
               {current + 1}/{safeImages.length}
             </div>
           </div>
-          
 
           {/* Info */}
           <h2 className="text-2xl font-semibold mb-2 sticky top-0 bg-gradient-to-b from-white to-transparent dark:from-gray-900 py-2 z-10">
             {listing.title || '—'}
           </h2>
-          <p className="mb-1"><strong>📍 {t('city')}:</strong> {listing.city} {listing.postalCode ? `(${listing.postalCode})` : ''}</p>
-          <p className="mb-1"><strong>💶 {t('price')}:</strong> {priceText}</p>
-          <p className="mb-1"><strong>🏠 {t('type')}:</strong> {typeKey ? t(typeKey) : typeLabel}</p>
+          <p className="mb-1">
+            <strong>📍 {t('city')}:</strong> {listing.city}{' '}
+            {listing.postalCode ? `(${listing.postalCode})` : ''}
+          </p>
+          <p className="mb-1">
+            <strong>💶 {t('price')}:</strong> {priceText}
+          </p>
+          <p className="mb-1">
+            <strong>🏠 {t('type')}:</strong>{' '}
+            {typeKey ? t(typeKey) : typeLabel}
+          </p>
           <p className="mb-1 flex items-center gap-2">
             <strong>🎯 {t('purpose')}:</strong>
-            <span className={`px-2 py-0.5 rounded text-white text-xs ${listing.purpose === 'buy' ? 'bg-green-600' : 'bg-blue-600'}`}>
+            <span
+              className={`px-2 py-0.5 rounded text-white text-xs ${
+                listing.purpose === 'buy' ? 'bg-green-600' : 'bg-blue-600'
+              }`}
+            >
               {listing.purpose === 'buy' ? t('forSale') : t('forRent')}
             </span>
           </p>
-          {listing.bedrooms != null && <p className="mb-1"><strong>🛏️ {t('bedrooms')}:</strong> {listing.bedrooms}</p>}
-          {listing.size != null && <p className="mb-1"><strong>📐 {t('size')}:</strong> {listing.size} m²</p>}
+          {listing.bedrooms != null && (
+            <p className="mb-1">
+              <strong>🛏️ {t('bedrooms')}:</strong> {listing.bedrooms}
+            </p>
+          )}
+          {listing.size != null && (
+            <p className="mb-1">
+              <strong>📐 {t('size')}:</strong> {listing.size} m²
+            </p>
+          )}
 
           {listing.description && (
             <div className="mt-4 bg-gray-50 dark:bg-gray-800 p-4 rounded shadow-inner">
@@ -126,13 +158,37 @@ const ListingDetailsModal = ({ listing, onClose, allListings }) => {
           )}
 
           {/* Badges */}
-          {(listing.isFeatured || listing.isHighlighted || listing.isUrgent || listing.isLuxury || listing.isPriceReduced) && (
+          {(listing.isFeatured ||
+            listing.isHighlighted ||
+            listing.isUrgent ||
+            listing.isLuxury ||
+            listing.isPriceReduced) && (
             <div className="flex flex-wrap gap-2 mt-4">
-              {listing.isFeatured && <span className="inline-block bg-yellow-400 text-yellow-900 px-2 py-0.5 text-xs rounded">{t('featured')}</span>}
-              {listing.isHighlighted && <span className="inline-block bg-purple-400 text-purple-900 px-2 py-0.5 text-xs rounded">{t('highlighted')}</span>}
-              {listing.isUrgent && <span className="inline-block bg-red-500 text-white px-2 py-0.5 text-xs rounded">{t('urgent')}</span>}
-              {listing.isLuxury && <span className="inline-block bg-indigo-500 text-white px-2 py-0.5 text-xs rounded">{t('luxury')}</span>}
-              {listing.isPriceReduced && <span className="inline-block bg-blue-500 text-white px-2 py-0.5 text-xs rounded">{t('priceReduced')}</span>}
+              {listing.isFeatured && (
+                <span className="inline-block bg-yellow-400 text-yellow-900 px-2 py-0.5 text-xs rounded">
+                  {t('featured')}
+                </span>
+              )}
+              {listing.isHighlighted && (
+                <span className="inline-block bg-purple-400 text-purple-900 px-2 py-0.5 text-xs rounded">
+                  {t('highlighted')}
+                </span>
+              )}
+              {listing.isUrgent && (
+                <span className="inline-block bg-red-500 text-white px-2 py-0.5 text-xs rounded">
+                  {t('urgent')}
+                </span>
+              )}
+              {listing.isLuxury && (
+                <span className="inline-block bg-indigo-500 text-white px-2 py-0.5 text-xs rounded">
+                  {t('luxury')}
+                </span>
+              )}
+              {listing.isPriceReduced && (
+                <span className="inline-block bg-blue-500 text-white px-2 py-0.5 text-xs rounded">
+                  {t('priceReduced')}
+                </span>
+              )}
             </div>
           )}
 
@@ -142,12 +198,37 @@ const ListingDetailsModal = ({ listing, onClose, allListings }) => {
               <FaInfoCircle className="text-blue-600" /> {t('overview')}
             </h3>
             <ul className="space-y-1 text-gray-700 dark:text-gray-300">
-              {listing.builtYear && <li><strong>{t('builtYear')}:</strong> {listing.builtYear}</li>}
-              {listing.floor && <li><strong>{t('floor')}:</strong> {listing.floor}</li>}
-              {listing.totalFloors && <li><strong>{t('totalFloors')}:</strong> {listing.totalFloors}</li>}
-              {listing.energyClass && <li><strong>{t('energyClass')}:</strong> {listing.energyClass}</li>}
-              {listing.condition && <li><strong>{t('condition')}:</strong> {listing.condition}</li>}
-              {listing.availabilityDate && <li><strong>{t('availabilityDate')}:</strong> {listing.availabilityDate}</li>}
+              {listing.builtYear && (
+                <li>
+                  <strong>{t('builtYear')}:</strong> {listing.builtYear}
+                </li>
+              )}
+              {listing.floor && (
+                <li>
+                  <strong>{t('floor')}:</strong> {listing.floor}
+                </li>
+              )}
+              {listing.totalFloors && (
+                <li>
+                  <strong>{t('totalFloors')}:</strong> {listing.totalFloors}
+                </li>
+              )}
+              {listing.energyClass && (
+                <li>
+                  <strong>{t('energyClass')}:</strong> {listing.energyClass}
+                </li>
+              )}
+              {listing.condition && (
+                <li>
+                  <strong>{t('condition')}:</strong> {listing.condition}
+                </li>
+              )}
+              {listing.availabilityDate && (
+                <li>
+                  <strong>{t('availabilityDate')}:</strong>{' '}
+                  {listing.availabilityDate}
+                </li>
+              )}
             </ul>
           </div>
 
@@ -157,43 +238,123 @@ const ListingDetailsModal = ({ listing, onClose, allListings }) => {
               <FaTag className="text-yellow-600" /> {t('status')}
             </h3>
             <ul className="text-gray-700 space-y-1">
-              {listing.status && <li><strong>{t('status')}:</strong> {listing.status}</li>}
-              {listing.isFeatured && <li><FaCheckCircle className="inline text-green-500 mr-1" /> {t('featured')}</li>}
-              {listing.isHighlighted && <li><FaCheckCircle className="inline text-green-500 mr-1" /> {t('highlighted')}</li>}
-              {listing.isUrgent && <li><FaCheckCircle className="inline text-red-500 mr-1" /> {t('urgent')}</li>}
-              {listing.isLuxury && <li><FaCheckCircle className="inline text-yellow-500 mr-1" /> {t('luxury')}</li>}
-              {listing.isPriceReduced && <li><FaCheckCircle className="inline text-blue-500 mr-1" /> {t('priceReduced')}</li>}
+              {listing.status && (
+                <li>
+                  <strong>{t('status')}:</strong> {listing.status}
+                </li>
+              )}
+              {listing.isFeatured && (
+                <li>
+                  <FaCheckCircle className="inline text-green-500 mr-1" />{' '}
+                  {t('featured')}
+                </li>
+              )}
+              {listing.isHighlighted && (
+                <li>
+                  <FaCheckCircle className="inline text-green-500 mr-1" />{' '}
+                  {t('highlighted')}
+                </li>
+              )}
+              {listing.isUrgent && (
+                <li>
+                  <FaCheckCircle className="inline text-red-500 mr-1" />{' '}
+                  {t('urgent')}
+                </li>
+              )}
+              {listing.isLuxury && (
+                <li>
+                  <FaCheckCircle className="inline text-yellow-500 mr-1" />{' '}
+                  {t('luxury')}
+                </li>
+              )}
+              {listing.isPriceReduced && (
+                <li>
+                  <FaCheckCircle className="inline text-blue-500 mr-1" />{' '}
+                  {t('priceReduced')}
+                </li>
+              )}
             </ul>
           </div>
 
           {/* Amenities */}
-          {(listing.balcony || listing.elevator || listing.garden || listing.parking || listing.coolingType || listing.heatingType) && (
+          {(listing.balcony ||
+            listing.elevator ||
+            listing.garden ||
+            listing.parking ||
+            listing.coolingType ||
+            listing.heatingType) && (
             <div className="mt-6 border-t pt-4">
               <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
                 <FaTools className="text-green-600" /> {t('amenities')}
               </h3>
               <ul className="text-gray-700 space-y-1">
-                {listing.balcony && <li><FaCheckCircle className="inline text-green-500 mr-1" /> {t('balcony')}</li>}
-                {listing.elevator && <li><FaCheckCircle className="inline text-green-500 mr-1" /> {t('elevator')}</li>}
-                {listing.garden && <li><FaCheckCircle className="inline text-green-500 mr-1" /> {t('garden')}</li>}
-                {listing.parking && <li><FaCheckCircle className="inline text-green-500 mr-1" /> {t('parking')}</li>}
-                {listing.coolingType && <li><strong>{t('coolingType')}:</strong> {listing.coolingType}</li>}
-                {listing.heatingType && <li><strong>{t('heatingType')}:</strong> {listing.heatingType}</li>}
+                {listing.balcony && (
+                  <li>
+                    <FaCheckCircle className="inline text-green-500 mr-1" />{' '}
+                    {t('balcony')}
+                  </li>
+                )}
+                {listing.elevator && (
+                  <li>
+                    <FaCheckCircle className="inline text-green-500 mr-1" />{' '}
+                    {t('elevator')}
+                  </li>
+                )}
+                {listing.garden && (
+                  <li>
+                    <FaCheckCircle className="inline text-green-500 mr-1" />{' '}
+                    {t('garden')}
+                  </li>
+                )}
+                {listing.parking && (
+                  <li>
+                    <FaCheckCircle className="inline text-green-500 mr-1" />{' '}
+                    {t('parking')}
+                  </li>
+                )}
+                {listing.coolingType && (
+                  <li>
+                    <strong>{t('coolingType')}:</strong> {listing.coolingType}
+                  </li>
+                )}
+                {listing.heatingType && (
+                  <li>
+                    <strong>{t('heatingType')}:</strong> {listing.heatingType}
+                  </li>
+                )}
               </ul>
             </div>
           )}
 
           {/* Legal */}
-          {(listing.ownership || listing.legalStatus || listing.taxInfo || listing.utilitiesIncluded) && (
+          {(listing.ownership ||
+            listing.legalStatus ||
+            listing.taxInfo ||
+            listing.utilitiesIncluded) && (
             <div className="mt-6 border-t pt-4">
               <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                <FaBalanceScale className="text-purple-600" /> {t('legalStatus')}
+                <FaBalanceScale className="text-purple-600" />{' '}
+                {t('legalStatus')}
               </h3>
               <ul className="text-gray-700 space-y-1">
-                {listing.ownership && <li><strong>{t('ownership')}:</strong> {listing.ownership}</li>}
-                {listing.legalStatus && <li><strong>{t('legalStatus')}:</strong> {listing.legalStatus}</li>}
-                {listing.taxInfo && <li><strong>{t('taxInfo')}:</strong> {listing.taxInfo}</li>}
-                {listing.utilitiesIncluded && <li>{t('utilitiesIncluded')}</li>}
+                {listing.ownership && (
+                  <li>
+                    <strong>{t('ownership')}:</strong> {listing.ownership}
+                  </li>
+                )}
+                {listing.legalStatus && (
+                  <li>
+                    <strong>{t('legalStatus')}:</strong> {listing.legalStatus}
+                  </li>
+                )}
+                {listing.taxInfo && (
+                  <li>
+                    <strong>{t('taxInfo')}:</strong> {listing.taxInfo}
+                  </li>
+                )}
+                {listing.utilitiesIncluded && (
+                  <li>{t('utilitiesIncluded')}</li>
+                )}
               </ul>
             </div>
           )}
@@ -202,48 +363,75 @@ const ListingDetailsModal = ({ listing, onClose, allListings }) => {
           {Array.isArray(listing.history) && listing.history.length > 0 && (
             <div className="mt-6 border-t pt-4">
               <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                <FaHistory className="text-gray-600" /> {t('propertyHistory')}
+                <FaHistory className="text-gray-600" />{' '}
+                {t('propertyHistory')}
               </h3>
               <ul className="text-gray-700 space-y-1">
                 {listing.history.map((entry, idx) => (
-                  <li key={idx}><strong>{entry.date}</strong>: {entry.event}</li>
+                  <li key={idx}>
+                    <strong>{entry.date}</strong>: {entry.event}
+                  </li>
                 ))}
               </ul>
             </div>
           )}
 
+          {/* 🔵 Kontakt-/Anfragebereich (Section që bën kontakt + ofertë) */}
           <div className="mt-6 border-t pt-4">
-  <h3 className="text-lg font-semibold mb-2">{t('similarListings')}</h3>
-  <SimilarListings
-    currentListing={listing}
-    allListings={allListings}
-    limit={6}
-    onPick={() => {
-      // mbyll modalin pastaj le navigimin e SimilarListings
-      onClose();
-      // opsionale: rikthe scroll te fillimi
-      setTimeout(() => window.scrollTo(0, 0), 250);
-    }}
-  />
-</div>
+            <ListingContactSection listing={listing} />
+          </div>
 
-          {/* Agent */}
+          {/* Ähnliche Inserate */}
+          <div className="mt-6 border-t pt-4">
+            <h3 className="text-lg font-semibold mb-2">
+              {t('similarListings')}
+            </h3>
+            <SimilarListings
+              currentListing={listing}
+              allListings={allListings}
+              limit={6}
+              onPick={() => {
+                onClose();
+                setTimeout(() => window.scrollTo(0, 0), 250);
+              }}
+            />
+          </div>
+
+                  {/* Agent */}
           {listing.agent && (
             <div className="mt-6 border-t pt-4 bg-gray-50 dark:bg-gray-800 p-4 rounded shadow-inner">
               <h3 className="text-xl font-semibold mb-2">{t('contactAgent')}</h3>
-              <p><strong>{t('agentName')}:</strong> {listing.agent.name}</p>
-              {listing.agent.phone && (<p className="flex items-center gap-2"><FaPhoneAlt className="text-blue-600" /> {listing.agent.phone}</p>)}
-              {listing.agent.email && (<p className="flex items-center gap-2 mb-3"><FaEnvelope className="text-blue-600" /> {listing.agent.email}</p>)}
+              <p>
+                <strong>{t('agentName')}:</strong> {listing.agent.name}
+              </p>
+              {listing.agent.phone && (
+                <p className="flex items-center gap-2">
+                  <FaPhoneAlt className="text-blue-600" /> {listing.agent.phone}
+                </p>
+              )}
+              {listing.agent.email && (
+                <p className="flex items-center gap-2 mb-3">
+                  <FaEnvelope className="text-blue-600" /> {listing.agent.email}
+                </p>
+              )}
+
               <div className="flex gap-2">
-                <button className="flex-1 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+                <a
+                  href={`/contact?listingId=${listing.id || listing.listingId || ''}&type=agent`}
+                  className="flex-1 text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+                >
                   {t('contactAgent')}
-                </button>
-                <button className="flex-1 bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">
+                </a>
+                <a
+                  href={`/contact?listingId=${listing.id || listing.listingId || ''}&type=visit`}
+                  className="flex-1 text-center bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+                >
                   {t('scheduleVisit')}
-                </button>
+                </a>
               </div>
             </div>
           )}
+
         </motion.div>
       </motion.div>
     </AnimatePresence>

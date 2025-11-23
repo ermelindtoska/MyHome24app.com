@@ -1,9 +1,11 @@
 {
   "imgAlt": "Modern living room in a family house",
   "hero": {
-    "badge": "Rent a house",
-    "title": "Family-friendly houses for rent in Germany",
-    "subtitle": "Enjoy more space, your own four walls and a private garden – without having to buy a property right away."
+    "badge": "Family-friendly houses",
+    "title": "Houses for rent – more space for your life",
+    "subtitle": "Discover terraced houses, semi-detached and detached homes in great locations – with clear details, map view and easy contact.",
+    "overlayTitle": "Keep rent and location in view",
+    "overlaySubtitle": "See location, features and rent at a glance before you request a viewing."
   },
   "introText": "Renting a house combines flexibility with the feeling of having your own home. It is ideal for families, people working from home or anyone who needs more space and appreciates a quieter neighbourhood.",
   "perksTitle": "Why renting a house is a great choice",

@@ -1,13 +1,32 @@
 {
-  "title": "Moderne Wohnungen zur Miete",
-  "description": "Entdecken Sie eine große Auswahl an stilvollen Wohnungen in attraktiven Lagen.",
-  "features": [
-    "1-Zimmer, Familienwohnungen, barrierefreie Optionen",
-    "Top-Infrastruktur, Nahverkehr, Einkaufsmöglichkeiten",
-    "Aufzug, Balkon, Einbauküche, smarte Haustechnik",
-    "Ansprechpartner direkt vor Ort, einfacher Mietprozess"
-  ],
-  "tipTitle": "Tipp",
-  "tipText": "Nutzen Sie Filtermöglichkeiten bei der Suche, um Ihre perfekte Wohnung schneller zu finden – z. B. nach Größe, Preis, Ausstattung oder Haustierfreundlichkeit.",
-  "button": "Jetzt Wohnungen entdecken"
+  "metaTitle": "Apartments & Wohnungen mieten – MyHome24App",
+  "metaDescription": "Moderne Apartments in Deutschland: 1–5 Zimmer, flexible Miete, Karte, Filter, Top-Lagen – wie bei Zillow.",
+  "imageAlt": "Modernes Apartment Wohnzimmer",
+  "hero": {
+    "badge": "Moderne Apartments",
+    "title": "Stilvolle Apartments zur Miete – passend zu Ihrem Leben",
+    "subtitle": "Entdecken Sie moderne 1–5 Zimmer Apartments, smarte Filter, Kartenansicht und einfache Kontaktaufnahme.",
+    "ctaPrimary": "Apartments auf der Karte anzeigen",
+    "ctaSecondary": "Mehr über Apartments erfahren"
+  },
+  "benefits": {
+    "title": "Warum Apartments bei MyHome24App suchen?",
+    "intro": "Unsere Apartmentkategorie bietet klare Informationen, moderne Filter und eine übersichtliche Kartensuche.",
+    "items": [
+      {
+        "title": "Große Auswahl",
+        "text": "Finden Sie moderne Apartments in Städten und beliebten Wohngegenden in ganz Deutschland."
+      },
+      {
+        "title": "Flexible Größen & Stile",
+        "text": "Von Single-Apartments bis zu Familienwohnungen – inklusive Neubau und modernisierten Objekten."
+      },
+      {
+        "title": "Einfache Kontaktaufnahme",
+        "text": "Schreiben Sie Vermieter:innen und Makler:innen direkt über das Kontaktformular."
+      }
+    ]
+  },
+  "ready": "Bereit, Ihr neues Apartment zu finden?",
+  "button": "Apartment-Angebote anzeigen"
 }

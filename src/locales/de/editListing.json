@@ -3,16 +3,45 @@
   "save": "Speichern",
   "cancel": "Abbrechen",
   "delete": "Löschen",
-  "success": "Anzeige wurde erfolgreich aktualisiert.",
+  
   "saveButton": "Änderungen speichern",
   "error": "Fehler beim Aktualisieren der Anzeige.",
     "titlePage": "Anzeige bearbeiten",
-  "loading": "Anzeige wird geladen…",
+ 
   "notFoundAlert": "Anzeige nicht gefunden.",
   "notOwnerAlert": "Du darfst diese Anzeige nicht bearbeiten.",
   "loadError": "Fehler beim Laden der Anzeige.",
   "updateSuccess": "Anzeige wurde aktualisiert.",
   "updateError": "Fehler beim Aktualisieren.",
+    
+  "loading": "Anzeige wird geladen…",
+
+ 
+
+  "placeholders": {
+    "title": "Titel der Anzeige",
+    "city": "Stadt, Ort",
+    "price": "Preis in €",
+    "type": "z.B. Wohnung, Haus…",
+    "purpose": "z.B. buy, rent…",
+    "imageUrl": "https://…"
+  },
+
+  "buttons": {
+    "cancel": "Abbrechen",
+    "save": "Änderungen speichern"
+  },
+
+  "success": {
+    "updated": "Die Anzeige wurde aktualisiert."
+  },
+
+  "errors": {
+    "notFound": "Diese Anzeige wurde nicht gefunden.",
+    "notAllowed": "Sie dürfen diese Anzeige nicht bearbeiten.",
+    "loadFailed": "Die Anzeige konnte nicht geladen werden.",
+    "saveFailed": "Die Änderungen konnten nicht gespeichert werden."
+  },
   
   "fields": {
     "title": "Titel",

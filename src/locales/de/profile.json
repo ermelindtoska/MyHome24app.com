@@ -1,14 +1,68 @@
 {
   
-  "title": "Mein Profil",
+  
   "editProfile": "Profil bearbeiten",
+  
+  "unsaved": "Nicht gespeicherte Änderungen",
 
 
 
-  "account": {
-    "title": "Konto",
-    "subtitle": "Hier können Sie Sicherheit, Passwort ändern, 2FA usw. verwalten."
+  "saveChanges": "Änderungen speichern",
+  "cancel": "Abbrechen",
+
+  "firstName": "Vorname",
+  "lastName": "Nachname",
+  "name": "Anzeigename",
+  "email": "E-Mail",
+  "phone": "Telefonnummer",
+  "dateOfBirth": "Geburtsdatum",
+  "location": "Ort",
+  "bio": "Über mich",
+  "role": "Rolle",
+  "user": "Benutzer:in",
+  "owner": "Eigentümer:in",
+  "agent": "Makler:in",
+
+  "userInfo": "Benutzerdaten",
+
+  "sidebar": {
+    "sectionProfile": "Profil",
+    "sectionMessages": "Kommunikation",
+    "profile": "Profil",
+    "account": "Konto & Sicherheit",
+    "messages": "Kontaktanfragen"
   },
+
+ 
+
+  "messages": {
+    "title": "Kontaktanfragen",
+    "subtitle": "Hier sehen Sie Anfragen von Interessent:innen zu Ihren Inseraten.",
+    "loading": "Kontaktanfragen werden geladen…",
+    "emptyTitle": "Noch keine Anfragen.",
+    "emptyText": "Sobald Interessent:innen das Formular ausfüllen, erscheinen die Anfragen hier.",
+    "unknownSender": "Unbekannter Kontakt",
+    "openListing": "Zum Inserat",
+    "replyEmail": "Per E-Mail antworten"
+  },
+
+  "stats": {
+    "title": "Statistiken",
+    "totalListings": "Gesamtanzahl der Anzeigen",
+    "published": "Veröffentlicht",
+    "pending": "In Bearbeitung",
+    "rejected": "Abgelehnt"
+  },
+
+  "toast": {
+    
+    "saved": "Änderungen erfolgreich gespeichert."
+  },
+
+  
+
+
+ 
 
  
 
@@ -35,8 +89,33 @@
     "saveChanges": "Änderungen speichern"
   },
 
- 
+ "title": "Mein Profil",
   "description": "Verwalten Sie Ihre persönlichen Angaben, Foto und Präferenzen.",
+  "loading": "Profil wird geladen…",
+  "unsavedChanges": "Nicht gespeicherte Änderungen",
+ 
+ 
+  "error": {
+    "notLoggedIn": "Sie sind abgemeldet.",
+    "loadFailed": "Fehler beim Laden der Profildaten.",
+    "saveFailed": "Die Änderungen konnten nicht gespeichert werden.",
+    "nameRequired": "Bitte geben Sie einen Namen an.",
+    "futureDate": "Das Geburtsdatum darf nicht in der Zukunft liegen."
+  },
+ 
+  "banner": {
+    "text": "Kontaktanfragen zu Ihren Immobilien finden Sie im Bereich „Kontaktanfragen“.",
+    "button": "Zu den Kontaktanfragen"
+  },
+
+  "account": {
+    "title": "Konto & Sicherheit",
+    "subtitle": "Verwalten Sie hier Sicherheit, Passwort, Zwei-Faktor-Authentifizierung und Login-Optionen.",
+    "hintEmail": "Ihre E-Mail-Adresse wird für Login, Benachrichtigungen und Kontaktanfragen verwendet.",
+    "hintPassword": "Passwortänderungen erfolgen über den Link in der E-Mail zur Passwortzurücksetzung."
+  },
+ 
+ 
     
   "change": "Ändern",
   "avatar": "Avatar",
@@ -51,10 +130,7 @@
   
  
 
-  "firstName": "Vorname",
-  "lastName": "Nachname",
  
-  "location": "Ort",
 
 
  
@@ -76,29 +152,26 @@
   "myListings": "Meine Immobilien",
   "settings": "Einstellungen",
 
-  "userInfo": "Benutzerinformationen",
+  
 
-  "dateOfBirth": "Geburtsdatum",
-  "role": "Rolle",
+  
   "profilePicture": "Profilbild",
-  "stats": "Statistiken",
+  
   "totalListings": "Gesamtanzahl der Anzeigen",
   "published": "Veröffentlicht",
   "pending": "In Bearbeitung",
   "rejected": "Abgelehnt",
-  "messages": "Nachrichten",
+  
   "noMessages": "Sie haben keine Nachrichten.",
   "myProfile": "Mein Profil",
   
   "viewPublicProfile": "Öffentliches Profil anzeigen",
-  "name": "Name",
-  "email": "E-Mail",
-  "phone": "Telefonnummer",
+ 
   "address": "Adresse",
-  "bio": "Biografie",
+  
   "save": "Speichern",
   
-  "cancel": "Abbrechen",
+ 
   "changePhoto": "Foto ändern",
   "removePhoto": "Foto entfernen",
   "updateSuccess": "Profil erfolgreich aktualisiert.",
@@ -111,24 +184,15 @@
 "unsupportedImageType": "Nur JPG, PNG oder WEBP erlaubt.",
 "imageTooLarge": "Bild ist größer als 5 MB.",
 
-  "saveChanges": "Änderungen speichern",
+  
 
   "uploadPhoto": "Foto hochladen",
   
-  "success": "erfolgreich!",
+  "success": "erfolgreich!"
  
-  "error": {
-    "noUser": "Kein Benutzer angemeldet.",
-    "fetchingData": "Fehler beim Laden der Profildaten.",
-    "saveFailed": "Speichern fehlgeschlagen. Bitte versuchen Sie es erneut.",
-    "nameRequired": "Name ist erforderlich",
-    "futureDate": "Geburtsdatum kann nicht in der Zukunft liegen"
-  },
+ 
+  
 
-  "loading": "Ihr Profil wird geladen...",
-
-  "user": "Benutzer",
-  "owner": "Eigentümer",
-  "agent": "Makler"
+ 
 }
 

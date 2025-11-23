@@ -1,20 +1,46 @@
 {
-  "title": "Rent",
-  "description": "Explore our rental listings, perfect for every lifestyle and budget. Find your new home today.",
-      "rent": {
-        "title": "Find Rental Apartments and Houses",
-        "description": "Explore available rentals in your preferred region.",
-        "metaTitle": "Rent apartments & houses in Germany – MyHome24App",
-  "metaDescription": "Find rentals across Germany. Map view, smart filters and compare.",
-        "filters": {
-            "monthlyRent": "Monthly Rent",
-            "propertyType": "Property Type",
-            "furnished": "Furnished",
-            "petsAllowed": "Pets Allowed"
-        },
-        "actions": {
-            "applyNow": "Apply Now",
-            "viewMore": "View More"
-        }
+  "metaTitle": "Rent apartments & houses in Germany – MyHome24App",
+  "metaDescription": "Find rental apartments and houses all across Germany. Map view, smart filters and comparison – as fast as Zillow, localized for the German market.",
+  "hero": {
+    "badge": "Rentals across Germany",
+    "title": "Modern apartments & houses for rent – tailored to your life",
+    "subtitle": "Use smart filters, map view and your personal favorites list to find the rental property that fits your daily life, budget and future plans.",
+    "ctaPrimary": "View rentals on the map",
+    "ctaSecondary": "Learn more about rentals",
+    "highlight": {
+      "label": "Live search",
+      "title": "Rental offers in your preferred area",
+      "text": "Filter by city, budget, size and features – and compare properties just like on the big portals.",
+      "chips": "1,200+",
+      "chipsLabel": "rental offers planned*",
+      "rooms": "1–5 rooms",
+      "roomsLabel": "From studios to family homes",
+      "flex": "Flexible",
+      "flexLabel": "Short- & long-term rentals planned"
     }
+  },
+  "benefits": {
+    "title": "Why search for your rental with MyHome24App?",
+    "intro": "Our platform helps you quickly gain an overview of suitable rental offers – with clear information, transparent presentation and features you know from modern real-estate portals.",
+    "items": [
+      {
+        "title": "Wide range of rental properties",
+        "text": "Discover apartments, houses and commercial spaces in different German cities – sorted by location, price, size and features."
+      },
+      {
+        "title": "Transparent pricing & filters",
+        "text": "Use filters for cold rent, total rent, number of rooms, living space, year of construction and more. This way you only see offers that really match your needs."
+      },
+      {
+        "title": "Fast contact to the provider",
+        "text": "Send requests directly via the contact form of the listing. Owners and agents receive your message centrally in their profile area."
+      }
+    ]
+  },
+  "mapSection": {
+    "title": "Discover rental offers directly on the map",
+    "text": "Move the map, apply filters to your profile and instantly see which apartments and houses are available. Click on a marker to open the full details of the listing.",
+    "button": "Open rental map view",
+    "buttonMobile": "Show rentals on the map"
+  }
 }

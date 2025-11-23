@@ -1,62 +1,44 @@
 // src/components/profile/AccountSidebar.jsx
 import React from "react";
-import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-export default function AccountSidebar() {
+const AccountSidebar = ({ activeTab }) => {
   const { t } = useTranslation("profile");
-  const [sp, setSp] = useSearchParams();
-  const active = sp.get("tab") || "profile";
 
-  const items = [
-    { key: "profile", label: t("tabs.profile"), href: "/profile?tab=profile" },
-    { key: "account", label: t("tabs.account"), href: "/profile?tab=account" },
-    { key: "privacy", label: t("tabs.privacy"), href: "/profile?tab=privacy" },
-    { key: "notifications", label: t("tabs.notifications"), href: "/profile?tab=notifications" },
-    { key: "savedHomes", label: t("tabs.savedHomes"), href: "/profile?tab=savedHomes" },
-    { key: "savedSearches", label: t("tabs.savedSearches"), href: "/profile?tab=savedSearches" }
-  ];
-
-  const setTab = (k) => { sp.set("tab", k); setSp(sp, { replace: true }); };
+  const itemClasses = (isActive) =>
+    `w-full text-left px-4 py-2 rounded-xl text-sm font-medium mb-2 transition
+     ${
+       isActive
+         ? "bg-blue-600 text-white shadow"
+         : "bg-gray-900/40 text-gray-200 hover:bg-gray-800"
+     }`;
 
   return (
-    <aside className="w-full md:w-60 shrink-0">
-      {/* mobile pills */}
-      <div className="md:hidden mb-3 flex gap-2 overflow-x-auto">
-        {items.map((it) => (
-          <button
-            key={it.key}
-            onClick={() => setTab(it.key)}
-            className={`px-3 py-1.5 rounded-full border text-sm ${
-              active === it.key
-                ? "bg-blue-600 text-white border-blue-600"
-                : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border-gray-300 dark:border-gray-700"
-            }`}
-          >
-            {it.label}
-          </button>
-        ))}
-      </div>
+    <aside className="hidden md:block w-64 shrink-0">
+      <div className="bg-gray-950/80 border border-gray-800 rounded-2xl p-4 space-y-4">
+        <div className="text-xs font-semibold uppercase text-gray-500 tracking-wide mb-2">
+          {t("sidebar.sectionProfile") || "Profil"}
+        </div>
 
-      {/* desktop list */}
-      <nav className="hidden md:block">
-        <ul className="space-y-1">
-          {items.map((it) => (
-            <li key={it.key}>
-              <button
-                onClick={() => setTab(it.key)}
-                className={`w-full text-left px-3 py-2 rounded-lg transition ${
-                  active === it.key
-                    ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-                    : "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200"
-                }`}
-              >
-                {it.label}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
+        <Link to="/profile?tab=profile" className={itemClasses(activeTab === "profile")}>
+          {t("sidebar.profile") || "Profil"}
+        </Link>
+
+        <Link to="/profile?tab=account" className={itemClasses(activeTab === "account")}>
+          {t("sidebar.account") || "Konto & Sicherheit"}
+        </Link>
+
+        <div className="pt-4 mt-2 border-t border-gray-800 text-xs font-semibold uppercase text-gray-500 tracking-wide">
+          {t("sidebar.sectionMessages") || "Kommunikation"}
+        </div>
+
+        <Link to="/profile?tab=messages" className={itemClasses(activeTab === "messages")}>
+          {t("sidebar.messages") || "Kontaktanfragen"}
+        </Link>
+      </div>
     </aside>
   );
-}
+};
+
+export default AccountSidebar;

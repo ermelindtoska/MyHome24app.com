@@ -59,7 +59,7 @@ const RegisterForm = () => {
       // Dërgo verifikimin përmes REST
       const apiKey =
         (auth?.app?.options && auth.app.options.apiKey) ||
-        import.meta.env.VITE_FIREBASE_API_KEY || process.env.REACT_APP_FIREBASE_API_KEY;
+        process.env.REACT_APP_FIREBASE_API_KEY;
 
       if (!apiKey) throw new Error("Missing Firebase API key.");
 

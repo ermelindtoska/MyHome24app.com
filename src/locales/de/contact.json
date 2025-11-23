@@ -1,5 +1,5 @@
 {
-  "title": "Kontakt Eigentümer*in",
+  
   "object": "Objekt",
   "description": "Hier könnten Kontaktdaten oder ein Formular stehen.",
   "close": "Schließen",
@@ -8,7 +8,73 @@
   "emailLabel": "Ihre E-Mail-Adresse",
   "messageLabel": "Ihre Nachricht",
   "sendButton": "Absenden",
+  "page": {
+    "title": "Kontakt",
+    "description": "Sie haben Fragen zu MyHome24App, zu Neubau-Projekten oder benötigen Unterstützung? Unser Team hilft Ihnen gerne weiter.",
+    "contactInfo": "Unsere Kontaktdaten",
+    "contactInfoText": "Sie erreichen uns per E-Mail, telefonisch oder über das Formular. Wir melden uns so schnell wie möglich bei Ihnen.",
+    "hintTitle": "Hinweis",
+    "hintText": "Bitte senden Sie keine sensiblen Daten (z.B. Konto- oder Ausweisdaten) über dieses Formular."
+  },
+    "chat": {
+    "loginHint": "Bitte melden Sie sich an, um den Chat mit der Eigentümer:in zu nutzen.",
+    "title": "Nachricht an Verkäufer:in",
+    "placeholder": "Nachricht schreiben …",
+    "send": "Senden",
+    "empty": "Noch keine Nachrichten. Stellen Sie Ihre erste Frage zur Immobilie."
+  },
 
+  "topics": {
+    "general": {
+      "label": "Allgemeine Anfrage",
+      "headline": "Kontakt zu MyHome24App",
+      "description": "Für allgemeine Fragen zur Plattform, Ihrem Konto oder technischen Themen können Sie uns hier eine Nachricht senden.",
+      "defaultSubject": "Allgemeine Anfrage über MyHome24App"
+    },
+    "neubau": {
+      "label": "Neubau-Projekt",
+      "headline": "Fragen zu Ihrem Neubau-Projekt?",
+      "description": "Sie planen einen Neubau oder interessieren sich für Neubau-Immobilien in Deutschland? Beschreiben Sie kurz Ihr Vorhaben – wir unterstützen Sie bei der ersten Orientierung.",
+      "defaultSubject": "Anfrage zu einem Neubau-Projekt"
+    }
+  },
+
+  "form": {
+    "title": "Nachricht an MyHome24App",
+    "name": "Name",
+    "email": "E-Mail",
+    "subject": "Betreff",
+    "message": "Nachricht",
+    "send": "Nachricht senden",
+    "sending": "Wird gesendet…",
+    "success": "Vielen Dank! Wir haben Ihre Nachricht erhalten.",
+    "error": "Ups, etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut.",
+    "defaultSubject": "Ihre Anfrage über MyHome24App"
+  },
+
+  "contactForm": {
+    "contactOwner": "Kontakt zur Eigentümer:in",
+    "name": "Name",
+    "email": "E-Mail",
+    "message": "Nachricht",
+    "send": "Nachricht senden",
+    "successMessage": "Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet."
+  },
+
+  "title": "Verkäufer kontaktieren",
+  "fields": {
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefonnummer",
+    "message": "Nachricht"
+  },
+  "buttons": {
+    "cancel": "Abbrechen",
+    "send": "Senden",
+    "sending": "Wird gesendet…"
+  },
+  "success": "Ihre Nachricht wurde erfolgreich gesendet.",
+  "error": "Beim Senden ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
     "contactUs": "Kontaktieren Sie uns",
   "fullName": "Vollständiger Name",
   "email": "E-Mail-Adresse",

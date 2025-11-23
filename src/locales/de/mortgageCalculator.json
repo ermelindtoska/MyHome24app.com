@@ -1,0 +1,182 @@
+{
+  "metaTitle": "Hypothekenrechner – Monatsrate und Gesamtkosten berechnen",
+  "metaDescription": "Berechnen Sie Ihre monatliche Kreditrate, Zinskosten und Gesamtlaufzeit – inkl. rechtlicher Hinweise und Kontaktmöglichkeit zu Finanzierungspartner:innen.",
+  
+   "hero": {
+    "badge": "Finanzierung planen",
+    "title": "Was kostet Ihr Zuhause im Monat?",
+    "subtitle": "Unser Hypothekenrechner hilft Ihnen bei einer ersten Orientierung. So sehen Sie schnell, welche Monatsrate für Ihr Budget realistisch sein könnte.",
+    "imgAlt": "Haus mit Hypothekenrechner"
+  },
+  "form": {
+    "title": "Eckdaten der Finanzierung",
+    "purchasePriceLabel": "Kaufpreis der Immobilie",
+    "purchasePricePlaceholder": "z. B. 450000",
+    
+    "downPaymentPlaceholder": "z. B. 90000",
+    
+    
+    
+        "purchasePriceSuffix": "€",
+    "downPaymentLabel": "Eigenkapital",
+    "downPaymentSuffix": "€",
+    "interestLabel": "Sollzinssatz p. a.",
+    "interestSuffix": "%",
+    "termLabel": "Laufzeit",
+    "termSuffix": "Jahre",
+    "calculateButton": "Monatsrate berechnen",
+    "resetButton": "Zurücksetzen auf Beispielwerte"
+    
+  },
+    "errors": {
+      "priceRequired": "Bitte geben Sie den Kaufpreis ein.",
+      "interestRequired": "Bitte geben Sie einen Zinssatz ein.",
+      "termRequired": "Bitte wählen Sie eine Laufzeit.",
+      "numbersOnly": "Bitte geben Sie gültige Zahlen ein."
+    },
+  "results": {
+    "title": "Ergebnis (vereinfachte Beispielrechnung)",
+    "loanAmountLabel": "Darlehensbetrag",
+    "disclaimer": "Alle Werte sind unverbindliche Rechenbeispiele und ersetzen keine individuelle Finanzierungsberatung durch Bank oder Vermittler.",
+    "monthlyPayment": "Voraussichtliche Monatsrate",
+    "loanAmount": "Darlehensbetrag",
+    "totalInterest": "Gesamte Zinskosten über die Laufzeit",
+    "totalPayment": "Gesamtzahlung (Tilgung + Zinsen)",
+     "totalInterestLabel": "Gesamte Zinskosten über die Laufzeit",
+    "totalPaymentLabel": "Gesamtzahlung (Tilgung + Zinsen)",
+    "currency": "€"
+  },
+  "featuresTitle": "Warum dieser Rechner hilfreich ist",
+  "features": [
+    {
+      "title": "Schnelle Orientierung",
+      "text": "Sehen Sie in Sekunden, ob ein Objekt ungefähr in Ihr Budget passt – noch bevor Sie ein offizielles Angebot einholen."
+    },
+    {
+      "title": "Transparente Aufschlüsselung",
+      "text": "Monatsrate, Gesamtkosten und Zinsen werden getrennt dargestellt, damit Sie die Belastung besser einschätzen können."
+    },
+    {
+      "title": "Spielerisch Szenarien testen",
+      "text": "Passen Sie Zinssatz, Eigenkapital und Laufzeit an und sehen Sie sofort, wie sich die Rate verändert."
+    },
+    {
+      "title": "Basis für Beratung",
+      "text": "Die Ergebnisse können Sie als Gesprächsgrundlage mit Bank, Finanzierungsberater:in oder Steuerberatung nutzen."
+    }
+  ],
+  "legalTitle": "Wichtige rechtliche Hinweise",
+  "legalText": "Der Rechner stellt eine unverbindliche, stark vereinfachte Beispielrechnung dar. Er ersetzt keine rechtliche, steuerliche oder finanzielle Beratung.",
+  "legalNotes": [
+    "Es handelt sich um eine stark vereinfachte Beispielrechnung ohne Anspruch auf Vollständigkeit.",
+    "Individuelle Kreditkonditionen (Zinssatz, Gebühren, Sondertilgung, Zinsbindung usw.) werden von Banken und Finanzierungsvermittler:innen festgelegt.",
+    "Die Berechnung stellt weder eine Finanzierungszusage noch eine Empfehlung im aufsichtsrechtlichen Sinn dar.",
+    "Für eine verbindliche Auskunft wenden Sie sich bitte an Ihre Bank, einen zugelassenen Finanzierungsvermittler oder Ihre Steuerberatung.",
+    "MyHome24App vermittelt derzeit keine eigenen Darlehen, sondern bietet lediglich eine unverbindliche Orientierungs­hilfe."
+  ],
+    "legalPoints": [
+    "MyHome24App vergibt selbst keine Darlehen und erteilt keine Anlage- oder Steuerberatung.",
+    "Für eine verbindliche Auskunft wenden Sie sich bitte an Ihre Bank, Finanzierungsvermittler:in oder Steuerberatung.",
+    "Regulatorische Pflichten (z. B. nach § 34i GewO) liegen bei den jeweiligen Finanzierungsanbieter:innen."
+  ],
+  "partnerSection": {
+    "title": "Mit Finanzierungspartner:innen zusammenarbeiten",
+    "text": "Sie sind Bank, Finanzierungsvermittler:in oder unabhängige:r Berater:in und möchten Ihren Kund:innen über MyHome24App Finanzierungen anbieten? Wir planen eine Partnersektion, in der seriöse Anbieter:innen ihre Dienste präsentieren können.",
+    "ctaPrimary": "Partner:in für Finanzierung werden",
+    "ctaSecondary": "Kontakt zur Plattform aufnehmen"
+  },
+  
+    "partner": {
+    "title": "Mit Finanzierungspartner:innen zusammenarbeiten",
+    "subtitle": "Sie sind Bank, Finanzierungsvermittler:in oder unabhängige:r Berater:in und möchten Ihren Kund:innen über MyHome24App Finanzierungen anbieten?",
+    "banksTitle": "Für Banken",
+    "banksText": "Präsentieren Sie Ihre regionalen oder bundesweiten Finanzierungslösungen direkt bei den passenden Immobilien.",
+    "brokersTitle": "Für Vermittler:innen",
+    "brokersText": "Bieten Sie persönliche Beratung für komplexe Finanzierungsvorhaben – transparent und auf Augenhöhe.",
+    "clientsTitle": "Für Kund:innen",
+    "clientsText": "Nutzer:innen finden schneller die passende Ansprechperson und sparen Zeit bei der Suche nach Angeboten.",
+    "buttonBecomePartner": "Partner:in für Finanzierung werden",
+     "buttonSendLead": "Unverbindliche Finanzierungsanfrage speichern",
+    "buttonSeePartners": "Mehr über Finanzierungspartner:innen",
+    "leadSuccess": "Ihre Finanzierungsanfrage wurde gespeichert. Dieser Rechner ersetzt keine Finanzierungsberatung – unsere Partner:innen melden sich bei Bedarf.",
+    "leadError": "Die Anfrage konnte nicht gespeichert werden. Bitte versuchen Sie es später erneut.",
+  
+    "buttonContactPlatform": "Kontakt zur Plattform aufnehmen"
+  },
+  
+  "partnerCallouts": [
+    {
+      "title": "Für Banken",
+      "text": "Präsentieren Sie Ihre regionalen oder bundesweiten Finanzierungslösungen direkt bei den passenden Immobilien."
+    },
+    {
+      "title": "Für Vermittler:innen",
+      "text": "Bieten Sie persönliche Beratung für komplexe Finanzierungsfälle an – transparent und auf Augenhöhe."
+    },
+    {
+      "title": "Für Kund:innen",
+      "text": "Nutzer:innen finden schneller die passende Ansprechperson und sparen Zeit bei der Suche nach Angeboten."
+    }
+  ],
+  "partnerPage": {
+    "seoTitle": "Finanzierungspartner:in werden – MyHome24App",
+    "seoDescription": "Informationen für Banken, Vermittler:innen und Berater:innen, die über MyHome24App Finanzierungen anbieten möchten.",
+    "hero": {
+      "badge": "Für Banken & Vermittler:innen",
+      "title": "Ihre Finanzierungslösungen dort, wo Kund:innen nach Immobilien suchen",
+      "subtitle": "MyHome24App verbindet Immobiliensuche mit ersten Finanzierungsideen. Werden Sie Teil unseres Partnernetzwerks und präsentieren Sie Ihre Angebote genau im richtigen Kontext.",
+      "imgAlt": "Finanzierungspartner besprechen Unterlagen"
+    },
+    "intro": "Wir planen eine eigene Partnersektion, in der seriöse Anbieter:innen ihre Finanzierungsangebote transparent und vergleichbar vorstellen können. Gemeinsam möchten wir Nutzer:innen helfen, schneller den richtigen Finanzierungskontakt zu finden – ohne die persönliche Beratung zu ersetzen.",
+    "segments": [
+      {
+        "title": "Für Banken",
+        "text": "Steigern Sie Ihre Sichtbarkeit bei Interessent:innen, die aktiv nach Immobilien suchen, und platzieren Sie Ihre Konditionsmodelle im passenden Umfeld."
+      },
+      {
+        "title": "Für Vermittler:innen",
+        "text": "Positionieren Sie sich als Ansprechpartner:in für komplexe Fälle – von der Erstberatung bis zur Begleitung durch den Finanzierungsprozess."
+      },
+      {
+        "title": "Für Berater:innen",
+        "text": "Nutzen Sie den Rechner als Gesprächsgrundlage und ordnen Sie gemeinsam mit Ihren Kund:innen Chancen und Risiken ein."
+      }
+    ],
+    "benefits": [
+      {
+        "title": "Qualifizierte Anfragen",
+        "text": "Nutzer:innen beschäftigen sich bereits mit Budget und Rate, bevor sie Kontakt aufnehmen – das spart Zeit in der Erstberatung."
+      },
+      {
+        "title": "Klarer Rechtsrahmen",
+        "text": "Alle verbindlichen Angebote erfolgen ausschließlich durch Sie als regulierten Anbieter. MyHome24App dient als unverbindliche Orientierungshilfe."
+      },
+      {
+        "title": "Gemeinsame Weiterentwicklung",
+        "text": "Wir entwickeln die Plattform mit unseren Partner:innen weiter – von neuen Rechner-Funktionen bis zu Informations­bereichen für Kund:innen."
+      }
+    ],
+    "faqTitle": "Häufige Fragen zur Zusammenarbeit",
+    "faq": [
+      {
+        "q": "Ersetzt der Rechner eine Beratung?",
+        "a": "Nein. Der Rechner bietet lediglich eine überschlägige Beispielrechnung. Eine persönliche Beratung durch Bank, Vermittler:in oder Steuerberatung bleibt unverzichtbar."
+      },
+      {
+        "q": "Wer ist Vertragspartner der Kund:innen?",
+        "a": "Vertragspartner für Darlehensverträge sind ausschließlich die jeweiligen Banken oder Finanzierungsvermittler:innen, nicht MyHome24App."
+      },
+      {
+        "q": "Wie läuft eine Zusammenarbeit ab?",
+        "a": "Nach Ihrer Kontaktaufnahme sprechen wir gemeinsam über Ziele, Zielgruppen und mögliche Integrationsformen. Anschließend prüfen wir, ob und wie eine Kooperation sinnvoll ist."
+      }
+    ],
+    "cta": {
+      "primary": "Kontakt wegen Kooperation aufnehmen",
+      "secondary": "Zum Hypothekenrechner",
+      "registerHint": "Interesse an künftiger Partner-Registrierung melden"
+    },
+    "footerTitle": "Interesse an einer Zusammenarbeit?",
+    "footerText": "Schreiben Sie uns kurz, welche Produkte Sie anbieten und für welche Regionen Sie zuständig sind. Wir melden uns mit Vorschlägen für mögliche Kooperationsmodelle."
+  }
+}

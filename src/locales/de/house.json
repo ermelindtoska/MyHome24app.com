@@ -1,9 +1,11 @@
 {
   "imgAlt": "Modernes Wohnzimmer in einem Einfamilienhaus",
-  "hero": {
-    "badge": "Haus mieten",
-    "title": "Familienfreundliche Häuser zur Miete in Deutschland",
-    "subtitle": "Mehr Platz, eigene vier Wände und ein Stück Garten – ohne sich direkt fest an eine Immobilie binden zu müssen."
+   "hero": {
+    "badge": "Familienfreundliche Häuser",
+    "title": "Häuser zur Miete – mehr Platz für Ihr Leben",
+    "subtitle": "Entdecken Sie Reihenhäuser, Doppelhaushälften und Einfamilienhäuser in guten Lagen – mit klaren Infos, Karte und direkter Kontaktaufnahme.",
+    "overlayTitle": "Miete im Blick behalten",
+    "overlaySubtitle": "Sehen Sie Lage, Ausstattung und Mietpreis auf einen Blick – bevor Sie eine Besichtigung anfragen."
   },
   "introText": "Mit einem Miethaus kombinieren Sie Flexibilität mit dem Wohngefühl eines eigenen Zuhauses. Ideal für Familien, Paare mit Platzbedarf oder Menschen, die ruhig und zugleich gut angebunden wohnen möchten.",
   "perksTitle": "Ihre Vorteile mit einem Miethaus",
@@ -47,6 +49,7 @@
     "primary": "Miethäuser anzeigen",
     "secondary": "Zu Kaufangeboten wechseln"
   },
+  
   "seo": {
     "title": "Haus mieten – familienfreundliche Mietshäuser | MyHome24App",
     "description": "Entdecken Sie familienfreundliche Häuser zur Miete in ganz Deutschland. Nutzen Sie Filter, Merkliste und Vergleich, um Ihr passendes Miethaus mit MyHome24App zu finden."
