@@ -14,6 +14,7 @@ const FIREBASE_PROJECT_ID = defineSecret('FIREBASE_PROJECT_ID');
 
 // 🔐 Sekreti për SendGrid
 const SENDGRID_API_KEY = defineSecret('SENDGRID_API_KEY');
+const DEFAULT_ADMIN_EMAIL = 'kontakt@myhome24app.com';
 
 // 🧠 Funksion për inicializim të Firebase Admin brenda funksioneve
 function initializeAdminIfNeeded() {
@@ -128,6 +129,129 @@ ${contact.message}
       logger.log(`✅ Contact email sent to: ${contact.ownerEmail}`);
     } catch (error) {
       logger.error('❌ SendGrid error:', error?.response?.body || error);
+    }
+  }
+);
+// ---------------------------
+
+// ---------------------------
+exports.sendRoleUpgradeRequestNotificationFinalV2 = onDocumentCreated(
+  {
+    region: 'us-central1',
+    document: 'roleUpgradeRequests/{requestId}',
+    secrets: [
+      SENDGRID_API_KEY,
+      FIREBASE_PRIVATE_KEY,
+      FIREBASE_CLIENT_EMAIL,
+      FIREBASE_PROJECT_ID,
+    ],
+    memory: '256MiB',
+    timeoutSeconds: 60,
+  },
+  async (event) => {
+    initializeAdminIfNeeded();
+
+    const requestData = event.data?.data();
+    const requestId = event.params?.requestId;
+
+    if (!requestData) {
+      logger.error('❌ Missing roleUpgradeRequests data');
+      return;
+    }
+
+    const {
+      userId,
+      fullName,
+      email,
+      targetRole,
+      reason,
+      requestedAt,
+      source,
+    } = requestData;
+
+    // Fokus: vetëm kërkesa për "agent"
+    if (targetRole !== 'agent') {
+      logger.log(
+        `[sendRoleUpgradeRequestNotificationFinalV2] targetRole=${targetRole}, skipping email (only "agent" handled).`
+      );
+      return;
+    }
+
+    // Konfiguro SendGrid
+    sgMail.setApiKey(SENDGRID_API_KEY.value());
+
+    const requestDate = requestedAt?.toDate
+      ? requestedAt.toDate().toLocaleString('de-DE')
+      : 'kein Datum';
+
+    const toEmail = DEFAULT_ADMIN_EMAIL; // admin-i që merr njoftimin
+
+    const subject = 'Neue Rollenfreigabe-Anfrage als Makler:in';
+
+    const textBody = `
+Hallo Admin-Team,
+
+es liegt eine neue Anfrage zur Rollenfreigabe als Makler:in vor.
+
+Benutzer-ID: ${userId || '-'}
+Name:       ${fullName || '-'}
+E-Mail:     ${email || '-'}
+
+Zielrolle:  ${targetRole || '-'}
+Quelle:     ${source || '-'}
+Grund:      ${reason || '-'}
+Angefragt am: ${requestDate}
+
+Bitte prüft die Angaben im Admin-Dashboard (Bereich Rollen / Agenten)
+und entscheidet über Freigabe oder Ablehnung.
+
+Viele Grüße
+MyHome24App – Systembenachrichtigung
+    `.trim();
+
+    const htmlBody = `
+      <p>Hallo Admin-Team,</p>
+      <p>es liegt eine neue Anfrage zur Rollenfreigabe als <strong>Makler:in</strong> vor.</p>
+
+      <h3>Benutzerdaten</h3>
+      <ul>
+        <li><strong>Benutzer-ID:</strong> ${userId || '-'}</li>
+        <li><strong>Name:</strong> ${fullName || '-'}</li>
+        <li><strong>E-Mail:</strong> ${email || '-'}</li>
+      </ul>
+
+      <h3>Anfrage</h3>
+      <ul>
+        <li><strong>Zielrolle:</strong> ${targetRole || '-'}</li>
+        <li><strong>Quelle:</strong> ${source || '-'}</li>
+        <li><strong>Grund:</strong> ${reason || '-'}</li>
+        <li><strong>Angefragt am:</strong> ${requestDate}</li>
+      </ul>
+
+      <p>Bitte prüft die Angaben im <strong>Admin-Dashboard</strong> (Bereich Rollen / Agenten)
+      und entscheidet über Freigabe oder Ablehnung.</p>
+
+      <p>Viele Grüße,<br/>MyHome24App – Systembenachrichtigung</p>
+    `;
+
+    const msg = {
+      to: toEmail,
+      from: 'noreply@myhome24app.com', // sender që e ke tashmë te funksionet e tjera
+      subject,
+      text: textBody,
+      html: htmlBody,
+    };
+
+    try {
+      await sgMail.send(msg);
+      logger.log(
+        `✅ Role upgrade email sent to admin for requestId=${requestId}, userId=${userId}`
+      );
+    } catch (error) {
+      logger.error(
+        '❌ SendGrid error in sendRoleUpgradeRequestNotificationFinalV2:',
+        error?.response?.body || error
+      );
     }
   }
 );

@@ -1,0 +1,155 @@
+{
+ 
+    "metaTitle": "Register as an agent on MyHome24App",
+  "metaDescription": "Create your agent profile and receive qualified enquiries via MyHome24App.",
+  "badge": "For agents",
+  "title": "Become visible as an agent",
+  "intro": "With a profile on MyHome24App you reach active clients who are looking exactly for your expertise.",
+
+  "hero": {
+    "badge": "For agents",
+    "title": "Join MyHome24App as an agent",
+    "subtitle": "Create a professional profile, upload your documents and let our team verify your account.",
+    "highlight1": "Verified profiles to build trust with clients.",
+    "highlight2": "Qualified enquiries instead of random contacts.",
+    "highlight3": "Transparent presentation of your specialisations and regions."
+  },
+   "header": {
+    "badge": "For agents",
+    "title": "Become visible as an agent",
+    "subtitle": "With a profile on MyHome24App you reach active buyers and renters who are specifically looking for your expertise."
+  },
+
+  "form": {
+    "headingProfile": "Basic information",
+    "headingProfileHint": "These details will be shown on your public agent profile.",
+    
+     "sectionTitle": "Profile details",
+    "fullNameLabel": "Full name",
+    "emailLabel": "E-mail",
+   
+    "cityLabel": "City",
+    "stateLabel": "State / region",
+    "regionsLabel": "Regions / areas covered",
+    
+    "languagesLabel": "Languages spoken",
+    
+    "experienceLabel": "Years of experience",
+    "licenseLabel": "Licence number (optional)",
+   
+   
+    "bioPlaceholder": "Briefly describe your focus, how you work and which clients you are a particularly good fit for.",
+    "phoneLabel": "Phone number",
+    "agencyLabel": "Agency / company",
+    "websiteLabel": "Website",
+       "title": "Profile details",
+    "fullName": "Full name",
+    "email": "Email",
+    "phone": "Phone number",
+    "city": "City",
+    "federalState": "Federal state",
+    "federalStatePlaceholder": "e.g. Berlin, Bavaria, NRW …",
+    "regions": "Regions / areas",
+    "regionsPlaceholder": "e.g. Berlin-Mitte, Potsdam, surrounding area (comma separated)",
+    "languages": "Languages spoken",
+    "languagesPlaceholder": "e.g. German, English, Turkish (comma separated)",
+    "experienceYears": "Years of experience",
+    "licenseNumber": "Licence number (optional)",
+    "agencyName": "Agency / company (optional)",
+    "about": "Short bio / about",
+    "aboutPlaceholder": "Briefly describe your focus areas, way of working and target groups.",
+    
+    "submitting": "Saving profile …",
+    "success": "Thank you! Your agent profile has been submitted and will be reviewed by MyHome24App.",
+    "errorGeneric": "An error occurred while saving. Please try again.",
+    
+    "headingExperience": "Experience & profile",
+    "headingExperienceHint": "The more complete your profile, the easier clients can assess if you are a good fit.",
+    "yearsLabel": "Years of experience",
+    "licenseNumberLabel": "Licence number (if available)",
+    "bioLabel": "Short profile",
+    
+
+    "headingRegions": "Federal states / regions",
+    "regionsHint": "In which federal states are you active? Select all that apply.",
+    "headingLanguages": "Languages spoken",
+    "languagesHint": "Select all languages in which you can advise clients.",
+    "headingSpecialties": "Specialisations",
+    "specialtiesHint": "What are your typical focus areas? (e.g. sales, rentals, new build, investment)",
+
+    "headingDocuments": "Proof & documents",
+    "headingDocumentsHint": "These documents are only used internally for verification and will not be shown publicly.",
+    "profilePhotoLabel": "Profile photo (for your public profile)",
+    "idDocumentLabel": "ID document (ID card / passport)",
+    "licenseDocumentLabel": "Agent licence / permit",
+    "certificateDocumentLabel": "Certificates / additional proof (optional)",
+
+    "consentLabel": "I confirm that my information is correct and that I have read the terms of use.",
+    "consentLink": "terms of use",
+    "submit": "Submit application",
+    "sending": "Submitting…",
+    "backToSearch": "Back to agent search"
+  },
+
+  "success": {
+    "title": "Application submitted successfully",
+    "text": "Thank you! Your profile will now be reviewed by our team. You will receive an email as soon as your account has been approved."
+  },
+
+  "error": {
+    "generic": "An error occurred while saving your application. Please try again later.",
+    "mustAcceptTerms": "Please accept the terms of use.",
+    "requiredFields": "Please fill in all required fields (name, email, phone).",
+    "regionsLanguagesRequired": "Please select at least one federal state and one language."
+  },
+   "actions": {
+    "submit": "Submit request",
+    "submitting": "Submitting...",
+    "backToSearch": "Back to agent search"
+  },
+  "messages": {
+    "success": "Your request has been saved. An administrator will review your information and, if approved, activate you as an agent.",
+    "error": "An error occurred while saving. Please try again.",
+    "notLoggedIn": "You need to be logged in to create an agent profile."
+  },
+  "defaultReason": "User would like to be upgraded to the role 'agent' (request from the 'Become visible as an agent' form).",
+
+  "options": {
+    "languages": {
+      "de": "German",
+      "en": "English",
+      "tr": "Turkish",
+      "sq": "Albanian",
+      "ru": "Russian",
+      "ar": "Arabic"
+    },
+    "regions": {
+      "bw": "Baden-Württemberg",
+      "by": "Bavaria",
+      "be": "Berlin",
+      "bb": "Brandenburg",
+      "hb": "Bremen",
+      "hh": "Hamburg",
+      "he": "Hesse",
+      "mv": "Mecklenburg-Western Pomerania",
+      "ni": "Lower Saxony",
+      "nw": "North Rhine-Westphalia",
+      "rp": "Rhineland-Palatinate",
+      "sl": "Saarland",
+      "sn": "Saxony",
+      "st": "Saxony-Anhalt",
+      "sh": "Schleswig-Holstein",
+      "th": "Thuringia"
+    },
+    "specialties": {
+      "buy": "Buyer advisory",
+      "sell": "Property sales",
+      "rent": "Rentals",
+      "valuation": "Valuation / pricing",
+      "newbuild": "New build projects",
+      "investment": "Investment properties",
+      "commercial": "Commercial real estate",
+      "relocation": "Relocation / moving services"
+    }
+  }
+}

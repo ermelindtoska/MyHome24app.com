@@ -1,6 +1,5 @@
 // src/pages/AdminDashboard.jsx
 import React, { useEffect, useState } from "react";
-import { Helmet } from "react-helmet";
 import {
   getDocs,
   collection,
@@ -20,7 +19,6 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { db } from "../firebase";
-import Breadcrumbs from "../components/Breadcrumbs";
 import { useTranslation } from "react-i18next";
 import ImageModal from "../components/ImageModal";
 import SiteMeta from "../components/SEO/SiteMeta";
@@ -195,13 +193,39 @@ const AdminDashboard = () => {
     }
   };
 
-  // Miratimi i kërkesës: vendos rolin sipas targetRole, fshi kërkesën
-  const handleApproveRequest = async (requestId, userId, targetRole = "owner") => {
+  // ✅ Miratimi i kërkesës: vendos rolin sipas targetRole, fshi kërkesën, shenon agentin si verified nëse targetRole === 'agent'
+  const handleApproveRequest = async (
+    requestId,
+    userId,
+    targetRole = "owner"
+  ) => {
     try {
+      // 1) ndrysho rolin te users/{userId}
       await updateDoc(doc(db, "users", userId), { role: targetRole });
+
+      // 2) nëse targetRole është 'agent' → shëno agentin si verified
+      if (targetRole === "agent") {
+        try {
+          await updateDoc(doc(db, "agents", userId), {
+            verified: true,
+            verifiedAt: serverTimestamp(),
+          });
+        } catch (err) {
+          console.error("Error verifying agent profile:", err);
+        }
+      }
+
+      // 3) fshi kërkesën nga roleUpgradeRequests
       await deleteDoc(doc(db, "roleUpgradeRequests", requestId));
-      setRoleRequests((prev) => prev.filter((req) => req.id !== requestId));
-      await logActivity("Approved role upgrade", `UserID: ${userId} → ${targetRole}`);
+      setRoleRequests((prev) =>
+        prev.filter((req) => req.id !== requestId)
+      );
+
+      // 4) logim
+      await logActivity(
+        "Approved role upgrade",
+        `UserID: ${userId} → ${targetRole}`
+      );
     } catch (err) {
       console.error("Error approving request:", err);
     }
@@ -233,7 +257,9 @@ const AdminDashboard = () => {
 
   const handleMarkResolved = async (id) => {
     try {
-      await updateDoc(doc(db, "supportMessages", id), { status: "resolved" });
+      await updateDoc(doc(db, "supportMessages", id), {
+        status: "resolved",
+      });
       setSupportMessages((prev) =>
         prev.map((msg) =>
           msg.id === id ? { ...msg, status: "resolved" } : msg
@@ -474,12 +500,24 @@ const AdminDashboard = () => {
                 </p>
 
                 <div className="mt-2 text-sm text-gray-800 dark:text-gray-200 space-y-1">
-                  <p><strong>Kaufpreis:</strong> {lead.purchasePrice} €</p>
-                  <p><strong>Eigenkapital:</strong> {lead.downPayment} €</p>
-                  <p><strong>Zinssatz:</strong> {lead.interest} %</p>
-                  <p><strong>Laufzeit:</strong> {lead.termYears} Jahre</p>
-                  <p><strong>Monatsrate:</strong> {lead.monthlyPayment} €</p>
-                  <p><strong>Gesamte Zinskosten:</strong> {lead.totalInterest} €</p>
+                  <p>
+                    <strong>Kaufpreis:</strong> {lead.purchasePrice} €
+                  </p>
+                  <p>
+                    <strong>Eigenkapital:</strong> {lead.downPayment} €
+                  </p>
+                  <p>
+                    <strong>Zinssatz:</strong> {lead.interest} %
+                  </p>
+                  <p>
+                    <strong>Laufzeit:</strong> {lead.termYears} Jahre
+                  </p>
+                  <p>
+                    <strong>Monatsrate:</strong> {lead.monthlyPayment} €
+                  </p>
+                  <p>
+                    <strong>Gesamte Zinskosten:</strong> {lead.totalInterest} €
+                  </p>
 
                   {lead.userId ? (
                     <p className="text-emerald-500">

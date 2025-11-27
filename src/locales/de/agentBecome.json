@@ -1,0 +1,157 @@
+{
+  
+  "hero": {
+    "badge": "Für Makler:innen",
+    "title": "Werden Sie Teil von MyHome24App",
+    "subtitle": "Erstellen Sie ein professionelles Maklerprofil, laden Sie Ihre Nachweise hoch und lassen Sie Ihr Profil von unserem Team verifizieren.",
+    "highlight1": "Geprüfte Profile für mehr Vertrauen bei Interessent:innen.",
+    "highlight2": "Qualifizierte Anfragen statt unpassender Kontakte.",
+    "highlight3": "Transparente Darstellung Ihrer Spezialisierungen und Regionen."
+  },
+    
+  "badge": "Für Makler:innen",
+  "title": "Als Makler:in sichtbar werden",
+  "metaTitle": "Als Makler:in sichtbar werden",
+  "metaDescription": "Legen Sie ein Makler:innen-Profil auf MyHome24App an und erhalten Sie qualifizierte Anfragen von Interessent:innen.",
+  "header": {
+    "badge": "Für Makler:innen",
+    "title": "Als Makler:in sichtbar werden",
+    "subtitle": "Mit einem Profil auf MyHome24App erreichen Sie aktiv suchende Interessent:innen, die genau nach Ihrer Expertise suchen."
+  },
+  "intro": "Mit einem Profil auf MyHome24App erreichen Sie aktive Interessent:innen, die genau nach Ihrer Expertise suchen.",
+
+ 
+  "form": {
+    "headingProfile": "Basisdaten",
+    "headingProfileHint": "Diese Daten werden in Ihrem öffentlichen Maklerprofil angezeigt.",
+   
+    
+    "sectionTitle": "Profilangaben",
+    "fullNameLabel": "Vollständiger Name",
+    "emailLabel": "E-Mail",
+    
+    "cityLabel": "Stadt",
+    "stateLabel": "Bundesland",
+    "regionsLabel": "Regionen / Gebiete",
+   
+    "languagesLabel": "Gesprochene Sprachen",
+    
+    "experienceLabel": "Berufserfahrung in Jahren",
+    "licenseLabel": "Lizenznummer (optional)",
+   
+    
+    "bioPlaceholder": "Beschreiben Sie kurz Ihren Schwerpunkt, Ihre Arbeitsweise und für welche Kund:innen Sie besonders gut geeignet sind.",
+    "phoneLabel": "Telefonnummer",
+    "agencyLabel": "Agentur / Firma",
+    "websiteLabel": "Webseite",
+    "title": "Profilangaben",
+    "fullName": "Vollständiger Name",
+    "email": "E-Mail",
+    "phone": "Telefonnummer",
+    "city": "Stadt",
+    "federalState": "Bundesland",
+    "federalStatePlaceholder": "z. B. Berlin, Bayern, NRW …",
+    "regions": "Regionen / Gebiete",
+    "regionsPlaceholder": "z. B. Berlin-Mitte, Potsdam, Umland (Kommagetrennt)",
+    "languages": "Gesprochene Sprachen",
+    "languagesPlaceholder": "z. B. Deutsch, Englisch, Türkisch (Kommagetrennt)",
+    "experienceYears": "Berufserfahrung in Jahren",
+    "licenseNumber": "Lizenznummer (optional)",
+    "agencyName": "Agentur / Firma (optional)",
+    "about": "Kurzprofil / Über mich",
+    "aboutPlaceholder": "Beschreiben Sie kurz Ihre Schwerpunkte, Arbeitsweise und Zielgruppen.",
+    
+    "submitting": "Profil wird gespeichert …",
+    "success": "Vielen Dank! Ihr Maklerprofil wurde übermittelt und wird von MyHome24App geprüft.",
+    "errorGeneric": "Beim Speichern ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+    
+    "headingExperience": "Erfahrung & Profil",
+    "headingExperienceHint": "Je genauer Ihr Profil ist, desto besser können Interessent:innen Sie einschätzen.",
+    "yearsLabel": "Jahre Berufserfahrung",
+    "licenseNumberLabel": "Lizenznummer (falls vorhanden)",
+    "bioLabel": "Kurzprofil",
+    
+
+    "headingRegions": "Bundesländer / Regionen",
+    "regionsHint": "In welchen Bundesländern sind Sie aktiv? Wählen Sie alle zutreffenden Regionen.",
+    "headingLanguages": "Gesprochene Sprachen",
+    "languagesHint": "Wählen Sie alle Sprachen, in denen Sie Kund:innen beraten können.",
+    "headingSpecialties": "Spezialisierungen",
+    "specialtiesHint": "Was sind Ihre typischen Schwerpunkte? (z.B. Verkauf, Vermietung, Neubau, Kapitalanlage)",
+
+    "headingDocuments": "Nachweise & Dokumente",
+    "headingDocumentsHint": "Diese Dokumente werden nur zur internen Prüfung verwendet und nicht öffentlich angezeigt.",
+    "profilePhotoLabel": "Profilfoto (für Ihr öffentliches Profil)",
+    "idDocumentLabel": "Ausweisdokument (Personalausweis / Reisepass)",
+    "licenseDocumentLabel": "Maklerlizenz / Erlaubnis nach §34c GewO",
+    "certificateDocumentLabel": "Zertifikate / weitere Nachweise (optional)",
+
+    "consentLabel": "Ich bestätige, dass meine Angaben korrekt sind und ich die Nutzungsbedingungen gelesen habe.",
+    "consentLink": "Nutzungsbedingungen",
+    "submit": "Antrag absenden",
+    "sending": "Wird gesendet …",
+    "backToSearch": "Zur Maklersuche zurückkehren"
+  },
+
+  "success": {
+    "title": "Antrag erfolgreich übermittelt",
+    "text": "Vielen Dank! Ihr Profil wird nun von unserem Team geprüft. Sobald Ihr Konto freigeschaltet wurde, erhalten Sie eine Bestätigung per E-Mail."
+  },
+    "actions": {
+    "submit": "Antrag absenden",
+    "submitting": "Wird gesendet...",
+    "backToSearch": "Zur Maklersuche zurückkehren"
+  },
+   "messages": {
+    "success": "Ihr Antrag wurde gespeichert. Eine Administrator:in prüft Ihre Angaben und schaltet Sie bei Freigabe als Makler:in frei.",
+    "error": "Beim Speichern ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+    "notLoggedIn": "Sie müssen eingeloggt sein, um ein Makler:innen-Profil anzulegen."
+  },
+  "defaultReason": "Nutzer:in möchte als Makler:in freigeschaltet werden (Antrag aus dem Formular „Als Makler:in sichtbar werden“).",
+
+  "error": {
+    "generic": "Beim Speichern Ihres Antrags ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.",
+    "mustAcceptTerms": "Bitte bestätigen Sie die Nutzungsbedingungen.",
+    "requiredFields": "Bitte füllen Sie alle Pflichtfelder (Name, E-Mail, Telefon) aus.",
+    "regionsLanguagesRequired": "Bitte wählen Sie mindestens ein Bundesland und eine Sprache aus."
+  },
+
+  "options": {
+    "languages": {
+      "de": "Deutsch",
+      "en": "Englisch",
+      "tr": "Türkisch",
+      "sq": "Albanisch",
+      "ru": "Russisch",
+      "ar": "Arabisch"
+    },
+    "regions": {
+      "bw": "Baden-Württemberg",
+      "by": "Bayern",
+      "be": "Berlin",
+      "bb": "Brandenburg",
+      "hb": "Bremen",
+      "hh": "Hamburg",
+      "he": "Hessen",
+      "mv": "Mecklenburg-Vorpommern",
+      "ni": "Niedersachsen",
+      "nw": "Nordrhein-Westfalen",
+      "rp": "Rheinland-Pfalz",
+      "sl": "Saarland",
+      "sn": "Sachsen",
+      "st": "Sachsen-Anhalt",
+      "sh": "Schleswig-Holstein",
+      "th": "Thüringen"
+    },
+    "specialties": {
+      "buy": "Kaufberatung",
+      "sell": "Verkauf von Immobilien",
+      "rent": "Vermietung",
+      "valuation": "Bewertung / Marktpreiseinschätzung",
+      "newbuild": "Neubauprojekte",
+      "investment": "Kapitalanlagen",
+      "commercial": "Gewerbeimmobilien",
+      "relocation": "Relocation / Umzug"
+    }
+  }
+}

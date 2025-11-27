@@ -1,4 +1,55 @@
 {
-  "title": "Find an Agent",
-  "description": "Find the perfect real estate agent for your needs. Compare ratings, contact agencies directly, and begin your property journey with professional guidance."
+  "meta": {
+    "title": "Find an agent – MyHome24App",
+    "description": "Find the perfect real-estate agent for your needs. Compare reviews, contact agencies directly and start your property search with professional support."
+  },
+  "hero": {
+    "imgAlt": "Real-estate agent consulting",
+    "badge": "Find an agent",
+    "title": "Connect with the right expert for your home",
+    "subtitle": "Compare profiles, regions and ratings and send your request to verified real-estate professionals in just a few clicks."
+  },
+  "intro": "On MyHome24App we connect you with experienced agents who truly know your region and local market.",
+  "benefits": {
+    "items": [
+      {
+        "title": "Local expertise",
+        "text": "Agents who really know your city, neighbourhood and the current market prices."
+      },
+      {
+        "title": "Transparent reviews",
+        "text": "See feedback from other clients and quickly find the best match for your situation."
+      },
+      {
+        "title": "Direct contact",
+        "text": "Send your enquiry directly via MyHome24App and clarify all details with the agent team."
+      }
+    ]
+  },
+  "steps": {
+    "title": "How the agent search works",
+    "items": [
+      {
+        "title": "Create your search profile",
+        "text": "Briefly describe whether you want to sell, rent or buy and in which region."
+      },
+      {
+        "title": "Compare agents",
+        "text": "Filter by specialisation, region and ratings to get the best matches."
+      },
+      {
+        "title": "Get in touch",
+        "text": "Send a request directly through the platform – the agent will contact you afterwards."
+      }
+    ]
+  },
+  "tip": {
+    "title": "Tip for a successful collaboration",
+    "text": "The more precisely you describe your situation and budget, the better the agent can assess whether they are a good fit for your project.",
+    "disclaimer": "MyHome24App currently only connects you with agents and does not provide its own legal or tax advice."
+  },
+  "cta": {
+    "search": "Search for agents now",
+    "rate": "Rate an agent"
+  }
 }

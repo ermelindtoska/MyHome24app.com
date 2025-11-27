@@ -1,4 +1,55 @@
 {
-  "title": "Makler finden",
-  "description": "Finden Sie den perfekten Immobilienmakler für Ihre Bedürfnisse. Vergleichen Sie Bewertungen, kontaktieren Sie Agenturen direkt und starten Sie Ihre Immobiliensuche mit professioneller Unterstützung."
+  "meta": {
+    "title": "Makler finden – MyHome24App",
+    "description": "Finden Sie den perfekten Immobilienmakler für Ihre Bedürfnisse. Vergleichen Sie Bewertungen, kontaktieren Sie Agenturen direkt und starten Sie Ihre Immobiliensuche mit professioneller Unterstützung."
+  },
+  "hero": {
+    "imgAlt": "Immobilienmakler*in Beratung",
+    "badge": "Makler finden",
+    "title": "Finden Sie den passenden Makler für Ihr Zuhause",
+    "subtitle": "Vergleichen Sie Profile, Regionen und Bewertungen und starten Sie mit wenigen Klicks Ihre Anfrage an geprüfte Immobilienexpert:innen."
+  },
+  "intro": "Auf MyHome24App bringen wir Sie mit erfahrenen Immobilienmakler:innen zusammen, die Ihre Region und Ihren Markt wirklich kennen.",
+  "benefits": {
+    "items": [
+      {
+        "title": "Regionale Expertise",
+        "text": "Makler:innen, die sich mit Ihrer Stadt, Ihrem Kiez und den dortigen Marktpreisen wirklich auskennen."
+      },
+      {
+        "title": "Transparente Bewertungen",
+        "text": "Sehen Sie Erfahrungsberichte anderer Kund:innen und finden Sie schnell die passende Ansprechperson."
+      },
+      {
+        "title": "Direkter Kontakt",
+        "text": "Stellen Sie Ihre Anfrage direkt über MyHome24App und klären Sie Details persönlich mit dem Maklerteam."
+      }
+    ]
+  },
+  "steps": {
+    "title": "So funktioniert die Maklersuche",
+    "items": [
+      {
+        "title": "Suchprofil anlegen",
+        "text": "Beschreiben Sie kurz, ob Sie verkaufen, vermieten oder kaufen möchten und in welcher Region."
+      },
+      {
+        "title": "Makler:innen vergleichen",
+        "text": "Filtern Sie nach Spezialisierung, Region und Bewertungen, um die besten Treffer zu erhalten."
+      },
+      {
+        "title": "Kontakt aufnehmen",
+        "text": "Senden Sie eine Anfrage direkt über die Plattform – der oder die Makler:in meldet sich bei Ihnen."
+      }
+    ]
+  },
+  "tip": {
+    "title": "Tipp für eine erfolgreiche Zusammenarbeit",
+    "text": "Je genauer Sie Ihr Anliegen und Ihr Budget beschreiben, desto besser kann der oder die Makler:in einschätzen, ob er oder sie zu Ihrem Projekt passt.",
+    "disclaimer": "MyHome24App vermittelt aktuell nur den Kontakt zu Makler:innen und bietet keine eigene Rechts- oder Steuerberatung an."
+  },
+  "cta": {
+    "search": "Jetzt Makler:innen suchen",
+    "rate": "Makler bewerten"
+  }
 }

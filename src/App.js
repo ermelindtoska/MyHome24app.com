@@ -75,6 +75,7 @@ import RoleRedirect from './pages/RoleRedirect';
 import VerifyNeeded from './pages/VerifyNeeded';
 import OwnerContactInbox from './roles/dashboard/OwnerContactInbox';
 import FinancePartnerDashboard from './pages/FinancePartnerDashboard';
+import BecomeAgentPage from "./pages/BecomeAgentPage";
 
 
 
@@ -152,6 +153,8 @@ function AppRoutes() {
           <Route path="/agents" element={<FindAgentPage />} />
           <Route path="/agent/search" element={<AgentSearchPage />} />
           <Route path="/agent/rate" element={<RateAgentPage />} />
+          <Route path="/agent/become" element={<BecomeAgentPage />} />
+          
 
           {/* Static */}
           <Route path="/support" element={<SupportPage />} />
@@ -162,6 +165,8 @@ function AppRoutes() {
           <Route path="/impressum" element={<ImpressumPage />} />
           <Route path="/create" element={<ListingCreatePage />} />
           <Route path="/careers" element={<CareersPage />} />
+          
+
 
           {/* User content */}
           <Route path="/favorites" element={<ProtectedRoute><FavoritesPage /></ProtectedRoute>} />
@@ -199,6 +204,7 @@ function AppRoutes() {
           <Route path="/owner" element={<Navigate to="/owner-dashboard" replace />} />
           <Route path="/agent" element={<Navigate to="/agent-dashboard" replace />} />
           <Route path="/admin" element={<Navigate to="/admin-dashboard" replace />} />
+          
 
 
           {/* Role-based dashboards */}
