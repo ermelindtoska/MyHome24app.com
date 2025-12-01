@@ -76,6 +76,7 @@ import VerifyNeeded from './pages/VerifyNeeded';
 import OwnerContactInbox from './roles/dashboard/OwnerContactInbox';
 import FinancePartnerDashboard from './pages/FinancePartnerDashboard';
 import BecomeAgentPage from "./pages/BecomeAgentPage";
+import RequireAdmin from "./roles/RequireAdmin";
 
 
 
@@ -249,14 +250,18 @@ function AppRoutes() {
             }
           />
 
+       
           <Route
             path="/admin-dashboard"
             element={
-              <RequireRole allowedRoles={['admin']}>
-                <AdminDashboard />
-              </RequireRole>
+              <ProtectedRoute>
+                <RequireAdmin>
+                  <AdminDashboard />
+                </RequireAdmin>
+              </ProtectedRoute>
             }
           />
+
           <Route
           path="/user-dashboard"
           element={

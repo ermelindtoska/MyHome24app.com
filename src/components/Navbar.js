@@ -31,6 +31,9 @@ const hoverTimer = useRef(null);
 
   const { role, setRoleLocal } = useRole();
   const effectiveRole = role || "user";
+  console.log("[Navbar] role aus Context:", role);
+  console.log("[Navbar] effectiveRole:", effectiveRole);
+
 
   // Lock body kur hapet menu mobile
   useEffect(() => {
@@ -341,25 +344,43 @@ const renderDropdown = (menu, index, align = "left") => {
                     </p>
                   </div>
 
-                  <div className="py-1">
-                    
-
-                      <Link
-                      to="/owner-dashboard"
-                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
+                                  <div className="py-1">
+                                      {/* Owner-Dashboard */}
+                <Link
+                  to="/owner-dashboard"
+                  className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
+                >
+                  {t("myProperties", { defaultValue: "Meine Immobilien" })}
+                </Link>
+                  {/* 🔐 Vetëm për admin: Admin-Dashboard */}
+                  {effectiveRole === "admin" && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAccountOpen(false);
+                        navigate("/admin-dashboard");
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm font-semibold text-yellow-600 hover:bg-yellow-50 dark:text-yellow-300 dark:hover:bg-yellow-900/30"
                     >
-                      {t("myProperties", { defaultValue: "Meine Immobilien" })}
-                    </Link>
+                      {t("adminDashboard", { defaultValue: "Admin-Dashboard" })}
+                    </button>
+                  )}
 
-                    <Link
-                      to="/publish"
-                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
-                    >
-                      {t("publishProperty", {
-                        defaultValue: "Immobilie veröffentlichen",
-                      })}
-                    </Link>
-                  </div>
+                  
+                  
+
+                  {/* Immobilie veröffentlichen */}
+                  <Link
+                    to="/publish"
+                    className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
+                    onClick={() => setAccountOpen(false)}
+                  >
+                    {t("publishProperty", {
+                      defaultValue: "Immobilie veröffentlichen",
+                    })}
+                  </Link>
+                </div>
+
 
                   <div className="py-1 border-t border-gray-200 dark:border-gray-700">
                     <p className="px-4 pt-2 pb-1 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">

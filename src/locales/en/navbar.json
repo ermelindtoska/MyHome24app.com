@@ -11,6 +11,7 @@
 
   "user": "User",
   "owner": "Owner",
+  "adminDashboard": "Admin dashboard",
   "agent": "Agent",
   "settings": "Settings",
  "roleChange": {

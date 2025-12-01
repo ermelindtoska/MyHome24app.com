@@ -104,6 +104,7 @@ const AdminDashboard = () => {
     fetchRoles();
   }, []);
 
+  // 🔹 Role upgrade requests (i marrim të gjitha, filtrojmë pending në render)
   useEffect(() => {
     const fetchRoleRequests = async () => {
       try {
@@ -121,7 +122,7 @@ const AdminDashboard = () => {
     fetchRoleRequests();
   }, []);
 
-  const logActivity = async (action, detail, userId = "admin") => {
+  const logActivity = async (action, detail, userId = "admin-dashboard") => {
     try {
       await addDoc(collection(db, "logs"), {
         action,
@@ -193,12 +194,13 @@ const AdminDashboard = () => {
     }
   };
 
-  // ✅ Miratimi i kërkesës: vendos rolin sipas targetRole, fshi kërkesën, shenon agentin si verified nëse targetRole === 'agent'
-  const handleApproveRequest = async (
-    requestId,
-    userId,
-    targetRole = "owner"
-  ) => {
+  // ✅ Miratimi i kërkesës: vendos rolin sipas targetRole, shënon agentin si verified nëse është agent,
+  // dhe përditëson dokumentin roleUpgradeRequests me status = "approved"
+  const handleApproveRequest = async (req, overrideRole) => {
+    const requestId = req.id;
+    const userId = req.userId;
+    const targetRole = overrideRole || req.targetRole || "owner";
+
     try {
       // 1) ndrysho rolin te users/{userId}
       await updateDoc(doc(db, "users", userId), { role: targetRole });
@@ -215,13 +217,21 @@ const AdminDashboard = () => {
         }
       }
 
-      // 3) fshi kërkesën nga roleUpgradeRequests
-      await deleteDoc(doc(db, "roleUpgradeRequests", requestId));
+      // 3) përditëso kërkesën me status = approved (mos e fshi – e ruajmë si histori)
+      await updateDoc(doc(db, "roleUpgradeRequests", requestId), {
+        status: "approved",
+        reviewedAt: serverTimestamp(),
+        reviewedBy: "admin-dashboard",
+      });
+
+      // 4) update në state (që të zhduket nga lista e pending)
       setRoleRequests((prev) =>
-        prev.filter((req) => req.id !== requestId)
+        prev.map((r) =>
+          r.id === requestId ? { ...r, status: "approved" } : r
+        )
       );
 
-      // 4) logim
+      // 5) logim
       await logActivity(
         "Approved role upgrade",
         `UserID: ${userId} → ${targetRole}`
@@ -231,11 +241,35 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleRejectRequest = async (requestId) => {
+  // ❌ Refuzim: status = rejected + (opsionale) rejectReason
+  const handleRejectRequest = async (req) => {
+    const requestId = req.id;
+    const userId = req.userId;
+
     try {
-      await deleteDoc(doc(db, "roleUpgradeRequests", requestId));
-      setRoleRequests((prev) => prev.filter((req) => req.id !== requestId));
-      await logActivity("Rejected role upgrade", `RequestID: ${requestId}`);
+      const reason =
+        window.prompt(
+          "Ablehnungsgrund (optional):",
+          req.rejectReason || ""
+        ) || null;
+
+      await updateDoc(doc(db, "roleUpgradeRequests", requestId), {
+        status: "rejected",
+        rejectReason: reason,
+        reviewedAt: serverTimestamp(),
+        reviewedBy: "admin-dashboard",
+      });
+
+      setRoleRequests((prev) =>
+        prev.map((r) =>
+          r.id === requestId ? { ...r, status: "rejected", rejectReason: reason } : r
+        )
+      );
+
+      await logActivity(
+        "Rejected role upgrade",
+        `RequestID: ${requestId}, UserID: ${userId}, Reason: ${reason || "n/a"}`
+      );
     } catch (err) {
       console.error("Error rejecting request:", err);
     }
@@ -287,6 +321,11 @@ const AdminDashboard = () => {
     currentPage * itemsPerPage
   );
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // vetëm kërkesat pending për tabelën
+  const pendingRoleRequests = roleRequests.filter(
+    (req) => !req.status || req.status === "pending"
+  );
 
   return (
     <div className="max-w-7xl mx-auto p-4">
@@ -375,7 +414,7 @@ const AdminDashboard = () => {
           </thead>
 
           <tbody>
-            {roleRequests.map((req) => (
+            {pendingRoleRequests.map((req) => (
               <tr
                 key={req.id}
                 className="hover:bg-gray-50 dark:hover:bg-gray-700"
@@ -392,19 +431,13 @@ const AdminDashboard = () => {
                 </td>
                 <td className="py-2 px-4 border flex space-x-2">
                   <button
-                    onClick={() =>
-                      handleApproveRequest(
-                        req.id,
-                        req.userId,
-                        req.targetRole || "owner"
-                      )
-                    }
+                    onClick={() => handleApproveRequest(req)}
                     className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
                   >
                     {t("approve")}
                   </button>
                   <button
-                    onClick={() => handleRejectRequest(req.id)}
+                    onClick={() => handleRejectRequest(req)}
                     className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
                   >
                     {t("reject")}

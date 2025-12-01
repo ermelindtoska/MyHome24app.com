@@ -224,16 +224,30 @@ export default function MobileMenu({
             </>
           ) : (
             <>
-              <button
+                            <button
                 onClick={() => handleNavigate("/profile")}
                 className="block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-100"
               >
                 {t("profile")}
               </button>
 
-             <button onClick={() => handleNavigate("/owner-dashboard")} className="block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-100">
-              {t("myListings", { defaultValue: "Meine Immobilien" })}
-            </button>
+              {/* 🔐 Vetëm admin: Admin-Dashboard në mobile */}
+              {role === "admin" && (
+                <button
+                  onClick={() => handleNavigate("/admin-dashboard")}
+                  className="block w-full text-left px-4 py-2 rounded hover:bg-yellow-100 dark:hover:bg-yellow-900 text-yellow-700 dark:text-yellow-300"
+                >
+                  {t("adminDashboard", { defaultValue: "Admin-Dashboard" })}
+                </button>
+              )}
+
+              <button
+                onClick={() => handleNavigate("/owner-dashboard")}
+                className="block w-full text-left px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-100"
+              >
+                {t("myListings", { defaultValue: "Meine Immobilien" })}
+              </button>
+
 
               {["owner", "agent"].includes(role) && (
                 <>

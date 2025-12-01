@@ -95,6 +95,7 @@ const BecomeAgentPage = () => {
       const userId = currentUser.uid;
 
       // 1) Ruaj profilin e agjentit (ende JO i verifikuar)
+      console.log("[BecomeAgent] Writing agent profile for user:", userId);
       const agentRef = doc(db, "agents", userId);
       await setDoc(
         agentRef,
@@ -109,8 +110,13 @@ const BecomeAgentPage = () => {
         },
         { merge: true }
       );
+      console.log("[BecomeAgent] Agent profile written OK");
 
       // 2) Krijo / përditëso kërkesë role-upgrade për AGENT
+      console.log(
+        "[BecomeAgent] Writing roleUpgradeRequests document for user:",
+        userId
+      );
       const reqRef = doc(db, "roleUpgradeRequests", userId);
       await setDoc(
         reqRef,
@@ -126,11 +132,14 @@ const BecomeAgentPage = () => {
         },
         { merge: true }
       );
+      console.log("[BecomeAgent] roleUpgradeRequests written OK");
 
       setSubmitSuccess(true);
       setTimeout(() => setSubmitSuccess(false), 5000);
     } catch (err) {
-      console.error("Error saving agent profile:", err);
+      console.error("Error saving agent profile / role request:", err);
+      // 🔍 DEBUG: Përkohësisht, që të shohim saktë gabimin nga Firestore / AppCheck
+      alert(`FEHLER: ${err.code || ""} – ${err.message || err}`);
       setSubmitError(t("messages.error"));
     } finally {
       setLoading(false);
