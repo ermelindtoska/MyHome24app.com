@@ -5,6 +5,7 @@
   "scripts": {
     "start": "react-scripts start",
     "dev": "vite",
+    "set-admin": "node admin-scripts/setAdmin.js",
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
