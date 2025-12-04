@@ -1,9 +1,39 @@
 {
   "title": "Submit purchase offer",
+
+
+
+  "loading": "Loading offers…",
+
+  "columns": {
+    "buyer": "Buyer",
+    "listing": "Listing",
+    "owner": "Owner",
+    "price": "Offer",
+    "status": "Status",
+    "date": "Date",
+    "actions": "Actions"
+  },
+
+  
+  "Subtitle": "This offer is non-binding. The owner will contact you.",
   "intro": "Send a non-binding purchase offer for this property. The owner will receive your details and can contact you if interested.",
   "amountLabel": "Offer amount",
   "amountPlaceholder": "e.g. 450000",
   "financingLabel": "Financing",
+  "myOffers": {
+  "title": "My offers",
+  "subtitle": "Keep track of all purchase offers you have submitted for properties.",
+  "chips": {
+    "total": "Total",
+    "open": "Open",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "withdrawn": "Withdrawn"
+  },
+  "empty": "You have not submitted any offers yet.",
+  "withdraw": "Withdraw"
+},
   "financingOptions": {
     "none": "Not specified",
     "cash": "Cash / equity",

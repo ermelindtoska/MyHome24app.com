@@ -12,7 +12,19 @@
 
   "featuresTitle": "Ihre Vorteile bei Direktangeboten",
   "featuresLead": "Wenn Sie direkt mit Eigentümer:innen sprechen, gewinnen Sie mehr Transparenz, Flexibilität und persönliche Einblicke.",
- 
+ "myOffers": {
+  "title": "Meine Angebote",
+  "subtitle": "Behalte den Überblick über alle Kaufangebote, die du für Immobilien abgegeben hast.",
+  "chips": {
+    "total": "Gesamt",
+    "open": "Offen",
+    "accepted": "Angenommen",
+    "rejected": "Abgelehnt",
+    "withdrawn": "Zurückgezogen"
+  },
+  "empty": "Du hast bisher noch keine Angebote abgegeben.",
+  "withdraw": "Zurückziehen"
+},
  
   "features": [
     {

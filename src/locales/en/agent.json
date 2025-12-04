@@ -53,6 +53,19 @@
   "leaveReview": "Leave a review",
   "overallRating": "Overall rating",
   "responseTime": "Response time",
+  "myOffers": {
+  "title": "My offers",
+  "subtitle": "Keep track of all purchase offers you have submitted for properties.",
+  "chips": {
+    "total": "Total",
+    "open": "Open",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "withdrawn": "Withdrawn"
+  },
+  "empty": "You have not submitted any offers yet.",
+  "withdraw": "Withdraw"
+},
   "responseRate": "Response rate",
   "trustLevel": "Trust level",
   "topAgent": "Top agent",

@@ -3,6 +3,19 @@
   "metaDescription": "On MyHome24App you can find listings offered directly by owners – without broker commission, with personal contact and flexible agreements.",
 
   "badge": "Direct from owner",
+  "myOffers": {
+  "title": "My offers",
+  "subtitle": "Keep track of all purchase offers you have submitted for properties.",
+  "chips": {
+    "total": "Total",
+    "open": "Open",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "withdrawn": "Withdrawn"
+  },
+  "empty": "You have not submitted any offers yet.",
+  "withdraw": "Withdraw"
+},
   "title": "Buy or rent directly from the owner",
   "description": "Direct-from-owner listings often provide more flexibility on price, move-in date and individual agreements. On MyHome24App you negotiate conditions directly with the owner.",
 

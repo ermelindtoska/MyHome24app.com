@@ -11,6 +11,19 @@
   "deviceLogins": "Logins by Device",
   "recentActivity": "Recent Activity",
   "sessionManagement": "Session Management",
+  "myOffers": {
+  "title": "My offers",
+  "subtitle": "Keep track of all purchase offers you have submitted for properties.",
+  "chips": {
+    "total": "Total",
+    "open": "Open",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "withdrawn": "Withdrawn"
+  },
+  "empty": "You have not submitted any offers yet.",
+  "withdraw": "Withdraw"
+},
   "logoutAllDevices": "Log Out from All Devices",
   "lastLogin": "Last Login",
   "ipAddress": "IP Address",

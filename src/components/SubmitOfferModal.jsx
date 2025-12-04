@@ -19,6 +19,19 @@ const SubmitOfferModal = ({ isOpen, onClose, listing }) => {
 
   if (!isOpen || !listing) return null;
 
+  const resetForm = () => {
+    setAmount("");
+    setFinancing("none");
+    setMoveInDate("");
+    setMessage("");
+  };
+
+  const handleClose = () => {
+    if (isSubmitting) return;
+    resetForm();
+    onClose();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
@@ -59,11 +72,8 @@ const SubmitOfferModal = ({ isOpen, onClose, listing }) => {
       });
 
       toast.success(t("success"));
+      resetForm();
       onClose();
-      setAmount("");
-      setFinancing("none");
-      setMoveInDate("");
-      setMessage("");
     } catch (err) {
       console.error("[SubmitOfferModal] error:", err);
       toast.error(t("error"));
@@ -77,9 +87,7 @@ const SubmitOfferModal = ({ isOpen, onClose, listing }) => {
       <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow-xl dark:bg-gray-900 dark:text-gray-100">
         <div className="mb-4 flex items-start justify-between gap-4">
           <div>
-            <h2 className="text-xl font-semibold">
-              {t("title")}
-            </h2>
+            <h2 className="text-xl font-semibold">{t("title")}</h2>
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
               {t("intro")}
             </p>
@@ -92,7 +100,7 @@ const SubmitOfferModal = ({ isOpen, onClose, listing }) => {
           </div>
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             className="rounded-full px-2 py-1 text-sm text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             ✕
@@ -173,7 +181,7 @@ const SubmitOfferModal = ({ isOpen, onClose, listing }) => {
           <div className="mt-4 flex justify-end gap-3">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               className="rounded-full border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-800"
               disabled={isSubmitting}
             >

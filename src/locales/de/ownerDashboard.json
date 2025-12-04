@@ -7,6 +7,58 @@
     "title": "Owner-Dashboard",
   "subtitle": "Verwalte deine Inserate, Angebote und Anfragen – alles an einem Ort.",
   
+
+
+  "stats": {
+    "total": "Gesamt",
+    "active": "Aktiv",
+    "inactive": "Inaktiv / Entwurf",
+    "noStatus": "Ohne Status (älter)"
+  },
+
+  "quickActions": {
+    "title": "Schnellaktionen",
+    "newListing": "Neue Anzeige erstellen",
+    "viewPublic": "Öffentliche Seite anzeigen",
+    "support": "Support kontaktieren"
+  },
+
+  "listings": {
+    "title": "Deine Inserate",
+    "subtitle": "Bearbeite, lösche oder öffne deine Inserate in der Detailansicht.",
+    "loading": "Inserate werden geladen…",
+    "empty": "Du hast noch keine Inserate veröffentlicht.",
+    "columns": {
+      "image": "Bild",
+      "title": "Titel",
+      "location": "Ort",
+      "price": "Preis",
+      "status": "Status",
+      "actions": "Aktionen"
+    }
+  },
+
+ 
+
+ 
+
+  "statusBadge": {
+    "active": "Aktiv",
+    "draft": "Entwurf",
+    "inactive": "Inaktiv"
+  },
+
+  "offersPanel": {
+    "title": "Eingegangene Angebote",
+    "subtitle": "Verwalte Kaufangebote zu deinen Inseraten ähnlich wie bei Zillow.",
+    "stats": {
+      "total": "Gesamt",
+      "open": "Offen",
+      "accepted": "Angenommen",
+      "rejected": "Abgelehnt"
+    },
+    "empty": "Aktuell liegen keine Angebote zu deinen Inseraten vor."
+  },
   "noUser": "Bitte zuerst einloggen.",
 
   "ctaNewListing": "Neue Immobilie veröffentlichen",
@@ -16,6 +68,76 @@
       "title": "Titel",
       "location": "Ort",
       "price": "Preis",
+        "ownerDashboard": {
+    "title": "Owner-Dashboard",
+    "subtitle": "Verwalte deine Inserate, Angebote und Anfragen – alles an einem Ort.",
+    "loading": "Dashboard wird geladen…",
+    "noUser": "Bitte zuerst einloggen.",
+
+    "ctaNewListing": "Neue Immobilie veröffentlichen",
+
+    "stats": {
+      "total": "Gesamt",
+      "active": "Aktiv",
+      "inactive": "Inaktiv / Entwurf",
+      "noStatus": "Ohne Status (älter)"
+    },
+
+    "quickActions": {
+      "title": "Schnellaktionen",
+      "newListing": "Neue Anzeige erstellen",
+      "viewPublic": "Öffentliche Seite anzeigen",
+      "support": "Support kontaktieren"
+    },
+
+    "listings": {
+      "title": "Deine Inserate",
+      "subtitle": "Bearbeite, lösche oder öffne deine Inserate in der Detailansicht.",
+      "loading": "Inserate werden geladen…",
+      "empty": "Du hast noch keine Inserate veröffentlicht.",
+      "columns": {
+        "image": "Bild",
+        "title": "Titel",
+        "location": "Ort",
+        "price": "Preis",
+        "status": "Status",
+        "actions": "Aktionen"
+      }
+    },
+
+    "actions": {
+      "view": "Ansehen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen"
+    },
+
+    "delete": {
+      "title": "Inserat löschen?",
+      "text": "Diese Aktion kann nicht rückgängig gemacht werden.",
+      "cancel": "Abbrechen",
+      "confirm": "Ja, löschen"
+    },
+
+    "incomingOffers": {
+      "title": "Eingegangene Angebote",
+      "subtitle": "Verwalte Kaufangebote zu deinen Inseraten ähnlich wie bei Zillow.",
+      "chips": {
+        "total": "Gesamt",
+        "open": "Offen",
+        "accepted": "Angenommen",
+        "rejected": "Abgelehnt"
+      },
+      "loading": "Angebote werden geladen…",
+      "empty": "Aktuell liegen keine Angebote zu deinen Inseraten vor.",
+      "listingFallback": "Inserat",
+      "status": {
+        "open": "Offen",
+        "accepted": "Angenommen",
+        "rejected": "Abgelehnt",
+        "unknown": "Unbekannt"
+      }
+    }
+  },
      
     "listing": "Inserat",
     
@@ -36,12 +158,7 @@
     "withdrawn": "Zurückgezogen"
   },
   
-  "listings": {
-    "title": "Deine Inserate",
-    "subtitle": "Bearbeite, lösche oder öffne deine Inserate in der Detailansicht.",
-    "loading": "Inserate werden geladen…",
-    "empty": "Du hast noch keine Inserate veröffentlicht."
-  },
+
   "filters": {
     "all": "Alle"
   },

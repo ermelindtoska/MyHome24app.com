@@ -6,9 +6,40 @@
   "statistics": "Statistiken",
   "allListings": "Alle Anzeigen",
   "close": "Schließen",
+ 
+
+  
+  "targetRole": "Zielrolle",
+  
+  "myOffers": {
+  "title": "Meine Angebote",
+  "subtitle": "Behalte den Überblick über alle Kaufangebote, die du für Immobilien abgegeben hast.",
+  "chips": {
+    "total": "Gesamt",
+    "open": "Offen",
+    "accepted": "Angenommen",
+    "rejected": "Abgelehnt",
+    "withdrawn": "Zurückgezogen"
+  },
+  "empty": "Du hast bisher noch keine Angebote abgegeben.",
+  "withdraw": "Zurückziehen"
+},
+
+  
+  "noFinanceLeads": "Aktuell liegen keine Finanzierungsanfragen vor.",
+
+  "imagesForListing": "Bilder für:",
+  "loadingImages": "Bilder werden geladen …",
+  "noImagesFound": "Für diese Anzeige wurden keine Bilder gefunden.",
+  "noImagesError": "Beim Laden der Bilder ist ein Fehler aufgetreten.",
   "city": "Stadt",
   "previous": "Zurück",
   "next": "Weiter",
+   "searchPlaceholder": "Nach Titel, Stadt oder Typ suchen …",
+  "statusAll": "Alle",
+  "noListings": "Keine Anzeigen für diesen Filter gefunden.",
+  "noRoleRequests": "Derzeit liegen keine Rollenwechsel-Anfragen vor.",
+  "noSupportMessages": "Derzeit liegen keine Support-Nachrichten vor.",
   "type": "Typ",
   "status": "Status",
   "action": "Aktion",

@@ -7,17 +7,11 @@ import {
   doc,
   query,
   orderBy,
-  onSnapshot,
   updateDoc,
   addDoc,
   serverTimestamp,
 } from "firebase/firestore";
-import {
-  getStorage,
-  ref,
-  listAll,
-  getDownloadURL,
-} from "firebase/storage";
+import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
 import { db } from "../firebase";
 import { useTranslation } from "react-i18next";
 import ImageModal from "../components/ImageModal";
@@ -34,29 +28,39 @@ const AdminDashboard = () => {
   const [financeLeads, setFinanceLeads] = useState([]);
   const [modalImages, setModalImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
-
+  const [isLoadingImages, setIsLoadingImages] = useState(false);
+  const [modalError, setModalError] = useState("");
+  const [modalListingTitle, setModalListingTitle] = useState("");
   const [userRoles, setUserRoles] = useState({});
   const [roleRequests, setRoleRequests] = useState([]);
 
   const itemsPerPage = 5;
   const storage = getStorage();
 
-  // 🔹 Finance Leads – live nga Firestore
+  // 🔹 Finance Leads – EINMALIG laden
   useEffect(() => {
-    const q = query(
-      collection(db, "financeLeads"),
-      orderBy("createdAt", "desc")
-    );
+    const fetchFinanceLeads = async () => {
+      try {
+        const snap = await getDocs(collection(db, "financeLeads"));
+        const items = snap.docs.map((docSnap) => ({
+          id: docSnap.id,
+          ...docSnap.data(),
+        }));
 
-    const unsub = onSnapshot(q, (snapshot) => {
-      const items = snapshot.docs.map((docSnap) => ({
-        id: docSnap.id,
-        ...docSnap.data(),
-      }));
-      setFinanceLeads(items);
-    });
+        items.sort((a, b) => {
+          const ta = a.createdAt?.toMillis?.() ?? 0;
+          const tb = b.createdAt?.toMillis?.() ?? 0;
+          return tb - ta;
+        });
 
-    return () => unsub();
+        setFinanceLeads(items);
+      } catch (err) {
+        console.error("[AdminDashboard] Fehler beim Laden der FinanceLeads:", err);
+        setFinanceLeads([]);
+      }
+    };
+
+    fetchFinanceLeads();
   }, []);
 
   useEffect(() => {
@@ -104,7 +108,7 @@ const AdminDashboard = () => {
     fetchRoles();
   }, []);
 
-  // 🔹 Role upgrade requests (i marrim të gjitha, filtrojmë pending në render)
+  // 🔹 Role upgrade requests
   useEffect(() => {
     const fetchRoleRequests = async () => {
       try {
@@ -173,7 +177,7 @@ const AdminDashboard = () => {
     }
   };
 
-  // 🔹 Finance Leads – ndryshimi i statusit
+  // 🔹 Finance Leads – Status ändern
   const handleFinanceLeadStatusChange = async (id, newStatus) => {
     try {
       await updateDoc(doc(db, "financeLeads", id), {
@@ -194,18 +198,15 @@ const AdminDashboard = () => {
     }
   };
 
-  // ✅ Miratimi i kërkesës: vendos rolin sipas targetRole, shënon agentin si verified nëse është agent,
-  // dhe përditëson dokumentin roleUpgradeRequests me status = "approved"
+  // ✅ Approve Role-Request
   const handleApproveRequest = async (req, overrideRole) => {
     const requestId = req.id;
     const userId = req.userId;
     const targetRole = overrideRole || req.targetRole || "owner";
 
     try {
-      // 1) ndrysho rolin te users/{userId}
       await updateDoc(doc(db, "users", userId), { role: targetRole });
 
-      // 2) nëse targetRole është 'agent' → shëno agentin si verified
       if (targetRole === "agent") {
         try {
           await updateDoc(doc(db, "agents", userId), {
@@ -217,21 +218,18 @@ const AdminDashboard = () => {
         }
       }
 
-      // 3) përditëso kërkesën me status = approved (mos e fshi – e ruajmë si histori)
       await updateDoc(doc(db, "roleUpgradeRequests", requestId), {
         status: "approved",
         reviewedAt: serverTimestamp(),
         reviewedBy: "admin-dashboard",
       });
 
-      // 4) update në state (që të zhduket nga lista e pending)
       setRoleRequests((prev) =>
         prev.map((r) =>
           r.id === requestId ? { ...r, status: "approved" } : r
         )
       );
 
-      // 5) logim
       await logActivity(
         "Approved role upgrade",
         `UserID: ${userId} → ${targetRole}`
@@ -241,7 +239,7 @@ const AdminDashboard = () => {
     }
   };
 
-  // ❌ Refuzim: status = rejected + (opsionale) rejectReason
+  // ❌ Reject Role-Request
   const handleRejectRequest = async (req) => {
     const requestId = req.id;
     const userId = req.userId;
@@ -262,7 +260,9 @@ const AdminDashboard = () => {
 
       setRoleRequests((prev) =>
         prev.map((r) =>
-          r.id === requestId ? { ...r, status: "rejected", rejectReason: reason } : r
+          r.id === requestId
+            ? { ...r, status: "rejected", rejectReason: reason }
+            : r
         )
       );
 
@@ -275,17 +275,50 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleViewImages = async (listingId) => {
+  /**
+   * 🔍 Bilder anzeigen:
+   *  1. Wenn das Listing bereits imageUrls / imageUrl im Dokument hat → direkt nutzen.
+   *  2. Sonst Fallback: Storage-Ordner "listings/{listingId}" durchsuchen.
+   */
+  const handleViewImages = async (listing) => {
+    setShowModal(true);
+    setIsLoadingImages(true);
+    setModalError("");
+    setModalListingTitle(listing.title || listing.id || "");
+    setModalImages([]);
+
     try {
-      const folderRef = ref(storage, `listings/${listingId}`);
-      const result = await listAll(folderRef);
-      const urls = await Promise.all(
-        result.items.map((itemRef) => getDownloadURL(itemRef))
-      );
+      let urls = [];
+
+      if (Array.isArray(listing.imageUrls) && listing.imageUrls.length > 0) {
+        urls = listing.imageUrls;
+      } else if (Array.isArray(listing.images) && listing.images.length > 0) {
+        urls = listing.images;
+      } else if (
+        typeof listing.imageUrl === "string" &&
+        listing.imageUrl.trim() !== ""
+      ) {
+        urls = [listing.imageUrl];
+      } else {
+        // Fallback: aus Storage lesen (Ordner: listings/{listing.id})
+        const folderRef = ref(storage, `listings/${listing.id}`);
+        const result = await listAll(folderRef);
+        urls = await Promise.all(
+          result.items.map((itemRef) => getDownloadURL(itemRef))
+        );
+      }
+
+      if (!urls.length) {
+        setModalError(t("noImagesFound"));
+      }
+
       setModalImages(urls);
-      setShowModal(true);
-    } catch (error) {
-      console.error("Error loading images:", error);
+    } catch (err) {
+      console.error("Error loading images for listing", listing?.id, err);
+      setModalError(t("noImagesError"));
+      setModalImages([]);
+    } finally {
+      setIsLoadingImages(false);
     }
   };
 
@@ -322,7 +355,6 @@ const AdminDashboard = () => {
   );
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // vetëm kërkesat pending për tabelën
   const pendingRoleRequests = roleRequests.filter(
     (req) => !req.status || req.status === "pending"
   );
@@ -339,6 +371,27 @@ const AdminDashboard = () => {
       <h2 className="text-2xl md:text-3xl font-bold mb-4">
         {t("allListings")}
       </h2>
+
+      {/* Listings Table Filter */}
+      <div className="overflow-x-auto mb-4 flex flex-col md:flex-row gap-3 md:items-center">
+        <input
+          type="text"
+          placeholder={t("searchPlaceholder")}
+          className="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 text-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 w-full md:w-1/3"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className="border border-gray-300 dark:border-gray-700 rounded px-3 py-2 text-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 w-full md:w-40"
+        >
+          <option value="All">{t("statusAll")}</option>
+          <option value="pending">{t("pending")}</option>
+          <option value="active">{t("active")}</option>
+          <option value="inactive">{t("inactive")}</option>
+        </select>
+      </div>
 
       {/* Listings Table */}
       <div className="overflow-x-auto">
@@ -363,8 +416,8 @@ const AdminDashboard = () => {
                 <td className="px-4 py-2 border">{listing.type}</td>
                 <td className="px-4 py-2 border">
                   <select
-                    className="bg-white dark:bg-gray-800 border p-1"
-                    value={listing.status}
+                    className="bg-white dark:bg-gray-800 border p-1 rounded"
+                    value={listing.status || "pending"}
                     onChange={(e) =>
                       handleStatusChange(listing.id, e.target.value)
                     }
@@ -374,26 +427,60 @@ const AdminDashboard = () => {
                     <option value="inactive">{t("inactive")}</option>
                   </select>
                 </td>
-                <td className="px-4 py-2 border flex flex-col space-y-2">
-                  <button
-                    onClick={() => handleDelete(listing.id)}
-                    className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded"
-                  >
-                    {t("delete")}
-                  </button>
+                <td className="px-4 py-2 border">
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <button
+                      onClick={() => handleDelete(listing.id)}
+                      className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded text-xs sm:text-sm"
+                    >
+                      {t("delete")}
+                    </button>
 
-                  <button
-                    onClick={() => handleViewImages(listing.id)}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded"
-                  >
-                    {t("viewImages")}
-                  </button>
+                    <button
+                      onClick={() => handleViewImages(listing)}
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-xs sm:text-sm"
+                    >
+                      {t("viewImages")}
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
+
+            {currentListings.length === 0 && (
+              <tr>
+                <td
+                  colSpan={5}
+                  className="px-4 py-6 text-center text-sm text-gray-500 dark:text-gray-400"
+                >
+                  {t("noListings")}
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-4 space-x-2">
+          {Array.from({ length: totalPages }, (_, idx) => idx + 1).map(
+            (page) => (
+              <button
+                key={page}
+                onClick={() => paginate(page)}
+                className={`px-3 py-1 rounded text-sm border ${
+                  page === currentPage
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600"
+                }`}
+              >
+                {page}
+              </button>
+            )
+          )}
+        </div>
+      )}
 
       {/* Role upgrade requests */}
       <h2 className="text-xl font-semibold mt-10 mb-4">
@@ -432,19 +519,30 @@ const AdminDashboard = () => {
                 <td className="py-2 px-4 border flex space-x-2">
                   <button
                     onClick={() => handleApproveRequest(req)}
-                    className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+                    className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-xs sm:text-sm"
                   >
                     {t("approve")}
                   </button>
                   <button
                     onClick={() => handleRejectRequest(req)}
-                    className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+                    className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-xs sm:text-sm"
                   >
                     {t("reject")}
                   </button>
                 </td>
               </tr>
             ))}
+
+            {pendingRoleRequests.length === 0 && (
+              <tr>
+                <td
+                  colSpan={7}
+                  className="py-4 px-4 text-center text-sm text-gray-500 dark:text-gray-400"
+                >
+                  {t("noRoleRequests")}
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
@@ -494,7 +592,7 @@ const AdminDashboard = () => {
                   {msg.status !== "resolved" && (
                     <button
                       onClick={() => handleMarkResolved(msg.id)}
-                      className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+                      className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-xs sm:text-sm"
                     >
                       {t("markResolved")}
                     </button>
@@ -502,101 +600,33 @@ const AdminDashboard = () => {
                 </td>
               </tr>
             ))}
+
+            {supportMessages.length === 0 && (
+              <tr>
+                <td
+                  colSpan={7}
+                  className="py-4 px-4 text-center text-sm text-gray-500 dark:text-gray-400"
+                >
+                  {t("noSupportMessages")}
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
 
-      {/* Finance Leads */}
-      <h2 className="text-xl font-semibold mt-10 mb-4">
-        Finance Leads (Hypotheken-Anfragen)
-      </h2>
-      {financeLeads.length === 0 ? (
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          Aktuell liegen keine Finanzierungsanfragen vor.
-        </p>
-      ) : (
-        <div className="space-y-4">
-          {financeLeads.map((lead) => (
-            <div
-              key={lead.id}
-              className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
-            >
-              {/* LEFT SIDE */}
-              <div>
-                <p className="font-semibold text-gray-900 dark:text-gray-100">
-                  Anfrage vom Hypothekenrechner
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {lead.createdAt?.toDate
-                    ? lead.createdAt.toDate().toLocaleString()
-                    : "Kein Datum"}
-                </p>
-
-                <div className="mt-2 text-sm text-gray-800 dark:text-gray-200 space-y-1">
-                  <p>
-                    <strong>Kaufpreis:</strong> {lead.purchasePrice} €
-                  </p>
-                  <p>
-                    <strong>Eigenkapital:</strong> {lead.downPayment} €
-                  </p>
-                  <p>
-                    <strong>Zinssatz:</strong> {lead.interest} %
-                  </p>
-                  <p>
-                    <strong>Laufzeit:</strong> {lead.termYears} Jahre
-                  </p>
-                  <p>
-                    <strong>Monatsrate:</strong> {lead.monthlyPayment} €
-                  </p>
-                  <p>
-                    <strong>Gesamte Zinskosten:</strong> {lead.totalInterest} €
-                  </p>
-
-                  {lead.userId ? (
-                    <p className="text-emerald-500">
-                      Benutzer-ID: {lead.userId}
-                    </p>
-                  ) : (
-                    <p className="text-gray-500 dark:text-gray-400">
-                      Gast-Anfrage
-                    </p>
-                  )}
-
-                  {lead.notes && (
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Notizen: {lead.notes}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              {/* RIGHT SIDE */}
-              <div className="flex flex-col gap-2 w-full md:w-auto">
-                <select
-                  value={lead.status || "open"}
-                  onChange={(e) =>
-                    handleFinanceLeadStatusChange(lead.id, e.target.value)
-                  }
-                  className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-sm rounded-md px-3 py-2"
-                >
-                  <option value="open">Offen</option>
-                  <option value="in_progress">In Bearbeitung</option>
-                  <option value="closed">Abgeschlossen</option>
-                </select>
-                <span className="text-xs text-gray-500 dark:text-gray-400">
-                  Status: {lead.status || "open"}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Modal për imazhet e listing */}
+      {/* Modal për Listing-Bilder */}
       <ImageModal
         images={modalImages}
         isOpen={showModal}
-        onClose={() => setShowModal(false)}
+        onClose={() => {
+          setShowModal(false);
+          setModalImages([]);
+          setModalError("");
+        }}
+        isLoading={isLoadingImages}
+        error={modalError}
+        title={modalListingTitle}
       />
     </div>
   );

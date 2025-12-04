@@ -2,6 +2,19 @@
   "overview": "Overview",
   "myListings": "My Listings",
   "favorites": "Favorites",
+  "myOffers": {
+  "title": "My offers",
+  "subtitle": "Keep track of all purchase offers you have submitted for properties.",
+  "chips": {
+    "total": "Total",
+    "open": "Open",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "withdrawn": "Withdrawn"
+  },
+  "empty": "You have not submitted any offers yet.",
+  "withdraw": "Withdraw"
+},
   "messages": "Messages",
   "settings": "Settings",
   "logout": "Log out"

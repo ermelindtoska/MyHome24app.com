@@ -10,6 +10,19 @@
   "tutorials": "Watch Tutorials",
   "completeSteps": "Complete onboarding steps",
   "inviteTeam": "Invite your team",
+  "myOffers": {
+  "title": "My offers",
+  "subtitle": "Keep track of all purchase offers you have submitted for properties.",
+  "chips": {
+    "total": "Total",
+    "open": "Open",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "withdrawn": "Withdrawn"
+  },
+  "empty": "You have not submitted any offers yet.",
+  "withdraw": "Withdraw"
+},
   "connectApps": "Connect external apps",
   "verifyEmail": "Verify your email",
   "customizeDashboard": "Customize your dashboard",

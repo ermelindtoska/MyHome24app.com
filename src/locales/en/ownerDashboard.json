@@ -4,6 +4,133 @@
   "sectionSubtitle": "Manage offers that buyers have submitted for your listings.",
   "loading": "Loading offers…",
   "empty": "There are no offers yet.",
+ "myOffers": {
+  "title": "My offers",
+  "subtitle": "Keep track of all purchase offers you have submitted for properties.",
+  "chips": {
+    "total": "Total",
+    "open": "Open",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "withdrawn": "Withdrawn"
+  },
+  "empty": "You have not submitted any offers yet.",
+  "withdraw": "Withdraw"
+},
+ "ownerDashboard": {
+    "title": "Owner dashboard",
+    "subtitle": "Manage your listings, offers and requests – all in one place.",
+    "loading": "Loading dashboard…",
+    "noUser": "Please sign in first.",
+
+    "ctaNewListing": "Publish new property",
+
+    "stats": {
+      "total": "Total",
+      "active": "Active",
+      "inactive": "Inactive / draft",
+      "noStatus": "Without status (legacy)"
+    },
+
+    "quickActions": {
+      "title": "Quick actions",
+      "newListing": "Create new listing",
+      "viewPublic": "View public page",
+      "support": "Contact support"
+    },
+
+    "listings": {
+      "title": "Your listings",
+      "subtitle": "Edit, delete or open your listings in the detail view.",
+      "loading": "Loading listings…",
+      "empty": "You have not published any listings yet.",
+      "columns": {
+        "image": "Image",
+        "title": "Title",
+        "location": "Location",
+        "price": "Price",
+        "status": "Status",
+        "actions": "Actions"
+      }
+    },
+
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+
+    "delete": {
+      "title": "Delete listing?",
+      "text": "This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Yes, delete"
+    },
+
+    "incomingOffers": {
+      "title": "Incoming offers",
+      "subtitle": "Manage purchase offers for your listings, similar to Zillow.",
+      "chips": {
+        "total": "Total",
+        "open": "Open",
+        "accepted": "Accepted",
+        "rejected": "Rejected"
+      },
+      "loading": "Loading offers…",
+      "empty": "There are currently no offers for your listings.",
+      "listingFallback": "Listing",
+      "status": {
+        "open": "Open",
+        "accepted": "Accepted",
+        "rejected": "Rejected",
+        "unknown": "Unknown"
+      }
+    }
+  },
+
+  "quickActions": {
+    "title": "Quick actions",
+    "newListing": "Create new listing",
+    "viewPublic": "View public page",
+    "support": "Contact support"
+  },
+
+  "listings": {
+    "title": "Your listings",
+    "subtitle": "Edit, delete or open your listings in the detail view.",
+    "loading": "Loading listings…",
+    "empty": "You have not published any listings yet.",
+    "columns": {
+      "image": "Image",
+      "title": "Title",
+      "location": "Location",
+      "price": "Price",
+      "status": "Status",
+      "actions": "Actions"
+    }
+  },
+
+  
+
+ 
+
+  "statusBadge": {
+    "active": "Active",
+    "draft": "Draft",
+    "inactive": "Inactive"
+  },
+
+  "offersPanel": {
+    "title": "Incoming offers",
+    "subtitle": "Manage purchase offers for your listings – similar to Zillow.",
+    "stats": {
+      "total": "Total",
+      "open": "Open",
+      "accepted": "Accepted",
+      "rejected": "Rejected"
+    },
+    "empty": "There are currently no offers for your listings."
+  },
   "columns": {
     "date": "Date",
     "listing": "Listing",
@@ -27,21 +154,8 @@
     "inactive": "Inactive / Draft",
     "noStatus": "No Status"
   },
-    "listings": {
-    "title": "Your Listings",
-    "subtitle": "Edit, delete or open your listings in detail view.",
-    "loading": "Loading listings…",
-    "empty": "You haven't published any listings yet.",
+   
 
-    "columns": {
-      "image": "Image",
-      "title": "Title",
-      "location": "Location",
-      "price": "Price",
-      "status": "Status",
-      "actions": "Actions"
-    }
-  },
   
 
   "delete": {
@@ -85,12 +199,7 @@
     "openChat": "Open chat"
   },
   
-    "quickActions": {
-    "title": "Quick Actions",
-    "newListing": "Create new listing",
-    "viewPublic": "View public page",
-    "support": "Contact support"
-  },
+   
   "status": {
     "pending": "Pending",
     "accepted": "Accepted",

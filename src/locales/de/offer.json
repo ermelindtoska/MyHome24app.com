@@ -1,5 +1,21 @@
 {
   "title": "Kaufangebot abgeben",
+
+ 
+
+  "loading": "Angebote werden geladen…",
+
+  "columns": {
+    "buyer": "Käufer:in",
+    "listing": "Inserat",
+    "owner": "Eigentümer:in",
+    "price": "Angebot",
+    "status": "Status",
+    "date": "Datum",
+    "actions": "Aktionen"
+  },
+
+ 
   "intro": "Geben Sie hier ein unverbindliches Kaufangebot für diese Immobilie ab. Der:die Eigentümer:in erhält Ihre Angaben und kann sich bei Interesse melden.",
   "amountLabel": "Angebotsbetrag",
   "amountPlaceholder": "z. B. 450000",
@@ -28,6 +44,25 @@
     "moveInDate": "Gewünschter Einzugstermin",
     "message": "Nachricht an den Eigentümer"
   },
+    
+  "subtitle": "Dieses Angebot ist unverbindlich. Der:die Eigentümer:in wird sich mit dir in Verbindung setzen.",
+ 
+ 
+ "myOffers": {
+  "title": "Meine Angebote",
+  "subtitle": "Behalte den Überblick über alle Kaufangebote, die du für Immobilien abgegeben hast.",
+  "chips": {
+    "total": "Gesamt",
+    "open": "Offen",
+    "accepted": "Angenommen",
+    "rejected": "Abgelehnt",
+    "withdrawn": "Zurückgezogen"
+  },
+  "empty": "Du hast bisher noch keine Angebote abgegeben.",
+  "withdraw": "Zurückziehen"
+},
+ 
+ 
   "placeholders": {
     "message": "Stellen Sie sich kurz vor und erklären Sie Ihr Angebot…"
   },

@@ -4,6 +4,19 @@
   "description": "Quickly and easily calculate your monthly loan installment. Our mortgage calculator helps you better plan your financing – whether you're buying, building, or renovating.",
  
   "tipTitle": "Tip",
+  "myOffers": {
+  "title": "My offers",
+  "subtitle": "Keep track of all purchase offers you have submitted for properties.",
+  "chips": {
+    "total": "Total",
+    "open": "Open",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "withdrawn": "Withdrawn"
+  },
+  "empty": "You have not submitted any offers yet.",
+  "withdraw": "Withdraw"
+},
   "tipText": "Use our calculator to compare different terms and interest rates. This helps you get a better sense of your ideal financing.",
   "button": "Calculate now",
    

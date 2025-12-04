@@ -42,7 +42,6 @@ export default function OwnerDashboard() {
   const navigate = useNavigate();
   const { currentUser, loading: authLoading } = useAuth();
 
-  // përdor kryesisht ownerDashboard, por mund të bjerë edhe te listing si fallback
   const { t } = useTranslation(['ownerDashboard', 'listing']);
 
   const [listings, setListings] = useState([]);
@@ -61,17 +60,15 @@ export default function OwnerDashboard() {
         const uid = currentUser.uid;
         const results = [];
 
-        // 1) Së pari provojmë me ownerId (skema e re)
+        // 1) skema e re: ownerId
         const qOwner = query(
           collection(db, 'listings'),
           where('ownerId', '==', uid)
         );
         const snapOwner = await getDocs(qOwner);
-        snapOwner.forEach((d) =>
-          results.push({ id: d.id, ...d.data() })
-        );
+        snapOwner.forEach((d) => results.push({ id: d.id, ...d.data() }));
 
-        // 2) Për kompatibilitet me vjetrat: userId
+        // 2) kompatibilitet: userId
         const existingIds = new Set(results.map((x) => x.id));
         const qUser = query(
           collection(db, 'listings'),
@@ -84,7 +81,7 @@ export default function OwnerDashboard() {
           }
         });
 
-        // Mund t’i rendisim sipas createdAt në front, nëse ekziston
+        // renditje sipas createdAt në front
         results.sort((a, b) => {
           const ta = a.createdAt?.toMillis?.() ?? 0;
           const tb = b.createdAt?.toMillis?.() ?? 0;
@@ -103,14 +100,13 @@ export default function OwnerDashboard() {
   }, [currentUser?.uid, authLoading]);
 
   // ============================================================
-  // Statistikat (si kartat në krye)
+  // Statistikat (kartat në krye)
   // ============================================================
   const stats = useMemo(() => {
     const total = listings.length;
     const active = listings.filter((l) => l.status === 'active').length;
-    const inactive = listings.filter(
-      (l) => l.status && l.status !== 'active'
-    ).length;
+    const inactive = listings.filter((l) => l.status && l.status !== 'active')
+      .length;
     const noStatus = listings.filter((l) => !l.status).length;
 
     return { total, active, inactive, noStatus };
@@ -123,9 +119,7 @@ export default function OwnerDashboard() {
     if (!confirmDeleteId) return;
     try {
       await deleteDoc(doc(db, 'listings', confirmDeleteId));
-      setListings((prev) =>
-        prev.filter((x) => x.id !== confirmDeleteId)
-      );
+      setListings((prev) => prev.filter((x) => x.id !== confirmDeleteId));
     } catch (err) {
       console.error('[OwnerDashboard] delete error:', err);
     } finally {
@@ -151,7 +145,6 @@ export default function OwnerDashboard() {
   }
 
   if (!currentUser) {
-    // normalisht rri i mbrojtur nga RequireRole, por për siguri:
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-200">
         {t('ownerDashboard.noUser', {
@@ -164,9 +157,7 @@ export default function OwnerDashboard() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 px-4 py-8">
       <div className="max-w-6xl mx-auto space-y-8">
-        {/* ======================================================
-           HEADER & CTA
-        ======================================================= */}
+        {/* HEADER & CTA */}
         <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
@@ -194,9 +185,7 @@ export default function OwnerDashboard() {
           </button>
         </header>
 
-        {/* ======================================================
-           STATS CARDS
-        ======================================================= */}
+        {/* STATS CARDS */}
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard
             icon={<FaHome />}
@@ -220,7 +209,7 @@ export default function OwnerDashboard() {
               defaultValue: 'Inaktiv / Entwurf',
             })}
             value={stats.inactive}
-            accent='amber'
+            accent="amber"
           />
           <StatCard
             icon={<FaRegClock />}
@@ -232,9 +221,7 @@ export default function OwnerDashboard() {
           />
         </section>
 
-        {/* ======================================================
-           QUICK ACTIONS
-        ======================================================= */}
+        {/* QUICK ACTIONS */}
         <section className="bg-white/90 dark:bg-gray-900/70 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm px-4 py-4 md:px-6 md:py-5">
           <h2 className="text-lg font-semibold mb-3">
             {t('ownerDashboard.quickActions.title', {
@@ -276,9 +263,7 @@ export default function OwnerDashboard() {
           </div>
         </section>
 
-        {/* ======================================================
-           LISTIMET E PRONARIT
-        ======================================================= */}
+        {/* LISTIMET E PRONARIT */}
         <section className="bg-white/90 dark:bg-gray-900/70 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-sm overflow-hidden">
           <div className="px-4 py-4 md:px-6 md:py-5 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between gap-2">
             <div>
@@ -448,14 +433,10 @@ export default function OwnerDashboard() {
           )}
         </section>
 
-        {/* ======================================================
-           PANELI I OFERTAVE (si në Zillow)
-        ======================================================= */}
+        {/* PANELI I OFERTAVE */}
         {currentUser?.uid && <OwnerOffersPanel ownerId={currentUser.uid} />}
 
-        {/* ======================================================
-           MODALI I KONFIRMIMIT TË FSHIRJES
-        ======================================================= */}
+        {/* MODALI I KONFIRMIMIT TË FSHIRJES */}
         {confirmDeleteId && (
           <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 backdrop-blur-sm">
             <div className="w-full max-w-md rounded-2xl bg-white dark:bg-gray-900 p-6 shadow-xl border border-gray-200 dark:border-gray-700">
@@ -499,7 +480,7 @@ export default function OwnerDashboard() {
 }
 
 // ============================================================
-// Sub-komponentë të vegjël për pastërti
+// Sub-komponentë të vegjël
 // ============================================================
 function StatCard({ icon, label, value, accent = 'blue' }) {
   const accentClasses = {
@@ -577,11 +558,12 @@ function StatusBadge({ status }) {
     },
   };
 
-  const conf = map[status] || {
-    label: status,
-    classes:
-      'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
-  };
+  const conf =
+    map[status] || {
+      label: status,
+      classes:
+        'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
+    };
 
   return (
     <span

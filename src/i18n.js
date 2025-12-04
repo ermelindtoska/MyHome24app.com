@@ -58,6 +58,7 @@ import upgradeRequestDE from './locales/de/upgradeRequest.json';
 import metaDE from './locales/de/meta.json';
 import profileDE from './locales/de/profile.json';
 import agentBecomeDE from './locales/de/agentBecome.json';
+import offerDE from './locales/de/offer.json';
 
 // === EN English
 import homeEN from './locales/en/home.json';
@@ -116,11 +117,13 @@ import upgradeRequestEN from './locales/en/upgradeRequest.json';
 import metaEN from './locales/en/meta.json';
 import profileEN from './locales/en/profile.json';
 import agentBecomeEN from './locales/en/agentBecome.json';
+import offerEN from './locales/en/offer.json';
 
 
 const resources = {
   de: {
     home: homeDE,
+    offer: offerDE,
     agentBecome: agentBecomeDE,
     navbar: navbarDE,
     dashboard: dashboardDE,
@@ -179,6 +182,7 @@ const resources = {
   },
   en: {
     home: homeEN,
+    offer: offerEN,
     agentBecome: agentBecomeEN,
     navbar: navbarEN,
     dashboard: dashboardEN,
@@ -256,7 +260,7 @@ i18n
       'support', 'howItWorks', 'userDashboard', 'listingDetails', 'filterBar', 'listingForm',
       'buy', 'rent', 'mortgage', 'findAgent', 'impressum', 'states', 'cities', 'districts',
       'streets', 'neighbourhoods', 'filterSidebar', 'unauthorized', 'upgradeRequest', 'meta', 'profile', 'mortgageCalculator', 
-      'agentBecome'
+      'agentBecome', 'offer'
     ],
     defaultNS: 'home',
     interpolation: {

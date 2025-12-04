@@ -1,5 +1,6 @@
 {
   "title": "Meine Immobilien",
+
   "addNew": "Neue Anzeige",
   "noListings": "Keine Anzeigen gefunden.",
   "new": "Neu",
@@ -16,6 +17,20 @@
   "your_properties": "Deine Inserate",
   "no_properties": "Keine Anzeigen gefunden.",
   
+  "myOffers": {
+  "title": "Meine Angebote",
+    "subtitle": "Behalte den Überblick über alle Kaufangebote, die du für Immobilien abgegeben hast.",
+  
+    "chips": {
+      "total": "Gesamt",
+      "open": "Offen",
+      "accepted": "Angenommen",
+      "rejected": "Abgelehnt",
+      "withdrawn": "Zurückgezogen"
+  },
+  "empty": "Du hast bisher noch keine Angebote abgegeben.",
+  "withdraw": "Zurückziehen"
+},
  "view": "Ansehen",
   "city": "Stadt",
   "price": "Preis",

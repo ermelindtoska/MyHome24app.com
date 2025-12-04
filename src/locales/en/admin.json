@@ -6,7 +6,37 @@
   "statistics": "Statistics",
     "allListings": "All Listings",
   "close": "Close",
-    
+   
+
+  "fullName": "Full name",
+  "myOffers": {
+  "title": "My offers",
+  "subtitle": "Keep track of all purchase offers you have submitted for properties.",
+  "chips": {
+    "total": "Total",
+    "open": "Open",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "withdrawn": "Withdrawn"
+  },
+  "empty": "You have not submitted any offers yet.",
+  "withdraw": "Withdraw"
+},
+  "targetRole": "Target role",
+  
+  
+  
+  "noFinanceLeads": "There are currently no finance leads.",
+
+  "imagesForListing": "Images for:",
+  "loadingImages": "Loading images…",
+  "noImagesFound": "No images were found for this listing.",
+  "noImagesError": "An error occurred while loading the images.",
+      "searchPlaceholder": "Search by title, city or type…",
+  "statusAll": "All",
+  "noListings": "No listings found for the current filter.",
+  "noRoleRequests": "There are currently no role change requests.",
+  "noSupportMessages": "There are currently no support messages.",
   "previous": "Previous",
   "next": "Next",
   "city": "City",
