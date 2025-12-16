@@ -1,0 +1,55 @@
+{
+  "metaTitle": "Finanzierungsanfrage – unverbindlich | MyHome24App",
+  "metaDescription": "Senden Sie eine unverbindliche Finanzierungsanfrage – auch ohne Login. Wir speichern Ihre Eckdaten und melden uns mit den nächsten Schritten.",
+  "back": "Zurück",
+  "badgeNoLogin": "Ohne Login möglich",
+  "title": "Unverbindliche Finanzierungsanfrage",
+  "subtitle": "Senden Sie Ihre Eckdaten – schnell, sicher und auch ohne Login. Wenn Sie nicht eingeloggt sind, wird Ihre Anfrage mit userId = null gespeichert.",
+  "trust": [
+    { "title": "Datenschutz", "text": "Wir speichern nur notwendige Angaben und arbeiten mit klaren Prozessen." },
+    { "title": "Schnell", "text": "In wenigen Minuten gesendet – ideal als erster Schritt." },
+    { "title": "Transparent", "text": "Sie behalten die Kontrolle: keine Verpflichtung, keine versteckten Kosten." }
+  ],
+  "form": {
+    "fullName": { "label": "Ihr Name", "hint": "Optional", "placeholder": "Vorname Nachname" },
+    "email": { "label": "E-Mail", "hint": "Erforderlich", "placeholder": "name@beispiel.de" },
+    "phone": { "label": "Telefon", "hint": "Optional", "placeholder": "+49 ..." },
+    "city": { "label": "Stadt / Region", "hint": "Optional", "placeholder": "z. B. Berlin" },
+    "purchasePrice": { "label": "Kaufpreis der Immobilie (€)" },
+    "equity": { "label": "Eigenkapital (€)" },
+    "interestRate": { "label": "Sollzins p. a. (%)" },
+    "years": { "label": "Laufzeit (Jahre)" },
+    "notes": { "label": "Nachricht", "hint": "Optional", "placeholder": "z. B. Wunschrate, Objektart, Zeitplan ..." },
+    "consent": "Ich bin damit einverstanden, dass MyHome24App mich zu dieser Anfrage kontaktieren darf.",
+    "submit": "Anfrage senden",
+    "submitLoading": "Wird gesendet ...",
+    "toCalculator": "Zum Hypothekenrechner",
+    "errors": {
+      "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      "consent": "Bitte bestätigen Sie die Kontakt-Einwilligung.",
+      "generic": "Die Anfrage konnte nicht gespeichert werden. Bitte versuchen Sie es später erneut."
+    }
+  },
+  "legal": "Rechtlicher Hinweis: Dies ist eine unverbindliche Anfrage und keine Kreditberatung. Konditionen können je nach Anbieter:in und Bonität abweichen.",
+  "summary": {
+    "title": "Zusammenfassung",
+    "loanAmount": "Darlehensbetrag",
+    "monthly": "Monatliche Rate (Schätzung)",
+    "years": "Laufzeit",
+    "rate": "Sollzins p. a.",
+    "disclaimerTitle": "Wichtiger Hinweis",
+    "disclaimerText": "Die Rate ist eine vereinfachte Beispielrechnung (ohne Gebühren/Nebenkosten).",
+    "bullets": [
+      "Ohne Login möglich (userId = null).",
+      "Roadmap: Partner-Matching & Status-Tracking.",
+      "Sie können später ein Konto erstellen, um Historie & Status zu sehen."
+    ]
+  },
+  "success": {
+    "title": "Anfrage erfolgreich gespeichert",
+    "text": "Danke! Wir haben Ihre Anfrage erhalten. Sie können in der Zwischenzeit den Rechner nutzen oder die Partnerseite ansehen.",
+    "ref": "Referenz-ID:",
+    "ctaCalculator": "Zum Rechner",
+    "ctaPartners": "Zu den Partnern"
+  }
+}

@@ -1,13 +1,13 @@
 // src/components/PropertyList/PropertyList.jsx
-import React from 'react';
-import PropertyCard from '../PropertyCard/PropertyCard';
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import PropertyCard from "../PropertyCard/PropertyCard";
+import { useTranslation } from "react-i18next";
 
 const PropertyList = ({ listings }) => {
-  const { t } = useTranslation('property');
+  const { t } = useTranslation("property");
 
   if (!listings || listings.length === 0) {
-    return <p className="text-center text-gray-500">{t('noListings')}</p>;
+    return <p className="text-center text-gray-500">{t("noListings", { defaultValue: "Keine Anzeigen." })}</p>;
   }
 
   return (

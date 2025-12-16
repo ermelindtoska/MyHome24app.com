@@ -1,0 +1,81 @@
+{
+  "metaTitleFallback": "Agent profile",
+
+  "metaDescriptionWithName": "Public profile of {{name}} on MyHome24App.",
+"metaTitle": "Real Estate Agent Profile",
+
+"metaDescription": "Public profile of a real estate agent on MyHome24App.",
+
+"labels": {
+
+"verified": "Verified"
+
+},
+
+"titles": {
+
+"details": "Profile Details"
+
+},
+
+"fields": {
+
+"languages": "Languages",
+
+"specialties": "Areas of Expertise",
+
+"phone": "Phone",
+
+"bio": "Short Profile"
+
+},
+
+"actions": {
+
+"backToSearch": "Real Estate Agent Search",
+
+"contactAgent": "Contact Real Estate Agent"
+
+},
+
+"errors": {
+
+"missingId": "No real estate agent profile selected.",
+
+"notFoundTitle": "Real Estate Agent Profile Not Found",
+
+"notFoundText": "The requested real estate agent profile no longer exists or has not yet been published."
+
+},
+  "loading": "Loading profile…",
+
+ 
+
+  "badges": {
+    "verified": "Verified"
+  },
+
+  "unknownName": "Unknown agent",
+
+  "sections": {
+    "profileDetails": "Profile details",
+    "specialties": "Specialties",
+    "languages": "Languages",
+    "reviews": "Reviews & quality"
+  },
+
+  "profileCompletion": {
+    "label": "Profile completeness",
+    "hint": "The more complete the profile, the easier it is for users to find this agent."
+  },
+
+  "empty": {
+    "noDetails": "No additional profile details have been provided yet."
+  },
+
+  "reviews": {
+    "hint": "In the future, reviews from clients will be shown here.",
+    "noReviews": "There are no reviews for this profile yet.",
+    "footer": "Reviews help other users find the right agents."
+  }
+}

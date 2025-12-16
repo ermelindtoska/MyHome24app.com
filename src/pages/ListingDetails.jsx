@@ -1,7 +1,15 @@
 // src/pages/ListingDetails.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from 'firebase/firestore';
+
 import { db } from "../firebase";
 
 import Slider from "react-slick";
@@ -40,6 +48,8 @@ const ListingDetails = () => {
   const [loading, setLoading] = useState(true);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isOfferOpen, setIsOfferOpen] = useState(false);
+  const [myOffer, setMyOffer] = useState(null);
+
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -58,6 +68,33 @@ const ListingDetails = () => {
 
     fetchListing();
   }, [id]);
+  // Eigene Offerte zu diesem Listing laden (falls vorhanden)
+useEffect(() => {
+  const fetchMyOffer = async () => {
+    if (!currentUser || !id) return;
+
+    try {
+      const qOffers = query(
+        collection(db, 'offers'),
+        where('listingId', '==', id),
+        where('buyerId', '==', currentUser.uid)
+      );
+      const snap = await getDocs(qOffers);
+
+      if (!snap.empty) {
+        const d = snap.docs[0];
+        setMyOffer({ id: d.id, ...d.data() });
+      } else {
+        setMyOffer(null);
+      }
+    } catch (err) {
+      console.error('[ListingDetails] fetchMyOffer error:', err);
+    }
+  };
+
+  fetchMyOffer();
+}, [id, currentUser]);
+
 
   const allImages = useMemo(() => {
     if (!listing) return [];
@@ -299,6 +336,53 @@ const ListingDetails = () => {
           </button>
         </div>
       </div>
+      {/* Box: Deine eigene Offerte zu diesem Inserat */}
+{myOffer && !isOwner && (
+  <div className="mt-4 rounded-2xl border border-sky-800/70 bg-sky-950/40 px-4 py-3">
+    <p className="text-sm font-semibold text-sky-200">
+      {t('myOfferBox.title', {
+        defaultValue: 'Dein Angebot zu diesem Inserat',
+      })}
+    </p>
+
+    <p className="mt-1 text-xs text-sky-100">
+      {t('myOfferBox.amount', { defaultValue: 'Betrag:' })}{' '}
+      <span className="font-semibold">
+        €
+        {typeof myOffer.amount === 'number'
+          ? ' ' +
+            myOffer.amount.toLocaleString('de-DE', {
+              maximumFractionDigits: 0,
+            })
+          : ` ${myOffer.amount}`}
+      </span>
+    </p>
+
+    <p className="mt-1 text-xs text-sky-100">
+      {t('myOfferBox.status', { defaultValue: 'Status:' })}{' '}
+      <span className="font-semibold">
+        {t(`myOfferBox.statusValues.${myOffer.status || 'open'}`, {
+          defaultValue: myOffer.status || 'open',
+        })}
+      </span>
+    </p>
+
+    {myOffer.createdAt?.toDate && (
+      <p className="mt-1 text-[11px] text-sky-300">
+        {t('myOfferBox.date', { defaultValue: 'Abgegeben am' })}{' '}
+        {myOffer.createdAt.toDate().toLocaleString('de-DE')}
+      </p>
+    )}
+
+    <p className="mt-2 text-[11px] text-sky-300">
+      {t('myOfferBox.hint', {
+        defaultValue:
+          'Details und Aktionen findest du im Bereich „Meine Angebote“ in deinem Dashboard.',
+      })}
+    </p>
+  </div>
+)}
+
 
       {/* Modals */}
       <ContactOwnerModal

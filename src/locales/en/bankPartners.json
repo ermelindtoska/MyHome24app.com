@@ -2,51 +2,159 @@
   "metaTitle": "Financing partners at your side – MyHome24App",
   "metaDescription": "Regional banks, brokers and advisors present their mortgage products directly on MyHome24App. Transparent, digital and personal.",
   "imgAlt": "Handshake between banking partner and MyHome24App",
+  "sticky": {
+    "small": "Fast & non-binding",
+    "title": "Send financing request",
+    "cta": "Start request"
+  },
+  "meta": {
+    "title": "Mortgage Partners | MyHome24App",
+    "description": "Work with mortgage partners and find suitable offers faster — transparent, efficient, and future-proof."
+  },
   "hero": {
-    "badge": "Financing partners",
-    "title": "Trusted partners for your property financing",
-    "subtitle": "Together with banks and brokers we support your clients on their way into their new home."
+    "badge": "Partnership",
+    "badge2": "Mortgage • Roadmap-ready",
+    "title": "Mortgage partners by your side",
+    "subtitle": "Our partner banks and mortgage partners provide attractive terms, fast decisions and personal guidance — tailored to the German real estate market.",
+    "note": "Note: MyHome24App is not a bank. Requests are for orientation and partner routing (roadmap).",
+    "imgAlt": "Mortgage partners and financing"
   },
-  "title": "Financing partners at your side",
-  "description": "Our partner banks and financing experts offer attractive conditions, fast decisions and personal advice – tailored to the German real estate market.",
-  "featuresTitle": "What you can expect as a partner",
-  "features": [
-    {
-      "title": "Visibility among active home seekers",
-      "text": "Show your financing offers exactly where users are searching for their next home."
-    },
-    {
-      "title": "Qualified leads",
-      "text": "Interested users can contact you directly via MyHome24App – including basic information about the property."
-    },
-    {
-      "title": "Digital processes",
-      "text": "Simplified first contact, clear structures and the option to integrate your own tools."
-    },
-    {
-      "title": "Long-term cooperation",
-      "text": "Transparent collaboration, regular feedback and continuous development of the platform based on your needs."
-    }
-  ],
-  "columnsTitle": "Working together with financing partners",
-  "columns": {
-    "banks": {
-      "title": "For banks",
-      "text": "Present your regional or national mortgage products directly next to relevant listings and reach users who are already planning concretely."
-    },
-    "brokers": {
-      "title": "For brokers",
-      "text": "Position yourself as an independent expert for complex financing cases and use MyHome24App as a digital first contact channel."
-    },
-    "clients": {
-      "title": "For clients",
-      "text": "Users can find the right contact person faster and save time when searching for financing offers."
-    }
-  },
+  "headline": "Strong banking partners",
+  "description": "Work with experienced mortgage partners and speed up the path to the right financing — with clear processes, better matching and transparent communication.",
   "cta": {
-    "primary": "Become a financing partner",
-    "secondary": "Go to mortgage calculator"
+    "primary": "Request financing (non-binding)",
+    "secondary": "Go to mortgage calculator",
+    "partner": "Become a partner"
   },
+  "partnerContact": {
+    "title": "Are you a bank, broker, or advisor?",
+    "text": "Start a cooperation: We display your offers where users actively search for homes — with clear expectations and solid lead context.",
+    "cta": "Contact us for partnership",
+    "secondary": "View partner page"
+  },
+  "trust": [
+    { "title": "Trusted partners", "text": "Transparent processes & clear requirements." },
+    { "title": "Fast request", "text": "Create a non-binding request in minutes." },
+    { "title": "Save time", "text": "Relevant offers instead of endless comparisons." }
+  ],
+  "features": [
+    { "title": "Structured request", "text": "Clear key data so partners can assess quickly." },
+    { "title": "Quick pre-check", "text": "Orientation values & plausibility checks for better conversations." },
+    { "title": "Better matching", "text": "Goal: routing by region, profile and product (roadmap)." },
+    { "title": "Personal guidance", "text": "Connect with the right partner — without unnecessary steps." }
+  ],
+  "stats": {
+    "title": "Overview & orientation",
+    "subtitle": "These values are placeholders/UX elements — later dynamic from system data.",
+    "note": "Roadmap: Tracking • Status • Partner matching",
+    "items": [
+      { "value": "3+", "label": "Matching criteria", "text": "Region, product, profile (planned)." },
+      { "value": "24/7", "label": "Requests available", "text": "Even without login, fast & simple." },
+      { "value": "≤ 2 min", "label": "Input time", "text": "Short form with core values." },
+      { "value": "100%", "label": "Transparency", "text": "No hidden steps — clear flow." }
+    ]
+  },
+  "partnerBenefits": {
+    "title": "Benefits for partners",
+    "subtitle": "Building a professional network — scalable for the coming years.",
+    "items": [
+      {
+        "title": "Visibility in the right context",
+        "text": "Your offers appear where users actively compare homes.",
+        "bullets": ["Qualified lead context", "Regional routing (roadmap)", "Product placement (roadmap)"]
+      },
+      {
+        "title": "Better leads, not just more leads",
+        "text": "Quality over quantity — structured data increases conversion chances.",
+        "bullets": ["Fewer back-and-forth questions", "Faster first consultation", "Better comparability"]
+      },
+      {
+        "title": "Clean processes & compliance",
+        "text": "Clear notices, consents and transparent communication.",
+        "bullets": ["Consent logic", "Audit-ready processes (planned)", "Privacy-first approach"]
+      },
+      {
+        "title": "Long-term partnership",
+        "text": "Co-development: tools, status tracking and a partner dashboard.",
+        "bullets": ["Partner dashboard (planned)", "Status & SLA tracking (planned)", "Shared roadmap"]
+      }
+    ]
+  },
+  "howItWorks": {
+    "title": "How it works",
+    "subtitle": "A clear flow — usable today, expandable tomorrow.",
+    "steps": [
+      { "title": "Enter data", "text": "Use the calculator or submit key values directly in the request." },
+      { "title": "Send request", "text": "We store the request — even without login (userId can be null)." },
+      { "title": "Partner matching", "text": "Once partners are connected, routing & contact happens (roadmap)." }
+    ]
+  },
+  "columns": {
+    "title": "Who is this partnership for?",
+    "banks": { "title": "Banks", "text": "More visibility with active home seekers — with clean key data." },
+    "brokers": { "title": "Brokers", "text": "Be the go-to for complex cases — from first call to closing." },
+    "clients": { "title": "Advisors", "text": "Use structured requests as a base and save time." }
+  },
+  "testimonials": {
+    "title": "What partners value (examples)",
+    "items": [
+      { "quote": "The request is clearly structured — it saves time in the first call.", "name": "Partner (example)", "role": "Financing" },
+      { "quote": "Transparent notices and a clean flow feel professional.", "name": "Partner (example)", "role": "Bank" },
+      { "quote": "Perfect context: users are already in the real estate flow.", "name": "Partner (example)", "role": "Brokerage" }
+    ]
+  },
+  "faq": {
+    "title": "FAQ",
+    "subtitle": "Short & clear — for users and partners.",
+    "items": [
+      { "q": "Does MyHome24App replace financial advice?", "a": "No. We provide orientation and support contact initiation. Binding offers come from the bank/partner." },
+      { "q": "Who is the contractual party for users?", "a": "Contracts are only between the user and the bank/partner — not with MyHome24App." },
+      { "q": "How does partner cooperation work?", "a": "Goal: partner workflow with matching, status and optional partner dashboard (roadmap)." }
+    ]
+  },
+  "tip": {
+    "title": "Tip",
+    "text": "Use the calculator first — then your request will be more precise.",
+    "subtext": "Roadmap: status tracking & document upload for faster processing."
+  },
+  "legal": {
+    "title": "Important legal notes",
+    "items": [
+      "Content is for non-binding orientation and does not constitute financial advice.",
+      "MyHome24App does not grant loans and does not issue binding approvals.",
+      "Please verify terms directly with your bank/partner.",
+      "Regulatory obligations lie with the respective financing providers."
+    ]
+  },
+  "bottomCta": {
+    "title": "Ready for the next step?",
+    "text": "Start a non-binding request or try the calculator — and if you’re a partner, let’s talk cooperation.",
+    "partnerContact": "Request partnership"
+  },
+  
+  "howItWorksSubtitle": "A clear process — like major platforms. Today: save your request. Tomorrow: automatic partner matching & offers.",
+  "howItWorksCta": "Get started",
+  "directory": {
+    "title": "Partner network (Preview)",
+    "subtitle": "Your financing network is being built — banks, brokers and specialists. Later: filters, regions, ratings and smart matching.",
+    "badge1": "Banks & brokers",
+    "badge2": "Regions & matching",
+    "cardCta": "Send request",
+    "footerText": "Are you a bank or broker and want to join?",
+    "footerCta": "Become a partner",
+    "previewItems": [
+      { "name": "Finance Partner #1", "type": "Bank / Broker", "badge": "Preview", "text": "Placeholder profile — later with specializations, terms and a proper lead flow.", "region": "Germany" },
+      { "name": "Finance Partner #2", "type": "Mortgage advisory", "badge": "Preview", "text": "Placeholder profile — later with matching, SLA and lead management.", "region": "NRW / Bavaria" },
+      { "name": "Finance Partner #3", "type": "New builds / special cases", "badge": "Preview", "text": "Placeholder profile — later with qualification and offer pipeline.", "region": "Berlin / Hamburg" }
+    ]
+  },
+  
+  "title": "Financing partners at your side",
+  "featuresTitle": "What you can expect as a partner",
+ 
+  "columnsTitle": "Working together with financing partners",
+  
+ 
   "tipTitle": "Interested in partnering with us?",
   "tipText": "We are planning a dedicated partner section where trustworthy providers can present their financing products in a transparent way.",
   "tipSubtext": "Use the contact form to send us some first information about your institution or company. We will get back to you with further details.",

@@ -7,6 +7,14 @@
 "noSimilar": "No similar listings found.",
   "map.title": "MyHome24App",
  
+  "new": "New",
+  "verified": "Verified",
+  "share": "Share",
+  "bdShort": "bd",
+  "baShort": "ba",
+  "perMonthShort": "/mo",
+  "listingId": "ID",
+ 
   "office": "Office",
   "myOffers": {
   "title": "My offers",

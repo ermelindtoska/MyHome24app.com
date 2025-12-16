@@ -1,8 +1,41 @@
 {
   "heroTitle": "Find your perfect home",
+  "agentsSection": {
+    "title": "Meet our agents",
+    "subtitle": "Experienced real estate experts supporting you from the first click to the notary appointment.",
+    "ctaAllAgents": "View all agents",
+    "verifiedBadge": "Verified",
+    "ratingCount": "reviews",
+    "noRatings": "No reviews yet",
+    "languagesLabel": "Languages:",
+    "specialtiesLabel": "Specialties:",
+    "viewProfile": "View profile",
+    "contactCta": "Contact agent",
+    "unknownName": "Unknown agent",
+    "emptyTitle": "No agents published yet.",
+    "emptyText": "As soon as agent profiles are approved, they will automatically appear here.",
+    "error": "Could not load the list of agents."
+  },
   "errorLoadingListings": "Error loading property listings.",
   "loadingSearchBar": "Search bar is loading...",
   "heroTitle2": "Homes for every budget",
+  "agents": {
+
+"title": "Meet our agents",
+
+"subtitle": "Experienced experts, ready to help you with your real estate project.",
+
+"loading": "Loading agents…",
+
+"empty": "No agent profiles are currently published.",
+
+"languagesPrefix": "Languages:",
+
+"verifiedBadge": "Verified",
+
+"viewProfile": "View profile"
+
+},
   "heroTitle3": "Find your new home!",
   "heroSubtitle": "Choose a location or filter by your preferences.",
   "heroButton": "Explore now",

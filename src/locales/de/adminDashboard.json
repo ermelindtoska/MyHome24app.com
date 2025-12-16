@@ -1,0 +1,32 @@
+{
+  "activityLog": {
+    "title": "Aktivitätsprotokoll",
+    "subtitle": "Übersicht über wichtige Aktionen auf MyHome24App (nur für Admins sichtbar).",
+    "columns": {
+      "type": "Typ",
+      "message": "Nachricht",
+      "user": "User",
+      "context": "Kontext",
+      "date": "Datum"
+    },
+    "loading": "Protokoll wird geladen…",
+    "empty": "Noch keine Einträge vorhanden.",
+    "loadMore": "Mehr Einträge laden",
+    "loadingMore": "Lade weitere Einträge…",
+    "detailTitle": "Log-Details",
+    "extra": "Zusätzliche Daten",
+    "types": {
+      "agent_cta_become": "CTA „Makler:in werden“ geklickt",
+      "role_approved": "Rollenwechsel auf „agent“ genehmigt",
+      "unknown": "Unbekannter Typ"
+    },
+    "messages": {
+      "roleApproved": "Rollenwechsel auf „agent“ wurde genehmigt.",
+      "agentCtaBecome": "Nutzer:in hat auf „Makler:in werden“ geklickt."
+    },
+    "context": {
+      "admin-dashboard": "Admin-Dashboard",
+      "agent-dashboard": "Makler:innen-Dashboard"
+    }
+  }
+}

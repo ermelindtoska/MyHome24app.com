@@ -9,6 +9,7 @@ import {
   doc,
 } from 'firebase/firestore';
 import { useNavigate, Link } from 'react-router-dom';
+import OwnerCommunicationCenter from '../components/OwnerCommunicationCenter';
 import { useTranslation } from 'react-i18next';
 import {
   FaPlus,
@@ -435,6 +436,11 @@ export default function OwnerDashboard() {
 
         {/* PANELI I OFERTAVE */}
         {currentUser?.uid && <OwnerOffersPanel ownerId={currentUser.uid} />}
+
+
+      {/* 🔵 Neues Kommunikations-Center: Kontaktanfragen + Angebote pro Inserat */}
+        <OwnerCommunicationCenter ownerId={currentUser?.uid} />
+
 
         {/* MODALI I KONFIRMIMIT TË FSHIRJES */}
         {confirmDeleteId && (

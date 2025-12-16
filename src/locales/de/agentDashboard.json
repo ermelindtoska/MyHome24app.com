@@ -15,6 +15,63 @@
   "empty": "Du hast bisher noch keine Angebote abgegeben.",
   "withdraw": "Zurückziehen"
 },
+  "metaTitle": "Makler:innen-Dashboard",
+  "metaDescription": "Behalte deine Inserate, Anfragen und Bewertungen im Blick – dein persönliches Makler:innen-Dashboard auf MyHome24App.",
+  "title": "Dein Makler:innen-Dashboard",
+  "subtitle": "Behalte deine Inserate, Anfragen und Bewertungen im Blick – ähnlich wie bei Zillow.",
+
+  "actions": {
+    "editProfile": "Maklerprofil bearbeiten"
+  },
+
+  "stats": {
+    "totalListings": "Gesamtinserate",
+    "activeListings": "Aktive Inserate",
+    "pendingListings": "Ausstehende Freigaben",
+    "totalLeads": "Kontaktanfragen"
+  },
+
+  "profile": {
+    "title": "Dein öffentliches Maklerprofil",
+    "loading": "Profil wird geladen…",
+    "empty": "Du hast noch kein Maklerprofil angelegt. Lege jetzt ein Profil an, um in der Suche gefunden zu werden.",
+    "specialtiesLabel": "Schwerpunkte:",
+    "completion": "Profilvollständigkeit",
+    "completionHint": "– je vollständiger dein Profil, desto besser wirst du gefunden."
+  },
+
+  "rating": {
+    "title": "Bewertungen & Qualität",
+    "reviewsCount": "{{count}} veröffentlichte Bewertungen",
+    "hint": "Zufriedene Kund:innen erhöhen deine Sichtbarkeit in der Suche."
+  },
+
+  "listings": {
+    "title": "Deine letzten Inserate",
+    "countLabel": "Inserate insgesamt",
+    "loading": "Inserate werden geladen…",
+    "empty": "Dir sind aktuell keine Inserate zugeordnet.",
+    "columns": {
+      "title": "Titel",
+      "city": "Ort",
+      "type": "Typ",
+      "status": "Status",
+      "createdAt": "Erstellt am"
+    }
+  },
+
+  "leads": {
+    "title": "Neueste Kontaktanfragen",
+    "countLabel": "Anfragen insgesamt",
+    "loading": "Kontaktanfragen werden geladen…",
+    "empty": "Noch keine Kontaktanfragen vorhanden.",
+    "columns": {
+      "name": "Name",
+      "email": "E-Mail",
+      "listing": "Inserat",
+      "date": "Datum"
+    }
+  },
   "analytics": "Statistiken",
   "settings": "Einstellungen"
 }

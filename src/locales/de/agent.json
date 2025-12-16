@@ -2,7 +2,22 @@
   "title": "Finden Sie den richtigen Immobilienmakler",
   "description": "Suchen Sie nach zertifizierten Makler:innen mit lokaler Markterfahrung.",
   "intro": "Die Suche nach dem passenden Makler:in kann entscheidend für den Erfolg Ihrer Immobilienpläne sein. MyHome24App hilft Ihnen dabei, passende Expert:innen zu finden und direkt zu kontaktieren.",
-
+  "ratings": {
+    "title": "Bewertungen & Qualität",
+    "loading": "Bewertungen werden geladen…",
+    "count": "{{count}} Bewertung",
+    "count_plural": "{{count}} Bewertungen",
+    "loginHint": "Bitte melde dich an, um eine Bewertung abzugeben.",
+    "yourRating": "Deine Bewertung",
+    "starChosen": "{{count}} von 5 Sternen",
+    "starHint": "Klicke auf die Sterne, um zu bewerten.",
+    "commentLabel": "Deine Erfahrung (optional)",
+    "commentPlaceholder": "Wie lief die Zusammenarbeit mit dieser Makler:in?",
+    "saving": "Bewertung wird gespeichert…",
+    "save": "Bewertung speichern",
+    "latest": "Neueste Bewertungen",
+    "noRatings": "Für dieses Profil liegen noch keine Bewertungen vor."
+  },
   "searchPlaceholder": "Stadt, Name oder PLZ eingeben",
   "findAgent": "Makler:in finden",
   "contactAgent": "Makler:in kontaktieren",

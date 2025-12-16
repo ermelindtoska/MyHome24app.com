@@ -2,51 +2,224 @@
   "metaTitle": "Finanzierungspartner an Ihrer Seite – MyHome24App",
   "metaDescription": "Regionale Banken, Vermittler:innen und Berater:innen präsentieren ihre Finanzierungsangebote direkt bei MyHome24App. Transparent, digital und persönlich.",
   "imgAlt": "Handshake zwischen Bankpartner und MyHome24App",
-  "hero": {
-    "badge": "Finanzierungspartner:innen",
-    "title": "Vertrauenswürdige Partner für Ihre Immobilienfinanzierung",
-    "subtitle": "Gemeinsam mit Banken und Vermittler:innen unterstützen wir Ihre Kund:innen auf dem Weg ins eigene Zuhause."
+    "sticky": {
+    "small": "Unverbindlich & schnell",
+    "title": "Finanzierungsanfrage senden",
+    "cta": "Anfrage starten"
   },
-  "title": "Finanzierungspartner an Ihrer Seite",
-  "description": "Unsere Partnerbanken und Finanzierungspartner:innen bieten attraktive Konditionen, schnelle Entscheidungen und persönliche Beratung – abgestimmt auf den Immobilienmarkt in Deutschland.",
-  "featuresTitle": "Was Sie als Partner:in erwartet",
-  "features": [
+    "meta": {
+    "title": "Finanzierungspartner:innen | MyHome24App",
+    "description": "Kooperieren Sie mit Finanzierungspartner:innen und finden Sie passende Angebote schneller – transparent, effizient und zukunftssicher."
+  },
+  "hero": {
+    "badge": "Partnerschaft",
+    "badge2": "Mortgage • Roadmap-ready",
+    "title": "Finanzierungspartner an Ihrer Seite",
+    "subtitle": "Unsere Partnerbanken und Finanzierungspartner:innen bieten attraktive Konditionen, schnelle Entscheidungen und eine persönliche Begleitung – abgestimmt auf den Immobilienmarkt in Deutschland.",
+    "note": "Hinweis: MyHome24App ist keine Bank. Anfragen dienen der Orientierung und Weiterleitung an Partner:innen (Roadmap).",
+    "imgAlt": "Finanzierungspartner:innen und Hypothek"
+  },
+  "headline": "Ihre starken Bankpartner",
+  "description": "Kooperieren Sie mit erfahrenen Finanzierungspartner:innen und beschleunigen Sie den Weg zur passenden Baufinanzierung – mit klaren Prozessen, besseren Matchings und transparenter Kommunikation.",
+  "cta": {
+    "primary": "Unverbindliche Finanzierungsanfrage",
+    "secondary": "Zum Hypothekenrechner",
+    "partner": "Partner:in werden"
+  },
+  "partnerContact": {
+    "title": "Sind Sie Bank, Vermittler:in oder Berater:in?",
+    "text": "Starten Sie eine Kooperation: Wir zeigen Ihre Angebote dort, wo Nutzer:innen aktiv nach Immobilien suchen – mit klarer Erwartungshaltung und sauberem Lead-Kontext.",
+    "cta": "Kontakt wegen Kooperation aufnehmen",
+    "secondary": "Partnerseite ansehen"
+  },
+  "trust": [
     {
-      "title": "Sichtbarkeit bei aktiven Immobiliensuchenden",
-      "text": "Präsentieren Sie Ihre Finanzierungsangebote genau dort, wo Nutzer:innen nach ihrem neuen Zuhause suchen."
+      "title": "Seriöse Partner:innen",
+      "text": "Transparente Prozesse & klare Anforderungen."
     },
     {
-      "title": "Qualifizierte Anfragen",
-      "text": "Interessent:innen können über MyHome24App direkt Kontakt aufnehmen – inklusive Basisdaten zur Immobilie."
+      "title": "Schnelle Anfrage",
+      "text": "In wenigen Minuten zur unverbindlichen Anfrage."
     },
     {
-      "title": "Digitale Prozesse",
-      "text": "Vereinfachte Erstansprache, klare Strukturen und die Möglichkeit, Ihre eigenen Tools einzubinden."
-    },
-    {
-      "title": "Langfristige Partnerschaft",
-      "text": "Transparente Zusammenarbeit, regelmäßiges Feedback und Weiterentwicklung des Portals mit Ihren Anforderungen."
+      "title": "Zeit sparen",
+      "text": "Passende Angebote statt endloser Vergleiche."
     }
   ],
-  "columnsTitle": "Mit Finanzierungspartner:innen zusammenarbeiten",
+  "features": [
+    {
+      "title": "Strukturierte Anfrage",
+      "text": "Klare Eckdaten, damit Partner:innen direkt bewerten können."
+    },
+    {
+      "title": "Qualifizierte Vorprüfung",
+      "text": "Orientierungswerte & Plausibilitätschecks für bessere Gespräche."
+    },
+    {
+      "title": "Besseres Matching",
+      "text": "Ziel: Zuordnung nach Region, Profil und Produkt (Roadmap)."
+    },
+    {
+      "title": "Persönliche Begleitung",
+      "text": "Kontaktaufnahme mit passenden Partner:innen – ohne unnötige Umwege."
+    }
+  ],
+  "stats": {
+    "title": "Überblick & Orientierung",
+    "subtitle": "Diese Werte sind Platzhalter/UX-Elemente – später dynamisch aus Systemdaten.",
+    "note": "Roadmap: Tracking • Status • Partner-Matching",
+    "items": [
+      { "value": "3+", "label": "Matching-Kriterien", "text": "Region, Produkt, Profil (Plan)." },
+      { "value": "24/7", "label": "Anfrage möglich", "text": "Auch ohne Login, schnell & einfach." },
+      { "value": "≤ 2 min", "label": "Eingabezeit", "text": "Kurzformular mit Kernwerten." },
+      { "value": "100%", "label": "Transparenz", "text": "Keine versteckten Schritte – klarer Flow." }
+    ]
+  },
+  "partnerBenefits": {
+    "title": "Vorteile für Partner:innen",
+    "subtitle": "So bauen wir ein professionelles Netzwerk – skalierbar für die nächsten Jahre.",
+    "items": [
+      {
+        "title": "Mehr Sichtbarkeit im richtigen Kontext",
+        "text": "Ihre Angebote erscheinen dort, wo Nutzer:innen aktiv Immobilien vergleichen.",
+        "bullets": [
+          "Qualifizierter Lead-Kontext",
+          "Regionale Steuerung (Roadmap)",
+          "Produktspezifische Platzierung (Roadmap)"
+        ]
+      },
+      {
+        "title": "Bessere Leads statt mehr Leads",
+        "text": "Qualität vor Quantität – strukturierte Eckdaten erhöhen Abschlusschancen.",
+        "bullets": [
+          "Weniger Rückfragen",
+          "Schnellere Erstberatung",
+          "Bessere Vergleichbarkeit"
+        ]
+      },
+      {
+        "title": "Saubere Prozesse & Compliance",
+        "text": "Klare Hinweise, Einwilligungen und transparente Kommunikation.",
+        "bullets": [
+          "Einwilligungs-Logik",
+          "Audit-fähige Prozesse (Plan)",
+          "Datenschutz-First"
+        ]
+      },
+      {
+        "title": "Langfristige Partnerschaft",
+        "text": "Gemeinsame Weiterentwicklung: Tools, Status-Tracking und Partner-Dashboard.",
+        "bullets": [
+          "Partner-Dashboard (Plan)",
+          "Status & SLA-Tracking (Plan)",
+          "Gemeinsame Roadmap"
+        ]
+      }
+    ]
+  },
+  "howItWorks": {
+    "title": "So funktioniert’s",
+    "subtitle": "Ein klarer Flow – heute schon nutzbar, später erweiterbar.",
+    "steps": [
+      {
+        "title": "Daten eingeben",
+        "text": "Nutzen Sie den Rechner oder geben Sie Eckdaten direkt in die Anfrage ein."
+      },
+      {
+        "title": "Anfrage senden",
+        "text": "Wir speichern die Anfrage – auch ohne Login (userId = null möglich)."
+      },
+      {
+        "title": "Partner-Matching",
+        "text": "Sobald Partner angebunden sind, erfolgt Zuordnung & Kontaktaufnahme (Roadmap)."
+      }
+    ]
+  },
   "columns": {
+    "title": "Für wen ist die Partnerschaft gedacht?",
     "banks": {
       "title": "Für Banken",
-      "text": "Präsentieren Sie Ihre regionalen oder bundesweiten Immobilienfinanzierungen direkt bei passenden Objekten. Erreichen Sie Kund:innen, die bereits konkret planen."
+      "text": "Mehr Sichtbarkeit bei aktiven Immobiliensuchenden – mit klaren Eckdaten."
     },
     "brokers": {
       "title": "Für Vermittler:innen",
-      "text": "Positionieren Sie sich als unabhängige:r Ansprechpartner:in für komplexe Finanzierungsfälle. Nutzen Sie MyHome24App als digitalen Erstkontakt."
+      "text": "Positionieren Sie sich bei komplexen Fällen – von Erstberatung bis Abschluss."
     },
     "clients": {
-      "title": "Für Kund:innen",
-      "text": "Nutzer:innen finden schneller die passende Ansprechpartner:in und sparen Zeit bei der Suche nach Finanzierungsangeboten."
+      "title": "Für Berater:innen",
+      "text": "Nutzen Sie strukturierte Anfragen als Gesprächsgrundlage und sparen Sie Zeit."
     }
   },
-  "cta": {
-    "primary": "Partner:in für Finanzierung werden",
-    "secondary": "Zum Hypothekenrechner"
+  "testimonials": {
+    "title": "Was Partner:innen schätzen (Beispiele)",
+    "items": [
+      { "quote": "Die Anfrage ist klar strukturiert – das spart Zeit im Erstgespräch.", "name": "Partner:in (Beispiel)", "role": "Finanzierung" },
+      { "quote": "Transparente Hinweise und ein sauberer Ablauf wirken professionell.", "name": "Partner:in (Beispiel)", "role": "Bank" },
+      { "quote": "Genau der richtige Kontext: Nutzer:innen sind bereits im Immobilien-Flow.", "name": "Partner:in (Beispiel)", "role": "Vermittlung" }
+    ]
   },
+  "faq": {
+    "title": "Häufige Fragen",
+    "subtitle": "Kurz & klar – für Nutzer:innen und Partner:innen.",
+    "items": [
+      {
+        "q": "Ersetzt MyHome24App eine Beratung?",
+        "a": "Nein. Wir bieten Orientierung und unterstützen die Kontaktanbahnung. Verbindliche Angebote erhalten Sie bei Bank/Partner:in."
+      },
+      {
+        "q": "Wer ist Vertragspartner der Kund:innen?",
+        "a": "Der Vertrag kommt ausschließlich zwischen Kund:in und Bank/Partner:in zustande – nicht mit MyHome24App."
+      },
+      {
+        "q": "Wie läuft die Zusammenarbeit mit Partner:innen?",
+        "a": "Ziel ist ein Partner-Workflow mit Matching, Status und optionalem Partner-Dashboard (Roadmap)."
+      }
+    ]
+  },
+  "tip": {
+    "title": "Tipp",
+    "text": "Nutzen Sie den Rechner zuerst – dann können Sie Ihre Anfrage präziser formulieren.",
+    "subtext": "Roadmap: Status-Tracking & Dokumenten-Upload für schnellere Bearbeitung."
+  },
+  "legal": {
+    "title": "Wichtige rechtliche Hinweise",
+    "items": [
+      "Die Inhalte dienen der unverbindlichen Orientierung und stellen keine Finanzberatung dar.",
+      "MyHome24App vergibt keine Darlehen und erstellt keine verbindlichen Finanzierungszusagen.",
+      "Bitte prüfen Sie Angebote und Bedingungen direkt bei Ihrer Bank/Partner:in.",
+      "Regulatorische Pflichten liegen bei den jeweiligen Finanzierungsanbieter:innen."
+    ]
+  },
+  "bottomCta": {
+    "title": "Bereit für den nächsten Schritt?",
+    "text": "Starten Sie mit einer unverbindlichen Anfrage oder testen Sie den Rechner – und wenn Sie Partner:in sind, sprechen wir über eine Kooperation.",
+    "partnerContact": "Kooperation anfragen"
+  },
+  
+  "howItWorksSubtitle": "Ein klarer Prozess – wie bei großen Plattformen. Heute: Anfrage speichern. Morgen: automatische Partner-Zuordnung & Angebote.",
+  "howItWorksCta": "Jetzt starten",
+  "directory": {
+    "title": "Partner-Netzwerk (Preview)",
+    "subtitle": "Hier entsteht Ihr Finanzierungsnetzwerk – Banken, Vermittler:innen und Spezialist:innen. Später: Filter, Regionen, Bewertungen und Matching.",
+    "badge1": "Banken & Vermittler:innen",
+    "badge2": "Regionen & Matching",
+    "cardCta": "Anfrage senden",
+    "footerText": "Möchten Sie als Bank oder Vermittler:in dabei sein?",
+    "footerCta": "Partner:in werden",
+    "previewItems": [
+      { "name": "Finanzierungspartner #1", "type": "Bank / Vermittler:in", "badge": "Preview", "text": "Platzhalterprofil – später mit Spezialisierung, Konditionen, Kontakt-Flow.", "region": "Deutschland" },
+      { "name": "Finanzierungspartner #2", "type": "Hypothekenberatung", "badge": "Preview", "text": "Platzhalterprofil – später mit Matching, SLA, Lead-Management.", "region": "NRW / Bayern" },
+      { "name": "Finanzierungspartner #3", "type": "Neubau / Spezialfälle", "badge": "Preview", "text": "Platzhalterprofil – später mit Qualifizierung & Angebotsstrecke.", "region": "Berlin / Hamburg" }
+    ]
+  },
+  
+  
+  "title": "Finanzierungspartner an Ihrer Seite",
+  "featuresTitle": "Was Sie als Partner:in erwartet",
+ 
+  "columnsTitle": "Mit Finanzierungspartner:innen zusammenarbeiten",
+  
+  
   "tipTitle": "Interesse an einer Zusammenarbeit?",
   "tipText": "Wir planen eine eigene Partnersektion, in der seriöse Anbieter:innen ihre Finanzierungen transparent präsentieren können.",
   "tipSubtext": "Über das Kontaktformular können Sie uns erste Informationen zu Ihrem Institut oder Unternehmen senden. Wir melden uns mit weiteren Details.",

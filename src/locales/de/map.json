@@ -1,6 +1,45 @@
 {
 
     "title": "Standort auf Karte",
+
+  "subtitle": "Nur Immobilien im sichtbaren Kartenausschnitt",
+ "noResultsTitle": "Keine Ergebnisse",
+  "noResultsDesc": "In diesem Kartenausschnitt wurden keine Immobilien gefunden. Zoome heraus oder ändere die Filter.",
+  "sort": "Sortieren",
+  "loadingShort": "Lade…",
+  "loadError": "Daten konnten nicht geladen werden.",
+  
+  "noResultsText": "Zoomen oder Filter anpassen, um mehr Treffer zu sehen.",
+  "openResults": "Ergebnisse",
+  "close": "Schließen",
+  "homes": "Immobilien",
+   "mapLoading": "Karte wird geladen…",
+  "mapTokenMissingTitle": "Mapbox Token fehlt",
+  "mapTokenMissingText": "Bitte setze REACT_APP_MAPBOX_TOKEN in deiner .env Datei und starte den Dev-Server neu.",
+  "mapLoadErrorTitle": "Karte konnte nicht geladen werden",
+  "mapLoadErrorText": "Bitte Token, Internetverbindung und Mapbox-Style prüfen. Öffne die Konsole für Details.",
+  "fitToResults": "Zu Ergebnissen",
+  "resultsCount": "{{count}} Ergebnisse",
+  "resultsHint": "Nur Ergebnisse im sichtbaren Kartenausschnitt",
+  "saveSearch": "Suche speichern",
+  "saveSearchDemo": "Suche gespeichert (Demo)",
+  "newest": "Neueste",
+  "searchThisArea": "In diesem Bereich suchen",
+  "searchThisAreaToggle": "In diesem Kartenausschnitt suchen",
+  "mobile": {
+    "list": "Liste",
+    "map": "Karte",
+    "openResults": "Ergebnisse anzeigen"
+  },
+  "future": {
+    "aiMatch": "AI-Matching (Roadmap)",
+    "priceDrop": "Preissenkung-Tracking (Roadmap)",
+    "alerts": "Suchalarm & Benachrichtigungen (Roadmap)",
+    "heatmap": "Heatmap: Nachfrage & Preise (Roadmap)",
+    "schools": "Schulen & Infrastruktur (Roadmap)",
+    "commute": "Pendeln & Arbeitswege (Roadmap)",
+    "energy": "Energieklasse & Nebenkosten (Roadmap)"
+  },
       "mapTitle": "Interaktive Karte",
   "explore": "Karte erkunden",
   "listingsInArea": "Anzeigen in dieser Region",

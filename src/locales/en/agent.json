@@ -2,7 +2,22 @@
   "title": "Find the right real estate agent",
   "description": "Search for certified agents with local market experience.",
   "intro": "Finding the right agent can be crucial for the success of your real-estate plans. MyHome24App helps you discover the right experts and contact them directly.",
-
+  "ratings": {
+    "title": "Ratings & Quality",
+    "loading": "Loading ratings…",
+    "count": "{{count}} review",
+    "count_plural": "{{count}} reviews",
+    "loginHint": "Please log in to leave a review.",
+    "yourRating": "Your rating",
+    "starChosen": "{{count}} out of 5 stars",
+    "starHint": "Click on the stars to rate.",
+    "commentLabel": "Your experience (optional)",
+    "commentPlaceholder": "How was your experience with this agent?",
+    "saving": "Saving rating…",
+    "save": "Save rating",
+    "latest": "Latest reviews",
+    "noRatings": "There are no reviews for this profile yet."
+  },
   "searchPlaceholder": "Enter city, name or ZIP code",
   "findAgent": "Find agent",
   "contactAgent": "Contact agent",

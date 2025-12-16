@@ -1,13 +1,151 @@
 {
   "title": "Admin Dashboard",
+  "activityLog": {
+  "title": "Activity log",
+  "subtitle": "Overview of important actions on MyHome24App (visible to admins only).",
+
+  "columns": {
+    "type": "Type",
+    "message": "Message",
+    "user": "User",
+    "context": "Context",
+    "date": "Date"
+  },
+
+  "loading": "Loading activity log…",
+  "empty": "No entries yet.",
+  "detailTitle": "Log details",
+  "extra": "Additional data",
+
+  "types": {
+    "role_approved": "Role upgrade approved",
+    "agent_cta_become": "CTA “Become an agent” clicked",
+    "support_markedResolved": "Support marked as resolved",
+    "listing_statusChanged": "Listing status changed",
+    "listing_deleted": "Listing deleted",
+    "finance_leadStatusChanged": "Finance lead updated",
+    "unknown": "Other action"
+  },
+
+  "context": {
+    "admin-dashboard": "Admin dashboard",
+    "agent-profile-page": "Agent profile",
+    "user-dashboard": "User dashboard",
+    "owner-dashboard": "Owner dashboard",
+    "map-page": "Map",
+    "unknown": "General"
+  },
+
+  "messages": {
+    "roleApproved": "Role change to \"{{targetRole}}\" has been approved.",
+    "roleRejected": "Role upgrade request was rejected.",
+    "agentCtaBecome": "User clicked on “Become an agent”.",
+    "supportResolved": "Support message was marked as resolved.",
+    "listingStatusChanged": "Status of listing \"{{title}}\" was changed to \"{{status}}\".",
+    "listingDeleted": "Listing \"{{title}}\" was deleted.",
+    "financeLeadStatusChanged": "Status of the finance request was changed to \"{{status}}\"."
+  }
+},
   "manageUsers": "Manage Users",
   "manageListings": "Manage Listings",
   "logs": "Activity Logs",
   "statistics": "Statistics",
     "allListings": "All Listings",
   "close": "Close",
-   
 
+
+"columns": {
+
+"type": "Type",
+
+"message": "Message",
+
+"user": "User",
+
+"context": "Context",
+
+"date": "Date"
+
+},
+
+"loading": "Loading log…",
+
+"empty": "No entries yet.",
+
+"loadMore": "Loading more entries",
+
+"loadingMore": "Loading more entries…",
+
+"detailTitle": "Log details",
+
+"extra": "Additional data",
+
+"types": {
+
+"agent_cta_become": "CTA 'Become a real estate agent' clicked",
+
+"role_approved": "Role change to 'agent' approved",
+
+"unknown": "Unknown type"
+
+},
+
+"messages": {
+
+"roleApproved": "Role change to 'agent' has been approved.",
+
+"agentCtaBecome": "User clicked on 'Become a Broker'."
+
+},
+
+"context": {
+
+"admin-dashboard": "Admin Dashboard",
+
+"agent-dashboard": "Broker Dashboard"
+
+},
+
+
+   
+"viewAgentProfile": "Open profile",
+
+"agentProfileModal": {
+
+"title": "Broker profile",
+
+"loading": "Loading profile…",
+
+"noProfile": "No broker profile has been assigned to this request yet.",
+
+"error": "Profile could not be loaded.",
+
+"close": "Close",
+
+"labels": {
+
+"name": "Name: ",
+
+"email": "Email: ",
+
+"phone": "Phone: ",
+
+"location": "Location: ",
+
+"company": "Company: ",
+
+"languages": "Languages: ",
+
+"specialties": "Specialties: ",
+
+"rating": "Rating: ",
+
+"verified": "Verified broker",
+
+"createdAt": "Profile created on {{date}}"
+
+}
+},
   "fullName": "Full name",
   "myOffers": {
   "title": "My offers",

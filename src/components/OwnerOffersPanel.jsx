@@ -13,6 +13,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { FaCheck, FaTimes, FaEye, FaEuroSign } from 'react-icons/fa';
 import { db } from '../firebase';
+import { logEvent } from '../utils/logEvent';
 
 function OwnerOffersPanel({ ownerId }) {
   const { t } = useTranslation(['ownerDashboard', 'offer']);
@@ -75,22 +76,6 @@ function OwnerOffersPanel({ ownerId }) {
   // ---------------------------------------------------
   // Status ändern (accept / reject)
   // ---------------------------------------------------
-  const reloadOffers = async () => {
-    if (!ownerId) return;
-    const qOffers = query(
-      collection(db, 'offers'),
-      where('ownerId', '==', ownerId)
-    );
-    const snap = await getDocs(qOffers);
-    const items = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    items.sort((a, b) => {
-      const ta = a.createdAt?.toMillis?.() ?? 0;
-      const tb = b.createdAt?.toMillis?.() ?? 0;
-      return tb - ta;
-    });
-    setOffers(items);
-  };
-
   const handleUpdateStatus = async (offer, newStatus) => {
     if (!offer?.id || !ownerId) return;
 
@@ -105,6 +90,7 @@ function OwnerOffersPanel({ ownerId }) {
           updatedAt: serverTimestamp(),
         });
 
+        // Alle anderen Angebote zum gleichen Inserat für diesen Owner ablehnen
         if (offer.listingId) {
           const qOthers = query(
             collection(db, 'offers'),
@@ -123,15 +109,49 @@ function OwnerOffersPanel({ ownerId }) {
         }
 
         await batch.commit();
+
+        // ✅ Logging: Owner hat ein Angebot angenommen
+        await logEvent({
+          type: 'offer.acceptedByOwner',
+          message: `Angebot für "${offer.listingTitle || ''}" wurde angenommen.`,
+          listingId: offer.listingId || null,
+          offerId: offer.id,
+          ownerId,
+          buyerId: offer.buyerId || null,
+          amount: offer.amount || null,
+        });
       } else {
         const offerRef = doc(db, 'offers', offer.id);
         await updateDoc(offerRef, {
           status: 'rejected',
           updatedAt: serverTimestamp(),
         });
+
+        // ✅ Logging: Owner hat ein Angebot abgelehnt
+        await logEvent({
+          type: 'offer.rejectedByOwner',
+          message: `Angebot für "${offer.listingTitle || ''}" wurde abgelehnt.`,
+          listingId: offer.listingId || null,
+          offerId: offer.id,
+          ownerId,
+          buyerId: offer.buyerId || null,
+          amount: offer.amount || null,
+        });
       }
 
-      await reloadOffers();
+      // lokale Liste nachziehen (einfach neu laden)
+      const qOffers = query(
+        collection(db, 'offers'),
+        where('ownerId', '==', ownerId)
+      );
+      const snap = await getDocs(qOffers);
+      const items = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      items.sort((a, b) => {
+        const ta = a.createdAt?.toMillis?.() ?? 0;
+        const tb = b.createdAt?.toMillis?.() ?? 0;
+        return tb - ta;
+      });
+      setOffers(items);
     } catch (err) {
       console.error('[OwnerOffersPanel] update status error:', err);
     } finally {
@@ -295,9 +315,7 @@ function OwnerOffersPanel({ ownerId }) {
                       <TD>
                         <div className="text-xs text-gray-400">
                           {offer.createdAt?.toDate
-                            ? offer.createdAt
-                                .toDate()
-                                .toLocaleString('de-DE')
+                            ? offer.createdAt.toDate().toLocaleString('de-DE')
                             : '—'}
                         </div>
                       </TD>
@@ -315,7 +333,9 @@ function OwnerOffersPanel({ ownerId }) {
                           </button>
                           <button
                             type="button"
-                            onClick={() => handleUpdateStatus(offer, 'accepted')}
+                            onClick={() =>
+                              handleUpdateStatus(offer, 'accepted')
+                            }
                             disabled={
                               busyOfferId === offer.id ||
                               offer.status === 'accepted'
@@ -333,7 +353,9 @@ function OwnerOffersPanel({ ownerId }) {
                           </button>
                           <button
                             type="button"
-                            onClick={() => handleUpdateStatus(offer, 'rejected')}
+                            onClick={() =>
+                              handleUpdateStatus(offer, 'rejected')
+                            }
                             disabled={
                               busyOfferId === offer.id ||
                               offer.status === 'rejected'
@@ -427,7 +449,9 @@ function OwnerOffersPanel({ ownerId }) {
                       </button>
                       <button
                         type="button"
-                        onClick={() => handleUpdateStatus(offer, 'accepted')}
+                        onClick={() =>
+                          handleUpdateStatus(offer, 'accepted')
+                        }
                         disabled={
                           busyOfferId === offer.id ||
                           offer.status === 'accepted'
@@ -438,7 +462,9 @@ function OwnerOffersPanel({ ownerId }) {
                       </button>
                       <button
                         type="button"
-                        onClick={() => handleUpdateStatus(offer, 'rejected')}
+                        onClick={() =>
+                          handleUpdateStatus(offer, 'rejected')
+                        }
                         disabled={
                           busyOfferId === offer.id ||
                           offer.status === 'rejected'
@@ -516,18 +542,15 @@ function StatusBadge({ status }) {
   const map = {
     open: {
       label: t('status.open', { defaultValue: 'Offen' }),
-      classes:
-        'bg-sky-900/50 text-sky-200 border border-sky-700/70',
+      classes: 'bg-sky-900/50 text-sky-200 border border-sky-700/70',
     },
     accepted: {
       label: t('status.accepted', { defaultValue: 'Angenommen' }),
-      classes:
-        'bg-emerald-900/40 text-emerald-200 border border-emerald-700/70',
+      classes: 'bg-emerald-900/40 text-emerald-200 border border-emerald-700/70',
     },
     rejected: {
       label: t('status.rejected', { defaultValue: 'Abgelehnt' }),
-      classes:
-        'bg-rose-900/40 text-rose-200 border border-rose-700/70',
+      classes: 'bg-rose-900/40 text-rose-200 border border-rose-700/70',
     },
   };
 

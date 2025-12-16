@@ -16,5 +16,62 @@
   "empty": "You have not submitted any offers yet.",
   "withdraw": "Withdraw"
 },
+"metaTitle": "Agent dashboard",
+  "metaDescription": "Keep track of your listings, inquiries and reviews – your personal agent dashboard on MyHome24App.",
+  "title": "Your agent dashboard",
+  "subtitle": "Keep an eye on your listings, inquiries and reviews – similar to Zillow.",
+
+  "actions": {
+    "editProfile": "Edit agent profile"
+  },
+
+  "stats": {
+    "totalListings": "Total listings",
+    "activeListings": "Active listings",
+    "pendingListings": "Pending approvals",
+    "totalLeads": "Contact inquiries"
+  },
+
+  "profile": {
+    "title": "Your public agent profile",
+    "loading": "Loading profile…",
+    "empty": "You don't have an agent profile yet. Create one now to be found in the search.",
+    "specialtiesLabel": "Specialties:",
+    "completion": "Profile completeness",
+    "completionHint": "– the more complete your profile, the better you will be found."
+  },
+
+  "rating": {
+    "title": "Reviews & quality",
+    "reviewsCount": "{{count}} published reviews",
+    "hint": "Satisfied clients increase your visibility in the search."
+  },
+
+  "listings": {
+    "title": "Your latest listings",
+    "countLabel": "Listings in total",
+    "loading": "Loading listings…",
+    "empty": "No listings are currently assigned to you.",
+    "columns": {
+      "title": "Title",
+      "city": "City",
+      "type": "Type",
+      "status": "Status",
+      "createdAt": "Created at"
+    }
+  },
+
+  "leads": {
+    "title": "Latest contact inquiries",
+    "countLabel": "Inquiries in total",
+    "loading": "Loading contact inquiries…",
+    "empty": "No contact inquiries yet.",
+    "columns": {
+      "name": "Name",
+      "email": "E-mail",
+      "listing": "Listing",
+      "date": "Date"
+    }
+  },
   "settings": "Settings"
 }

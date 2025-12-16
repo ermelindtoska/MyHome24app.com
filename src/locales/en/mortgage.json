@@ -3,6 +3,65 @@
   "title": "Mortgage Calculator",
   "description": "Quickly and easily calculate your monthly loan installment. Our mortgage calculator helps you better plan your financing – whether you're buying, building, or renovating.",
  
+  "pageTitle": "Mortgage & Financing",
+  "pageDescription": "Get a quick overview of what your new home could cost per month with just a few inputs.",
+
+  "hero": {
+    "badge": "Mortgage calculator",
+    "title": "What will your new home cost per month?",
+    "subtitle": "With only a few details you receive non-binding example instalments for your mortgage – transparent, fast and easy to understand.",
+    "imageAlt": "Illustration of a mortgage calculator",
+    "metaTitle": "Mortgage calculator – estimate monthly payment",
+    "metaDescription": "Use the MyHome24App mortgage calculator to get an initial idea of your monthly financing costs.",
+    "ctaHint": "You can always discuss the details later with your bank or a financing professional."
+  },
+
+  "cta": {
+    "primary": "Open mortgage calculator",
+    "secondary": "Request financing advice"
+  },
+
+  "featuresTitle": "Your benefits with the MyHome24App mortgage calculator",
+  "features": [
+    {
+      "title": "Quick orientation",
+      "text": "Get a first feeling within seconds which monthly payment might fit your budget – without complex spreadsheets."
+    },
+    {
+      "title": "Transparent assumptions",
+      "text": "Adjust interest rate, term and equity to compare different scenarios easily."
+    },
+    {
+      "title": "Better preparation",
+      "text": "Enter meetings with banks or advisors well prepared and knowing your financial room to manoeuvre."
+    }
+  ],
+
+  "stepsTitle": "How to use the mortgage calculator",
+  "steps": [
+    {
+      "title": "1. Enter purchase price & equity",
+      "text": "Fill in the planned purchase price of the property and your available equity."
+    },
+    {
+      "title": "2. Choose interest rate & term",
+      "text": "Adjust the interest rate and initial repayment or term according to your preferences."
+    },
+    {
+      "title": "3. Check the monthly payment",
+      "text": "You immediately see a non-binding example instalment and can play with different variants."
+    }
+  ],
+
+  "infoBoxTitle": "Important notes on the example calculation",
+  "infoBoxText": "The results are non-binding examples and do not replace individual financial advice. Interest rate changes, additional costs and personal circumstances may significantly change the actual payment.",
+
+  "disclaimer": "All information is supplied without guarantee and does not represent a legally binding offer. For a binding mortgage offer, please contact your bank, a loan broker or an independent financial advisor.",
+
+  "linkToCalculator": "Open mortgage calculator now",
+  "linkToFinancePartners": "View financing partners",
+
+
   "tipTitle": "Tip",
   "myOffers": {
   "title": "My offers",
@@ -50,11 +109,7 @@
     "description": "Estimate your monthly mortgage payment for properties in Germany. Non-binding sample calculation tailored to the German market."
   },
   "imgAlt": "Modern mortgage calculator with home and finance overview",
-  "hero": {
-    "badge": "Mortgage calculator",
-    "title": "What will your new home cost per month?",
-    "subtitle": "Enter a few key figures and get a non-binding example rate for your mortgage – transparent and within seconds."
-  },
+ 
   "intro": {
     "title": "Realistic overview instead of rough guesswork",
     "text": "In Germany, interest rate, initial repayment, equity and fixed-interest period are key. Our calculator gives you a better feeling for your potential monthly payment before you speak to banks or advisors.",
@@ -64,10 +119,7 @@
       "Understand how equity, interest rate and term influence your monthly payment."
     ]
   },
-  "cta": {
-    "calculateNow": "Calculate now",
-    "contactAdvisor": "Request financial advice"
-  },
+ 
   "calculator": {
     "title": "Your financing data",
     "subtitle": "Adjust the values and see instantly how the sample monthly payment changes."
@@ -118,12 +170,6 @@
     ],
     "ctaPrimary": "Request cooperation",
     "ctaSecondary": "Learn more about owner services"
-  },
-  "disclaimer": {
-    "short": "Note: All calculations are non-binding examples and do not replace individual financial advice. Closing costs and your personal tax or life situation are not taken into account.",
-    "title": "Important notice – no financial or legal advice",
-    "text1": "All values shown here are for illustration only. They are based on simplified assumptions (constant interest rate, constant annuity, no special repayments, no consideration of fixed-interest periods) and do not constitute an offer or recommendation.",
-    "text2": "Whether a mortgage is suitable for you depends on many individual factors such as income, assets, collateral, family situation, credit history and tax situation. Binding conditions and legal information will only be provided by your bank or a licensed financial service provider.",
-    "text3": "MyHome24app does not provide its own legal, tax or investment advice. Please consult bank advisors, independent mortgage brokers or tax advisors for a personal assessment."
   }
+
 }

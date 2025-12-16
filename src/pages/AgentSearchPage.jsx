@@ -15,6 +15,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import SiteMeta from "../components/SEO/SiteMeta";
 import agentSearchImg from "../assets/agent-search.png";
+import { logEvent } from "../utils/logEvent";
 
 const AgentSearchPage = () => {
   const { t, i18n } = useTranslation("agent");
@@ -32,9 +33,11 @@ const AgentSearchPage = () => {
 
   // 🔹 agjentët nga Firestore (vetëm të verifikuar)
   const [agents, setAgents] = useState([]);
+  const [loadingAgents, setLoadingAgents] = useState(true);
 
   useEffect(() => {
     const fetchAgents = async () => {
+      setLoadingAgents(true);
       try {
         const snapshot = await getDocs(collection(db, "agents"));
         const docs = snapshot.docs.map((docSnap) => ({
@@ -42,15 +45,27 @@ const AgentSearchPage = () => {
           ...docSnap.data(),
         }));
 
-        // Vetëm agjentë të verifikuar (Variant A)
+        // Vetëm agjentë të verifikuar
         const verifiedAgents = docs.filter(
           (a) => a.verified === true || a.verified === "true"
         );
 
+        // Sortim: rating desc, pastaj emri
+        verifiedAgents.sort((a, b) => {
+          const ra = typeof a.rating === "number" ? a.rating : 0;
+          const rb = typeof b.rating === "number" ? b.rating : 0;
+          if (rb !== ra) return rb - ra;
+          const na = (a.fullName || "").toLowerCase();
+          const nb = (b.fullName || "").toLowerCase();
+          return na.localeCompare(nb);
+        });
+
         setAgents(verifiedAgents);
       } catch (err) {
         console.error("Error loading agents:", err);
-        // UI do të tregojë thjesht "Keine Ergebnisse", që është ok për tani
+        setAgents([]);
+      } finally {
+        setLoadingAgents(false);
       }
     };
 
@@ -112,13 +127,26 @@ const AgentSearchPage = () => {
     if (searchInputRef.current) {
       searchInputRef.current.focus();
     }
+    // log optional
+    logEvent({
+      type: "agent.search.scrollToFilters",
+      context: "agent-search-page",
+    }).catch(() => {});
   };
 
   const handleRateAgent = () => {
+    logEvent({
+      type: "agent.cta.rate",
+      context: "agent-search-page",
+    }).catch(() => {});
     navigate("/agent/rate");
   };
 
   const handleBecomeAgent = () => {
+    logEvent({
+      type: "agent.cta.become",
+      context: "agent-search-page",
+    }).catch(() => {});
     navigate("/agent/become");
   };
 
@@ -319,77 +347,112 @@ const AgentSearchPage = () => {
               </span>
             </div>
 
-            {agents.length === 0 && (
+            {loadingAgents && (
+              <div className="text-sm text-slate-400 border border-dashed border-slate-700 rounded-2xl px-4 py-6 text-center">
+                {t("loading", { defaultValue: "Agent:innen werden geladen…" })}
+              </div>
+            )}
+
+            {!loadingAgents && agents.length === 0 && (
               <div className="text-sm text-slate-400 border border-dashed border-slate-700 rounded-2xl px-4 py-6 text-center">
                 {t("noResults")}
               </div>
             )}
 
-            {agents.length > 0 && filteredAgents.length === 0 && (
-              <div className="text-sm text-slate-400 border border-dashed border-slate-700 rounded-2xl px-4 py-6 text-center">
-                {t("noResults")}
-              </div>
-            )}
+            {!loadingAgents &&
+              agents.length > 0 &&
+              filteredAgents.length === 0 && (
+                <div className="text-sm text-slate-400 border border-dashed border-slate-700 rounded-2xl px-4 py-6 text-center">
+                  {t("noResults")}
+                </div>
+              )}
 
-            {filteredAgents.length > 0 && (
-              <div className="space-y-4 mt-2">
-                {filteredAgents.map((agent) => (
-                  <div
-                    key={agent.id}
-                    className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 flex flex-col md:flex-row md:items-center gap-4"
-                  >
-                    {/* Avatar */}
-                    <div className="flex-shrink-0">
-                      {agent.photoUrl ? (
-                        <img
-                          src={agent.photoUrl}
-                          alt={agent.fullName || "Agent"}
-                          className="h-16 w-16 rounded-full object-cover border border-slate-700"
-                        />
-                      ) : (
-                        <div className="h-16 w-16 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700">
-                          <FaUserTie className="text-slate-300 text-xl" />
-                        </div>
-                      )}
-                    </div>
+           {!loadingAgents && filteredAgents.length > 0 && (
+  <div className="space-y-4 mt-2">
+    {filteredAgents.map((agent) => {
+      const rawLanguages = agent.languages;
+      const agentLanguages = Array.isArray(rawLanguages)
+        ? rawLanguages
+        : typeof rawLanguages === "string"
+        ? rawLanguages.split(",")
+        : [];
 
-                    {/* Content */}
-                    <div className="flex-1 space-y-1">
-                      <h4 className="text-base md:text-lg font-semibold">
-                        {agent.fullName || "—"}
-                      </h4>
+      return (
+        <div
+          key={agent.id}
+          onClick={() => navigate(`/agent/${agent.id}`)}
+          className="cursor-pointer rounded-2xl border border-slate-800 bg-slate-900/70 p-4 flex flex-col md:flex-row md:items-center gap-4 hover:border-emerald-500/60 hover:bg-slate-900 transition"
+        >
+          {/* pjesa tjetër e kartës (Avatar, Content, …) MBETET njësoj si e kishe */}
 
-                      <div className="flex flex-wrap items-center gap-2">
-                        {agent.verified && (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-300 border border-emerald-500/40">
-                            <MdVerified className="text-emerald-300" />
-                            {t("verified")}
-                          </span>
+                      {/* Avatar */}
+                      <div className="flex-shrink-0">
+                        {agent.photoUrl ? (
+                          <img
+                            src={agent.photoUrl}
+                            alt={agent.fullName || "Agent"}
+                            className="h-16 w-16 rounded-full object-cover border border-slate-700"
+                          />
+                        ) : (
+                          <div className="h-16 w-16 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700">
+                            <FaUserTie className="text-slate-300 text-xl" />
+                          </div>
                         )}
-                        {typeof agent.rating === "number" &&
-                          agent.rating > 0 && (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-0.5 text-[11px] font-semibold text-amber-300 border border-amber-500/40">
-                              <MdStar className="text-amber-300" />
-                              {agent.rating.toFixed(1)} / 5
-                            </span>
-                          )}
                       </div>
 
-                      <p className="text-xs md:text-sm text-slate-300">
-                        {agent.city && agent.region
-                          ? `${agent.city}, ${agent.region}`
-                          : agent.city || agent.region || ""}
-                      </p>
+                      {/* Content */}
+                      <div className="flex-1 space-y-1">
+                        <h4 className="text-base md:text-lg font-semibold">
+                          {agent.fullName || "—"}
+                        </h4>
 
-                      {agent.specialties && Array.isArray(agent.specialties) && (
-                        <p className="text-xs text-slate-400">
-                          {t("specialties")}:{" "}
-                          {agent.specialties.join(", ")}
+                        <div className="flex flex-wrap items-center gap-2">
+                          {agent.verified && (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-300 border border-emerald-500/40">
+                              <MdVerified className="text-emerald-300" />
+                              {t("verified")}
+                            </span>
+                          )}
+                          {typeof agent.rating === "number" &&
+                            agent.rating > 0 && (
+                              <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-0.5 text-[11px] font-semibold text-amber-300 border border-amber-500/40">
+                                <MdStar className="text-amber-300" />
+                                {agent.rating.toFixed(1)} / 5
+                              </span>
+                            )}
+                        </div>
+
+                        <p className="text-xs md:text-sm text-slate-300">
+                          {agent.city && agent.region
+                            ? `${agent.city}, ${agent.region}`
+                            : agent.city || agent.region || ""}
                         </p>
-                      )}
+
+                        {agent.specialties &&
+                          Array.isArray(agent.specialties) &&
+                          agent.specialties.length > 0 && (
+                            <p className="text-xs text-slate-400">
+                              {t("specialties")}:{" "}
+                              {agent.specialties.join(", ")}
+                            </p>
+                          )}
+
+                        {agentLanguages.length > 0 && (
+                          <div className="flex flex-wrap gap-1 pt-1">
+                            {agentLanguages.map((lng) => (
+                              <span
+                                key={lng}
+                                className="inline-flex items-center rounded-full bg-slate-800 px-2 py-0.5 text-[11px] text-slate-100"
+                              >
+                                {lng.trim()}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>

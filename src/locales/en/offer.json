@@ -1,6 +1,16 @@
 {
   "title": "Submit purchase offer",
 
+  
+
+ 
+
+  "status": {
+    "open": "Open",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "withdrawn": "Withdrawn"
+  },
 
 
   "loading": "Loading offers…",

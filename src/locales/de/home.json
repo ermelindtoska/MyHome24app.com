@@ -1,7 +1,32 @@
 {
   "heroTitle": "Finde dein perfektes Zuhause",
+    "agentsSection": {
+    "title": "Treffen Sie unsere Agent:innen",
+    "subtitle": "Erfahrene Expert:innen, die Sie bei Ihrem Immobilienvorhaben begleiten – vom ersten Klick bis zum Notartermin.",
+    "ctaAllAgents": "Alle Makler:innen anzeigen",
+    "verifiedBadge": "Verifiziert",
+    "ratingCount": "Bewertungen",
+    "noRatings": "Noch keine Bewertungen",
+    "languagesLabel": "Sprachen:",
+    "specialtiesLabel": "Schwerpunkte:",
+    "viewProfile": "Profil ansehen",
+    "contactCta": "Kontakt aufnehmen",
+    "unknownName": "Unbekannte:r Makler:in",
+    "emptyTitle": "Noch keine Makler:innen veröffentlicht.",
+    "emptyText": "Sobald Profile von Makler:innen freigeschaltet werden, erscheinen sie automatisch hier.",
+    "error": "Die Maklerliste konnte nicht geladen werden."
+  },
   "errorLoadingListings": "Fehler beim Laden der Immobilienanzeigen.",
   "loadingSearchBar": "Suchleiste wird geladen...",
+    "agents": {
+    "title": "Treffen Sie unsere Agent:innen",
+    "subtitle": "Erfahrene Expert:innen, bereit Ihnen bei Ihrem Immobilienvorhaben zu helfen.",
+    "loading": "Agent:innen werden geladen …",
+    "empty": "Aktuell sind noch keine Maklerprofile veröffentlicht.",
+    "languagesPrefix": "Sprachen:",
+    "verifiedBadge": "Verifiziert",
+    "viewProfile": "Profil ansehen"
+  },
   "heroTitle2": "Wohnungen für jedes Budget",
   "heroTitle3": "Finden Sie Ihr neues Zuhause!",
   "heroSubtitle": "Wähle einen Standort oder filtere nach deinem Wunsch.",

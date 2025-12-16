@@ -13,7 +13,10 @@ import {
 } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { useTranslation } from 'react-i18next';
+import { logEvent } from '../utils/logEvent'; 
+
 import MyOffersPanel from '../components/MyOffersPanel';
+// ❌ import UserOffersPanel u hoq, se nuk po përdoret më
 
 import { Link } from 'react-router-dom';
 import {
@@ -200,26 +203,45 @@ const UserDashboard = () => {
     if (!offerId) return;
     try {
       setWithdrawingId(offerId);
-      const ref = doc(db, 'offers', offerId);
+
+      const offer = myOffers.find((o) => o.id === offerId) || null;
+
+      const ref = doc(db, "offers", offerId);
       await updateDoc(ref, {
-        status: 'withdrawn',
+        status: "withdrawn",
         updatedAt: serverTimestamp(),
       });
 
       setMyOffers((prev) =>
-        prev.map((o) => (o.id === offerId ? { ...o, status: 'withdrawn' } : o))
+        prev.map((o) => (o.id === offerId ? { ...o, status: "withdrawn" } : o))
       );
+
+      // 🔵 LOG: Angebot zurückgezogen
+      await logEvent({
+        type: "offer.withdrawn",
+        message: offer
+          ? `Angebot für "${offer.listingTitle || ""}" wurde vom:von der Käufer:in zurückgezogen.`
+          : "Angebot wurde vom:von der Käufer:in zurückgezogen.",
+        listingId: offer?.listingId || null,
+        offerId,
+        buyerId: offer?.buyerId || null,
+      });
     } catch (err) {
-      console.error('[UserDashboard] withdraw offer error:', err);
+      console.error("[UserDashboard] withdraw offer error:", err);
     } finally {
       setWithdrawingId(null);
     }
   };
 
+
+
+
   // 🔍 Filtrim lokal i listimeve
   const filteredListings = listings.filter((listing) => {
     return (
-      (filterCity ? listing.city?.toLowerCase().includes(filterCity.toLowerCase()) : true) &&
+      (filterCity
+        ? listing.city?.toLowerCase().includes(filterCity.toLowerCase())
+        : true) &&
       (filterType ? listing.type === filterType : true) &&
       (filterPurpose ? listing.purpose === filterPurpose : true)
     );
@@ -246,7 +268,6 @@ const UserDashboard = () => {
           >
             <FiPlusCircle size={18} /> {t('addNew')}
           </Link>
-          {/* ❌ u hoq butoni i vjetër që hapte modalin direkt */}
         </div>
       </div>
 
@@ -418,6 +439,7 @@ const UserDashboard = () => {
               value={offerStats.withdrawn}
               color="gray"
             />
+            {/* Ky është paneli yt i vjetër – e lë ashtu siç e kishe */}
             <MyOffersPanel userId={auth.currentUser?.uid} />
           </div>
         </div>
@@ -430,8 +452,7 @@ const UserDashboard = () => {
           ) : myOffers.length === 0 ? (
             <p className="text-sm text-gray-400">
               {t('myOffers.empty', {
-                defaultValue:
-                  'Du hast bisher noch keine Angebote abgegeben.',
+                defaultValue: 'Du hast bisher noch keine Angebote abgegeben.',
               })}
             </p>
           ) : (
@@ -483,9 +504,7 @@ const UserDashboard = () => {
                         <OffersTD>
                           <div className="text-xs text-gray-400">
                             {offer.createdAt?.toDate
-                              ? offer.createdAt
-                                  .toDate()
-                                  .toLocaleString('de-DE')
+                              ? offer.createdAt.toDate().toLocaleString('de-DE')
                               : '—'}
                           </div>
                         </OffersTD>
@@ -711,23 +730,19 @@ function OfferStatusBadge({ status }) {
   const map = {
     open: {
       label: 'Offen',
-      classes:
-        'bg-sky-900/50 text-sky-200 border border-sky-700/70',
+      classes: 'bg-sky-900/50 text-sky-200 border border-sky-700/70',
     },
     accepted: {
       label: 'Angenommen',
-      classes:
-        'bg-emerald-900/40 text-emerald-200 border border-emerald-700/70',
+      classes: 'bg-emerald-900/40 text-emerald-200 border border-emerald-700/70',
     },
     rejected: {
       label: 'Abgelehnt',
-      classes:
-        'bg-rose-900/40 text-rose-200 border border-rose-700/70',
+      classes: 'bg-rose-900/40 text-rose-200 border border-rose-700/70',
     },
     withdrawn: {
       label: 'Zurückgezogen',
-      classes:
-        'bg-gray-800 text-gray-200 border border-gray-700/70',
+      classes: 'bg-gray-800 text-gray-200 border border-gray-700/70',
     },
   };
 
@@ -785,7 +800,9 @@ function MyOfferDetailsModal({ offer, onClose, onWithdraw, withdrawing }) {
 
           {offer.message && (
             <div className="mt-3">
-              <span className="font-semibold">Nachricht an den:die Anbieter:in:</span>
+              <span className="font-semibold">
+                Nachricht an den:die Anbieter:in:
+              </span>
               <p className="mt-1 text-sm text-gray-200 whitespace-pre-line">
                 {offer.message}
               </p>

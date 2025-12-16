@@ -1,18 +1,25 @@
 // src/components/Map/MapWithMarkers.jsx
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
+
 import MapFilters from "./MapFilters";
 import { useSearchState } from "../../state/useSearchState";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
-const DE_CENTER = [10.4515, 51.1657];
-const DE_ZOOM = 5.5;
+// Germany bbox (lng/lat)
+const DE_BOUNDS = [
+  [5.5, 47.0],   // SW
+  [15.5, 55.2],  // NE
+];
 
-// util i vogël për debounce
+// Zillow-like default view for Germany
+const DE_CENTER = [10.4515, 51.1657]; // lng, lat
+const DE_ZOOM = 5.6;
+
 const debounce = (fn, ms) => {
   let t;
   return (...args) => {
@@ -21,197 +28,280 @@ const debounce = (fn, ms) => {
   };
 };
 
-const MapWithMarkers = ({ listings = [], selectedId, onListingSelect, onVisibleChange }) => {
-  const { t } = useTranslation(["listing", "filterBar"]);
+const isValidDEPoint = (lng, lat) => {
+  if (!Number.isFinite(lng) || !Number.isFinite(lat)) return false;
+  return lng >= DE_BOUNDS[0][0] && lng <= DE_BOUNDS[1][0] && lat >= DE_BOUNDS[0][1] && lat <= DE_BOUNDS[1][1];
+};
+
+const MapWithMarkers = ({ listings = [], onListingSelect, onVisibleChange, onRequestOpenMobileList }) => {
+  const { t } = useTranslation(["map", "filterBar", "listing"]);
+
   const mapEl = useRef(null);
   const mapRef = useRef(null);
-  const markersRef = useRef([]); // [{id, marker, el, data}]
-  const store = useSearchState();
 
-  const { filters, sortBy, searchInArea, activeId } = store.get();
+  // Subscribe to state (no store.get() in render)
+  const storeState = useSearchState((s) => ({
+    filters: s.filters,
+    sortBy: s.sortBy,
+    searchInArea: s.searchInArea,
+    bounds: s.bounds,
+  }));
+  const store = useSearchState(); // actions
 
-  // ---------------- Map init ----------------
-  useEffect(() => {
-    if (!mapEl.current) return;
+  const { filters, sortBy, searchInArea, bounds } = storeState;
 
-    const map = new mapboxgl.Map({
-      container: mapEl.current,
-      style: "mapbox://styles/mapbox/streets-v12",
-      center: DE_CENTER,
-      zoom: DE_ZOOM,
+  // keep latest callbacks without re-init
+  const onListingSelectRef = useRef(onListingSelect);
+  const onVisibleChangeRef = useRef(onVisibleChange);
+  useEffect(() => { onListingSelectRef.current = onListingSelect; }, [onListingSelect]);
+  useEffect(() => { onVisibleChangeRef.current = onVisibleChange; }, [onVisibleChange]);
+
+  // ================= FILTER / SORT (also sanitize coords to DE) =================
+  const filteredListings = useMemo(() => {
+   let arr = (listings || []).filter((it) => {
+  const lat = Number(it.latitude);
+  const lng = Number(it.longitude);
+  return Number.isFinite(lat) && Number.isFinite(lng);
+});
+
+    const cityQ = String(filters?.city || "").trim().toLowerCase();
+    if (cityQ) arr = arr.filter((it) => String(it.city || "").toLowerCase().includes(cityQ));
+
+    const type = String(filters?.type || "").trim();
+    if (type) arr = arr.filter((it) => String(it.type || "") === type);
+
+    const min = filters?.priceMin ? Number(filters.priceMin) : null;
+    const max = filters?.priceMax ? Number(filters.priceMax) : null;
+    if (min != null && Number.isFinite(min)) arr = arr.filter((it) => Number(it.price ?? 0) >= min);
+    if (max != null && Number.isFinite(max)) arr = arr.filter((it) => Number(it.price ?? 0) <= max);
+
+    if (searchInArea && bounds) {
+      arr = arr.filter(
+        (it) =>
+          it.longitude >= bounds.w &&
+          it.longitude <= bounds.e &&
+          it.latitude >= bounds.s &&
+          it.latitude <= bounds.n
+      );
+    }
+
+    if (sortBy === "priceAsc") arr.sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
+    if (sortBy === "priceDesc") arr.sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+    if (sortBy === "newest") arr.sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0));
+
+    return arr;
+  }, [listings, filters, sortBy, searchInArea, bounds]);
+
+  // ================= GEOJSON =================
+  const geojson = useMemo(() => ({
+    type: "FeatureCollection",
+    features: filteredListings.map((it) => ({
+      type: "Feature",
+      properties: { id: String(it.id), price: Number(it.price ?? 0) },
+      geometry: { type: "Point", coordinates: [Number(it.longitude), Number(it.latitude)] },
+    })),
+  }), [filteredListings]);
+
+  const syncBoundsToStore = (map) => {
+    const b = map.getBounds();
+    store.setBounds({
+      w: b.getWest(),
+      e: b.getEast(),
+      s: b.getSouth(),
+      n: b.getNorth(),
     });
-    mapRef.current = map;
-
-    // raportim i parë i bounds Pasi stili është ngarkuar
-    map.on("load", () => {
-      const b = map.getBounds();
-      store.setBounds({
-        w: b.getWest(),
-        e: b.getEast(),
-        s: b.getSouth(),
-        n: b.getNorth(),
-      });
-
-      // trigger i vogël që Mapbox të layout-ojë saktë në mobile
-      setTimeout(() => window.dispatchEvent(new Event("resize")), 200);
-    });
-
-    // në çdo lëvizje -> rifiltro markerat + dërgo onVisibleChange
-    const onMoveEnd = debounce(() => {
-      const m = mapRef.current;
-      if (!m || !m.isStyleLoaded?.()) return;
-
-      const b = m.getBounds();
-      const bounds = {
-        w: b.getWest(),
-        e: b.getEast(),
-        s: b.getSouth(),
-        n: b.getNorth(),
-      };
-      store.setBounds(bounds);
-      renderMarkers(); // bazuar në bounds+filters
-      reportVisible();
-    }, 120);
-
-    map.on("moveend", onMoveEnd);
-
-    return () => {
-      map.off("moveend", onMoveEnd);
-      map.remove();
-      mapRef.current = null;
-      clearMarkers();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // ---------------- Filtro + sort ----------------
-  const applyFilters = useCallback(
-    (items) => {
-      let arr = (items || []).filter((it) => {
-        // koordinatat duhet të jenë numerike
-        if (typeof it.latitude !== "number" || typeof it.longitude !== "number") return false;
-
-        if (
-          filters.city &&
-          !(it.city || "").toLowerCase().includes(filters.city.toLowerCase())
-        )
-          return false;
-        if (filters.type && it.type !== filters.type) return false;
-
-        const price = Number(it.price ?? 0);
-        if (filters.priceMin && price < Number(filters.priceMin)) return false;
-        if (filters.priceMax && price > Number(filters.priceMax)) return false;
-        return true;
-      });
-
-      if (searchInArea) {
-        const b = store.get().bounds;
-        if (b) {
-          arr = arr.filter(
-            (it) =>
-              it.longitude >= b.w &&
-              it.longitude <= b.e &&
-              it.latitude >= b.s &&
-              it.latitude <= b.n
-          );
-        }
-      }
-
-      if (store.get().sortBy === "priceAsc")
-        arr.sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
-      if (store.get().sortBy === "priceDesc")
-        arr.sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
-      if (store.get().sortBy === "newest")
-        arr.sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0));
-
-      return arr;
-    },
-    [filters, searchInArea, store]
-  );
-
-  // ---------------- Render markers ----------------
-  const clearMarkers = () => {
-    markersRef.current.forEach((m) => m.marker.remove());
-    markersRef.current = [];
   };
 
-  const renderMarkers = useCallback(() => {
-    const map = mapRef.current;
-    if (!map || !map.isStyleLoaded?.()) return;
+  const ensureSourceAndLayers = (map) => {
+    if (!map || map._removed) return;
+    if (!map.isStyleLoaded?.()) return;
 
-    clearMarkers();
-
-    const filtered = applyFilters(listings);
-
-    filtered.forEach((it) => {
-      const el = document.createElement("div");
-      el.className = "mh24-marker";
-      el.innerHTML = `
-        <span>€${Number(it.price ?? 0).toLocaleString()}</span>
-        <span class="type">${it.type || ""}</span>
-      `;
-
-      // highlight nga store
-      if (String(store.get().activeId) === String(it.id)) el.classList.add("active");
-
-      el.addEventListener("mouseenter", () => store.setActiveId(it.id));
-      el.addEventListener("mouseleave", () => {
-        if (String(store.get().activeId) === String(it.id)) store.setActiveId(null);
+    const src = map.getSource("mh24-listings");
+    if (!src) {
+      map.addSource("mh24-listings", {
+        type: "geojson",
+        data: geojson,
+        cluster: true,
+        clusterRadius: 46,
+        clusterMaxZoom: 12,
       });
-      el.addEventListener("click", (e) => {
-        e.stopPropagation();
-        onListingSelect?.(it);
+    } else {
+      src.setData(geojson);
+    }
+
+    if (!map.getLayer("mh24-clusters")) {
+      map.addLayer({
+        id: "mh24-clusters",
+        type: "circle",
+        source: "mh24-listings",
+        filter: ["has", "point_count"],
+        paint: {
+          "circle-radius": ["step", ["get", "point_count"], 18, 10, 22, 30, 28],
+          "circle-color": "#d90429",
+          "circle-opacity": 0.92,
+          "circle-stroke-width": 2,
+          "circle-stroke-color": "#ffffff",
+        },
       });
+    }
 
-      const marker = new mapboxgl.Marker({ element: el, anchor: "bottom" })
-        .setLngLat([it.longitude, it.latitude])
-        .addTo(map);
+    if (!map.getLayer("mh24-cluster-count")) {
+      map.addLayer({
+        id: "mh24-cluster-count",
+        type: "symbol",
+        source: "mh24-listings",
+        filter: ["has", "point_count"],
+        layout: {
+          "text-field": "{point_count_abbreviated}",
+          "text-size": 12,
+          "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+        },
+        paint: { "text-color": "#ffffff" },
+      });
+    }
 
-      markersRef.current.push({ id: it.id, marker, el, data: it });
-    });
-  }, [applyFilters, listings, onListingSelect, store]);
+    if (!map.getLayer("mh24-point")) {
+      map.addLayer({
+        id: "mh24-point",
+        type: "symbol",
+        source: "mh24-listings",
+        filter: ["!", ["has", "point_count"]],
+        layout: {
+          "text-field": ["concat", "€", ["to-string", ["get", "price"]]],
+          "text-size": 12,
+          "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+          "text-anchor": "center",
+          "text-padding": 8,
+          "text-allow-overlap": true,
+        },
+        paint: {
+          "text-color": "#111827",
+          "text-halo-color": "#ffffff",
+          "text-halo-width": 12,
+        },
+      });
+    }
+  };
 
-  // ---------------- Visible to Sidebar ----------------
-  const reportVisible = useCallback(() => {
-    const map = mapRef.current;
-    if (!map || !map.isStyleLoaded?.()) return;
+  const reportVisible = (map) => {
+    if (!map || map._removed) return;
+
+    // if search-in-area OFF => everything (already sanitized to DE)
+    if (!store.get().searchInArea) {
+      onVisibleChangeRef.current?.(filteredListings);
+      return;
+    }
 
     const b = map.getBounds();
-    const visible = applyFilters(listings).filter(
+    const visible = filteredListings.filter(
       (it) =>
         it.longitude >= b.getWest() &&
         it.longitude <= b.getEast() &&
         it.latitude >= b.getSouth() &&
         it.latitude <= b.getNorth()
     );
-    onVisibleChange?.(visible);
-  }, [applyFilters, listings, onVisibleChange]);
+    onVisibleChangeRef.current?.(visible);
+  };
 
-  // Rirender në çdo ndryshim të filtrave/sortimit/bounds PASI stili është gati
+  // ================= MAP INIT (RUN ONCE) =================
+  useEffect(() => {
+    if (!mapEl.current) return;
+    if (mapRef.current) return;
+
+    const map = new mapboxgl.Map({
+      container: mapEl.current,
+      style: "mapbox://styles/mapbox/streets-v12",
+      center: DE_CENTER,
+      zoom: DE_ZOOM,
+      attributionControl: false,
+    });
+
+    // ✅ IMPORTANT: keep map inside Germany so bad coords can't throw it to Scandinavia
+    //map.setMaxBounds(DE_BOUNDS);
+
+    mapRef.current = map;
+
+    map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "bottom-right");
+    map.addControl(new mapboxgl.AttributionControl({ compact: true }), "bottom-left");
+
+    let t1 = null;
+    let t2 = null;
+
+    const safeResize = () => {
+      const m = mapRef.current;
+      if (!m || m._removed) return;
+      const c = m.getCanvas?.();
+      if (!c) return;
+      try { m.resize(); } catch {}
+    };
+
+    const onMoveEnd = debounce(() => {
+      const m = mapRef.current;
+      if (!m || m._removed) return;
+      if (!m.isStyleLoaded?.()) return;
+      syncBoundsToStore(m);
+      reportVisible(m);
+    }, 120);
+
+    const onLoad = () => {
+      // force Germany on load
+      map.jumpTo({ center: DE_CENTER, zoom: DE_ZOOM });
+
+      t1 = setTimeout(safeResize, 120);
+      t2 = setTimeout(safeResize, 350);
+
+      syncBoundsToStore(map);
+      ensureSourceAndLayers(map);
+      reportVisible(map);
+
+      map.on("moveend", onMoveEnd);
+
+      map.on("click", "mh24-clusters", (e) => {
+        const feats = map.queryRenderedFeatures(e.point, { layers: ["mh24-clusters"] });
+        const clusterId = feats?.[0]?.properties?.cluster_id;
+        const source = map.getSource("mh24-listings");
+        if (!source || clusterId == null) return;
+
+        source.getClusterExpansionZoom(clusterId, (err, zoom) => {
+          if (err) return;
+          map.easeTo({ center: feats[0].geometry.coordinates, zoom });
+        });
+      });
+
+      map.on("click", "mh24-point", (e) => {
+        const f = e.features?.[0];
+        const id = f?.properties?.id;
+        if (!id) return;
+        const full = filteredListings.find((x) => String(x.id) === String(id));
+        if (full) onListingSelectRef.current?.(full);
+      });
+
+      map.on("mouseenter", "mh24-point", () => (map.getCanvas().style.cursor = "pointer"));
+      map.on("mouseleave", "mh24-point", () => (map.getCanvas().style.cursor = ""));
+      map.on("mouseenter", "mh24-clusters", () => (map.getCanvas().style.cursor = "pointer"));
+      map.on("mouseleave", "mh24-clusters", () => (map.getCanvas().style.cursor = ""));
+    };
+
+    map.on("load", onLoad);
+
+    return () => {
+      try { if (t1) clearTimeout(t1); if (t2) clearTimeout(t2); } catch {}
+      try { map.off("load", onLoad); map.off("moveend", onMoveEnd); } catch {}
+      try { map.remove(); } catch {}
+      mapRef.current = null;
+    };
+  }, []); // ✅ never re-init
+
+  // ================= UPDATE DATA (NO RE-INIT) =================
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !map.isStyleLoaded?.()) return;
-    renderMarkers();
-    reportVisible();
-  }, [renderMarkers, reportVisible]);
+    if (!map || map._removed) return;
+    if (!map.isStyleLoaded?.()) return;
+    ensureSourceAndLayers(map);
+    reportVisible(map);
+  }, [geojson]); // ok
 
-  // ---------------- Selected/Active highlight ----------------
-  // nga prop selectedId
-  useEffect(() => {
-    if (selectedId != null) store.setActiveId(selectedId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedId]);
-
-  // nga store.activeId -> CSS 'active'
-  useEffect(() => {
-    const aId = store.get().activeId;
-    markersRef.current.forEach(({ id, el }) => {
-      if (String(id) === String(aId)) el.classList.add("active");
-      else el.classList.remove("active");
-    });
-  }, [activeId, store]);
-
-  // ---------------- Search suggestions (Nominatim) ----------------
+  // ================= SEARCH UI (Nominatim) =================
   const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
@@ -219,13 +309,11 @@ const MapWithMarkers = ({ listings = [], selectedId, onListingSelect, onVisibleC
     if (!q || q.length < 2) return setSuggestions([]);
     try {
       const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-          q
-        )}&countrycodes=de&addressdetails=1&limit=5`
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&countrycodes=de&addressdetails=1&limit=6`
       );
       setSuggestions(await res.json());
     } catch {
-      /* noop */
+      setSuggestions([]);
     }
   };
 
@@ -233,91 +321,80 @@ const MapWithMarkers = ({ listings = [], selectedId, onListingSelect, onVisibleC
     setSearch(item.display_name);
     setSuggestions([]);
     const map = mapRef.current;
-    if (map && map.isStyleLoaded?.()) {
-      map.flyTo({
-        center: [parseFloat(item.lon), parseFloat(item.lat)],
-        zoom: 12,
-      });
-    }
+    if (!map || map._removed) return;
+    // still inside DE via maxBounds
+    map.flyTo({ center: [parseFloat(item.lon), parseFloat(item.lat)], zoom: 12, duration: 650 });
   };
 
   return (
     <div className="w-full h-full relative">
-      {/* ------- Search + Filters ------- */}
-      <div className="absolute top-3 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-3xl">
-        <div className="relative mb-3">
-          <input
-            type="text"
-            placeholder={t("searchLocation", { ns: "filterBar" })}
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
-              fetchSuggestions(e.target.value);
-            }}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm shadow-sm"
-          />
-          {suggestions.length > 0 && (
-            <ul className="absolute w-full mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded shadow-lg z-50 max-h-60 overflow-auto">
-              {suggestions.map((it, idx) => (
-                <li
-                  key={idx}
-                  onClick={() => handleSuggestionClick(it)}
-                  className="px-4 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-white"
-                >
-                  {it.display_name}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+      {/* Topbar */}
+      <div className="absolute top-3 left-1/2 -translate-x-1/2 z-50 w-[96%] max-w-5xl">
+        <div className="flex flex-wrap items-center gap-2 rounded-2xl bg-white/95 dark:bg-gray-900/90 border border-gray-200 dark:border-gray-700 shadow-xl backdrop-blur px-3 py-3">
+          <div className="relative flex-1 min-w-[240px]">
+            <input
+              type="text"
+              placeholder={t("searchLocation", { ns: "filterBar", defaultValue: "Adresse, Stadt…" })}
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                fetchSuggestions(e.target.value);
+              }}
+              className="w-full h-10 px-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 text-gray-900 dark:text-white text-sm"
+            />
+            {suggestions.length > 0 && (
+              <div className="absolute left-0 right-0 mt-2 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-950 shadow-2xl z-50">
+                {suggestions.map((it, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => handleSuggestionClick(it)}
+                    className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
+                  >
+                    {it.display_name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
-        <MapFilters
-          filters={filters}
-          sortBy={sortBy}
-          onFilterChange={(p) => store.setFilters(p)}
-          onSortChange={(v) => store.setSort(v)}
-        />
+          <MapFilters />
 
-        {/* “Search in this area” si Zillow */}
-        <div className="mt-2 flex items-center gap-2">
-          <label className="inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+          <label className="ml-auto flex items-center gap-2 text-xs text-gray-700 dark:text-gray-200">
             <input
               type="checkbox"
-              checked={searchInArea}
-              onChange={(e) => {
-                store.setSearchInArea(e.target.checked);
-                renderMarkers();
-                reportVisible();
-              }}
+              checked={!!searchInArea}
+              onChange={(e) => store.setSearchInArea(e.target.checked)}
             />
-            {t("searchInArea", {
-              ns: "filterBar",
-              defaultValue: "In diesem Kartenausschnitt suchen",
-            })}
+            {t("searchInArea", { ns: "filterBar", defaultValue: "In diesem Kartenausschnitt suchen" })}
           </label>
+
           <button
+            type="button"
             onClick={() => {
               const map = mapRef.current;
-              if (!map || !map.isStyleLoaded?.()) return;
-              map.fitBounds(
-                [
-                  [5.9, 47.2],
-                  [15.0, 55.1],
-                ],
-                { padding: 40, duration: 400 }
-              );
+              if (!map || map._removed) return;
+              // ✅ Always Germany
+              map.fitBounds(DE_BOUNDS, { padding: 60, duration: 450, maxZoom: 7 });
             }}
-            className="ml-auto px-3 py-1.5 rounded border text-sm bg-white/80 dark:bg-gray-800/80 border-gray-300 dark:border-gray-600"
+            className="h-10 px-4 rounded-full border border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-950/70 text-sm font-semibold"
           >
-            {t("resetArea", {
-              ns: "filterBar",
-              defaultValue: "Deutschland",
-            })}
+            {t("resetGermany", { ns: "map", defaultValue: "Deutschland" })}
+          </button>
+
+          <div className="text-sm text-gray-700 dark:text-gray-200">
+            {filteredListings.length} {t("results", { ns: "map", defaultValue: "Ergebnisse" })}
+          </div>
+
+          <button
+            onClick={() => onRequestOpenMobileList?.()}
+            className="md:hidden h-10 px-3 rounded-xl text-sm bg-blue-600 text-white"
+          >
+            {t("openList", { ns: "map", defaultValue: "Liste" })}
           </button>
         </div>
       </div>
 
-      {/* Harta */}
       <div ref={mapEl} className="w-full h-full" />
     </div>
   );
@@ -325,9 +402,9 @@ const MapWithMarkers = ({ listings = [], selectedId, onListingSelect, onVisibleC
 
 MapWithMarkers.propTypes = {
   listings: PropTypes.array,
-  selectedId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onListingSelect: PropTypes.func,
   onVisibleChange: PropTypes.func,
+  onRequestOpenMobileList: PropTypes.func,
 };
 
 export default MapWithMarkers;

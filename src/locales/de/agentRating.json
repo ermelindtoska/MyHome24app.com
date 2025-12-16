@@ -1,9 +1,34 @@
 {
-  "title": "Agentenbewertung",
-  "description": "Teilen Sie Ihre Erfahrungen mit Immobilienmakler*innen.",
-  "rateTitle": "Wie war Ihre Erfahrung?",
-  "placeholder": "Schreiben Sie einen kurzen Kommentar...",
-  "submit": "Bewertung abschicken",
-  "successMessage": "Vielen Dank für Ihre Bewertung!",
-  "errorMessage": "Fehler beim Speichern. Bitte versuchen Sie es erneut."
+  "titles": {
+    "rating": "Bewertungen & Qualität",
+    "latest": "Neueste Bewertungen"
+  },
+  "labels": {
+    "count": "Bewertungen"
+  },
+  "loading": "Bewertungen werden geladen …",
+  "empty": "Für dieses Profil liegen derzeit noch keine Bewertungen vor.",
+  "info": {
+    "ownProfile": "Dies ist dein eigenes Profil. Andere Nutzer:innen können dich hier bewerten.",
+    "loginToRate": "Melde dich an, um diese:n Makler:in zu bewerten.",
+    "alreadyRated": "Du hast diese:n Makler:in bereits bewertet."
+  },
+  "form": {
+    "yourRatingLabel": "Deine Bewertung",
+    "commentLabel": "Deine Erfahrung (optional)",
+    "commentPlaceholder": "Wie war die Zusammenarbeit? War die Beratung hilfreich?",
+    "sending": "Wird gesendet …",
+    "submit": "Bewertung abgeben"
+  },
+  "errors": {
+    "loadFailed": "Bewertungen konnten nicht geladen werden.",
+    "notLoggedIn": "Bitte melde dich zuerst an, um zu bewerten.",
+    "ownProfile": "Du kannst dein eigenes Profil nicht bewerten.",
+    "alreadyRated": "Du hast diese:n Makler:in bereits bewertet.",
+    "noStars": "Bitte wähle eine Sternebewertung aus.",
+    "saveFailed": "Beim Speichern der Bewertung ist ein Fehler aufgetreten."
+  },
+  "success": {
+    "saved": "Bewertung wurde gespeichert. Vielen Dank!"
+  }
 }

@@ -6,6 +6,7 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "sonner";
+import { logEvent } from "../utils/logEvent";
 
 const SubmitOfferModal = ({ isOpen, onClose, listing }) => {
   const { t } = useTranslation("offer");
@@ -50,7 +51,7 @@ const SubmitOfferModal = ({ isOpen, onClose, listing }) => {
     try {
       setIsSubmitting(true);
 
-      await addDoc(collection(db, "offers"), {
+      const docRef = await addDoc(collection(db, "offers"), {
         listingId: listing.id,
         listingTitle: listing.title || "",
         listingCity: listing.city || "",
@@ -69,6 +70,20 @@ const SubmitOfferModal = ({ isOpen, onClose, listing }) => {
         status: "open",
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
+      });
+
+      // 🔵 LOG: Angebot wurde erstellt
+      await logEvent({
+        type: "offer.created",
+        message: `Kaufangebot für "${listing.title || ""}" abgegeben.`,
+        listingId: listing.id,
+        offerId: docRef.id,
+        ownerId: listing.ownerId || listing.userId || null,
+        buyerId: currentUser.uid,
+        extra: {
+          amount: numericAmount,
+          financing,
+        },
       });
 
       toast.success(t("success"));

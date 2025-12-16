@@ -1,5 +1,5 @@
 // src/components/Navbar.jsx
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState, useMemo } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { HiMenu } from "react-icons/hi";
@@ -14,28 +14,29 @@ import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import MobileMenu from "./mobile/MobileMenu";
 import { toast } from "sonner";
 
+const HOVER_CLOSE_MS = 260;
+
 const Navbar = () => {
   const { t, i18n } = useTranslation("navbar");
   const { isDark, toggleTheme } = useContext(ThemeContext);
-  const [openMenu, setOpenMenu] = useState(null);     // index i menus që është hapur
+
+  const [openMenu, setOpenMenu] = useState(null); // "L-0", "R-1"
   const [mobileOpen, setMobileOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
+
   const accountRef = useRef(null);
+  const hoverTimer = useRef(null);
+
   const navigate = useNavigate();
   const location = useLocation();
-  const HOVER_CLOSE_MS = 320;
-const hoverTimer = useRef(null);
 
   const { currentUser, loading: loadingAuth } =
     useAuth() ?? { currentUser: null, loading: true };
 
   const { role, setRoleLocal } = useRole();
   const effectiveRole = role || "user";
-  console.log("[Navbar] role aus Context:", role);
-  console.log("[Navbar] effectiveRole:", effectiveRole);
 
-
-  // Lock body kur hapet menu mobile
+  // --- BODY LOCK (mobile) ---
   useEffect(() => {
     const body = document.body;
     const prev = {
@@ -45,6 +46,7 @@ const hoverTimer = useRef(null);
       left: body.style.left,
       right: body.style.right,
     };
+
     if (mobileOpen) {
       const scrollY = window.scrollY;
       body.style.position = "fixed";
@@ -52,6 +54,7 @@ const hoverTimer = useRef(null);
       body.style.left = "0";
       body.style.right = "0";
       body.style.overflow = "hidden";
+
       return () => {
         body.style.overflow = prev.overflow || "";
         body.style.position = prev.position || "";
@@ -67,13 +70,14 @@ const hoverTimer = useRef(null);
     }
   }, [mobileOpen]);
 
+  // close menus on route change
   useEffect(() => {
-    // mbyll çdo dropdown kur ndryshon rruga
     setOpenMenu(null);
     setAccountOpen(false);
     setMobileOpen(false);
-  }, [location.pathname]);
+  }, [location.pathname, location.search]);
 
+  // close account on outside click
   useEffect(() => {
     if (!accountOpen) return;
     const onDown = (e) => {
@@ -84,6 +88,35 @@ const hoverTimer = useRef(null);
     document.addEventListener("mousedown", onDown);
     return () => document.removeEventListener("mousedown", onDown);
   }, [accountOpen]);
+
+  // cleanup hover timer
+  useEffect(() => {
+    return () => {
+      if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    };
+  }, []);
+
+  const safeCloseHoverTimer = () => {
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    hoverTimer.current = null;
+  };
+
+  const openNow = (key) => {
+    safeCloseHoverTimer();
+    setOpenMenu(key);
+  };
+
+  const closeWithDelay = () => {
+    safeCloseHoverTimer();
+    hoverTimer.current = setTimeout(() => setOpenMenu(null), HOVER_CLOSE_MS);
+  };
+
+  const go = (to) => {
+    setOpenMenu(null);
+    setAccountOpen(false);
+    setMobileOpen(false);
+    navigate(to);
+  };
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -100,6 +133,7 @@ const hoverTimer = useRef(null);
       );
       return;
     }
+
     const uid = currentUser.uid;
     try {
       await Promise.all([
@@ -118,153 +152,177 @@ const hoverTimer = useRef(null);
           { merge: true }
         ),
       ]);
+
       setRoleLocal(newRole);
       setAccountOpen(false);
+
       toast.success(
-        i18n.t("roleChange.updated", { ns: "navbar", defaultValue: "Rolle wurde aktualisiert." })
+        i18n.t("roleChange.updated", {
+          ns: "navbar",
+          defaultValue: "Rolle wurde aktualisiert.",
+        })
       );
+
       navigate("/dashboard");
     } catch (e) {
       console.error("Error updating role:", e);
       toast.error(
         i18n.t("roleChange.failed", {
           ns: "navbar",
-          defaultValue: "Rolle konnte nicht aktualisiert werden. Bitte erneut versuchen.",
+          defaultValue:
+            "Rolle konnte nicht aktualisiert werden. Bitte erneut versuchen.",
         })
       );
     }
   };
 
-  // Menutë
-  const leftMenus = [
-    {
-      title: t("buy"),
-      to: "/buy",
-      items: [
-        { label: t("newConstruction"), to: "/new-construction" },
-        { label: t("foreclosures"), to: "/buy/foreclosures" },
-        { label: t("directFromOwner"), to: "/buy/owner" },
-      ],
-    },
-    {
-      title: t("rent"),
-      to: "/rent",
-      items: [
-        { label: t("apartment"), to: "/rent/apartment" },
-        { label: t("house"), to: "/rent/house" },
-        { label: t("officeCommercial"), to: "/rent/office" },
-      ],
-    },
-    {
-      title: t("mortgage"),
-      to: "/mortgage",
-      items: [
-        { label: t("calculator"), to: "/mortgage/calculator" },
-        { label: t("bankPartners"), to: "/mortgage/partners" },
-      ],
-    },
-    {
-      title: t("findAgent"),
-      to: "/agents",
-      items: [
-        { label: t("agentSearch"), to: "/agent/search" },
-        { label: t("rateAgent"), to: "/agent/rate" },
-      ],
-    },
-  ];
-
-  const rightMenus = [
-    {
-      title: t("manage"),
-      items: [
-               // "Meine Immobilien" zeigt auf das echte Dashboard:
-       { label: t("myProperties"), to: "/owner-dashboard" },
-      // Neues Inserat: direkt zur echten Publish-Seite
-       { label: t("newListing"), to: "/publish" },
-      ],
-    },
-    {
-      title: t("advertise"),
-      items: [
-        { label: t("bannerAds"), to: "/advertise/banner" },
-        { label: t("premiumListing"), to: "/advertise/premium" },
-      ],
-    },
-    {
-      title: t("help"),
-      items: [
-        { label: t("support"), to: "/support" },
-        { label: t("howItWorks"), to: "/how-it-works" },
-      ],
-    },
-  ];
-
-  // Dropdown — i qëndrueshëm në hover, me SPA Link
-const renderDropdown = (menu, index, align = "left") => {
-  const isOpen = openMenu === index;
-  const hasChildren = !!menu.items?.length;
-
-  const openNow = () => {
-    if (hoverTimer.current) clearTimeout(hoverTimer.current);
-    setOpenMenu(index);
-  };
-  const closeWithDelay = () => {
-    if (hoverTimer.current) clearTimeout(hoverTimer.current);
-    hoverTimer.current = setTimeout(() => setOpenMenu(null), HOVER_CLOSE_MS);
-  };
-
-  return (
-    <div
-      key={index}
-      className="relative"
-      onMouseEnter={openNow}
-      onMouseLeave={closeWithDelay}
-    >
-      {/* ✅ Klikimi te titulli NAVIGON (p.sh. /buy, /rent). Hover hap dropdown. */}
-      <Link
-        to={menu.to || "#"}
-        className="px-2 py-1 transition text-gray-900 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300 inline-flex items-center"
-        aria-haspopup={hasChildren ? "true" : "false"}
-        aria-expanded={isOpen}
-      >
-        {menu.title}
-        {hasChildren && <span className="ml-1 select-none">▾</span>}
-      </Link>
-
-      {hasChildren && isOpen && (
-        <div
-          className={`absolute top-full ${align}-0 mt-2 w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-lg z-50`}
-          onMouseEnter={openNow}
-          onMouseLeave={closeWithDelay}
-        >
-          {menu.items.map((item, idx) => (
-            <Link
-              key={idx}
-              to={item.to}
-              onClick={() => setOpenMenu(null)}
-              className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
-      )}
-    </div>
+  // ✅ MENUS (Zillow style: Titel ist Button -> Dropdown; Navigation nur via Items)
+  const leftMenus = useMemo(
+    () => [
+      {
+        title: t("buy"),
+        items: [
+          { label: t("overview", { defaultValue: "Übersicht" }), to: "/buy" },
+          { label: t("newConstruction"), to: "/new-construction" },
+          { label: t("foreclosures"), to: "/buy/foreclosures" },
+          { label: t("directFromOwner"), to: "/buy/owner" },
+        ],
+      },
+      {
+        title: t("rent"),
+        items: [
+          { label: t("overview", { defaultValue: "Übersicht" }), to: "/rent" },
+          { label: t("apartment"), to: "/rent/apartment" },
+          { label: t("house"), to: "/rent/house" },
+          { label: t("officeCommercial"), to: "/rent/office" },
+        ],
+      },
+      {
+        title: t("mortgage"),
+        items: [
+          {
+            label: t("overview", { defaultValue: "Übersicht" }),
+            to: "/mortgage",
+          },
+          { label: t("calculator"), to: "/mortgage/calculator" },
+          { label: t("bankPartners"), to: "/mortgage/partners" },
+          {
+            label: t("request", { defaultValue: "Finanzierungsanfrage" }),
+            to: "/mortgage/request",
+          },
+          {
+            label: t("becomePartner", { defaultValue: "Partner:in werden" }),
+            to: "/partner/finance",
+          },
+        ],
+      },
+      {
+        title: t("findAgent"),
+        items: [
+          { label: t("overview", { defaultValue: "Übersicht" }), to: "/agents" },
+          { label: t("agentSearch"), to: "/agent/search" },
+          { label: t("rateAgent"), to: "/agent/rate" },
+        ],
+      },
+    ],
+    [t]
   );
-};
 
+  const rightMenus = useMemo(
+    () => [
+      {
+        title: t("manage"),
+        items: [
+          { label: t("myProperties"), to: "/owner-dashboard" },
+          { label: t("newListing"), to: "/publish" },
+        ],
+      },
+      {
+        title: t("advertise"),
+        items: [
+          { label: t("bannerAds"), to: "/advertise/banner" },
+          { label: t("premiumListing"), to: "/advertise/premium" },
+        ],
+      },
+      {
+        title: t("help"),
+        items: [
+          { label: t("support"), to: "/support" },
+          { label: t("howItWorks"), to: "/how-it-works" },
+          { label: t("contactGeneral", { defaultValue: "Kontakt" }), to: "/contact" },
+          { label: t("contactFinancing", { defaultValue: "Kontakt: Finanzierung" }), to: "/contact?topic=financing" },
+          { label: t("contactPartnerFinance", { defaultValue: "Kontakt: Partner-Finance" }), to: "/contact?topic=partner-finance" },
+        ],
+      },
+    ],
+    [t]
+  );
 
+  const Dropdown = ({ menu, menuKey, align = "left" }) => {
+    const isOpen = openMenu === menuKey;
+    const items = menu.items || [];
+
+    return (
+      <div
+        className="relative"
+        onMouseEnter={() => openNow(menuKey)}
+        onMouseLeave={closeWithDelay}
+      >
+        {/* ✅ Titel ist Button (kein Link!) */}
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setOpenMenu((prev) => (prev === menuKey ? null : menuKey));
+          }}
+          className="px-2 py-1 transition text-gray-900 dark:text-gray-100 hover:text-blue-700 dark:hover:text-blue-300 inline-flex items-center"
+          aria-haspopup="true"
+          aria-expanded={isOpen}
+        >
+          {menu.title}
+          <span className="ml-1 select-none">▾</span>
+        </button>
+
+        {isOpen && (
+          <div
+            className={`absolute top-full ${align}-0 mt-2 w-64 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg z-50 overflow-hidden`}
+            onMouseEnter={() => openNow(menuKey)}
+            onMouseLeave={closeWithDelay}
+          >
+            {items.map((item, idx) => (
+              <Link
+                key={`${menuKey}-${idx}`}
+                to={item.to}
+                onClick={(e) => {
+                  // ✅ verhindert „Springen“/Bubbling auf Parent (typisch für falsche Routen)
+                  e.stopPropagation();
+                  setOpenMenu(null);
+                }}
+                className="block px-4 py-2.5 text-sm text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   const roleText =
-    ({ user: t("user"), owner: t("owner"), agent: t("agent") }[effectiveRole]) ||
-    effectiveRole;
+    ({ user: t("user"), owner: t("owner"), agent: t("agent"), admin: t("admin", { defaultValue: "Admin" }) }[
+      effectiveRole
+    ]) || effectiveRole;
 
   return (
-   <header className="fixed md:sticky top-0 left-0 right-0 z-[10000] bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow">
+    <header className="fixed md:sticky top-0 left-0 right-0 z-[10000] bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow">
       {/* DESKTOP */}
       <nav className="hidden md:flex justify-between items-center px-6 py-4 w-full">
-        <div className="flex gap-12 text-sm font-medium text-gray-900 dark:text-gray-100">
-          {leftMenus.map((menu, index) => renderDropdown(menu, index, "left"))}
+        <div className="flex gap-10 text-sm font-medium text-gray-900 dark:text-gray-100">
+          {leftMenus.map((menu, idx) => (
+            <Dropdown key={`L-${idx}`} menu={menu} menuKey={`L-${idx}`} align="left" />
+          ))}
         </div>
 
         <Link to="/" className="flex items-center gap-4 focus:outline-none">
@@ -275,9 +333,9 @@ const renderDropdown = (menu, index, align = "left") => {
         </Link>
 
         <div className="flex items-center gap-6 text-sm font-medium text-gray-900 dark:text-gray-100">
-          {rightMenus.map((menu, index) =>
-            renderDropdown(menu, index + 100, "right")
-          )}
+          {rightMenus.map((menu, idx) => (
+            <Dropdown key={`R-${idx}`} menu={menu} menuKey={`R-${idx}`} align="right" />
+          ))}
 
           {!loadingAuth && !currentUser ? (
             <div className="flex items-center gap-2">
@@ -332,9 +390,8 @@ const renderDropdown = (menu, index, align = "left") => {
                     className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50"
                     onClick={() => {
                       setAccountOpen(false);
-                      navigate("/profile");
+                      go("/profile");
                     }}
-                    title={t("profile", { defaultValue: "Profil" })}
                   >
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       {t("signedInAs", { defaultValue: "Angemeldet als" })}
@@ -344,43 +401,38 @@ const renderDropdown = (menu, index, align = "left") => {
                     </p>
                   </div>
 
-                                  <div className="py-1">
-                                      {/* Owner-Dashboard */}
-                <Link
-                  to="/owner-dashboard"
-                  className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
-                >
-                  {t("myProperties", { defaultValue: "Meine Immobilien" })}
-                </Link>
-                  {/* 🔐 Vetëm për admin: Admin-Dashboard */}
-                  {effectiveRole === "admin" && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setAccountOpen(false);
-                        navigate("/admin-dashboard");
-                      }}
-                      className="w-full text-left px-4 py-2 text-sm font-semibold text-yellow-600 hover:bg-yellow-50 dark:text-yellow-300 dark:hover:bg-yellow-900/30"
+                  <div className="py-1">
+                    <Link
+                      to="/owner-dashboard"
+                      onClick={() => setAccountOpen(false)}
+                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
                     >
-                      {t("adminDashboard", { defaultValue: "Admin-Dashboard" })}
-                    </button>
-                  )}
+                      {t("myProperties", { defaultValue: "Meine Immobilien" })}
+                    </Link>
 
-                  
-                  
+                    {effectiveRole === "admin" && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setAccountOpen(false);
+                          go("/admin-dashboard");
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm font-semibold text-yellow-600 hover:bg-yellow-50 dark:text-yellow-300 dark:hover:bg-yellow-900/30"
+                      >
+                        {t("adminDashboard", { defaultValue: "Admin-Dashboard" })}
+                      </button>
+                    )}
 
-                  {/* Immobilie veröffentlichen */}
-                  <Link
-                    to="/publish"
-                    className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
-                    onClick={() => setAccountOpen(false)}
-                  >
-                    {t("publishProperty", {
-                      defaultValue: "Immobilie veröffentlichen",
-                    })}
-                  </Link>
-                </div>
-
+                    <Link
+                      to="/publish"
+                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
+                      onClick={() => setAccountOpen(false)}
+                    >
+                      {t("publishProperty", {
+                        defaultValue: "Immobilie veröffentlichen",
+                      })}
+                    </Link>
+                  </div>
 
                   <div className="py-1 border-t border-gray-200 dark:border-gray-700">
                     <p className="px-4 pt-2 pb-1 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
@@ -405,13 +457,6 @@ const renderDropdown = (menu, index, align = "left") => {
                       {t("agent", { defaultValue: "Makler:in" })}
                     </button>
                   </div>
-
-                  <Link
-                    to="/profile"
-                    className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
-                  >
-                    {t("profile", { defaultValue: "Profil" })}
-                  </Link>
 
                   <div className="py-1 border-t border-gray-200 dark:border-gray-700">
                     <button

@@ -14,23 +14,23 @@ const LatestListingsSection = () => {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const q = query(
-          collection(db, "listings"),
-          orderBy("createdAt", "desc")
-        );
+        const q = query(collection(db, "listings"), orderBy("createdAt", "desc"));
         const snapshot = await getDocs(q);
 
         const listingsData = snapshot.docs.map((docSnap) => {
           const data = docSnap.data() || {};
-          const imagesArray =
-            data.imageUrls ||
-            data.images ||
-            [];
+
+          // ✅ Normalize images/imageUrls ALWAYS to arrays (keeps old + new schema)
+          const images = Array.isArray(data.images) ? data.images : [];
+          const imageUrls = Array.isArray(data.imageUrls) ? data.imageUrls : Array.isArray(data.imageUrls) ? data.imageUrls : [];
+          // (Above line looks redundant; keep it simple below)
+          const safeImageUrls = Array.isArray(data.imageUrls) ? data.imageUrls : [];
 
           return {
             id: docSnap.id,
             ...data,
-            imageUrls: imagesArray, // 👉 sigurojmë që ekziston gjithmonë
+            images, // ✅ always array
+            imageUrls: safeImageUrls, // ✅ always array
           };
         });
 
@@ -38,12 +38,10 @@ const LatestListingsSection = () => {
         setError(null);
       } catch (err) {
         console.error("Fehler beim Laden der Anzeigen:", err);
-        setError(
-          t("errorLoadingListings") ||
-            "Es gab einen Fehler beim Laden der Anzeigen."
-        );
+        setError(t("errorLoadingListings", { defaultValue: "Es gab einen Fehler beim Laden der Anzeigen." }));
       }
     };
+
     fetchListings();
   }, [t]);
 
@@ -51,7 +49,7 @@ const LatestListingsSection = () => {
     <section className="bg-gray-100 dark:bg-gray-800 py-20 px-4 animate-fade-in">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">
-          {t("latestListings")}
+          {t("latestListings", { defaultValue: "Neueste Anzeigen" })}
         </h2>
 
         {error ? (
@@ -63,7 +61,7 @@ const LatestListingsSection = () => {
           <PropertyList listings={listings} />
         ) : (
           <p className="text-center text-gray-500 dark:text-gray-300 mt-4">
-            {t("noListings")}
+            {t("noListings", { defaultValue: "Keine Anzeigen gefunden." })}
           </p>
         )}
       </div>

@@ -59,6 +59,11 @@ import metaDE from './locales/de/meta.json';
 import profileDE from './locales/de/profile.json';
 import agentBecomeDE from './locales/de/agentBecome.json';
 import offerDE from './locales/de/offer.json';
+import adminDashboardDE from './locales/de/adminDashboard.json';
+import agentDashboardDe from "./locales/de/agentDashboard.json";
+import agentProfileDe from "./locales/de/agentProfile.json";
+import agentPublicProfileDe from "./locales/de/agentPublicProfile.json";
+import mortgageRequestDE from "./locales/de/mortgageRequest.json";
 
 // === EN English
 import homeEN from './locales/en/home.json';
@@ -118,6 +123,11 @@ import metaEN from './locales/en/meta.json';
 import profileEN from './locales/en/profile.json';
 import agentBecomeEN from './locales/en/agentBecome.json';
 import offerEN from './locales/en/offer.json';
+import adminDashboardEN from './locales/en/adminDashboard.json';
+import agentDashboardEn from "./locales/en/agentDashboard.json";
+import agentProfileEn from "./locales/en/agentProfile.json";
+import agentPublicProfileEn from "./locales/en/agentPublicProfile.json";
+import mortgageRequestEN from "./locales/en/mortgageRequest.json";
 
 
 const resources = {
@@ -160,6 +170,7 @@ const resources = {
     support: supportDE,
     howItWorks: howItWorksDE,
     userDashboard: userDashboardDE,
+    adminDashboard: adminDashboardDE,
     listingDetails: listingDetailsDE,
     filterBar: filterBarDE,
     listingForm: listingFormDE,
@@ -178,7 +189,11 @@ const resources = {
     unauthorized: unauthorizedDE,
     upgradeRequest: upgradeRequestDE,
     meta: metaDE,
-    profile: profileDE
+    profile: profileDE,
+    agentDashboard: agentDashboardDe,
+    agentProfile: agentProfileDe,
+    mortgageRequest: mortgageRequestDE,
+     agentPublicProfile: agentPublicProfileDe
   },
   en: {
     home: homeEN,
@@ -219,6 +234,7 @@ const resources = {
     support: supportEN,
     howItWorks: howItWorksEN,
     userDashboard: userDashboardEN,
+    adminDashboard: adminDashboardEN,
     listingDetails: listingDetailsEN,
     filterBar: filterBarEN,
     listingForm: listingFormEN,
@@ -237,7 +253,11 @@ const resources = {
     unauthorized: unauthorizedEN,
     upgradeRequest: upgradeRequestEN,
     meta: metaEN,
-    profile: profileEN  
+    profile: profileEN,
+    agentDashboard: agentDashboardEn,
+    agentProfile: agentProfileEn,
+    mortgageRequest: mortgageRequestEN,
+    agentPublicProfile: agentPublicProfileEn
   }
 };
 if (!localStorage.getItem('i18nextLng')) {
@@ -260,7 +280,7 @@ i18n
       'support', 'howItWorks', 'userDashboard', 'listingDetails', 'filterBar', 'listingForm',
       'buy', 'rent', 'mortgage', 'findAgent', 'impressum', 'states', 'cities', 'districts',
       'streets', 'neighbourhoods', 'filterSidebar', 'unauthorized', 'upgradeRequest', 'meta', 'profile', 'mortgageCalculator', 
-      'agentBecome', 'offer'
+      'agentBecome', 'offer', 'adminDashboard', 'agentDashboard', 'agentProfile', 'agentPublicProfile', 'mortgageRequest'
     ],
     defaultNS: 'home',
     interpolation: {

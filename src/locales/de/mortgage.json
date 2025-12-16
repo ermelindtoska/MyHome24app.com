@@ -1,6 +1,65 @@
 {
   
   "title": "Hypothekenrechner",
+  
+  "pageTitle": "Hypothek & Finanzierung",
+  "pageDescription": "Rechnen Sie in wenigen Schritten aus, welche monatliche Rate für Ihr neues Zuhause realistisch ist.",
+
+  "hero": {
+    "badge": "Hypothekenrechner",
+    "title": "Was kostet Ihr neues Zuhause im Monat?",
+    "subtitle": "Mit nur wenigen Eingaben erhalten Sie unverbindliche Beispielraten für Ihre Baufinanzierung – transparent, schnell und übersichtlich.",
+    "imageAlt": "Illustration eines Hypothekenrechners",
+    "metaTitle": "Hypothekenrechner – monatliche Rate berechnen",
+    "metaDescription": "Nutzen Sie den Hypothekenrechner von MyHome24App, um eine erste Einschätzung Ihrer monatlichen Finanzierungskosten zu erhalten.",
+    "ctaHint": "Sie können später jederzeit detaillierter mit Ihrer Bank oder einem Finanzierungsprofi sprechen."
+  },
+
+  "cta": {
+    "primary": "Zum Hypothekenrechner",
+    "secondary": "Finanzberatung anfragen"
+  },
+
+  "featuresTitle": "Ihre Vorteile mit dem MyHome24App-Hypothekenrechner",
+  "features": [
+    {
+      "title": "Schnelle Orientierung",
+      "text": "Bekommen Sie in Sekunden ein Gefühl dafür, welche Rate zu Ihrem Budget passt – ohne komplizierte Tabellen."
+    },
+    {
+      "title": "Transparente Annahmen",
+      "text": "Zinssatz, Laufzeit und Eigenkapital können Sie flexibel anpassen, um verschiedene Szenarien zu vergleichen."
+    },
+    {
+      "title": "Bessere Vorbereitung",
+      "text": "Gehen Sie optimal vorbereitet in Gespräche mit Banken oder Berater:innen und kennen Sie Ihre finanziellen Spielräume."
+    }
+  ],
+
+  "stepsTitle": "So nutzen Sie den Hypothekenrechner",
+  "steps": [
+    {
+      "title": "1. Kaufpreis & Eigenkapital eingeben",
+      "text": "Tragen Sie den geplanten Kaufpreis der Immobilie sowie Ihr vorhandenes Eigenkapital ein."
+    },
+    {
+      "title": "2. Zinssatz & Laufzeit wählen",
+      "text": "Passen Sie den Sollzins und die anfängliche Tilgung bzw. Laufzeit an Ihre Vorstellungen an."
+    },
+    {
+      "title": "3. Monatliche Rate prüfen",
+      "text": "Sie sehen sofort eine unverbindliche Beispielrate und können verschiedene Varianten durchspielen."
+    }
+  ],
+
+  "infoBoxTitle": "Wichtige Hinweise zur Beispielrechnung",
+  "infoBoxText": "Die Ergebnisse des Rechners sind unverbindliche Beispielrechnungen und ersetzen keine individuelle Finanzierungsberatung. Zinsänderungen, Nebenkosten und persönliche Rahmenbedingungen können die tatsächliche Rate deutlich beeinflussen.",
+
+  "disclaimer": "Alle Angaben ohne Gewähr. Es handelt sich nicht um ein Angebot im rechtlichen Sinne. Für eine verbindliche Finanzierungszusage wenden Sie sich bitte an Ihre Bank, einen Finanzierungsvermittler oder eine:n unabhängige:n Berater:in.",
+
+  "linkToCalculator": "Jetzt Hypothekenrechner öffnen",
+  "linkToFinancePartners": "Finanzierungspartner:innen ansehen",
+
   "description": "Berechnen Sie schnell und einfach Ihre monatliche Kreditrate. Unser Hypothekenrechner hilft Ihnen, Ihre Finanzierung besser zu planen – egal ob Sie kaufen, bauen oder modernisieren möchten.",
 
   "tipTitle": "Tipp",
@@ -52,11 +111,7 @@
     "description": "Berechnen Sie Ihre monatliche Rate für Ihre Baufinanzierung. Unverbindliche Beispielrechnung, angepasst auf den deutschen Markt."
   },
   "imgAlt": "Moderner Hypothekenrechner mit Haus- und Finanzübersicht",
-  "hero": {
-    "badge": "Hypothekenrechner",
-    "title": "Was kostet Ihr neues Zuhause im Monat?",
-    "subtitle": "Mit wenigen Eingaben erhalten Sie eine unverbindliche Beispielrate für Ihre Baufinanzierung – transparent und in Sekunden."
-  },
+ 
   "intro": {
     "title": "Realistische Einschätzung statt grober Schätzung",
     "text": "In Deutschland spielen Zinssatz, anfängliche Tilgung, Eigenkapital und Zinsbindung eine zentrale Rolle. Unser Rechner hilft Ihnen, ein besseres Gefühl für Ihre monatliche Belastung zu bekommen, bevor Sie mit Banken oder Finanzberater:innen sprechen.",
@@ -66,10 +121,7 @@
       "Verstehen Sie, wie Eigenkapital, Zinssatz und Laufzeit Ihre Rate beeinflussen."
     ]
   },
-  "cta": {
-    "calculateNow": "Jetzt Rate berechnen",
-    "contactAdvisor": "Finanzberatung anfragen"
-  },
+  
   "calculator": {
     "title": "Ihre Finanzierungsdaten",
     "subtitle": "Passen Sie die Werte an und sehen Sie direkt, wie sich die monatliche Rate verändert."
@@ -120,12 +172,6 @@
     ],
     "ctaPrimary": "Kooperation anfragen",
     "ctaSecondary": "Mehr über Eigentümer:innen-Services"
-  },
-  "disclaimer": {
-    "short": "Hinweis: Alle Berechnungen sind unverbindliche Beispiele und ersetzen keine individuelle Finanzierungsberatung. Nebenkosten und persönliche Steuer- bzw. Lebenssituation werden nicht berücksichtigt.",
-    "title": "Wichtiger Hinweis – keine Finanz- oder Rechtsberatung",
-    "text1": "Die hier dargestellten Werte dienen ausschließlich zu Illustrationszwecken. Sie basieren auf vereinfachten Annahmen (konstanter Zinssatz, konstante Rate, keine Sondertilgung, keine Anpassung an Zinsbindungsfristen) und stellen kein Angebot und keine Empfehlung dar.",
-    "text2": "Ob eine Finanzierung für Sie geeignet ist, hängt von vielen individuellen Faktoren ab – etwa Einkommen, Vermögen, Sicherheiten, Familienstand, Bonität sowie steuerlicher Situation. Verbindliche Konditionen und rechtliche Hinweise erhalten Sie ausschließlich im Gespräch mit Ihrer Bank oder einem zugelassenen Finanzdienstleister.",
-    "text3": "MyHome24app bietet keine eigene Rechts-, Steuer- oder Anlageberatung an. Bitte wenden Sie sich für eine persönliche Einschätzung an Bankberater:innen, unabhängige Finanzierungsvermittler:innen oder Steuerberater:innen."
   }
+  
 }

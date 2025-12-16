@@ -1,7 +1,13 @@
 {
   "addListing": "Add New Listing",
     "resultsFound": "{{count}} Ergebnisse gefunden",
-      
+        "new": "Neu",
+  "verified": "Verifiziert",
+  "share": "Teilen",
+  "bdShort": "bd",
+  "baShort": "ba",
+  "perMonthShort": "/mo",
+ 
 "allPurposes": "Alle Zwecke",
   "office": "Büro",
  

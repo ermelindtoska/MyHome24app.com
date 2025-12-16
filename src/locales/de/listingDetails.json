@@ -9,9 +9,67 @@
   "area": "Fläche",
   "address": "Adresse",
   "createdAt": "Eingestellt am",
+"close": "Schließen",
+  "save": "Speichern",
+  "saved": "Gespeichert",
+  "share": "Teilen",
 
+  "toastSaved": "Gespeichert",
+  "toastRemoved": "Entfernt",
+  "toastLinkCopied": "Link kopiert",
+  "toastCopyFailed": "Kopieren fehlgeschlagen",
+  "toastContactSoon": "Kontakt wird im nächsten Schritt verbunden.",
+
+  "badgeBuy": "Zu verkaufen",
+  "badgeRent": "Zu vermieten",
+
+  "tabOverview": "Overview",
+  "tabFacts": "Fakten",
+  "tabFeatures": "Features",
+  "tabLocation": "Lage",
+
+  "overviewTitle": "Overview",
+  "overviewFallback": "Keine Beschreibung vorhanden. Bitte prüfen Sie die Details und kontaktieren Sie den:die Anbieter:in.",
+
+  "factsTitle": "Fakten",
+  "factsType": "Immobilientyp",
+  "factsBeds": "Schlafzimmer",
+  "factsBaths": "Bäder",
+  "factsSize": "Größe",
+  "factsCity": "Stadt",
+  "noFacts": "Keine Fakten verfügbar.",
+ 
+  "similarEmpty": "Aktuell sind keine ähnlichen Anzeigen verfügbar.",
+  "featuresTitle": "Features",
+  "featuresFallback": "Keine Features hinterlegt.",
+
+  "locationTitle": "Lage",
+  "unknownCity": "Unbekannt",
+  "unknownAddress": "Adresse nicht verfügbar",
+  "openInMaps": "In Maps öffnen",
+
+  "contactTitle": "Kontakt",
+  "contactText": "Fragen stellen, Besichtigung anfragen oder mehr Details bekommen – schnell und direkt.",
+  "askQuestion": "Frage stellen",
+  "seeFacts": "Fakten ansehen",
+  
+
+  "similarTitle": "Ähnliche Anzeigen",
+  "similarHint": "Kommt als nächster Schritt (klickbar wie Zillow).",
     "details": "Details",
-
+"myOfferBox": {
+  "title": "Dein Angebot zu diesem Inserat",
+  "amount": "Betrag:",
+  "status": "Status:",
+  "date": "Abgegeben am",
+  "hint": "Details und weitere Aktionen findest du im Bereich „Meine Angebote“ in deinem Dashboard.",
+  "statusValues": {
+    "open": "Offen",
+    "accepted": "Angenommen",
+    "rejected": "Abgelehnt",
+    "withdrawn": "Zurückgezogen"
+  }
+},
   "city": "Stadt",
   "state": "Bundesland",
   "zip": "Postleitzahl",

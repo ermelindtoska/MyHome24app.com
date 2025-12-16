@@ -1,0 +1,59 @@
+{
+  "metaTitleFallback": "Makler:in-Profil",
+ 
+  "metaDescriptionWithName": "Öffentliches Profil von {{name}} auf MyHome24App.",
+  "metaTitle": "Maklerprofil",
+  "metaDescription": "Öffentliches Profil einer Maklerin / eines Maklers auf MyHome24App.",
+  "labels": {
+    "verified": "Verifiziert"
+  },
+  "titles": {
+    "details": "Profil-Details"
+  },
+  "fields": {
+    "languages": "Sprachen",
+    "specialties": "Schwerpunkte",
+    "phone": "Telefon",
+    "bio": "Kurzprofil"
+  },
+  "actions": {
+    "backToSearch": "Zur Makler:innensuche",
+    "contactAgent": "Makler:in kontaktieren"
+  },
+  "errors": {
+    "missingId": "Kein Maklerprofil ausgewählt.",
+    "notFoundTitle": "Maklerprofil nicht gefunden",
+    "notFoundText": "Das gesuchte Maklerprofil existiert nicht mehr oder wurde noch nicht veröffentlicht."
+  },
+  "loading": "Profil wird geladen…",
+
+  
+
+  "badges": {
+    "verified": "Verifiziert"
+  },
+
+  "unknownName": "Unbekannte:r Makler:in",
+
+  "sections": {
+    "profileDetails": "Profil-Details",
+    "specialties": "Schwerpunkte",
+    "languages": "Sprachen",
+    "reviews": "Bewertungen & Qualität"
+  },
+
+  "profileCompletion": {
+    "label": "Profilvollständigkeit",
+    "hint": "Je vollständiger das Profil, desto besser kann der/die Makler:in gefunden werden."
+  },
+
+  "empty": {
+    "noDetails": "Für dieses Profil wurden noch keine zusätzlichen Details hinterlegt."
+  },
+
+  "reviews": {
+    "hint": "Hier werden zukünftig Bewertungen von Kund:innen angezeigt.",
+    "noReviews": "Für dieses Profil liegen derzeit noch keine Bewertungen vor.",
+    "footer": "Bewertungen helfen anderen Nutzer:innen, die passenden Makler:innen zu finden."
+  }
+}

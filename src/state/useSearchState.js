@@ -1,23 +1,28 @@
 // src/state/useSearchState.js
-import React, { createContext, useContext, useMemo, useReducer } from "react";
+import React, { createContext, useContext, useMemo, useReducer, useCallback } from "react";
 
 const initial = {
-  // filtra bazë
+  // Filter
   filters: { city: "", type: "", priceMin: "", priceMax: "" },
   sortBy: "",
-  // gjendje harte
-  bounds: null,          // {w,e,s,n}
-  searchInArea: true,    // si Zillow: kur ndizet filtrojmë sipas bounds
-  // sinkronizim liste/hartë
-  activeId: null,        // listing i theksuar
-  purpose: "all",        // "all" | "buy" | "rent" (opsionale)
-  queryText: "",         // teksti i kërkimit (alias: "search")
+
+  // Map
+  bounds: null,          // { w, e, s, n }
+  searchInArea: true,
+
+  // UI sync
+  activeId: null,
+  purpose: "all",        // "all" | "buy" | "rent"
+  queryText: "",
+
+  // (optional) wenn du später global Listings/Visible halten willst
+  listings: [],
+  visibleListings: [],
 };
 
 function reducer(state, action) {
   switch (action.type) {
     case "SET_FILTERS": {
-      // payload mund të jetë patch ose filters të plota
       const patch = action.payload || {};
       const next =
         patch && patch.__replace === true
@@ -25,6 +30,7 @@ function reducer(state, action) {
           : { ...state.filters, ...patch };
       return { ...state, filters: next };
     }
+
     case "RESET_FILTERS":
       return { ...state, filters: initial.filters, sortBy: "" };
 
@@ -46,6 +52,12 @@ function reducer(state, action) {
     case "SET_QUERY":
       return { ...state, queryText: action.payload || "" };
 
+    case "SET_LISTINGS":
+      return { ...state, listings: Array.isArray(action.payload) ? action.payload : [] };
+
+    case "SET_VISIBLE":
+      return { ...state, visibleListings: Array.isArray(action.payload) ? action.payload : [] };
+
     default:
       return state;
   }
@@ -56,32 +68,35 @@ const Ctx = createContext(null);
 export function SearchStateProvider({ children, initialState }) {
   const [state, dispatch] = useReducer(reducer, { ...initial, ...initialState });
 
-  // --- setter-e tolerantë ndaj mënyrave të ndryshme të thirrjes ---
-  const setFilters = (arg) => {
-    if (typeof arg === "function") {
-      // MapFilters: setFilters(prev => ({ ...prev, ...patch }))
-      const next = arg(state.filters) || {};
-      dispatch({ type: "SET_FILTERS", payload: { __replace: true, value: next } });
-    } else {
-      // MapWithMarkers: setFilters(patchObj)
-      dispatch({ type: "SET_FILTERS", payload: arg });
-    }
-  };
+  // tolerant setters (kompatibel me stile të ndryshme thirrjesh)
+  const setFilters = useCallback(
+    (arg) => {
+      if (typeof arg === "function") {
+        const next = arg(state.filters) || {};
+        dispatch({ type: "SET_FILTERS", payload: { __replace: true, value: next } });
+      } else {
+        dispatch({ type: "SET_FILTERS", payload: arg });
+      }
+    },
+    [state.filters]
+  );
 
-  const setSort = (v) => dispatch({ type: "SET_SORT", payload: v });
-  const setBounds = (b) => dispatch({ type: "SET_BOUNDS", payload: b });
-  const setSearchInArea = (v) => dispatch({ type: "SET_INAREA", payload: v });
-  const setActiveId = (id) => dispatch({ type: "SET_ACTIVE", payload: id });
-  const setPurpose = (p) => dispatch({ type: "SET_PURPOSE", payload: p });
-  const setQueryText = (q) => dispatch({ type: "SET_QUERY", payload: q });
-
-  // --- API i plotë + aliase për kompatibilitet ---
   const api = useMemo(() => {
+    const setSort = (v) => dispatch({ type: "SET_SORT", payload: v });
+    const setBounds = (b) => dispatch({ type: "SET_BOUNDS", payload: b });
+    const setSearchInArea = (v) => dispatch({ type: "SET_INAREA", payload: v });
+    const setActiveId = (id) => dispatch({ type: "SET_ACTIVE", payload: id });
+    const setPurpose = (p) => dispatch({ type: "SET_PURPOSE", payload: p });
+    const setQueryText = (q) => dispatch({ type: "SET_QUERY", payload: q });
+
+    const setListings = (arr) => dispatch({ type: "SET_LISTINGS", payload: arr });
+    const setVisibleListings = (arr) => dispatch({ type: "SET_VISIBLE", payload: arr });
+
     return {
-      // lexues (për MapWithMarkers):
+      // reader (për MapWithMarkers / MapPage)
       get: () => state,
 
-      // shkrues (emrat e përdorur nga MapWithMarkers):
+      // writers (për komponentët e tu)
       setFilters,
       resetFilters: () => dispatch({ type: "RESET_FILTERS" }),
       setSort,
@@ -91,7 +106,11 @@ export function SearchStateProvider({ children, initialState }) {
       setPurpose,
       setQueryText,
 
-      // vlera direkte + ALIASE (për MapFilters-in tënd ekzistues):
+      // optional global lists
+      setListings,
+      setVisibleListings,
+
+      // values direct
       filters: state.filters,
       sortBy: state.sortBy,
       bounds: state.bounds,
@@ -99,20 +118,24 @@ export function SearchStateProvider({ children, initialState }) {
       activeId: state.activeId,
       purpose: state.purpose,
       queryText: state.queryText,
+      listings: state.listings,
+      visibleListings: state.visibleListings,
 
-      // aliase “Zillow-friendly” që pret komponenti yt:
+      // aliases (për kompatibilitet me emra të vjetër)
       search: state.queryText,
       setSearch: setQueryText,
       setSortBy: setSort,
     };
-  }, [state]);
+  }, [state, setFilters]);
 
   return <Ctx.Provider value={api}>{children}</Ctx.Provider>;
 }
 
-/** Hook: const store = useSearchState();  store.get().filters ... ose direkt store.filters */
-export function useSearchState() {
+export function useSearchState(selector) {
   const ctx = useContext(Ctx);
   if (!ctx) throw new Error("useSearchState must be used within <SearchStateProvider>");
+
+  // optional selector pattern: useSearchState(s => ({...}))
+  if (typeof selector === "function") return selector(ctx.get());
   return ctx;
 }

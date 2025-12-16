@@ -4,6 +4,76 @@
     "object": "Property",
     "description": "This could be contact information or a form.",
     "close": "Close",
+    "default": {
+    "title": "Contact MyHome24App",
+    "intro": "Do you have questions about MyHome24App, new-build projects or need support? Our team is happy to help.",
+    "boxTitle": "Contact MyHome24App",
+    "boxText": "Use this form for general questions about MyHome24App, technical issues or feedback.",
+    "boxHint": "Please do not send any sensitive data (e.g. bank or ID information) via this form."
+  },
+
+  "agent": {
+    "title": "Contact an agent",
+    "intro": "Write directly to the agent via MyHome24App. Your message will be forwarded to the agent’s registered email address.",
+    "metaTitle": "Contact an agent – MyHome24App",
+    "targetBoxTitle": "Target: Agent",
+    "loading": "Loading agent…",
+    "notFound": "No agent was found for this request.",
+    "hint": "If available, your message will be sent to the agent’s stored email address.",
+    "defaultSubject": "Your enquiry to the agent"
+  },
+
+  "form": {
+    "nameLabel": "Your name",
+    "emailLabel": "Your email address",
+    "subjectLabel": "Subject",
+    "subjectPlaceholder": "Short description of your enquiry",
+    "messageLabel": "Your message",
+    "submit": "Send message",
+    "sending": "Sending…",
+
+    "errorTitle": "An error occurred",
+    "validationError": "Please fill in all required fields (name, email and message).",
+    "errorDescription": "Your message could not be sent. Please try again later.",
+
+    "successTitle": "Message sent successfully",
+    "successDefault": "Thank you for your message. Our team will get back to you as soon as possible.",
+    "successAgent": "Your message has been forwarded to the agent’s registered email address."
+  },
+    
+  "intro": "Do you have questions about MyHome24App, new-build projects or need support? Our team is happy to help.",
+
+  "agentContactTitle": "Contact an agent",
+  "agentContactDescription": "Send a message to the agent directly via MyHome24App. Your message will be forwarded to the registered email address.",
+
+  "contactBoxTitle": "Our contact details",
+  "contactBoxText": "You can reach us by email, phone or via this form. We will get back to you as soon as possible.",
+  "note": "Please do not send any sensitive data (e.g. bank or ID information) via this form.",
+
+  "agentBoxTitle": "Target: agent",
+  "loadingAgent": "Loading agent profile…",
+  "agentNotFound": "This agent profile could not be found.",
+  "agentHint": "Your message will be sent to the email address stored for this agent.",
+
+  "nameLabel": "Your name",
+  
+  "subjectLabel": "Subject",
+  "subjectPlaceholder": "Your request to MyHome24App",
+  "subjectAgentPlaceholder": "Your request to the agent",
+ 
+  "messagePlaceholder": "Describe your request as precisely as possible…",
+
+ 
+  "sendToAgentButton": "Send message to agent",
+  "sending": "Sending…",
+
+  "errorTitle": "Error",
+  "errorRequired": "Please fill out all required fields.",
+  "errorSendFailed": "An error occurred while sending your message. Please try again later.",
+
+  "successTitle": "Thank you!",
+  "successDescription": "Your message has been sent to MyHome24App. We will get back to you as soon as possible.",
+  "successAgentDescription": "Your message has been sent to the agent.",
       "contactTitle": "Contact Us",
   "contactText": "Have any questions? We're here to help.",
   "emailLabel": "Your Email Address",
@@ -47,17 +117,19 @@
     }
   },
 
-  "form": {
-    "title": "Message to MyHome24App",
-    "name": "Name",
-    "email": "Email",
-    "subject": "Subject",
-    "message": "Message",
-    "send": "Send message",
-    "sending": "Sending…",
-    "success": "Thank you! We have received your message.",
-    "error": "Oops, something went wrong. Please try again later.",
-    "defaultSubject": "Your inquiry via MyHome24App"
+
+  "subtitle": "Ask a question or request a viewing.",
+ 
+  "defaults": {
+    "message": "Hi, I'm interested in this property. Can we schedule a viewing?"
+  },
+  "hint": "Tip: Ask about viewing times, utilities, or documents.",
+  "successToast": "Message sent. The host will reply soon.",
+  "errorToast": "Failed to send. Please try again later.",
+  "errors": {
+    "loginRequired": "Please log in to send a message.",
+    "email": "Please enter an email.",
+    "message": "Please enter a message."
   },
 
   "contactForm": {

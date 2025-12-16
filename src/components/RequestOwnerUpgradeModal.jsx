@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogTitle, DialogFooter } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import { useToast } from "./ui/use-toast";
+import { logEvent } from "../utils/logEvent";
 
 export default function RequestOwnerUpgradeModal({ open, onClose }) {
   const { t } = useTranslation("upgradeRequest");
@@ -41,19 +42,34 @@ export default function RequestOwnerUpgradeModal({ open, onClose }) {
     try {
       setIsSubmitting(true);
 
+      // Dokument wird unter user.uid gespeichert (merge = true)
       await setDoc(
         doc(db, "roleUpgradeRequests", user.uid),
         {
           userId: user.uid,
           email: user.email || "",
           fullName: user.displayName || "",
-          targetRole, // 🔥 tani admin-i e di në çfarë roli kërkon të shkojë
+          targetRole, // 🔥 admin-i e di në çfarë roli kërkon të shkojë
           reason: reason.trim(),
           status: "pending",
           requestedAt: serverTimestamp(),
         },
         { merge: true }
       );
+
+      // 🔵 LOG: Rollenwechsel-Anfrage erstellt
+      await logEvent({
+        type: "role.requested",
+        message: `Rollenwechsel auf "${targetRole}" angefragt.`,
+        userId: user.uid,
+        targetRole,
+        reason: reason.trim(),
+        context: "request-owner-upgrade",
+        extra: {
+          // requestId = Dokument-ID, këtu e përdorim user.uid
+          requestId: user.uid,
+        },
+      });
 
       toast({ title: t("success"), description: t("requestSent") });
       setReason("");

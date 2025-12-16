@@ -17,6 +17,41 @@
   "empty": "You have not submitted any offers yet.",
   "withdraw": "Withdraw"
 },
+ "metaTitle": "Edit agent profile",
+  "metaDescription": "Edit your public agent profile that is shown in the agent search on MyHome24App.",
+  "title": "Edit agent profile",
+  "subtitle": "These details will be shown in the agent search.",
+
+  "loading": "Loading profile…",
+
+  "errors": {
+    "loadProfile": "Profile could not be loaded.",
+    "notLoggedIn": "Please log in first.",
+    "saveFailed": "An error occurred while saving the profile."
+  },
+
+  "success": {
+    "saved": "Agent profile saved successfully."
+  },
+
+  "fields": {
+    "fullName": "Full name",
+    "city": "City",
+    "region": "Region / state",
+    "phone": "Phone number",
+    "languages": "Languages (comma separated)",
+    "languagesHelper": "Example: German, English, Turkish",
+    "specialties": "Specialties (comma separated)",
+    "specialtiesHelper": "Example: Condos, new developments, investment properties",
+    "bio": "Short profile / description",
+    "bioHelper": "Briefly describe your experience, way of working and what makes you stand out as an agent."
+  },
+
+  "actions": {
+    "reset": "Reset",
+    "save": "Save profile",
+    "saving": "Saving…"
+  },
   "reviews": "Reviews",
   "contactAgent": "Contact Agent"
 }

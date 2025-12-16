@@ -5,10 +5,70 @@
   "location": "Location",
   "contactSeller": "Contact Seller",
   "price": "Price",
+  "close": "Close",
+  "save": "Save",
+  "saved": "Saved",
+  "share": "Share",
+
+  "toastSaved": "Saved",
+  "toastRemoved": "Removed",
+  "toastLinkCopied": "Link copied",
+  "toastCopyFailed": "Copy failed",
+  "toastContactSoon": "Contact will be connected in the next step.",
+
+  "badgeBuy": "For sale",
+  "badgeRent": "For rent",
+
+  "tabOverview": "Overview",
+  "tabFacts": "Facts",
+  "tabFeatures": "Features",
+  "tabLocation": "Location",
+
+  "overviewTitle": "Overview",
+  "overviewFallback": "No description available. Please review the details and contact the provider.",
+
+  "factsTitle": "Facts",
+  "factsType": "Property type",
+  "factsBeds": "Bedrooms",
+  "factsBaths": "Bathrooms",
+  "factsSize": "Size",
+  "factsCity": "City",
+  "noFacts": "No facts available.",
+  
+  "similarEmpty": "No similar listings available right now.",
+  "featuresTitle": "Features",
+  "featuresFallback": "No features listed.",
+
+  "locationTitle": "Location",
+  "unknownCity": "Unknown",
+  "unknownAddress": "Address not available",
+  "openInMaps": "Open in Maps",
+
+  "contactTitle": "Contact",
+  "contactText": "Ask questions, request a viewing, or get more details — fast and direct.",
+  "askQuestion": "Ask a question",
+  "seeFacts": "View facts",
+ 
+
+  "similarTitle": "Similar listings",
+  "similarHint": "Coming next (clickable like Zillow).",
   "rooms": "Rooms",
   "area": "Area",
   "myOffers": {
   "title": "My offers",
+  "myOfferBox": {
+  "title": "Your offer for this listing",
+  "amount": "Amount:",
+  "status": "Status:",
+  "date": "Submitted on",
+  "hint": "You can see all details and actions in the \"My offers\" section of your dashboard.",
+  "statusValues": {
+    "open": "Open",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "withdrawn": "Withdrawn"
+  }
+},
   "subtitle": "Keep track of all purchase offers you have submitted for properties.",
   "chips": {
     "total": "Total",

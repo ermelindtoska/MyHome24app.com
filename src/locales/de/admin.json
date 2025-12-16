@@ -1,13 +1,105 @@
 {
   "title": "Admin-Dashboard",
+  "activityLog": {
+  "title": "Aktivitätsprotokoll",
+  "subtitle": "Übersicht über wichtige Aktionen auf MyHome24App (nur für Admins sichtbar).",
+
+  "columns": {
+    "type": "Typ",
+    "message": "Nachricht",
+    "user": "User",
+    "context": "Kontext",
+    "date": "Datum"
+  },
+
+  "loading": "Protokoll wird geladen…",
+  "empty": "Noch keine Einträge vorhanden.",
+  "detailTitle": "Log-Details",
+  "extra": "Zusätzliche Daten",
+
+  "types": {
+    "role_approved": "Rollenwechsel genehmigt",
+    "agent_cta_become": "CTA „Makler:in werden“ geklickt",
+    "support_markedResolved": "Support als erledigt markiert",
+    "listing_statusChanged": "Anzeigenstatus geändert",
+    "listing_deleted": "Anzeige gelöscht",
+    "finance_leadStatusChanged": "Finanzierungsanfrage aktualisiert",
+    "unknown": "Sonstige Aktion"
+  },
+
+  "context": {
+    "admin-dashboard": "Admin-Dashboard",
+    "agent-profile-page": "Maklerprofil",
+    "user-dashboard": "Nutzer:innenbereich",
+    "owner-dashboard": "Eigentümer-Dashboard",
+    "map-page": "Karte",
+    "unknown": "Allgemein"
+  },
+
+  "messages": {
+    "roleApproved": "Rollenwechsel auf „{{targetRole}}“ wurde genehmigt.",
+    "roleRejected": "Rollenwechsel wurde abgelehnt.",
+    "agentCtaBecome": "Nutzer:in hat auf „Makler:in werden“ geklickt.",
+    "supportResolved": "Supportnachricht wurde als erledigt markiert.",
+    "listingStatusChanged": "Status der Anzeige „{{title}}“ wurde auf „{{status}}“ geändert.",
+    "listingDeleted": "Anzeige „{{title}}“ wurde gelöscht.",
+    "financeLeadStatusChanged": "Status der Finanzierungsanfrage wurde auf „{{status}}“ geändert."
+  }
+},
   "manageUsers": "Benutzer verwalten",
   "manageListings": "Anzeigen verwalten",
   "logs": "Aktivitätsprotokolle",
   "statistics": "Statistiken",
   "allListings": "Alle Anzeigen",
   "close": "Schließen",
- 
-
+  
+    "columns": {
+      "type": "Typ",
+      "message": "Nachricht",
+      "user": "User",
+      "context": "Kontext",
+      "date": "Datum"
+    },
+    "loading": "Protokoll wird geladen…",
+    "empty": "Noch keine Einträge vorhanden.",
+    "loadMore": "Mehr Einträge laden",
+    "loadingMore": "Lade weitere Einträge…",
+    "detailTitle": "Log-Details",
+    "extra": "Zusätzliche Daten",
+    "types": {
+      "agent_cta_become": "CTA „Makler:in werden“ geklickt",
+      "role_approved": "Rollenwechsel auf „agent“ genehmigt",
+      "unknown": "Unbekannter Typ"
+    },
+    "messages": {
+      "roleApproved": "Rollenwechsel auf „agent“ wurde genehmigt.",
+      "agentCtaBecome": "Nutzer:in hat auf „Makler:in werden“ geklickt."
+    },
+    "context": {
+      "admin-dashboard": "Admin-Dashboard",
+      "agent-dashboard": "Makler:innen-Dashboard"
+    },
+  
+"viewAgentProfile": "Profil öffnen",
+"agentProfileModal": {
+  "title": "Maklerprofil",
+  "loading": "Profil wird geladen…",
+  "noProfile": "Für diese Anfrage ist noch kein Maklerprofil hinterlegt.",
+  "error": "Profil konnte nicht geladen werden.",
+  "close": "Schließen",
+  "labels": {
+    "name": "Name: ",
+    "email": "E-Mail: ",
+    "phone": "Telefon: ",
+    "location": "Standort: ",
+    "company": "Unternehmen: ",
+    "languages": "Sprachen: ",
+    "specialties": "Schwerpunkte: ",
+    "rating": "Bewertung: ",
+    "verified": "Verifizierte:r Makler:in",
+    "createdAt": "Profil erstellt am {{date}}"
+  }
+  },
   
   "targetRole": "Zielrolle",
   

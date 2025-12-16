@@ -1,0 +1,63 @@
+{
+
+"activityLog": {
+
+"title": "Activity Log",
+
+"subtitle": "Overview of important actions on MyHome24App (visible to admins only).",
+
+"columns": {
+
+"type": "Type",
+
+"message": "Message",
+
+"user": "User",
+
+"context": "Context",
+
+"date": "Date"
+
+},
+
+"loading": "Loading log…",
+
+"empty": "No entries yet.",
+
+"loadMore": "Loading more entries",
+
+"loadingMore": "Loading more entries…",
+
+"detailTitle": "Log details",
+
+"extra": "Additional data",
+
+"types": {
+
+"agent_cta_become": "CTA 'Become a real estate agent' clicked",
+
+"role_approved": "Role change to 'agent' approved",
+
+"unknown": "Unknown type"
+
+},
+
+"messages": {
+
+"roleApproved": "Role change to 'agent' has been approved.",
+
+"agentCtaBecome": "User clicked on 'Become an Agent'."
+
+},
+
+"context": {
+
+"admin-dashboard": "Admin Dashboard",
+
+"agent-dashboard": "Agent Dashboard"
+
+}
+
+}
+
+}

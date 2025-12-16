@@ -1,16 +1,18 @@
 // src/pages/MortgageCalculatorPage.jsx
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import SiteMeta from "../components/SEO/SiteMeta";
 import calculatorImg from "../assets/mortgage-calculator.png";
 import logo from "../assets/logo.png";
-import { useNavigate } from "react-router-dom";
+
 import { useAuth } from "../context/AuthContext";
-import { createFinanceLeadFromCalculator } from "../services/financePartnerService";
-import { toast } from "react-toastify";
+// 🔁 WICHTIG: Service-Import ENTFERNT
+// import { createFinanceLeadFromCalculator } from "../services/financePartnerService";
 import { db } from "../firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-
 
 const MortgageCalculatorPage = () => {
   const { t, i18n } = useTranslation("mortgageCalculator");
@@ -75,21 +77,8 @@ const MortgageCalculatorPage = () => {
 
   const lang = i18n.language?.slice(0, 2) || "de";
   const canonical = `${window.location.origin}/mortgage/calculator`;
-const saveFinanceLead = async (payload) => {
-  try {
-    await addDoc(collection(db, "financeLeads"), {
-      userId: currentUser?.uid || null,
-      status: "open",
-      source: "mortgageCalculator",
-      createdAt: serverTimestamp(),
-      ...payload,
-    });
-    console.log("[financeLead] OK");
-  } catch (err) {
-    console.error("[financeLead] Fehler beim Speichern:", err);
-  }
-};
-  // Hilfsfunktion für Euro-Format
+
+  // --------- Helper: Euro-Format ---------
   const formatCurrency = (value) =>
     new Intl.NumberFormat(lang === "de" ? "de-DE" : "en-US", {
       style: "currency",
@@ -97,41 +86,82 @@ const saveFinanceLead = async (payload) => {
       maximumFractionDigits: 0,
     }).format(value || 0);
 
-    const handleSendFinanceRequest = async () => {
-  try {
-    await createFinanceLeadFromCalculator({
-      userId: currentUser ? currentUser.uid : null,
-      purchasePrice,
-      downPayment,
-      interest,
-      termYears,
-      // më vonë mund të shtosh edhe city, postalCode, note nga një form tjetër
-      city: "",
-      postalCode: "",
-      note: "",
-      assignedPartnerId: null // do e caktojmë më vonë në admin / routing
-    });
+  // --------- Helper: Lead in Firestore speichern ---------
+  const saveFinanceLead = async (payload) => {
+    try {
+      await addDoc(collection(db, "financeLeads"), {
+        userId: currentUser?.uid || null,
+        status: "open",
+        source: "mortgageCalculator",
+        createdAt: serverTimestamp(),
+        ...payload,
+      });
+      console.log("[financeLead] OK");
+    } catch (err) {
+      console.error("[financeLead] Fehler beim Speichern:", err);
+      throw err;
+    }
+  };
 
-    toast.success(
-      t("partner.leadSuccess", {
-        defaultValue:
-          "Ihre Finanzierungsanfrage wurde als Orientierung gespeichert. Wir melden uns, sobald ein passender Finanzierungspartner angebunden ist.",
-      })
-    );
-  } catch (error) {
-    console.error("[MortgageCalculator] lead error", error);
-    toast.error(
-      t("partner.leadError", {
-        defaultValue:
-          "Die Anfrage konnte nicht gespeichert werden. Bitte versuchen Sie es später erneut.",
-      })
-    );
-  }
-};
+  // --------- Haupt-CTA: Finanzierungsanfrage senden ---------
+  const handleSendFinanceRequest = async () => {
+    // Nicht eingeloggt → zuerst Login
+    if (!currentUser) {
+      toast.info(
+        t("partner.loginRequired", {
+          defaultValue:
+            "Bitte melden Sie sich an, um eine Finanzierungsanfrage zu senden.",
+        })
+      );
+      navigate("/login?next=/mortgage/calculator");
+      return;
+    }
 
+    try {
+      const payload = {
+        purchasePrice,
+        downPayment,
+        interest,
+        termYears,
+        monthlyPayment: result.monthly,
+        totalInterest: result.totalInterest,
+        totalPayment: result.totalPayment,
+        city: "",
+        postalCode: "",
+        note: "",
+        assignedPartnerId: null,
+        lang,
+      };
+
+      // 🔁 NUR noch Firestore-Write – Service später
+      await saveFinanceLead(payload);
+
+      toast.success(
+        t("partner.leadSuccess", {
+          defaultValue:
+            "Ihre Finanzierungsanfrage wurde gespeichert. Wir melden uns, sobald ein passender Finanzierungspartner angebunden ist.",
+        })
+      );
+    } catch (error) {
+      console.error("[MortgageCalculator] lead error", error);
+      toast.error(
+        t("partner.leadError", {
+          defaultValue:
+            "Die Anfrage konnte nicht gespeichert werden. Bitte versuchen Sie es später erneut.",
+        })
+      );
+    }
+  };
+
+  const handleReset = () => {
+    setPurchasePrice(450000);
+    setDownPayment(90000);
+    setInterest(3.2);
+    setTermYears(30);
+  };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
+    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50">
       {/* SEO */}
       <SiteMeta
         title={t("metaTitle")}
@@ -145,7 +175,7 @@ const saveFinanceLead = async (payload) => {
         {/* HERO + Formular */}
         <div className="grid gap-10 md:grid-cols-[1.1fr,0.9fr] items-start">
           {/* Bild / Hero */}
-          <div className="relative rounded-3xl overflow-hidden border border-slate-800 shadow-2xl">
+          <div className="relative rounded-3xl overflow-hidden border border-slate-200 bg-slate-100 shadow-2xl dark:border-slate-800 dark:bg-slate-900">
             <img
               src={calculatorImg}
               alt={t("hero.imgAlt")}
@@ -162,7 +192,7 @@ const saveFinanceLead = async (payload) => {
               <span className="inline-flex items-center rounded-full bg-blue-500/90 px-4 py-1 text-xs font-semibold tracking-wide uppercase">
                 {t("hero.badge")}
               </span>
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-snug">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-snug text-white">
                 {t("hero.title")}
               </h1>
               <p className="text-sm md:text-base text-slate-200 max-w-xl">
@@ -172,7 +202,7 @@ const saveFinanceLead = async (payload) => {
           </div>
 
           {/* Formular */}
-          <section className="bg-slate-900/80 border border-slate-800 rounded-3xl p-5 md:p-6 space-y-5 shadow-xl">
+          <section className="bg-white/90 border border-slate-200 rounded-3xl p-5 md:p-6 space-y-5 shadow-xl dark:bg-slate-900/80 dark:border-slate-800">
             <h2 className="text-lg md:text-xl font-semibold mb-2">
               {t("form.title")}
             </h2>
@@ -180,7 +210,7 @@ const saveFinanceLead = async (payload) => {
             <div className="space-y-4">
               {/* Kaufpreis */}
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
+                <label className="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">
                   {t("form.purchasePriceLabel")}
                 </label>
                 <div className="relative">
@@ -189,10 +219,10 @@ const saveFinanceLead = async (payload) => {
                     min={0}
                     value={purchasePrice}
                     onChange={(e) => setPurchasePrice(e.target.value)}
-                    className="w-full rounded-2xl bg-slate-950 border border-slate-700 px-4 py-2.5 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full rounded-2xl bg-slate-50 border border-slate-300 px-4 py-2.5 pr-16 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-950 dark:border-slate-700 dark:text-slate-50"
                     placeholder={t("form.purchasePricePlaceholder")}
                   />
-                  <span className="absolute inset-y-0 right-4 flex items-center text-xs text-slate-400">
+                  <span className="absolute inset-y-0 right-4 flex items-center text-xs text-slate-500 dark:text-slate-400">
                     €
                   </span>
                 </div>
@@ -200,7 +230,7 @@ const saveFinanceLead = async (payload) => {
 
               {/* Eigenkapital */}
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
+                <label className="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">
                   {t("form.downPaymentLabel")}
                 </label>
                 <div className="relative">
@@ -209,19 +239,19 @@ const saveFinanceLead = async (payload) => {
                     min={0}
                     value={downPayment}
                     onChange={(e) => setDownPayment(e.target.value)}
-                    className="w-full rounded-2xl bg-slate-950 border border-slate-700 px-4 py-2.5 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full rounded-2xl bg-slate-50 border border-slate-300 px-4 py-2.5 pr-16 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-950 dark:border-slate-700 dark:text-slate-50"
                     placeholder={t("form.downPaymentPlaceholder")}
                   />
-                  <span className="absolute inset-y-0 right-4 flex items-center text-xs text-slate-400">
+                  <span className="absolute inset-y-0 right-4 flex items-center text-xs text-slate-500 dark:text-slate-400">
                     €
                   </span>
                 </div>
               </div>
 
-              {/* Zinssatz */}
+              {/* Zinssatz + Laufzeit */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">
+                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">
                     {t("form.interestLabel")}
                   </label>
                   <div className="relative">
@@ -231,17 +261,16 @@ const saveFinanceLead = async (payload) => {
                       step="0.01"
                       value={interest}
                       onChange={(e) => setInterest(e.target.value)}
-                      className="w-full rounded-2xl bg-slate-950 border border-slate-700 px-4 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full rounded-2xl bg-slate-50 border border-slate-300 px-4 py-2.5 pr-10 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-950 dark:border-slate-700 dark:text-slate-50"
                     />
-                    <span className="absolute inset-y-0 right-3 flex items-center text-xs text-slate-400">
+                    <span className="absolute inset-y-0 right-3 flex items-center text-xs text-slate-500 dark:text-slate-400">
                       %
                     </span>
                   </div>
                 </div>
 
-                {/* Laufzeit */}
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">
+                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">
                     {t("form.termLabel")}
                   </label>
                   <div className="relative">
@@ -251,9 +280,9 @@ const saveFinanceLead = async (payload) => {
                       max={40}
                       value={termYears}
                       onChange={(e) => setTermYears(e.target.value)}
-                      className="w-full rounded-2xl bg-slate-950 border border-slate-700 px-4 py-2.5 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full rounded-2xl bg-slate-50 border border-slate-300 px-4 py-2.5 pr-12 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-950 dark:border-slate-700 dark:text-slate-50"
                     />
-                    <span className="absolute inset-y-0 right-3 flex items-center text-xs text-slate-400">
+                    <span className="absolute inset-y-0 right-3 flex items-center text-xs text-slate-500 dark:text-slate-400">
                       {t("form.termSuffix")}
                     </span>
                   </div>
@@ -262,92 +291,65 @@ const saveFinanceLead = async (payload) => {
 
               {/* Buttons */}
               <div className="mt-4 flex flex-wrap gap-3">
-  <button
-    type="button"
-    onClick={handleSendFinanceRequest}
-    className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/30 hover:bg-emerald-600 transition"
-  >
-    {t("partner.buttonSendLead", {
-      defaultValue: "Unverbindliche Finanzierungsanfrage speichern",
-    })}
-  </button>
-
-  <button
-    type="button"
-    onClick={() => navigate("/mortgage/partners")}
-    className="inline-flex items-center justify-center rounded-full border border-slate-600 px-5 py-2.5 text-sm font-semibold text-slate-100 hover:bg-slate-900 transition"
-  >
-    {t("partner.buttonSeePartners", {
-      defaultValue: "Mehr über Finanzierungspartner:innen",
-    })}
-  </button>
-  
-</div>
-
-
-              <div className="flex flex-wrap gap-2 pt-2">
+                {/* Primäre Aktion: Lead speichern */}
                 <button
                   type="button"
-                  className="inline-flex items-center justify-center rounded-full bg-blue-600 px-5 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition"
+                  onClick={handleSendFinanceRequest}
+                  className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/30 hover:bg-emerald-600 transition"
                 >
-                  {t("form.calculateButton")}
+                  {t("partner.buttonSendLead", {
+                    defaultValue: "Unverbindliche Finanzierungsanfrage senden",
+                  })}
                 </button>
-<button
-  type="button"
-  onClick={() => {
-    saveFinanceLead({
-      purchasePrice,
-      downPayment,
-      interest,
-      termYears,
-      monthlyPayment: result.monthly,
-      totalInterest: result.totalInterest,
-      notes: null,
-    });
-    navigate("/mortgage/partners");
-  }}
-  className="px-5 py-2.5 rounded-full bg-emerald-500 text-white text-sm font-semibold hover:bg-emerald-600 transition"
->
-  {t("partner.buttonBecomePartner")}
-</button>
 
-                
+                {/* Finanzierungspartner ansehen */}
                 <button
                   type="button"
-                  onClick={() => {
-                    setPurchasePrice(450000);
-                    setDownPayment(90000);
-                    setInterest(3.2);
-                    setTermYears(30);
-                  }}
-                  className="inline-flex items-center justify-center rounded-full border border-slate-600 px-4 py-2 text-xs font-medium text-slate-200 hover:bg-slate-900 transition"
+                  onClick={() => navigate("/mortgage/partners")}
+                  className="inline-flex items-center justify-center rounded-full border border-slate-400 px-5 py-2.5 text-sm font-semibold text-slate-800 hover:bg-slate-100 transition dark:border-slate-600 dark:text-slate-100 dark:hover:bg-slate-900"
+                >
+                  {t("partner.buttonSeePartners", {
+                    defaultValue: "Finanzierungspartner:innen ansehen",
+                  })}
+                </button>
+
+                {/* Zurücksetzen */}
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  className="inline-flex items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100 transition dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-900"
                 >
                   {t("form.resetButton")}
                 </button>
-                <button
-  type="button"
-  onClick={() => navigate("/partner/finance")}
-  className="px-5 py-2.5 rounded-full bg-emerald-500 text-white text-sm font-semibold hover:bg-emerald-600 transition"
->
-  {t("partner.buttonBecomePartner")}
-</button>
 
-<button
-  type="button"
-  onClick={() => navigate("/contact?topic=financing")}
-  className="px-5 py-2.5 rounded-full border border-slate-600 text-sm font-semibold hover:bg-slate-900 transition"
->
-  {t("partner.buttonContactPlatform")}
-</button>
+                {/* Partner werden */}
+                <button
+                  type="button"
+                  onClick={() => navigate("/partner/finance")}
+                  className="inline-flex items-center justify-center rounded-full bg-emerald-500/10 px-5 py-2.5 text-xs font-semibold text-emerald-600 hover:bg-emerald-500/20 transition dark:text-emerald-400"
+                >
+                  {t("partner.buttonBecomePartner")}
+                </button>
+
+                {/* Plattform kontaktieren */}
+                <button
+                  type="button"
+                  onClick={() => navigate("/contact?topic=financing")}
+                  className="inline-flex items-center justify-center rounded-full border border-slate-300 px-5 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-100 transition dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-900"
+                >
+                  {t("partner.buttonContactPlatform")}
+                </button>
               </div>
             </div>
 
             {/* Ergebnisse */}
-            <div className="mt-4 rounded-2xl bg-slate-950/70 border border-slate-800 p-4 space-y-3">
-              <h3 className="text-sm font-semibold text-slate-200">
+            <div className="mt-4 rounded-2xl bg-slate-50 border border-slate-200 p-4 space-y-3 dark:bg-slate-950/70 dark:border-slate-800">
+              <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
                 {t("results.title")}
               </h3>
-              <p className="text-xs text-slate-400">{t("results.disclaimer")}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                {t("results.disclaimer")}
+              </p>
               <div className="grid grid-cols-2 gap-3 text-sm md:text-base">
                 <ResultBox
                   label={t("results.monthlyPayment")}
@@ -382,12 +384,12 @@ const saveFinanceLead = async (payload) => {
               {features.map((item, idx) => (
                 <div
                   key={idx}
-                  className="rounded-2xl bg-slate-900/80 border border-slate-800 px-4 py-3"
+                  className="rounded-2xl bg-slate-50 border border-slate-200 px-4 py-3 dark:bg-slate-900/80 dark:border-slate-800"
                 >
-                  <h3 className="text-sm font-semibold text-slate-50">
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
                     {item.title}
                   </h3>
-                  <p className="text-xs md:text-sm text-slate-300">
+                  <p className="text-xs md:text-sm text-slate-700 dark:text-slate-300">
                     {item.text}
                   </p>
                 </div>
@@ -396,11 +398,11 @@ const saveFinanceLead = async (payload) => {
           </div>
 
           {/* Rechtliches / Hinweise */}
-          <aside className="rounded-3xl bg-amber-500/10 border border-amber-500/40 px-4 py-4 md:px-5 md:py-5">
-            <h2 className="text-lg font-semibold text-amber-400 mb-2">
+          <aside className="rounded-3xl bg-amber-50 border border-amber-300 px-4 py-4 md:px-5 md:py-5 dark:bg-amber-500/10 dark:border-amber-500/40">
+            <h2 className="text-lg font-semibold text-amber-700 mb-2 dark:text-amber-400">
               {t("legalTitle")}
             </h2>
-            <ul className="list-disc list-inside space-y-2 text-xs md:text-sm text-amber-100">
+            <ul className="list-disc list-inside space-y-2 text-xs md:text-sm text-amber-800 dark:text-amber-100">
               {legalNotes.map((note, idx) => (
                 <li key={idx}>{note}</li>
               ))}
@@ -408,12 +410,12 @@ const saveFinanceLead = async (payload) => {
           </aside>
         </section>
 
-        {/* Partner-Sektion: Finanzierungsberater:innen / Banken */}
-        <section className="mt-12 md:mt-16 rounded-3xl bg-slate-900/80 border border-slate-800 px-5 py-6 md:px-6 md:py-7">
+        {/* Partner-Sektion */}
+        <section className="mt-12 md:mt-16 rounded-3xl bg-slate-50 border border-slate-200 px-5 py-6 md:px-6 md:py-7 dark:bg-slate-900/80 dark:border-slate-800">
           <h2 className="text-lg md:text-xl font-semibold mb-3">
             {t("partnerSection.title")}
           </h2>
-          <p className="text-sm md:text-base text-slate-200 mb-4">
+          <p className="text-sm md:text-base text-slate-700 dark:text-slate-200 mb-4">
             {t("partnerSection.text")}
           </p>
 
@@ -421,50 +423,51 @@ const saveFinanceLead = async (payload) => {
             {partnerCallouts.map((item, idx) => (
               <div
                 key={idx}
-                className="rounded-2xl bg-slate-950/70 border border-slate-800 px-4 py-3 text-xs md:text-sm"
+                className="rounded-2xl bg-slate-50 border border-slate-200 px-4 py-3 text-xs md:text-sm dark:bg-slate-950/70 dark:border-slate-800"
               >
-                <h3 className="font-semibold mb-1 text-slate-50">
+                <h3 className="font-semibold mb-1 text-slate-900 dark:text-slate-50">
                   {item.title}
                 </h3>
-                <p className="text-slate-300">{item.text}</p>
+                <p className="text-slate-700 dark:text-slate-300">{item.text}</p>
               </div>
             ))}
           </div>
 
           <div className="flex flex-wrap gap-3">
-            <a
-              href="/partner/finance"
+            <button
+              type="button"
+              onClick={() => navigate("/partner/finance")}
               className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-600 transition"
             >
               {t("partnerSection.ctaPrimary")}
-            </a>
-            <a
-              href="/contact?topic=financing"
-              className="inline-flex items-center justify-center rounded-full border border-slate-600 px-5 py-2.5 text-sm font-semibold text-slate-100 hover:bg-slate-900 transition"
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate("/contact?topic=financing")}
+              className="inline-flex items-center justify-center rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition dark:border-slate-600 dark:text-slate-100 dark:hover:bg-slate-900"
             >
               {t("partnerSection.ctaSecondary")}
-            </a>
+            </button>
           </div>
         </section>
-        
       </div>
-      
     </div>
   );
 };
 
 const ResultBox = ({ label, value, highlight = false }) => (
-  <div className="rounded-2xl bg-slate-900/80 border border-slate-800 px-3 py-3">
-    <div className="text-[11px] md:text-xs text-slate-400 mb-1">{label}</div>
+  <div className="rounded-2xl bg-slate-50 border border-slate-200 px-3 py-3 dark:bg-slate-900/80 dark:border-slate-800">
+    <div className="text-[11px] md:text-xs text-slate-500 dark:text-slate-400 mb-1">
+      {label}
+    </div>
     <div
       className={`text-sm md:text-lg font-semibold ${
-        highlight ? "text-emerald-400" : "text-slate-50"
+        highlight ? "text-emerald-500" : "text-slate-900 dark:text-slate-50"
       }`}
     >
       {value}
     </div>
   </div>
-  
 );
 
 export default MortgageCalculatorPage;

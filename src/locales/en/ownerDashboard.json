@@ -23,6 +23,88 @@
     "loading": "Loading dashboard…",
     "noUser": "Please sign in first.",
 
+
+    
+ "communicationCenter": {
+    "title": "Communication Center",
+    "subtitle": "All contact requests and purchase offers grouped by listing.",
+    "chips": {
+      "listings": "Listings",
+      "contacts": "Contact requests",
+      "offers": "Offers",
+
+"unknownSender": "Unknown",
+
+"noEmail": "No email address provided.",
+
+"noPhone": "No phone number provided.",
+
+"copied": "Copied.",
+
+"copyFailed": "Copy failed.",
+
+"mailSubject": "Reply to your interest: {{title}}",
+
+"actions": {
+
+"mail": "Email",
+
+"call": "Call",
+
+"copy": "Copy",
+
+"reply": "Reply"
+
+},
+
+"replyHint": "Write a reply. (Optional: we will send this automatically via email later using a Cloud Function.)",
+
+"replyPlaceholder": "Your reply…",
+
+"buttons": {
+
+"cancel": "Cancel",
+
+"send": "Save",
+
+"sending": "Sending…"
+
+},
+
+"replySent": "Reply saved.",
+
+"replyError": "Reply could not be saved.",
+
+"replies": {
+
+"title": "Your replies",
+
+"sentAt": "Sent"
+
+}
+
+    },
+    "loading": "Loading data…",
+    "empty": "You haven’t received any contact requests or offers for your listings yet.",
+    "unknownListing": "Unknown listing",
+    "badges": {
+      "contacts": "Contact requests: {{count}}",
+      "offers": "Offers: {{count}}"
+    },
+    "toggleDetails": "Show details",
+    "section": {
+      "contacts": "Contact requests",
+      "offers": "Purchase offers"
+    },
+    "noContacts": "No contact requests for this listing.",
+    "noOffers": "No offers for this listing.",
+    "status": {
+      "open": "Open",
+      "accepted": "Accepted",
+      "rejected": "Rejected",
+      "withdrawn": "Withdrawn"
+    }
+  },
     "ctaNewListing": "Publish new property",
 
     "stats": {

@@ -56,7 +56,7 @@ const AgentsPage = () => {
               <div className="flex flex-wrap gap-3 pt-2">
                 <button
                   type="button"
-                  onClick={() => navigate("/agents/search")}
+                  onClick={() => navigate("/agent/search")}
                   className="inline-flex items-center justify-center rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 hover:bg-blue-700 transition"
                 >
                   <MdPersonSearch className="mr-2" />
@@ -64,7 +64,7 @@ const AgentsPage = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => navigate("/agents/rate")}
+                  onClick={() => navigate("/agent/rate")}
                   className="inline-flex items-center justify-center rounded-full bg-slate-900/80 border border-slate-600 px-5 py-2.5 text-sm font-semibold text-slate-100 hover:bg-slate-900 transition"
                 >
                   <MdStarRate className="mr-2" />

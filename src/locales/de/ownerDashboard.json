@@ -6,8 +6,63 @@
   "empty": "Bisher gibt es keine Angebote.",
     "title": "Owner-Dashboard",
   "subtitle": "Verwalte deine Inserate, Angebote und Anfragen – alles an einem Ort.",
-  
+ 
+  "communicationCenter": {
+    "unknownSender": "Unbekannt",
+    "noEmail": "Keine E-Mail angegeben.",
+    "noPhone": "Keine Telefonnummer angegeben.",
+    "copied": "Kopiert.",
+    "copyFailed": "Kopieren fehlgeschlagen.",
+    "mailSubject": "Antwort zu deinem Interesse: {{title}}",
 
+        "title": "Kommunikations-Center",
+    "subtitle": "Alle Kontaktanfragen und Kaufangebote gebündelt pro Inserat.",
+    "chips": {
+      "listings": "Inserate",
+      "contacts": "Kontaktanfragen",
+      "offers": "Angebote"
+    },
+    "loading": "Daten werden geladen…",
+    "empty": "Es liegen noch keine Kontaktanfragen oder Angebote zu deinen Inseraten vor.",
+    "unknownListing": "Unbekanntes Inserat",
+    "badges": {
+      "contacts": "Kontaktanfragen: {{count}}",
+      "offers": "Angebote: {{count}}"
+    },
+    "toggleDetails": "Details anzeigen",
+    "section": {
+      "contacts": "Kontaktanfragen",
+      "offers": "Kaufangebote"
+    },
+    "noContacts": "Keine Kontaktanfragen zu diesem Inserat.",
+    "noOffers": "Keine Angebote zu diesem Inserat.",
+    "status": {
+      "open": "Offen",
+      "accepted": "Angenommen",
+      "rejected": "Abgelehnt",
+      "withdrawn": "Zurückgezogen"
+    },
+
+    "actions": {
+      "mail": "E-Mail",
+      "call": "Anrufen",
+      "copy": "Kopieren",
+      "reply": "Antworten"
+    },
+    "replyHint": "Schreibe eine Antwort. (Optional: später senden wir das automatisch per E-Mail via Cloud Function.)",
+    "replyPlaceholder": "Deine Antwort…",
+    "buttons": {
+      "cancel": "Abbrechen",
+      "send": "Speichern",
+      "sending": "Wird gesendet…"
+    },
+    "replySent": "Antwort gespeichert.",
+    "replyError": "Antwort konnte nicht gespeichert werden.",
+    "replies": {
+      "title": "Deine Antworten",
+      "sentAt": "Gesendet"
+    }
+  },
 
   "stats": {
     "total": "Gesamt",

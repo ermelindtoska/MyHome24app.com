@@ -6,7 +6,11 @@
  
   "switchRole": "Switch role",
  
-
+"overview": "Overview",
+  "request": "Financing request",
+  "contactGeneral": "Contact",
+  "contactFinancing": "Contact: Financing",
+  "contactPartnerFinance": "Contact: Partner finance",
   "findAgent": "Find Agent",
 
   "user": "User",

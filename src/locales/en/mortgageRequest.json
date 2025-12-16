@@ -1,0 +1,55 @@
+{
+  "metaTitle": "Financing request – non-binding | MyHome24App",
+  "metaDescription": "Send a non-binding financing request – even without login. We store your key data and guide you through the next steps.",
+  "back": "Back",
+  "badgeNoLogin": "Login not required",
+  "title": "Non-binding financing request",
+  "subtitle": "Send your key data quickly and securely. If you’re not logged in, your request is stored with userId = null.",
+  "trust": [
+    { "title": "Privacy", "text": "We store only what’s needed and follow clear processes." },
+    { "title": "Fast", "text": "Submit in minutes – ideal as a first step." },
+    { "title": "Transparent", "text": "You stay in control: no obligation, no hidden costs." }
+  ],
+  "form": {
+    "fullName": { "label": "Your name", "hint": "Optional", "placeholder": "First Last" },
+    "email": { "label": "Email", "hint": "Required", "placeholder": "name@example.com" },
+    "phone": { "label": "Phone", "hint": "Optional", "placeholder": "+49 ..." },
+    "city": { "label": "City / region", "hint": "Optional", "placeholder": "e.g. Berlin" },
+    "purchasePrice": { "label": "Purchase price (€)" },
+    "equity": { "label": "Equity / down payment (€)" },
+    "interestRate": { "label": "Interest rate (%)" },
+    "years": { "label": "Term (years)" },
+    "notes": { "label": "Message", "hint": "Optional", "placeholder": "e.g. timeline, property type, preferred rate ..." },
+    "consent": "I agree that MyHome24App may contact me regarding this request.",
+    "submit": "Send request",
+    "submitLoading": "Sending ...",
+    "toCalculator": "Go to calculator",
+    "errors": {
+      "email": "Please enter a valid email address.",
+      "consent": "Please confirm the contact consent.",
+      "generic": "The request could not be saved. Please try again later."
+    }
+  },
+  "legal": "Legal note: This is a non-binding request and not financial advice. Terms may vary by provider and creditworthiness.",
+  "summary": {
+    "title": "Summary",
+    "loanAmount": "Loan amount",
+    "monthly": "Monthly payment (estimate)",
+    "years": "Term",
+    "rate": "Interest rate",
+    "disclaimerTitle": "Important note",
+    "disclaimerText": "This is a simplified example (excluding fees/ancillary costs).",
+    "bullets": [
+      "Login not required (userId = null).",
+      "Roadmap: partner matching & status tracking.",
+      "Create an account later to view history & status."
+    ]
+  },
+  "success": {
+    "title": "Request saved successfully",
+    "text": "Thanks! We received your request. Meanwhile, you can use the calculator or view the partners page.",
+    "ref": "Reference ID:",
+    "ctaCalculator": "Calculator",
+    "ctaPartners": "Partners"
+  }
+}

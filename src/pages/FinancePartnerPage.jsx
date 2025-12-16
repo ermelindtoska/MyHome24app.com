@@ -81,7 +81,8 @@ const FinancePartnerPage = () => {
             <div className="flex flex-wrap gap-3 pt-3">
               <button
                 type="button"
-                onClick={() => navigate("/contact?topic=financing")}
+                onClick={() => navigate("/contact?topic=partner-finance")
+}
                 className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/25 hover:bg-emerald-600 transition"
               >
                 {t("partnerPage.cta.primary")}
@@ -167,7 +168,8 @@ const FinancePartnerPage = () => {
           <div className="flex flex-wrap gap-3">
             <button
               type="button"
-              onClick={() => navigate("/contact?topic=financing")}
+              onClick={() => navigate("/contact?topic=partner-finance")}
+
               className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-600 transition"
             >
               {t("partnerPage.cta.primary")}

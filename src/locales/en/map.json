@@ -7,7 +7,45 @@
   "zoomIn": "Zoom in",
   "zoomOut": "Zoom out",
   "filter": "Filter",
-
+ 
+  "noResultsDesc": "No homes found in this map area. Zoom out or change filters.",
+  "subtitle": "Only homes within the visible map area",
+ 
+  "sort": "Sort",
+  "loadingShort": "Loading…",
+  "loadError": "Could not load data.",
+  "noResultsTitle": "No results",
+  "noResultsText": "Zoom or adjust filters to see more homes.",
+  "openResults": "Results",
+  "close": "Close",
+  "homes": "Homes",
+  "mapLoading": "Loading map…",
+  "mapTokenMissingTitle": "Missing Mapbox token",
+  "mapTokenMissingText": "Please set REACT_APP_MAPBOX_TOKEN in your .env file and restart the dev server.",
+  "mapLoadErrorTitle": "Map could not be loaded",
+  "mapLoadErrorText": "Please check token, internet connection and Mapbox style. Open console for details.",
+  "fitToResults": "Fit to results",
+  "resultsCount": "{{count}} results",
+  "resultsHint": "Only results within the visible map area",
+  "saveSearch": "Save search",
+  "saveSearchDemo": "Search saved (demo)",
+  "newest": "Newest",
+  "searchThisArea": "Search this area",
+  "searchThisAreaToggle": "Search within this map view",
+  "mobile": {
+    "list": "List",
+    "map": "Map",
+    "openResults": "Show results"
+  },
+  "future": {
+    "aiMatch": "AI matching (roadmap)",
+    "priceDrop": "Price-drop tracking (roadmap)",
+    "alerts": "Saved search alerts (roadmap)",
+    "heatmap": "Heatmap: demand & prices (roadmap)",
+    "schools": "Schools & infrastructure (roadmap)",
+    "commute": "Commute & travel time (roadmap)",
+    "energy": "Energy rating & costs (roadmap)"
+  },
 "showList": "Show list",
 
   "searchPlaceholder": "City, ZIP, Address...",

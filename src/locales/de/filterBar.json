@@ -2,6 +2,54 @@
   "cityPlaceholder": "Stadt",
   "title": "Filteranzeigen",
   "city": "Stadt",
+        "reset": "Zurücksetzen",
+  "apply": "Übernehmen",
+  "clear": "Leeren",
+  "openList": "Liste",
+  "searchInArea": "In diesem Kartenausschnitt suchen",
+
+  "chips": {
+    "price": "Preis",
+    "priceFrom": "Ab {{min}} €",
+    "priceTo": "Bis {{max}} €",
+    "priceRange": "{{min}} € – {{max}} €",
+    "bedsBaths": "Betten & Bäder",
+    "bedsPlus": "{{beds}}+ Betten",
+    "bathsPlus": "{{baths}}+ Bäder",
+    "bedsBathsPlus": "{{beds}}+ / {{baths}}+",
+    "homeType": "Immobilientyp",
+    "more": "Mehr"
+  },
+
+  "panels": {
+    "priceTitle": "Preis",
+    "bedsBathsTitle": "Betten & Bäder",
+    "homeTypeTitle": "Immobilientyp",
+    "moreTitle": "Mehr Optionen"
+  },
+
+
+  "types": {
+    "apartment": "Wohnung",
+    "house": "Haus",
+    "commercial": "Gewerbe"
+  },
+  "bedsBaths": "Betten & Bäder",
+  "homeType": "Immobilientyp",
+  "more": "Mehr",
+  "sort": "Sortieren",
+  "any": "Beliebig",
+  "done": "Fertig",
+  "beds": "Betten",
+  "baths": "Bäder",
+  "bedsShort": "bd",
+  "bathsShort": "ba",
+  "moreFilters": "Weitere Filter",
+  
+  "newOnly": "Nur neu",
+  "verifiedOnly": "Nur verifiziert",  
+  "newest": "Neueste",
+
   "toggleFilters": "Filter umschalten",
   "showFilters": "Filter anzeigen",
   "selected": "Ausgewählt",

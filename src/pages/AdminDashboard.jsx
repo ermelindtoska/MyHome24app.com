@@ -2,11 +2,10 @@
 import React, { useEffect, useState } from "react";
 import {
   getDocs,
+  getDoc,
   collection,
   deleteDoc,
   doc,
-  query,
-  orderBy,
   updateDoc,
   addDoc,
   serverTimestamp,
@@ -16,6 +15,10 @@ import { db } from "../firebase";
 import { useTranslation } from "react-i18next";
 import ImageModal from "../components/ImageModal";
 import SiteMeta from "../components/SEO/SiteMeta";
+import ActivityLogs from "../components/ActivityLogs";
+import { logEvent } from "../utils/logEvent";
+import ActivityLogTable from "../components/admin/ActivityLogTable";
+
 
 const AdminDashboard = () => {
   const { t } = useTranslation("admin");
@@ -33,6 +36,12 @@ const AdminDashboard = () => {
   const [modalListingTitle, setModalListingTitle] = useState("");
   const [userRoles, setUserRoles] = useState({});
   const [roleRequests, setRoleRequests] = useState([]);
+
+  // 🔹 Agent-Profildaten für Modal
+  const [agentModalOpen, setAgentModalOpen] = useState(false);
+  const [agentModalLoading, setAgentModalLoading] = useState(false);
+  const [agentModalError, setAgentModalError] = useState("");
+  const [selectedAgentProfile, setSelectedAgentProfile] = useState(null);
 
   const itemsPerPage = 5;
   const storage = getStorage();
@@ -230,12 +239,25 @@ const AdminDashboard = () => {
         )
       );
 
+      // 🔵 LOG: Rollenwechsel genehmigt
+      await logEvent({
+        type: "role.approved",
+        message: `Rollenwechsel auf "${targetRole}" wurde genehmigt.`,
+        userId,
+        targetRole,
+        context: "admin-dashboard",
+        extra: {
+          requestId,
+          decidedBy: "admin-dashboard",
+        },
+      });
+
       await logActivity(
         "Approved role upgrade",
         `UserID: ${userId} → ${targetRole}`
       );
     } catch (err) {
-      console.error("Error approving request:", err);
+      console.error("[AdminDashboard] handleApproveRequest error:", err);
     }
   };
 
@@ -273,6 +295,59 @@ const AdminDashboard = () => {
     } catch (err) {
       console.error("Error rejecting request:", err);
     }
+  };
+
+  // 🔍 Agentenprofil aus agents/{userId} laden und Modal öffnen
+  const handleOpenAgentProfile = async (req) => {
+    if (!req?.userId) return;
+
+    setAgentModalOpen(true);
+    setAgentModalLoading(true);
+    setAgentModalError("");
+    setSelectedAgentProfile(null);
+
+    try {
+      const snap = await getDoc(doc(db, "agents", req.userId));
+
+      if (!snap.exists()) {
+        setAgentModalError(
+          t("agentProfileModal.noProfile", {
+            defaultValue:
+              "Für diese Anfrage ist noch kein Maklerprofil hinterlegt.",
+          })
+        );
+        return;
+      }
+
+      const agent = { id: snap.id, ...snap.data() };
+      setSelectedAgentProfile(agent);
+
+      // optionales Log
+      await logEvent({
+        type: "agent.profile.viewFromAdmin",
+        userId: req.userId,
+        targetRole: req.targetRole || "agent",
+        context: "admin-dashboard",
+        extra: {
+          requestId: req.id,
+        },
+      });
+    } catch (err) {
+      console.error("[AdminDashboard] handleOpenAgentProfile error:", err);
+      setAgentModalError(
+        t("agentProfileModal.error", {
+          defaultValue: "Profil konnte nicht geladen werden.",
+        })
+      );
+    } finally {
+      setAgentModalLoading(false);
+    }
+  };
+
+  const handleCloseAgentProfile = () => {
+    setAgentModalOpen(false);
+    setSelectedAgentProfile(null);
+    setAgentModalError("");
   };
 
   /**
@@ -516,7 +591,15 @@ const AdminDashboard = () => {
                 <td className="py-2 px-4 border">
                   {req.requestedAt?.toDate?.().toLocaleString?.() || "–"}
                 </td>
-                <td className="py-2 px-4 border flex space-x-2">
+                <td className="py-2 px-4 border flex flex-wrap gap-2">
+                  <button
+                    onClick={() => handleOpenAgentProfile(req)}
+                    className="px-3 py-1 bg-sky-600 text-white rounded hover:bg-sky-700 text-xs sm:text-sm"
+                  >
+                    {t("viewAgentProfile", {
+                      defaultValue: "Profil öffnen",
+                    })}
+                  </button>
                   <button
                     onClick={() => handleApproveRequest(req)}
                     className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-xs sm:text-sm"
@@ -546,6 +629,12 @@ const AdminDashboard = () => {
           </tbody>
         </table>
       </div>
+
+     {/* Aktivitätsprotokoll */}
+<div className="mt-8">
+  <ActivityLogTable />
+</div>
+
 
       {/* Support Messages */}
       <h2 className="text-xl font-semibold mt-10 mb-4">
@@ -615,7 +704,7 @@ const AdminDashboard = () => {
         </table>
       </div>
 
-      {/* Modal për Listing-Bilder */}
+      {/* Modal für Listing-Bilder */}
       <ImageModal
         images={modalImages}
         isOpen={showModal}
@@ -628,8 +717,171 @@ const AdminDashboard = () => {
         error={modalError}
         title={modalListingTitle}
       />
+
+      {/* Modal für Agentenprofil */}
+      <AgentProfileModal
+        open={agentModalOpen}
+        onClose={handleCloseAgentProfile}
+        agent={selectedAgentProfile}
+        loading={agentModalLoading}
+        error={agentModalError}
+      />
     </div>
   );
 };
+
+// 🔹 Sub-Component: AgentProfileModal
+function AgentProfileModal({ open, onClose, agent, loading, error }) {
+  const { t } = useTranslation("admin");
+
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+      <div className="w-full max-w-lg rounded-2xl bg-slate-950 text-gray-100 border border-slate-800 shadow-xl p-6 relative">
+        <button
+          onClick={onClose}
+          className="absolute right-4 top-3 text-gray-400 hover:text-gray-200 text-xl leading-none"
+          aria-label={t("agentProfileModal.close", { defaultValue: "Schließen" })}
+        >
+          &times;
+        </button>
+
+        <h3 className="text-lg font-semibold mb-3">
+          {t("agentProfileModal.title", {
+            defaultValue: "Maklerprofil",
+          })}
+        </h3>
+
+        {loading && (
+          <p className="text-sm text-gray-300">
+            {t("agentProfileModal.loading", {
+              defaultValue: "Profil wird geladen…",
+            })}
+          </p>
+        )}
+
+        {!loading && error && (
+          <p className="text-sm text-rose-400">{error}</p>
+        )}
+
+        {!loading && !error && agent && (
+          <div className="space-y-2 text-sm">
+            <div>
+              <span className="font-semibold">
+                {t("agentProfileModal.labels.name", { defaultValue: "Name: " })}
+              </span>
+              {agent.fullName || "—"}
+            </div>
+
+            {agent.email && (
+              <div>
+                <span className="font-semibold">
+                  {t("agentProfileModal.labels.email", { defaultValue: "E-Mail: " })}
+                </span>
+                {agent.email}
+              </div>
+            )}
+
+            {agent.phone && (
+              <div>
+                <span className="font-semibold">
+                  {t("agentProfileModal.labels.phone", { defaultValue: "Telefon: " })}
+                </span>
+                {agent.phone}
+              </div>
+            )}
+
+            {(agent.city || agent.region) && (
+              <div>
+                <span className="font-semibold">
+                  {t("agentProfileModal.labels.location", {
+                    defaultValue: "Standort: ",
+                  })}
+                </span>
+                {agent.city && agent.region
+                  ? `${agent.city}, ${agent.region}`
+                  : agent.city || agent.region}
+              </div>
+            )}
+
+            {agent.companyName && (
+              <div>
+                <span className="font-semibold">
+                  {t("agentProfileModal.labels.company", {
+                    defaultValue: "Unternehmen: ",
+                  })}
+                </span>
+                {agent.companyName}
+              </div>
+            )}
+
+            {agent.languages && (
+              <div>
+                <span className="font-semibold">
+                  {t("agentProfileModal.labels.languages", {
+                    defaultValue: "Sprachen: ",
+                  })}
+                </span>
+                {Array.isArray(agent.languages)
+                  ? agent.languages.join(", ")
+                  : agent.languages}
+              </div>
+            )}
+
+            {agent.specialties && Array.isArray(agent.specialties) && (
+              <div>
+                <span className="font-semibold">
+                  {t("agentProfileModal.labels.specialties", {
+                    defaultValue: "Schwerpunkte: ",
+                  })}
+                </span>
+                {agent.specialties.join(", ")}
+              </div>
+            )}
+
+            {typeof agent.rating === "number" && (
+              <div>
+                <span className="font-semibold">
+                  {t("agentProfileModal.labels.rating", {
+                    defaultValue: "Bewertung: ",
+                  })}
+                </span>
+                {agent.rating.toFixed(1)} / 5
+              </div>
+            )}
+
+            {agent.verified && (
+              <div className="text-emerald-300 text-xs">
+                {t("agentProfileModal.labels.verified", {
+                  defaultValue: "Verifizierte:r Makler:in",
+                })}
+              </div>
+            )}
+
+            {agent.createdAt?.toDate && (
+              <div className="mt-2 text-xs text-gray-400">
+                {t("agentProfileModal.labels.createdAt", {
+                  defaultValue: "Profil erstellt am {{date}}",
+                  date: agent.createdAt.toDate().toLocaleString("de-DE"),
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
+        <div className="mt-6 flex justify-end">
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-full bg-slate-800 px-4 py-2 text-sm font-semibold text-gray-100 hover:bg-slate-700"
+          >
+            {t("agentProfileModal.close", { defaultValue: "Schließen" })}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default AdminDashboard;

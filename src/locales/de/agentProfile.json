@@ -5,5 +5,40 @@
   "bio": "Über mich",
   "listings": "Angebote",
   "reviews": "Bewertungen",
-  "contactAgent": "Makler kontaktieren"
+  "contactAgent": "Makler kontaktieren",
+   "metaTitle": "Maklerprofil bearbeiten",
+  "metaDescription": "Bearbeite dein öffentliches Maklerprofil, das in der Makler:innensuche auf MyHome24App angezeigt wird.",
+  "title": "Maklerprofil bearbeiten",
+  "subtitle": "Diese Angaben werden in der Makler:innensuche angezeigt.",
+
+  "loading": "Profil wird geladen…",
+
+  "errors": {
+    "loadProfile": "Profil konnte nicht geladen werden.",
+    "notLoggedIn": "Bitte melde dich zuerst an.",
+    "saveFailed": "Beim Speichern des Profils ist ein Fehler aufgetreten."
+  },
+
+  "success": {
+    "saved": "Maklerprofil erfolgreich gespeichert."
+  },
+
+  "fields": {
+    "fullName": "Vollständiger Name",
+    "city": "Stadt",
+    "region": "Region / Bundesland",
+    "phone": "Telefonnummer",
+    "languages": "Sprachen (durch Komma getrennt)",
+    "languagesHelper": "Beispiel: Deutsch, Englisch, Türkisch",
+    "specialties": "Schwerpunkte (durch Komma getrennt)",
+    "specialtiesHelper": "Beispiel: Eigentumswohnungen, Neubauprojekte, Kapitalanlagen",
+    "bio": "Kurzprofil / Beschreibung",
+    "bioHelper": "Beschreibe kurz deine Erfahrung, Arbeitsweise und was dich als Makler:in auszeichnet."
+  },
+
+  "actions": {
+    "reset": "Zurücksetzen",
+    "save": "Profil speichern",
+    "saving": "Speichern…"
+  }
 }
