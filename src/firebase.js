@@ -7,6 +7,7 @@ import {
   browserSessionPersistence,
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getFunctions } from "firebase/functions";
 import { getStorage } from "firebase/storage";
 import {
   initializeAppCheck,
@@ -25,6 +26,7 @@ const REQUIRED = [
   "REACT_APP_FIREBASE_MESSAGING_SENDER_ID",
   "REACT_APP_FIREBASE_APP_ID",
 ];
+
 REQUIRED.forEach((k) => {
   if (!process.env[k]) throw new Error(`Missing env var: ${k}`);
 });
@@ -44,65 +46,78 @@ const firebaseConfig = {
 export const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
-// E-Mails/Fehlertexte in Gerätesprache
 auth.useDeviceLanguage?.();
 
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+export const functions = getFunctions(app, "us-central1");
 
 /* =========================
-   Persistenz (robust, inkl. Safari-Fallback)
+   Persistenz (robust)
 ========================= */
 (async () => {
   try {
-    await setPersistence(auth, browserLocalPersistence); // bevorzugt
+    await setPersistence(auth, browserLocalPersistence);
   } catch {
-    await setPersistence(auth, browserSessionPersistence); // Fallback (z. B. iOS Private Mode)
+    await setPersistence(auth, browserSessionPersistence);
   }
 })();
 
 /* =========================
-   App Check (reCAPTCHA v3)
-   - Monitoring in der Console lassen, bis iPhone-Login stabil ist
-   - Enforce erst später aktivieren
-   Steuerung per ENV:
-     REACT_APP_DISABLE_APPCHECK=1   -> komplett aus
-     REACT_APP_RECAPTCHA_V3_SITE_KEY=xxxx (Pflicht für an)
+   App Check (reCAPTCHA v3) – FAIL OPEN
+   ENV:
+     REACT_APP_DISABLE_APPCHECK=1
+     REACT_APP_RECAPTCHA_V3_SITE_KEY=xxxx
+     REACT_APP_APPCHECK_DEBUG_TOKEN=xxxx (optional)
 ========================= */
 const DISABLE = String(process.env.REACT_APP_DISABLE_APPCHECK || "") === "1";
 const SITE_KEY = String(process.env.REACT_APP_RECAPTCHA_V3_SITE_KEY || "");
+const DEBUG_TOKEN = String(process.env.REACT_APP_APPCHECK_DEBUG_TOKEN || "");
+
 export const appCheckEnabled = !DISABLE && !!SITE_KEY;
 
 let resolveReady;
 export const appCheckReady = new Promise((res) => (resolveReady = res));
 
+const safeResolveReady = () => {
+  try {
+    resolveReady?.();
+  } catch {}
+};
+
 if (typeof window !== "undefined") {
   try {
+    if (DEBUG_TOKEN) {
+      window.FIREBASE_APPCHECK_DEBUG_TOKEN = DEBUG_TOKEN;
+      console.log("[AppCheck] Debug token enabled via ENV.");
+    }
+
     if (appCheckEnabled) {
       const appCheck = initializeAppCheck(app, {
         provider: new ReCaptchaV3Provider(SITE_KEY),
         isTokenAutoRefreshEnabled: true,
       });
 
-      // Warte kurz auf ein Token, blockiere die App aber nicht
       let resolved = false;
 
       onTokenChanged(appCheck, (tokenResult) => {
         if (!resolved && tokenResult) {
           resolved = true;
-          resolveReady();
+          safeResolveReady();
         }
       });
 
-      // weiches Timeout: nach 2s „bereit“, harter Fallback nach 4s
-      setTimeout(() => { if (!resolved) resolveReady(); }, 2000);
-      setTimeout(() => { if (!resolved) resolveReady(); }, 4000);
+      // fail-open
+      setTimeout(() => {
+        if (!resolved) safeResolveReady();
+      }, 2500);
     } else {
-      // AppCheck aus -> sofort „bereit“
-      resolveReady();
+      safeResolveReady();
     }
   } catch (e) {
     console.warn("[AppCheck] init failed (fail-open):", e);
-    resolveReady();
+    safeResolveReady();
   }
+} else {
+  safeResolveReady();
 }

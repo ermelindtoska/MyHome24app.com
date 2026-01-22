@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SiteMeta from "../components/SEO/SiteMeta";
 
+
 const HomePage = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation("home");

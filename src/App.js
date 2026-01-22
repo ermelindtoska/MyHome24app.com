@@ -15,6 +15,8 @@ import RegisterForm from "./pages/RegisterForm";
 import LoginForm from "./pages/LoginForm";
 import RegisterSuccess from "./pages/RegisterSuccess";
 import ForgotPassword from "./pages/ForgotPassword";
+import AuthAction from "./pages/AuthAction";
+
 
 import LoginRegister from "./components/LoginRegister";
 import EmailActionGate from "./components/EmailActionGate";
@@ -82,6 +84,10 @@ import FinancePartnerDashboard from "./pages/FinancePartnerDashboard";
 import AgentProfilePage from "./pages/AgentProfilePage";
 import AgentPublicProfilePage from "./pages/AgentPublicProfilePage";
 
+import BuyPage from "./pages/BuyPage";
+import RentPage from "./pages/RentPage";
+
+
 // Guards / Providers
 import ProtectedRoute from "./components/ProtectedRoute";
 import RequireRole from "./roles/RequireRole";
@@ -120,7 +126,9 @@ function AppRoutes() {
           <Route path="/register-success" element={<RegisterSuccess />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/auth" element={<LoginRegister />} />
-          <Route path="/auth/action" element={<EmailActionGate />} />
+          
+          <Route path="/auth/action" element={<AuthAction />} />
+
           <Route path="/auth/redirect" element={<RoleRedirect />} />
           <Route path="/verify-needed" element={<VerifyNeeded />} />
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import RegisterForm from '../pages/RegisterForm';
 import { Helmet } from 'react-helmet';
+import { EyeIcon, EyeOffIcon } from '@heroicons/react/solid';
+
 
 const RegisterPage = () => {
   return (

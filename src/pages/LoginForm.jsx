@@ -7,15 +7,12 @@ import {
   setPersistence,
   browserLocalPersistence,
   browserSessionPersistence,
-  inMemoryPersistence, // ✅ hinzugefügt
+  inMemoryPersistence,
+  signOut,
 } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 import { auth, appCheckReady } from "../firebase";
 import { useAuth } from "../context/AuthContext";
-
-/* -----------------------------------------------------------
-   Utils
------------------------------------------------------------ */
 
 // Promise-Timeout
 function withTimeout(promise, ms, label = "op") {
@@ -27,18 +24,14 @@ function withTimeout(promise, ms, label = "op") {
   ]);
 }
 
-// Firebase-Fehlercodes → Texte (um iOS/Safari-Fälle erweitert)
 const mapAuthError = (code, t) => {
   const F = {
     "auth/invalid-email": t("invalidEmail") || "E-Mail ist ungültig.",
     "auth/user-disabled": t("userDisabled") || "Konto ist deaktiviert.",
     "auth/user-not-found": t("userNotFound") || "Benutzer wurde nicht gefunden.",
     "auth/wrong-password": t("wrongPassword") || "Passwort ist falsch.",
-    "auth/too-many-requests":
-      t("tooManyRequests") || "Zu viele Versuche. Bitte später erneut.",
-    "auth/network-request-failed":
-      t("networkFailed") || "Netzwerkfehler. Bitte erneut versuchen.",
-    // ✅ iOS/Safari-spezifische Fälle:
+    "auth/too-many-requests": t("tooManyRequests") || "Zu viele Versuche. Bitte später erneut.",
+    "auth/network-request-failed": t("networkFailed") || "Netzwerkfehler. Bitte erneut versuchen.",
     "auth/operation-not-supported-in-this-environment":
       t("opNotSupported") ||
       "Diese Browser-Einstellung blockiert die Anmeldung (z. B. Privatmodus/Tracking-Schutz).",
@@ -55,7 +48,6 @@ export default function LoginForm() {
   const location = useLocation();
   const { currentUser } = useAuth();
 
-  // UI state
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [showPw, setShowPw] = useState(false);
@@ -63,29 +55,13 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
 
-  // Banners
   const q = useMemo(() => new URLSearchParams(location.search), [location.search]);
   const justVerified = q.get("verified") === "1";
   const verifyFailed = q.get("verify") === "failed";
-  const debug = q.get("debug") === "1"; // ✅ Debug-Modus per ?debug=1
 
-  // Schon eingeloggt? → weg von /login
   useEffect(() => {
-    if (currentUser) {
-      navigate("/", { replace: true });
-    }
+    if (currentUser) navigate("/", { replace: true });
   }, [currentUser, navigate]);
-
-  // lastPath speichern
-  useEffect(() => {
-    const handler = () => {
-      try {
-        window.localStorage.setItem("mh24:lastPath", window.location.pathname);
-      } catch {}
-    };
-    window.addEventListener("pagehide", handler);
-    return () => window.removeEventListener("pagehide", handler);
-  }, []);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -93,22 +69,16 @@ export default function LoginForm() {
     setLoading(true);
 
     try {
-      // AppCheck max. 1.5s abwarten (fail-open)
       await Promise.race([appCheckReady, new Promise((r) => setTimeout(r, 1500))]);
 
-      // Sprache für Firebase Mails
       auth.languageCode = i18n?.language?.slice(0, 2) || "de";
 
-      // ✅ iOS-robuste Persistenz:
+      // Persistenz: respect remember checkbox
       try {
-
-
-        
         const ua = navigator.userAgent || "";
         const isIOS = /iP(hone|ad|od)/.test(ua);
 
         if (isIOS) {
-          // Safari/iOS: zuerst Session (stabiler), dann Memory als Fallback
           try {
             await setPersistence(auth, browserSessionPersistence);
           } catch {
@@ -117,36 +87,33 @@ export default function LoginForm() {
             } catch {}
           }
         } else {
-          // Andere Browser: Local → Session → Memory
-          try {
-            await setPersistence(auth, browserLocalPersistence);
-          } catch {
+          if (remember) {
             try {
-              await setPersistence(auth, browserSessionPersistence);
+              await setPersistence(auth, browserLocalPersistence);
             } catch {
-              try {
-                await setPersistence(auth, inMemoryPersistence);
-              } catch {}
+              await setPersistence(auth, browserSessionPersistence);
             }
+          } else {
+            await setPersistence(auth, browserSessionPersistence);
           }
         }
-      } catch {
+      } catch {}
 
-        
-        // ignorieren – Default (in-memory) ist ok
-      }
-
-      // Sign-in mit Timeout
-
-        
-
-      await withTimeout(
+      const cred = await withTimeout(
         signInWithEmailAndPassword(auth, email.trim(), pw),
         12000,
         "signIn"
       );
 
-      // Immer via /auth/redirect weiterleiten (optional ?next unterstützen)
+      // ✅ blloko login nëse s’është verifikuar
+      if (!cred.user.emailVerified) {
+        await signOut(auth);
+        navigate(`/verify-needed?email=${encodeURIComponent(email.trim())}`, {
+          replace: true,
+        });
+        return;
+      }
+
       const qs = new URLSearchParams(location.search);
       const next = qs.get("next") || qs.get("from");
       const target =
@@ -156,56 +123,47 @@ export default function LoginForm() {
 
       navigate(target, { replace: true });
 
-      // robuster Fallback
       setTimeout(() => {
         if (window.location.pathname !== (next || "/")) {
           window.location.assign(target);
         }
       }, 120);
-   } catch (e) {
-  const code = e?.code || e?.message || "";
-  const isTimeout = String(e?.message || "").startsWith("timeout:");
-  const msg = isTimeout
-    ? (t("timeout") || "Netzwerk-Timeout. Bitte erneut versuchen.")
-    : mapAuthError(code, t);
+    } catch (e2) {
+      const code = e2?.code || e2?.message || "";
+      const isTimeout = String(e2?.message || "").startsWith("timeout:");
+      const msg = isTimeout
+        ? (t("timeout") || "Netzwerk-Timeout. Bitte erneut versuchen.")
+        : mapAuthError(code, t);
 
-  setErr(`${msg} (${code})`); // <-- Code mit anzeigen
-  console.error("[login] error:", e);
-} finally {
-  setLoading(false);
-}
-
+      setErr(`${msg} (${code})`);
+      console.error("[login] error:", e2);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
     <div className="max-w-md mx-auto p-6 mt-10 bg-white dark:bg-gray-800 shadow rounded">
       <Helmet>
         <title>{t("loginTitle") || "Anmelden – MyHome24App"}</title>
-        <meta
-          name="description"
-          content={t("loginMeta") || "Melden Sie sich an, um fortzufahren."}
-        />
+        <meta name="description" content={t("loginMeta") || "Melden Sie sich an, um fortzufahren."} />
       </Helmet>
 
       {justVerified && (
         <p className="text-green-600 text-sm mb-3">
-          {t("emailVerifiedNowLogin") ||
-            "E-Mail bestätigt. Sie können sich jetzt anmelden."}
+          {t("emailVerifiedNowLogin") || "E-Mail bestätigt. Sie können sich jetzt anmelden."}
         </p>
       )}
       {verifyFailed && (
         <p className="text-red-500 text-sm mb-3">
-          {t("verifyFailed") ||
-            "E-Mail-Bestätigung fehlgeschlagen. Link ggf. abgelaufen."}
+          {t("verifyFailed") || "E-Mail-Bestätigung fehlgeschlagen. Link ggf. abgelaufen."}
         </p>
       )}
       {err && <p className="text-red-500 text-sm mb-3">{err}</p>}
 
       <form onSubmit={onSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm mb-1">
-            {t("emailLabel") || "E-Mail"}
-          </label>
+          <label className="block text-sm mb-1">{t("emailLabel") || "E-Mail"}</label>
           <input
             type="email"
             placeholder={t("email") || "E-Mail"}
@@ -218,9 +176,7 @@ export default function LoginForm() {
         </div>
 
         <div>
-          <label className="block text-sm mb-1">
-            {t("passwordLabel") || "Passwort"}
-          </label>
+          <label className="block text-sm mb-1">{t("passwordLabel") || "Passwort"}</label>
           <div className="relative">
             <input
               type={showPw ? "text" : "password"}
@@ -242,11 +198,7 @@ export default function LoginForm() {
               type="button"
               onClick={() => setShowPw((v) => !v)}
               className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-gray-500 hover:text-gray-700 dark:text-gray-300"
-              aria-label={
-                showPw
-                  ? t("hidePassword") || "Passwort verbergen"
-                  : t("showPassword") || "Passwort zeigen"
-              }
+              aria-label={showPw ? t("hidePassword") || "Passwort verbergen" : t("showPassword") || "Passwort zeigen"}
             >
               {showPw ? "🙈" : "👁️"}
             </button>
@@ -261,22 +213,16 @@ export default function LoginForm() {
               onChange={(e) => setRemember(e.target.checked)}
               className="h-4 w-4"
             />
-            <span className="text-sm">
-              {t("staySignedIn") || "Angemeldet bleiben"}
-            </span>
+            <span className="text-sm">{t("staySignedIn") || "Angemeldet bleiben"}</span>
           </label>
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className={`w-full ${
-            loading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
-          } text-white py-2 rounded transition-colors`}
+          className={`w-full ${loading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"} text-white py-2 rounded transition-colors`}
         >
-          {loading
-            ? t("pleaseWait") || "Bitte warten…"
-            : t("login") || "Einloggen"}
+          {loading ? t("pleaseWait") || "Bitte warten…" : t("login") || "Einloggen"}
         </button>
       </form>
     </div>

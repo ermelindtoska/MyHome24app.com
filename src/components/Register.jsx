@@ -3,6 +3,8 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../firebase';
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { EyeIcon, EyeOffIcon } from '@heroicons/react/solid';
+
 
 const Register = () => {
   const [email, setEmail] = useState('');

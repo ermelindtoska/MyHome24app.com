@@ -16,7 +16,7 @@
       content="MyHome24App – Immobilienplattform in Deutschland"
     />
 
-    <!-- ✅ Saubere, konsistente CSP -->
+    <!-- ✅ Saubere, konsistente CSP (Cloud Functions FIX enthalten) -->
     <meta
       http-equiv="Content-Security-Policy"
       content="
@@ -81,7 +81,8 @@
           https://events.mapbox.com
           https://*.tiles.mapbox.com
           https://*.mapbox.com
-          https://nominatim.openstreetmap.org;
+          https://nominatim.openstreetmap.org
+          https://*.cloudfunctions.net;
 
         frame-src
           'self'
@@ -98,10 +99,11 @@
       "
     />
 
-    <!-- ✅ Separat (außerhalb der CSP): App Check Debug (nur für DEV) -->
+    <!-- ✅ AppCheck Debug NUR für localhost (nicht global!) -->
     <script>
-      // Entferne diese Zeile in PROD, falls nicht nötig:
-      self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+      if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+        window.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+      }
     </script>
 
     <title>MyHome24App</title>
