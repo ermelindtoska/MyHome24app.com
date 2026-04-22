@@ -61,9 +61,7 @@ const PropertyDetails = () => {
       }
     };
 
-    if (id) {
-      fetchProperty();
-    }
+    if (id) fetchProperty();
   }, [id]);
 
   useEffect(() => {
@@ -84,7 +82,7 @@ const PropertyDetails = () => {
 
   const images = useMemo(() => {
     const list = getListingImages(property);
-    return Array.isArray(list) && list.length ? list : [FALLBACK_IMG];
+    return Array.isArray(list) && list.length ? list.slice(0, 12) : [FALLBACK_IMG];
   }, [property]);
 
   useEffect(() => {
@@ -225,7 +223,6 @@ const PropertyDetails = () => {
   return (
     <>
       <div className="mx-auto max-w-7xl px-4 py-6 text-slate-900 dark:text-slate-100 md:px-6 lg:px-8">
-        {/* Back */}
         <button
           type="button"
           onClick={() => navigate(-1)}
@@ -238,23 +235,22 @@ const PropertyDetails = () => {
           })}
         </button>
 
-        {/* HERO */}
         <section className="grid grid-cols-1 gap-6 xl:grid-cols-[1.2fr_0.8fr]">
-          {/* LEFT */}
           <div className="space-y-6">
-            {/* Gallery */}
             <div className="overflow-hidden rounded-[32px] border border-gray-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-950">
               <div className="relative">
                 <img
                   src={images[activeImage]}
                   alt={title}
                   className="h-[280px] w-full object-cover sm:h-[380px] lg:h-[500px]"
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
                   onError={(e) => {
                     e.currentTarget.src = FALLBACK_IMG;
                   }}
                 />
 
-                {/* top badges */}
                 <div className="absolute left-4 top-4 flex flex-wrap gap-2">
                   <span className="rounded-full bg-blue-600 px-3 py-1 text-xs font-semibold text-white shadow">
                     {purpose === "rent"
@@ -267,12 +263,10 @@ const PropertyDetails = () => {
                   </span>
                 </div>
 
-                {/* image counter */}
                 <div className="absolute bottom-4 right-4 rounded-full bg-black/70 px-3 py-1 text-xs font-semibold text-white">
                   {activeImage + 1} / {images.length}
                 </div>
 
-                {/* controls */}
                 {images.length > 1 && (
                   <>
                     <button
@@ -311,6 +305,8 @@ const PropertyDetails = () => {
                         src={img}
                         alt={`${title} ${idx + 1}`}
                         className="h-20 w-28 object-cover"
+                        loading="lazy"
+                        decoding="async"
                         onError={(e) => {
                           e.currentTarget.src = FALLBACK_IMG;
                         }}
@@ -321,7 +317,6 @@ const PropertyDetails = () => {
               )}
             </div>
 
-            {/* Main Info */}
             <div className="rounded-[32px] border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950 md:p-7">
               <div className="mb-3 text-sm font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">
                 {purpose === "rent"
@@ -347,12 +342,7 @@ const PropertyDetails = () => {
 
               <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
                 {facts.map((fact, idx) => (
-                  <FactCard
-                    key={idx}
-                    icon={fact.icon}
-                    label={fact.label}
-                    value={fact.value}
-                  />
+                  <FactCard key={idx} icon={fact.icon} label={fact.label} value={fact.value} />
                 ))}
               </div>
 
@@ -404,7 +394,6 @@ const PropertyDetails = () => {
               </div>
             </div>
 
-            {/* Description */}
             <div className="rounded-[32px] border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950 md:p-7">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                 {t("description", {
@@ -427,7 +416,6 @@ const PropertyDetails = () => {
               )}
             </div>
 
-            {/* Features */}
             <div className="rounded-[32px] border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950 md:p-7">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                 {t("featuresTitle", {
@@ -458,7 +446,6 @@ const PropertyDetails = () => {
               )}
             </div>
 
-            {/* Details */}
             <div className="rounded-[32px] border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950 md:p-7">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                 {t("detailsTitle", {
@@ -499,7 +486,6 @@ const PropertyDetails = () => {
               </div>
             </div>
 
-            {/* Similar */}
             <div className="rounded-[32px] border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950 md:p-7">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                 {t("similarTitle", {
@@ -509,18 +495,12 @@ const PropertyDetails = () => {
               </h2>
 
               <div className="mt-5">
-                <SimilarListings
-                  currentListing={property}
-                  allListings={allListings}
-                  limit={4}
-                />
+                <SimilarListings currentListing={property} allListings={allListings} limit={4} />
               </div>
             </div>
           </div>
 
-          {/* RIGHT SIDEBAR */}
           <aside className="space-y-6">
-            {/* Contact Card */}
             <div className="rounded-[32px] border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                 {t("contactAgent", {
@@ -587,7 +567,6 @@ const PropertyDetails = () => {
               </div>
             </div>
 
-            {/* Trust Card */}
             <div className="rounded-[32px] border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
               <div className="flex items-start gap-3">
                 <div className="mt-1 text-blue-600 dark:text-blue-400">
@@ -614,7 +593,6 @@ const PropertyDetails = () => {
         </section>
       </div>
 
-      {/* Modals */}
       <ContactOwnerModal
         isOpen={contactOpen}
         onClose={() => setContactOpen(false)}

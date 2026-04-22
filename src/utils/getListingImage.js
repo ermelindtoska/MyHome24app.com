@@ -1,12 +1,29 @@
-// src/utils/getListingImage.js
-const FALLBACK_IMG = "/images/hero-1.jpg"; // muss in public/images existieren
+const FALLBACK_IMG = "/images/hero-1.jpg";
+
+const BLOCKED_IMAGE_PATTERNS = [
+  "logo",
+  "favicon",
+  "apple-touch-icon",
+  "icon-192",
+  "icon-512",
+  "default-avatar",
+  "avatar",
+  "myhome24app",
+  "placeholder",
+  "<url>",
+  "{url}",
+  "[object object]",
+];
 
 function normalizeToString(x) {
   if (!x) return null;
-  if (typeof x === "string") return x.trim() || null;
+
+  if (typeof x === "string") {
+    const s = x.trim();
+    return s || null;
+  }
 
   if (typeof x === "object") {
-    // falls images = [{ url: ... }] oder [{ imageUrl: ... }] usw.
     const v =
       x.url ||
       x.imageUrl ||
@@ -14,23 +31,50 @@ function normalizeToString(x) {
       x.src ||
       x.path ||
       x.preview ||
+      x.secure_url ||
       null;
 
-    return typeof v === "string" ? (v.trim() || null) : null;
+    return typeof v === "string" ? v.trim() || null : null;
   }
 
   return null;
 }
 
-export function getListingImage(listing) {
-  if (!listing) return FALLBACK_IMG;
+function isBlockedAsset(src) {
+  const s = String(src || "").trim().toLowerCase();
+  return BLOCKED_IMAGE_PATTERNS.some((p) => s.includes(p));
+}
 
-  const candidates = [
-    // Arrays
+function looksLikeRealImage(src) {
+  const s = String(src || "").trim().toLowerCase();
+  if (!s) return false;
+  if (isBlockedAsset(s)) return false;
+
+  if (s.startsWith("data:image/")) return true;
+  if (s.startsWith("blob:")) return true;
+
+  if (s.startsWith("/")) {
+    return /\.(jpg|jpeg|png|webp|gif|avif)$/i.test(s);
+  }
+
+  if (s.startsWith("http://") || s.startsWith("https://")) {
+    return true;
+  }
+
+  return false;
+}
+
+function dedupe(arr) {
+  return [...new Set(arr)];
+}
+
+function sanitizeImages(listing) {
+  if (!listing) return [FALLBACK_IMG];
+
+  const raw = [
     ...(Array.isArray(listing.images) ? listing.images : []),
     ...(Array.isArray(listing.imageUrls) ? listing.imageUrls : []),
-
-    // Single fields
+    ...(Array.isArray(listing.photos) ? listing.photos : []),
     listing.imageUrl,
     listing.image,
     listing.primaryImageUrl,
@@ -38,26 +82,20 @@ export function getListingImage(listing) {
     listing.thumbnail,
   ];
 
-  for (const c of candidates) {
-    const s = normalizeToString(c);
-    if (s) return s;
-  }
+  const cleaned = dedupe(
+    raw
+      .map(normalizeToString)
+      .filter(Boolean)
+      .filter(looksLikeRealImage)
+  ).slice(0, 10);
 
-  return FALLBACK_IMG;
+  return cleaned.length ? cleaned : [FALLBACK_IMG];
 }
 
-// Optional (für Galerie/Slider)
+export function getListingImage(listing) {
+  return sanitizeImages(listing)[0] || FALLBACK_IMG;
+}
+
 export function getListingImages(listing) {
-  if (!listing) return [FALLBACK_IMG];
-
-  const raw = [
-    ...(Array.isArray(listing.images) ? listing.images : []),
-    ...(Array.isArray(listing.imageUrls) ? listing.imageUrls : []),
-  ];
-
-  const out = raw
-    .map(normalizeToString)
-    .filter(Boolean);
-
-  return out.length ? out : [getListingImage(listing)];
+  return sanitizeImages(listing);
 }
