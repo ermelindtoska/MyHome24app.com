@@ -1,12 +1,11 @@
 {
-  
-   "description": "Our privacy policy explains how we handle your data.",
-  
+  "title": "Privacy Policy",
+  "description": "Our privacy policy explains how we handle your data.",
   "details": "Learn how we collect, use, and protect your data.",
-   "title": "Privacy Policy",
+  "introTitle": "Introduction",
   "intro": "Protecting your personal data is important to us. This privacy policy explains what data we collect and how we use it.",
   "responsibleTitle": "Responsible Entity",
-  "responsibleText": "MyHome24App , Pestalozzistr. 14 Landau 76829, Germany.",
+  "responsibleText": "MyHome24App, Gartenstr. 15, Landau 76829, Germany.",
   "dataTypesTitle": "Types of Data Processed",
   "dataType1": "Name and contact details",
   "dataType2": "Usage data (e.g. visited pages, clicks)",
@@ -35,6 +34,11 @@
   "rightPortability": "Right to data portability",
   "contactTitle": "Contact",
   "contactText": "For questions about data protection, contact us at datenschutz@myhome24app.com.",
+  "downloadsTitle": "Documents & further links",
+  "downloadsText": "Here you can find additional information, downloads and official privacy resources.",
   "toImpressum": "To Impressum",
-  "toPrivacy": "To Privacy Policy"
+  "toPrivacy": "To Privacy Policy",
+  "downloadPdfDe": "PDF: Privacy Policy (DE)",
+  "downloadPdfEn": "PDF: Privacy Policy (EN)",
+  "externalAuthority": "Federal Commissioner for Data Protection (BfDI)"
 }

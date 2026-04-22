@@ -1,36 +1,18 @@
 {
   "metaTitle": "Direct from owner – no broker commission",
   "metaDescription": "On MyHome24App you can find listings offered directly by owners – without broker commission, with personal contact and flexible agreements.",
-
   "badge": "Direct from owner",
-  "myOffers": {
-  "title": "My offers",
-  "subtitle": "Keep track of all purchase offers you have submitted for properties.",
-  "chips": {
-    "total": "Total",
-    "open": "Open",
-    "accepted": "Accepted",
-    "rejected": "Rejected",
-    "withdrawn": "Withdrawn"
-  },
-  "empty": "You have not submitted any offers yet.",
-  "withdraw": "Withdraw"
-},
   "title": "Buy or rent directly from the owner",
   "description": "Direct-from-owner listings often provide more flexibility on price, move-in date and individual agreements. On MyHome24App you negotiate conditions directly with the owner.",
-
   "imageAlt": "House with for sale sign offered by the owner",
   "highlight": {
     "label": "No broker commission",
     "text": "Save on commission and negotiate all terms directly with the owner."
   },
-
   "ctaListings": "View direct listings",
   "ctaSecondary": "See the benefits",
-
   "featuresTitle": "Why choose direct-from-owner listings?",
   "featuresLead": "Talking directly to owners gives you more transparency, flexibility and authentic insights into the property.",
-
   "features": [
     {
       "title": "No commission",
@@ -49,18 +31,27 @@
       "text": "Owners know their property best and can share history, background and special features first-hand."
     }
   ],
-
   "tipTitle": "Tip: Use the search filters",
   "tipText": "Use the filters in the search or map view to focus on “Direct from owner” listings. This way you immediately see all suitable properties in your preferred area.",
-
   "readyTitle": "Ready to explore direct-from-owner listings?",
   "readyText": "Start your search for properties offered directly by owners and compare conditions at your own pace.",
-
   "button": "Start direct-from-owner search",
-
   "ownerCta": {
     "title": "You are an owner yourself?",
     "text": "Publish your property on MyHome24App in just a few steps and reach interested buyers or tenants – transparent and without hidden fees.",
     "button": "Publish your property"
+  },
+  "myOffers": {
+    "title": "My offers",
+    "subtitle": "Keep track of all purchase offers you have submitted for properties.",
+    "chips": {
+      "total": "Total",
+      "open": "Open",
+      "accepted": "Accepted",
+      "rejected": "Rejected",
+      "withdrawn": "Withdrawn"
+    },
+    "empty": "You have not submitted any offers yet.",
+    "withdraw": "Withdraw"
   }
 }

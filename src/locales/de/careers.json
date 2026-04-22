@@ -1,16 +1,127 @@
 {
-  "title": "Karriere",
-  "description": "Finde heraus, wie du bei MyHome24 mitarbeiten kannst.",
-  "positions": [
-    {
-      "title": "Frontend Entwickler*in",
-      "location": "Berlin, Deutschland",
-      "description": "Hilf uns beim Aufbau großartiger Nutzeroberflächen mit React."
-    },
-    {
-      "title": "Marketing Spezialist*in",
-      "location": "Remote",
-      "description": "Erreiche mit uns neue Zielgruppen und gestalte Kampagnen mit."
-    }
-  ]
+  "meta": {
+    "title": "Karriere bei MyHome24App – Jobs & Team",
+    "description": "Werde Teil von MyHome24App. Entdecke offene Positionen, unsere Werte, Benefits und den Bewerbungsprozess."
+  },
+  "breadcrumbs": {
+    "home": "Startseite",
+    "current": "Karriere"
+  },
+  "hero": {
+    "badge": "Karriere · MyHome24App",
+    "title": "Baue mit uns die nächste Generation der Immobiliensuche",
+    "subtitle": "Wir suchen Menschen, die Produkte lieben, Verantwortung übernehmen und gemeinsam großartige Nutzererlebnisse schaffen.",
+    "ctaPrimary": "Jetzt bewerben",
+    "ctaSecondary": "Offene Rollen",
+    "ctaAbout": "Über uns",
+    "highlights": [
+      "Remote-freundlich & flexible Arbeitszeiten",
+      "Impact statt Bürokratie",
+      "Produkt, Design & Engineering auf hohem Niveau",
+      "Teamkultur: klar, respektvoll, schnell"
+    ],
+    "note": "Hinweis: Du kannst dich auch initiativ bewerben, wenn keine Rolle perfekt passt."
+  },
+  "quickBox": {
+    "title": "Initiativbewerbung",
+    "text": "Keine passende Stelle gefunden? Schreib uns – wir melden uns zeitnah.",
+    "tipTitle": "Tipp",
+    "tipText": "Schick uns 2–3 Sätze: Rolle/Interesse, Stärken, Links (Portfolio/GitHub/LinkedIn).",
+    "cta": "Kontakt öffnen",
+    "secondary": "Allgemeiner Kontakt"
+  },
+  "values": {
+    "title": "Wie wir arbeiten",
+    "subtitle": "Unsere Prinzipien helfen uns, fokussiert zu bleiben und schnell zu liefern – mit Qualität.",
+    "items": [
+      {
+        "title": "Klarheit vor Komplexität",
+        "text": "Wir bauen verständliche Lösungen, die Nutzer:innen sofort helfen."
+      },
+      {
+        "title": "Teamwork & Ownership",
+        "text": "Wir arbeiten transparent, geben Feedback und übernehmen Verantwortung."
+      },
+      {
+        "title": "Lernen & Wachstum",
+        "text": "Wir verbessern kontinuierlich Produkt, Prozesse und Skills."
+      }
+    ]
+  },
+  "roles": {
+    "title": "Offene Positionen",
+    "subtitle": "Hier sind typische Rollen. Wenn du passt, auch ohne 100% Match: melde dich.",
+    "cta": "Initiativ bewerben",
+    "apply": "Bewerben",
+    "ask": "Frage stellen",
+    "note": "Wir aktualisieren Rollen regelmäßig. Initiativbewerbungen sind willkommen.",
+    "items": [
+      {
+        "title": "Frontend Engineer (React)",
+        "location": "Deutschland / Remote",
+        "type": "Vollzeit",
+        "text": "Du baust UI-Flows wie bei Zillow: schnell, sauber, responsive & dark-mode-ready.",
+        "bullets": ["React + Tailwind", "i18n/SEO Fokus", "Performance & UX"]
+      },
+      {
+        "title": "Full-Stack Engineer (Firebase)",
+        "location": "Deutschland / Remote",
+        "type": "Vollzeit",
+        "text": "Auth, Firestore, Functions, AppCheck – robuste Backends, saubere Datenmodelle.",
+        "bullets": ["Firebase Auth/Firestore", "Cloud Functions", "Security Rules"]
+      },
+      {
+        "title": "Product / UX Designer",
+        "location": "Hybrid / Remote",
+        "type": "Teilzeit / Vollzeit",
+        "text": "Du gestaltest klare, moderne Flows – minimalistisch, nutzerzentriert, messbar.",
+        "bullets": ["Design System", "Prototyping", "Mobile-first"]
+      }
+    ]
+  },
+  "process": {
+    "title": "Bewerbungsprozess",
+    "subtitle": "Schnell, respektvoll und transparent – ohne unnötige Runden.",
+    "steps": [
+      { "title": "Kontakt / Bewerbung", "text": "Kurzprofil + Links senden. Wir antworten zeitnah." },
+      { "title": "Kurzgespräch", "text": "15–30 Minuten: Erwartungen, Rolle, gegenseitiger Fit." },
+      { "title": "Mini-Case", "text": "Kleine Aufgabe oder Review – realistisch, fair, zeitlich begrenzt." }
+    ]
+  },
+  "benefits": {
+    "title": "Benefits",
+    "subtitle": "Das ist uns wichtig – je nach Rolle/Setup variabel.",
+    "items": [
+      "Flexible Arbeitszeiten & Remote-Option",
+      "Klare Prioritäten statt Dauer-Meetings",
+      "Moderne Tools & schnelle Entwicklungszyklen",
+      "Weiterbildung & persönliches Wachstum",
+      "Wertschätzende, direkte Kommunikation"
+    ]
+  },
+  "faq": {
+    "title": "FAQ",
+    "subtitle": "Kurz beantwortet.",
+    "items": [
+      {
+        "q": "Kann ich mich ohne perfekte Erfahrung bewerben?",
+        "a": "Ja. Wichtig sind Lernbereitschaft, Verantwortungsgefühl und saubere Grundlagen."
+      },
+      {
+        "q": "Wie schnell bekomme ich eine Antwort?",
+        "a": "In der Regel innerhalb weniger Werktage."
+      },
+      {
+        "q": "Bietet ihr Remote an?",
+        "a": "Ja, viele Rollen sind remote-freundlich. Details hängen von der Position ab."
+      }
+    ]
+  },
+  "bottomCta": {
+    "title": "Klingt gut?",
+    "text": "Schick uns eine kurze Nachricht – wir freuen uns auf dich.",
+    "primary": "Jetzt Kontakt aufnehmen",
+    "secondary": "Kontaktseite",
+    "note": "Bitte keine sensiblen Daten senden. Links (Portfolio/GitHub) sind ideal."
+  }
 }

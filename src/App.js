@@ -16,7 +16,7 @@ import LoginForm from "./pages/LoginForm";
 import RegisterSuccess from "./pages/RegisterSuccess";
 import ForgotPassword from "./pages/ForgotPassword";
 import AuthAction from "./pages/AuthAction";
-
+import TranslationTest from "./components/TranslationTest";
 
 import LoginRegister from "./components/LoginRegister";
 import EmailActionGate from "./components/EmailActionGate";
@@ -70,6 +70,7 @@ import ExplorePage from "./pages/ExplorePage";
 
 import SettingsPage from "./pages/SettingsPage";
 import ProfilePage from "./pages/ProfilePage";
+import PublicListings from "./pages/PublicListings";
 
 import OwnerDashboard from "./pages/OwnerDashboard";
 import AgentDashboard from "./pages/AgentDashboard";
@@ -126,7 +127,7 @@ function AppRoutes() {
           <Route path="/register-success" element={<RegisterSuccess />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/auth" element={<LoginRegister />} />
-          
+          <Route path="/translation-test" element={<TranslationTest />} />
           <Route path="/auth/action" element={<AuthAction />} />
 
           <Route path="/auth/redirect" element={<RoleRedirect />} />
@@ -141,6 +142,7 @@ function AppRoutes() {
           <Route path="/impressum" element={<ImpressumPage />} />
           <Route path="/support" element={<SupportPage />} />
           <Route path="/how-it-works" element={<HowItWorksPage />} />
+          <Route path="/public-listings" element={<PublicListings />} />
 
           {/* Buy/Rent */}
           <Route path="/buy/owner" element={<OwnerPage />} />
@@ -170,6 +172,7 @@ function AppRoutes() {
           <Route path="/agents" element={<FindAgentPage />} />
           <Route path="/agent/search" element={<AgentSearchPage />} />
           <Route path="/agent/rate" element={<RateAgentPage />} />
+          <Route path="/homes" element={<SearchPage />} />
           <Route path="/agent/become" element={<BecomeAgentPage />} />
 
           <Route

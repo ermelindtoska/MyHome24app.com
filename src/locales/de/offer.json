@@ -1,7 +1,24 @@
 {
   "title": "Kaufangebot abgeben",
 
+   "badge": "Angebot abgeben",
  
+  "close": "Schließen",
+ 
+  "amountHint": "Gib den Betrag ein, den du für diese Immobilie anbieten möchtest.",
+
+  "ownListingError": "Du kannst für dein eigenes Inserat kein Angebot abgeben.",
+
+  "submitting": "Wird gesendet…",
+ 
+  "privacyHint": "Dein Angebot wird direkt an den:die Anbieter:in übermittelt und in deinem Dashboard gespeichert.",
+  "communicationHint": "Eine klare und höfliche Nachricht erhöht die Chance auf eine schnelle Rückmeldung.",
+  "summary": {
+    "askingPrice": "Angebotspreis im Inserat",
+    "yourOffer": "Dein aktuelles Angebot",
+    "financing": "Finanzierung",
+    "moveInDate": "Einzug"
+  },
   
 
 
@@ -53,10 +70,25 @@
     "moveInDate": "Gewünschter Einzugstermin",
     "message": "Nachricht an den Eigentümer"
   },
+  
+  "submitSuccess": "Dein Angebot wurde erfolgreich übermittelt.",
+"submitError": "Fehler beim Senden des Angebots.",
+"sending": "Wird gesendet…",
     
   "subtitle": "Dieses Angebot ist unverbindlich. Der:die Eigentümer:in wird sich mit dir in Verbindung setzen.",
- 
- 
+ "labels": {
+  "buyer": "Käufer: ",
+  "listing": "Inserat: ",
+  "offerAmount": "Angebot: ",
+  "financing": "Finanzierung: ",
+  "moveInDate": "Einzug ab: ",
+  "message": "Nachricht:",
+  "createdAt": "Erstellt am {{date}}"
+},
+ "modal": {
+  "title": "Angebotsdetails",
+  "close": "Schließen"
+},
  "myOffers": {
   "title": "Meine Angebote",
   "subtitle": "Behalte den Überblick über alle Kaufangebote, die du für Immobilien abgegeben hast.",
@@ -70,7 +102,7 @@
   "empty": "Du hast bisher noch keine Angebote abgegeben.",
   "withdraw": "Zurückziehen"
 },
- 
+ "moveInDateShort": "Einzug ab",
  
   "placeholders": {
     "message": "Stellen Sie sich kurz vor und erklären Sie Ihr Angebot…"

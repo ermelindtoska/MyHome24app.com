@@ -1,8 +1,5 @@
 {
-  
-  
   "sendRequest": "Anfrage senden",
-  
   "successMessage": "Ihre Anfrage wurde erfolgreich übermittelt!",
   "close": "Schließen",
 
@@ -20,28 +17,33 @@
   "yourReasonWas": "Ihr angegebener Grund war",
   "cannotRequestNow": "Aktuell kann kein Antrag gestellt werden.",
   "helperText": "Beschreiben Sie kurz, warum Sie die Eigentümerrolle benötigen (z. B. Sie möchten eigene Immobilien veröffentlichen).",
+
   "title": "Rollen-Upgrade beantragen",
   "description": "Wenn du eigene Immobilien veröffentlichen oder als Profi auftreten möchtest, kannst du hier eine höhere Rolle beantragen.",
   "targetRoleLabel": "Gewünschte Rolle",
+
   "roles": {
     "owner": "Eigentümer:in",
     "agent": "Makler:in"
   },
+
   "placeholder": "Beschreibe kurz, warum du die Rolle benötigst (z. B. Anzahl der Objekte, professionelle Nutzung, Firmendaten ...)",
-  
   "sending": "Senden...",
- 
+
   "currentRole": {
     "user": "Standard-Nutzer:in",
     "owner": "Eigentümer:in",
     "agent": "Makler:in",
+    "admin": "Admin",
     "unknown": "Unbekannt"
   },
+
   "status": {
     "pending": "In Prüfung",
     "approved": "Genehmigt",
     "rejected": "Abgelehnt"
   },
+
   "card": {
     "title": "Rollen-Upgrade",
     "subtitle": "Verwalte hier deine Berechtigungen für MyHome24App.",
@@ -50,7 +52,8 @@
     "alreadyOwner": "Du besitzt bereits eine erweiterte Rolle.",
     "requestPending": "Anfrage ist in Bearbeitung",
     "ctaRequestOwner": "Rolle \"Eigentümer:in\" beantragen",
-    "helperText": "Nach der Genehmigung kannst du eigene Immobilien professionell einstellen und verwalten."
+    "helperText": "Nach der Genehmigung kannst du eigene Immobilien professionell einstellen und verwalten.",
+    "helperRejected": "Ihre letzte Anfrage wurde abgelehnt. Sie können Ihre Angaben prüfen und eine neue Anfrage senden."
   },
 
   "becomeOwnerTitle": "Upgrade zur Owner-Rolle",
@@ -58,18 +61,15 @@
   "btnRequest": "Upgrade anfragen",
   "btnPending": "Anfrage ausstehend…",
   "checking": "Prüfe…",
- 
- 
+
   "requestFailed": "Deine Anfrage konnte nicht gesendet werden. Bitte versuche es später erneut.",
   "mustBeLoggedIn": "Du musst angemeldet sein, um eine Anfrage zu senden.",
   "submit": "Anfrage senden",
   "success": "Anfrage erfolgreich gesendet!",
   "error": "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut.",
-   
+
   "cancel": "Abbrechen",
   "send": "Anfrage senden",
-
   "requestSent": "Deine Anfrage wurde erfolgreich übermittelt.",
-
   "fillReason": "Bitte gib einen Grund für deine Anfrage an."
 }

@@ -17,23 +17,33 @@ import SiteMeta from "../components/SEO/SiteMeta";
 import agentSearchImg from "../assets/agent-search.png";
 import { logEvent } from "../utils/logEvent";
 
+const normalizeStringArray = (value) => {
+  if (Array.isArray(value)) return value.map((s) => String(s).trim()).filter(Boolean);
+  if (typeof value === "string")
+    return value
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+  return [];
+};
+
 const AgentSearchPage = () => {
   const { t, i18n } = useTranslation("agent");
   const navigate = useNavigate();
 
-  // 🔹 refs për scroll & fokus
   const searchSectionRef = useRef(null);
   const searchInputRef = useRef(null);
 
-  // 🔹 filter state
   const [searchText, setSearchText] = useState("");
   const [cityFilter, setCityFilter] = useState("");
   const [languageFilter, setLanguageFilter] = useState("");
   const [ratingFilter, setRatingFilter] = useState("any");
 
-  // 🔹 agjentët nga Firestore (vetëm të verifikuar)
   const [agents, setAgents] = useState([]);
   const [loadingAgents, setLoadingAgents] = useState(true);
+
+  const lang = i18n.language?.slice(0, 2) || "de";
+  const canonical = `${window.location.origin}/agent/search`;
 
   useEffect(() => {
     const fetchAgents = async () => {
@@ -45,12 +55,10 @@ const AgentSearchPage = () => {
           ...docSnap.data(),
         }));
 
-        // Vetëm agjentë të verifikuar
         const verifiedAgents = docs.filter(
           (a) => a.verified === true || a.verified === "true"
         );
 
-        // Sortim: rating desc, pastaj emri
         verifiedAgents.sort((a, b) => {
           const ra = typeof a.rating === "number" ? a.rating : 0;
           const rb = typeof b.rating === "number" ? b.rating : 0;
@@ -78,56 +86,37 @@ const AgentSearchPage = () => {
     const language = languageFilter.trim().toLowerCase();
 
     return agents.filter((agent) => {
-      // mund të jetë array ose string "de,en,tr"
-      const rawLanguages = agent.languages;
-      const agentLanguages = Array.isArray(rawLanguages)
-        ? rawLanguages
-        : typeof rawLanguages === "string"
-        ? rawLanguages.split(",")
-        : [];
+      const agentLanguages = normalizeStringArray(agent.languages);
+      const agentSpecialties = normalizeStringArray(agent.specialties);
 
       const matchesText =
         !text ||
         agent.fullName?.toLowerCase().includes(text) ||
         agent.city?.toLowerCase().includes(text) ||
-        agent.zip?.toLowerCase().includes(text);
+        agent.zip?.toLowerCase().includes(text) ||
+        agentSpecialties.some((s) => s.toLowerCase().includes(text));
 
-      const matchesCity =
-        !city || agent.city?.toLowerCase().includes(city);
+      const matchesCity = !city || agent.city?.toLowerCase().includes(city);
 
       const matchesLanguage =
         !language ||
-        agentLanguages.some((lng) =>
-          lng.toLowerCase().includes(language)
-        );
+        agentLanguages.some((lng) => lng.toLowerCase().includes(language));
 
       const matchesRating =
         ratingFilter === "any" ||
-        (typeof agent.rating === "number" &&
-          agent.rating >= Number(ratingFilter));
+        (typeof agent.rating === "number" && agent.rating >= Number(ratingFilter));
 
       return matchesText && matchesCity && matchesLanguage && matchesRating;
     });
   }, [agents, searchText, cityFilter, languageFilter, ratingFilter]);
 
-  const lang = i18n.language?.slice(0, 2) || "de";
-
-  const popularRegions =
-    t("popularRegions", { returnObjects: true }) || [];
-
+  const popularRegions = t("popularRegions", { returnObjects: true }) || [];
   const faqItems = t("faq.items", { returnObjects: true }) || [];
 
   const handleScrollToSearch = () => {
-    if (searchSectionRef.current) {
-      searchSectionRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-    if (searchInputRef.current) {
-      searchInputRef.current.focus();
-    }
-    // log optional
+    searchSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    searchInputRef.current?.focus();
+
     logEvent({
       type: "agent.search.scrollToFilters",
       context: "agent-search-page",
@@ -135,27 +124,22 @@ const AgentSearchPage = () => {
   };
 
   const handleRateAgent = () => {
-    logEvent({
-      type: "agent.cta.rate",
-      context: "agent-search-page",
-    }).catch(() => {});
+    logEvent({ type: "agent.cta.rate", context: "agent-search-page" }).catch(() => {});
     navigate("/agent/rate");
   };
 
   const handleBecomeAgent = () => {
-    logEvent({
-      type: "agent.cta.become",
-      context: "agent-search-page",
-    }).catch(() => {});
+    logEvent({ type: "agent.cta.become", context: "agent-search-page" }).catch(() => {});
     navigate("/agent/become");
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
+    <main className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 pt-16 md:pt-0">
       <SiteMeta
         title={t("searchPage.metaTitle")}
         description={t("searchPage.metaDescription")}
         path="/agent/search"
+        canonical={canonical}
         lang={lang}
       />
 
@@ -164,7 +148,7 @@ const AgentSearchPage = () => {
         <section className="grid gap-10 md:grid-cols-[1.1fr,0.9fr] items-center mb-12">
           {/* Left text */}
           <div>
-            <span className="inline-flex items-center rounded-full bg-emerald-500/10 border border-emerald-500/40 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-300">
+            <span className="inline-flex items-center rounded-full bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-200">
               <MdPersonSearch className="mr-1" />
               {t("hero.badge")}
             </span>
@@ -173,25 +157,25 @@ const AgentSearchPage = () => {
               {t("hero.title")}
             </h1>
 
-            <p className="mt-3 text-slate-300 text-sm md:text-base max-w-xl">
+            <p className="mt-3 text-slate-600 dark:text-slate-300 text-sm md:text-base max-w-xl">
               {t("hero.subtitle")}
             </p>
 
-            <ul className="mt-5 space-y-2 text-sm md:text-base text-slate-200">
+            <ul className="mt-5 space-y-2 text-sm md:text-base text-slate-700 dark:text-slate-200">
               <li>
-                <MdVerified className="inline mr-2 text-emerald-400" />
+                <MdVerified className="inline mr-2 text-emerald-600 dark:text-emerald-400" />
                 {t("benefits.point1")}
               </li>
               <li>
-                <MdLocationOn className="inline mr-2 text-emerald-400" />
+                <MdLocationOn className="inline mr-2 text-emerald-600 dark:text-emerald-400" />
                 {t("benefits.point2")}
               </li>
               <li>
-                <MdChecklist className="inline mr-2 text-emerald-400" />
+                <MdChecklist className="inline mr-2 text-emerald-600 dark:text-emerald-400" />
                 {t("benefits.point3")}
               </li>
               <li>
-                <MdSearch className="inline mr-2 text-emerald-400" />
+                <MdSearch className="inline mr-2 text-emerald-600 dark:text-emerald-400" />
                 {t("benefits.point4")}
               </li>
             </ul>
@@ -200,51 +184,48 @@ const AgentSearchPage = () => {
               <button
                 type="button"
                 onClick={handleScrollToSearch}
-                className="inline-flex items-center rounded-full bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/25 hover:bg-emerald-600 transition"
+                className="inline-flex items-center rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700 transition"
               >
                 <MdSearch className="mr-2" />
                 {t("hero.ctaSearch")}
               </button>
+
               <button
                 type="button"
                 onClick={handleRateAgent}
-                className="inline-flex items-center rounded-full border border-slate-600 px-5 py-2.5 text-sm font-semibold text-slate-100 hover:bg-slate-900 transition"
+                className="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 hover:bg-slate-50 transition
+                           dark:border-slate-700 dark:bg-slate-950/30 dark:text-slate-100 dark:hover:bg-slate-900"
               >
                 <MdStar className="mr-2" />
                 {t("hero.ctaRate")}
               </button>
+
+              {/* ✅ vetëm 1 CTA “Become agent” */}
               <button
                 type="button"
                 onClick={handleBecomeAgent}
-                className="inline-flex items-center rounded-full border border-emerald-500/60 bg-emerald-500/10 px-5 py-2.5 text-sm font-semibold text-emerald-300 hover:bg-emerald-500/20 transition"
+                className="inline-flex items-center rounded-full border border-emerald-600/40 bg-emerald-500/10 px-5 py-2.5 text-sm font-semibold text-emerald-700 hover:bg-emerald-500/15 transition
+                           dark:text-emerald-200 dark:border-emerald-500/40 dark:hover:bg-emerald-500/20"
               >
                 <FaUserTie className="mr-2" />
                 {t("hero.ctaBecomeAgent")}
-              </button>
-              <button
-                type="button"
-                onClick={handleBecomeAgent}
-                className="inline-flex items-center rounded-full bg-emerald-500 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-600 transition"
-              >
-                <FaUserTie className="mr-2" />
-                {t("forAgents.cta")}
               </button>
             </div>
           </div>
 
           {/* Right image card */}
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900/50">
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/50">
             <img
               src={agentSearchImg}
               alt={t("searchPage.imageAlt")}
               className="w-full h-[260px] md:h-[690px] object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
             <div className="absolute left-6 right-6 bottom-6 space-y-3">
-              <h2 className="text-xl md:text-2xl font-semibold">
+              <h2 className="text-xl md:text-2xl font-semibold text-white">
                 {t("searchPage.title")}
               </h2>
-              <p className="text-sm text-slate-200">
+              <p className="text-sm text-white/80">
                 {t("searchPage.intro")}
               </p>
             </div>
@@ -257,16 +238,16 @@ const AgentSearchPage = () => {
           className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr),minmax(0,1.1fr)] items-start"
         >
           {/* Filter sidebar */}
-          <div className="rounded-3xl bg-slate-900/70 border border-slate-800 p-5 md:p-6">
+          <div className="rounded-3xl bg-white border border-slate-200 p-5 md:p-6 shadow-sm dark:bg-slate-900/70 dark:border-slate-800">
             <h3 className="text-lg md:text-xl font-semibold mb-1">
               {t("overview.searchTitle")}
             </h3>
-            <p className="text-xs md:text-sm text-slate-300 mb-4">
+            <p className="text-xs md:text-sm text-slate-600 dark:text-slate-300 mb-4">
               {t("overview.searchText")}
             </p>
 
             {/* Search input */}
-            <label className="block text-xs font-semibold text-slate-300 mb-1">
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               {t("searchPlaceholder")}
             </label>
             <input
@@ -275,11 +256,12 @@ const AgentSearchPage = () => {
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
               placeholder={t("searchPlaceholder")}
-              className="w-full rounded-full bg-slate-950/60 border border-slate-700 px-4 py-2 text-sm text-slate-100 outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 mb-4"
+              className="w-full rounded-full bg-white border border-slate-300 px-4 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 mb-4
+                         dark:bg-slate-950/40 dark:border-slate-700 dark:text-slate-100"
             />
 
             {/* City */}
-            <label className="block text-xs font-semibold text-slate-300 mb-1">
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               {t("city")}
             </label>
             <input
@@ -287,11 +269,12 @@ const AgentSearchPage = () => {
               value={cityFilter}
               onChange={(e) => setCityFilter(e.target.value)}
               placeholder={t("city")}
-              className="w-full rounded-full bg-slate-950/60 border border-slate-700 px-4 py-2 text-sm text-slate-100 outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 mb-4"
+              className="w-full rounded-full bg-white border border-slate-300 px-4 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 mb-4
+                         dark:bg-slate-950/40 dark:border-slate-700 dark:text-slate-100"
             />
 
             {/* Languages */}
-            <label className="block text-xs font-semibold text-slate-300 mb-1">
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               {t("languagesSpoken")}
             </label>
             <input
@@ -299,17 +282,19 @@ const AgentSearchPage = () => {
               value={languageFilter}
               onChange={(e) => setLanguageFilter(e.target.value)}
               placeholder={t("languages")}
-              className="w-full rounded-full bg-slate-950/60 border border-slate-700 px-4 py-2 text-sm text-slate-100 outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 mb-4"
+              className="w-full rounded-full bg-white border border-slate-300 px-4 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 mb-4
+                         dark:bg-slate-950/40 dark:border-slate-700 dark:text-slate-100"
             />
 
             {/* Rating */}
-            <label className="block text-xs font-semibold text-slate-300 mb-1">
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
               {t("overallRating")}
             </label>
             <select
               value={ratingFilter}
               onChange={(e) => setRatingFilter(e.target.value)}
-              className="w-full rounded-full bg-slate-950/60 border border-slate-700 px-4 py-2 text-sm text-slate-100 outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 mb-4"
+              className="w-full rounded-full bg-white border border-slate-300 px-4 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 mb-4
+                         dark:bg-slate-950/40 dark:border-slate-700 dark:text-slate-100"
             >
               <option value="any">{t("ratingFilter.any")}</option>
               <option value="3">{t("ratingFilter.min3")}</option>
@@ -318,17 +303,17 @@ const AgentSearchPage = () => {
             </select>
 
             {/* CTA për agjentë */}
-            <div className="mt-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/40 p-4 text-sm">
-              <h4 className="font-semibold text-emerald-300 mb-1">
+            <div className="mt-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 p-4 text-sm dark:border-emerald-500/40">
+              <h4 className="font-semibold text-emerald-800 dark:text-emerald-200 mb-1">
                 {t("forAgents.title")}
               </h4>
-              <p className="text-slate-100 text-xs md:text-sm mb-3">
+              <p className="text-slate-700 dark:text-slate-100 text-xs md:text-sm mb-3">
                 {t("forAgents.text")}
               </p>
               <button
                 type="button"
                 onClick={handleBecomeAgent}
-                className="inline-flex items-center rounded-full bg-emerald-500 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-600 transition"
+                className="inline-flex items-center rounded-full bg-emerald-600 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-700 transition"
               >
                 <FaUserTie className="mr-2" />
                 {t("forAgents.cta")}
@@ -337,65 +322,66 @@ const AgentSearchPage = () => {
           </div>
 
           {/* List of agents */}
-          <div className="rounded-3xl bg-slate-900/70 border border-slate-800 p-5 md:p-6">
+          <div className="rounded-3xl bg-white border border-slate-200 p-5 md:p-6 shadow-sm dark:bg-slate-900/70 dark:border-slate-800">
             <div className="flex items-baseline justify-between mb-3">
               <h3 className="text-lg md:text-xl font-semibold">
                 {t("agentList")}
               </h3>
-              <span className="text-xs text-slate-400">
+              <span className="text-xs text-slate-500 dark:text-slate-400">
                 {filteredAgents.length} / {agents.length} {t("agentList")}
               </span>
             </div>
 
             {loadingAgents && (
-              <div className="text-sm text-slate-400 border border-dashed border-slate-700 rounded-2xl px-4 py-6 text-center">
+              <div className="text-sm text-slate-500 dark:text-slate-400 border border-dashed border-slate-300 dark:border-slate-700 rounded-2xl px-4 py-6 text-center">
                 {t("loading", { defaultValue: "Agent:innen werden geladen…" })}
               </div>
             )}
 
             {!loadingAgents && agents.length === 0 && (
-              <div className="text-sm text-slate-400 border border-dashed border-slate-700 rounded-2xl px-4 py-6 text-center">
+              <div className="text-sm text-slate-500 dark:text-slate-400 border border-dashed border-slate-300 dark:border-slate-700 rounded-2xl px-4 py-6 text-center">
                 {t("noResults")}
               </div>
             )}
 
-            {!loadingAgents &&
-              agents.length > 0 &&
-              filteredAgents.length === 0 && (
-                <div className="text-sm text-slate-400 border border-dashed border-slate-700 rounded-2xl px-4 py-6 text-center">
-                  {t("noResults")}
-                </div>
-              )}
+            {!loadingAgents && agents.length > 0 && filteredAgents.length === 0 && (
+              <div className="text-sm text-slate-500 dark:text-slate-400 border border-dashed border-slate-300 dark:border-slate-700 rounded-2xl px-4 py-6 text-center">
+                {t("noResults")}
+              </div>
+            )}
 
-           {!loadingAgents && filteredAgents.length > 0 && (
-  <div className="space-y-4 mt-2">
-    {filteredAgents.map((agent) => {
-      const rawLanguages = agent.languages;
-      const agentLanguages = Array.isArray(rawLanguages)
-        ? rawLanguages
-        : typeof rawLanguages === "string"
-        ? rawLanguages.split(",")
-        : [];
+            {!loadingAgents && filteredAgents.length > 0 && (
+              <div className="space-y-4 mt-2">
+                {filteredAgents.map((agent) => {
+                  const agentLanguages = normalizeStringArray(agent.languages);
+                  const agentSpecialties = normalizeStringArray(agent.specialties);
 
-      return (
-        <div
-          key={agent.id}
-          onClick={() => navigate(`/agent/${agent.id}`)}
-          className="cursor-pointer rounded-2xl border border-slate-800 bg-slate-900/70 p-4 flex flex-col md:flex-row md:items-center gap-4 hover:border-emerald-500/60 hover:bg-slate-900 transition"
-        >
-          {/* pjesa tjetër e kartës (Avatar, Content, …) MBETET njësoj si e kishe */}
+                  const openProfile = () => navigate(`/agent/${agent.id}`);
 
+                  return (
+                    <div
+                      key={agent.id}
+                      role="button"
+                      tabIndex={0}
+                      onClick={openProfile}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") openProfile();
+                      }}
+                      className="cursor-pointer rounded-2xl border border-slate-200 bg-slate-50 p-4 flex flex-col md:flex-row md:items-center gap-4
+                                 hover:border-emerald-500/60 hover:bg-white transition outline-none focus:ring-2 focus:ring-emerald-500
+                                 dark:border-slate-800 dark:bg-slate-900/60 dark:hover:bg-slate-900"
+                    >
                       {/* Avatar */}
                       <div className="flex-shrink-0">
                         {agent.photoUrl ? (
                           <img
                             src={agent.photoUrl}
                             alt={agent.fullName || "Agent"}
-                            className="h-16 w-16 rounded-full object-cover border border-slate-700"
+                            className="h-16 w-16 rounded-full object-cover border border-slate-200 dark:border-slate-700"
                           />
                         ) : (
-                          <div className="h-16 w-16 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700">
-                            <FaUserTie className="text-slate-300 text-xl" />
+                          <div className="h-16 w-16 rounded-full bg-slate-100 flex items-center justify-center border border-slate-200 dark:bg-slate-800 dark:border-slate-700">
+                            <FaUserTie className="text-slate-500 dark:text-slate-300 text-xl" />
                           </div>
                         )}
                       </div>
@@ -408,43 +394,43 @@ const AgentSearchPage = () => {
 
                         <div className="flex flex-wrap items-center gap-2">
                           {agent.verified && (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-300 border border-emerald-500/40">
-                              <MdVerified className="text-emerald-300" />
+                            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 border border-emerald-500/30
+                                             dark:text-emerald-200 dark:border-emerald-500/40">
+                              <MdVerified />
                               {t("verified")}
                             </span>
                           )}
-                          {typeof agent.rating === "number" &&
-                            agent.rating > 0 && (
-                              <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-0.5 text-[11px] font-semibold text-amber-300 border border-amber-500/40">
-                                <MdStar className="text-amber-300" />
-                                {agent.rating.toFixed(1)} / 5
-                              </span>
-                            )}
+
+                          {typeof agent.rating === "number" && agent.rating > 0 && (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-0.5 text-[11px] font-semibold text-amber-700 border border-amber-500/30
+                                             dark:text-amber-200 dark:border-amber-500/40">
+                              <MdStar />
+                              {agent.rating.toFixed(1)} / 5
+                            </span>
+                          )}
                         </div>
 
-                        <p className="text-xs md:text-sm text-slate-300">
+                        <p className="text-xs md:text-sm text-slate-600 dark:text-slate-300">
                           {agent.city && agent.region
                             ? `${agent.city}, ${agent.region}`
                             : agent.city || agent.region || ""}
                         </p>
 
-                        {agent.specialties &&
-                          Array.isArray(agent.specialties) &&
-                          agent.specialties.length > 0 && (
-                            <p className="text-xs text-slate-400">
-                              {t("specialties")}:{" "}
-                              {agent.specialties.join(", ")}
-                            </p>
-                          )}
+                        {agentSpecialties.length > 0 && (
+                          <p className="text-xs text-slate-500 dark:text-slate-400">
+                            {t("specialties")}: {agentSpecialties.join(", ")}
+                          </p>
+                        )}
 
                         {agentLanguages.length > 0 && (
                           <div className="flex flex-wrap gap-1 pt-1">
                             {agentLanguages.map((lng) => (
                               <span
                                 key={lng}
-                                className="inline-flex items-center rounded-full bg-slate-800 px-2 py-0.5 text-[11px] text-slate-100"
+                                className="inline-flex items-center rounded-full bg-white border border-slate-200 px-2 py-0.5 text-[11px] text-slate-700
+                                           dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                               >
-                                {lng.trim()}
+                                {lng}
                               </span>
                             ))}
                           </div>
@@ -461,33 +447,39 @@ const AgentSearchPage = () => {
         {/* FAQ + Regionen */}
         <section className="mt-10 md:mt-14 grid gap-6 md:grid-cols-2">
           {/* FAQ */}
-          <div className="rounded-3xl bg-slate-900/70 border border-slate-800 p-5 md:p-6">
+          <div className="rounded-3xl bg-white border border-slate-200 p-5 md:p-6 shadow-sm dark:bg-slate-900/70 dark:border-slate-800">
             <h3 className="text-lg md:text-xl font-semibold mb-4">
               {t("faq.title")}
             </h3>
-            <div className="space-y-4 text-sm text-slate-200">
+
+            <div className="space-y-4 text-sm text-slate-700 dark:text-slate-200">
               {faqItems.map((item, idx) => (
                 <div key={idx}>
-                  <p className="font-semibold mb-1">{item.question}</p>
-                  <p className="text-slate-300">{item.answer}</p>
+                  <p className="font-semibold mb-1">
+                    {item.question}
+                  </p>
+                  <p className="text-slate-600 dark:text-slate-300">
+                    {item.answer}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Popular regions */}
-          <div className="rounded-3xl bg-slate-900/70 border border-slate-800 p-5 md:p-6">
+          <div className="rounded-3xl bg-white border border-slate-200 p-5 md:p-6 shadow-sm dark:bg-slate-900/70 dark:border-slate-800">
             <h3 className="text-lg md:text-xl font-semibold mb-2">
               {t("popularRegionsTitle")}
             </h3>
-            <p className="text-xs md:text-sm text-slate-300 mb-4">
+            <p className="text-xs md:text-sm text-slate-600 dark:text-slate-300 mb-4">
               {t("benefits.title")}
             </p>
             <div className="flex flex-wrap gap-2">
               {popularRegions.map((region) => (
                 <span
                   key={region}
-                  className="inline-flex items-center rounded-full bg-slate-800 px-3 py-1 text-xs md:text-sm text-slate-100"
+                  className="inline-flex items-center rounded-full bg-slate-100 border border-slate-200 px-3 py-1 text-xs md:text-sm text-slate-700
+                             dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
                 >
                   {region}
                 </span>
@@ -496,7 +488,7 @@ const AgentSearchPage = () => {
           </div>
         </section>
       </div>
-    </div>
+    </main>
   );
 };
 

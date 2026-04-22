@@ -15,7 +15,49 @@
   "toastLinkCopied": "Link copied",
   "toastCopyFailed": "Copy failed",
   "toastContactSoon": "Contact will be connected in the next step.",
-
+ "loading": "Loading...",
+  "notFound": "Listing not found.",
+  "backToListings": "Back to listings",
+  "premium": "Premium",
+  
+  "address": "Address",
+  "rooms": "Rooms",
+  "area": "Area",
+  "propertyType": "Property type",
+  "createdAt": "Created on",
+ 
+  "makeOffer": "Submit offer",
+  "loginToContact": "Please log in to contact the seller.",
+  "youAreOwner": "You are the owner of this listing.",
+  "keyFacts": "Key facts",
+  "purposeBuy": "Buy",
+  "purposeRent": "Rent",
+  "roomsShort": "rm.",
+  "contactBox": {
+    "title": "Contact seller",
+    "text": "Get in touch directly with the owner or submit an offer for this property."
+  },
+  "infoBox": {
+    "title": "Note",
+    "text": "All information is based on details provided by the seller. Please verify important details before making a final decision."
+  },
+  "myOfferBox": {
+    "title": "Your offer for this listing",
+    "amount": "Amount:",
+    "status": "Status:",
+    "date": "Submitted on",
+    "hint": "You can find details and actions in the “My Offers” section of your dashboard.",
+    "statusValues": {
+      "open": "Open",
+      "accepted": "Accepted",
+      "rejected": "Rejected",
+      "pending": "Pending"
+    }
+  },
+  "seo": {
+    "fallbackTitle": "Listing",
+    "fallbackDesc": "Property listing – details and images."
+  },
   "badgeBuy": "For sale",
   "badgeRent": "For rent",
 
@@ -52,8 +94,7 @@
 
   "similarTitle": "Similar listings",
   "similarHint": "Coming next (clickable like Zillow).",
-  "rooms": "Rooms",
-  "area": "Area",
+  
   "myOffers": {
   "title": "My offers",
   "myOfferBox": {
@@ -80,13 +121,12 @@
   "empty": "You have not submitted any offers yet.",
   "withdraw": "Withdraw"
 },
-  "address": "Address",
-  "createdAt": "Posted on",
+ 
 "allPurposes": "All purposes" ,
     "details": "Details",
-     "makeOffer": "Submit purchase offer",
+    
   
-  "loginToContact": "Please log in to contact the seller or submit an offer.",
+  
   "offer": {
     "makeOfferButton": "Make an offer",
     "title": "Submit purchase offer",
@@ -109,7 +149,7 @@
   "city": "City",
   "state": "State",
   "zip": "ZIP Code",
-  "propertyType": "Property Type",
+  
   "listingType": "Listing Type",
   
   "bedrooms": "Bedrooms",

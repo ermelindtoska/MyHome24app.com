@@ -1,36 +1,51 @@
 {
   "seo": {
     "title": "Büros & Gewerbeflächen mieten – MyHome24App",
-    "description": "Finden Sie moderne Büros & Gewerbeflächen zur Miete in Deutschland – mit Kartenansicht, Filtern und direktem Kontakt."
+    "description": "Finden Sie moderne Büros und Gewerbeflächen zur Miete in Deutschland – mit Kartenansicht, Filtern und direktem Kontakt."
   },
   "imgAlt": "Modernes Büro oder Gewerbefläche",
   "hero": {
+    "badge": "Büro & Gewerbe",
     "title": "Moderne Büros & Gewerbeflächen zur Miete",
-    "subtitle": "Entdecken Sie flexible Arbeitsräume, Coworking Spaces und Gewerbeflächen in Top-Lagen – mit transparenter Preisübersicht und direktem Kontakt.",
-    "button": "Büros auf der Karte anzeigen"
+    "subtitle": "Entdecken Sie flexible Arbeitsräume, Coworking Spaces und Gewerbeflächen in Top-Lagen – mit transparenter Preisübersicht und direktem Kontakt."
+  },
+  "intro": {
+    "eyebrow": "Gezielt suchen",
+    "title": "Die passende Fläche für Ihr Unternehmen finden",
+    "text": "Ob Start-up, etabliertes Unternehmen oder expandierendes Team: Finden Sie Büro- und Gewerbeflächen, die zu Ihrem Standortbedarf, Ihrer Größe und Ihrem Nutzungskonzept passen."
+  },
+  "highlight": {
+    "title": "Für Unternehmen, Dienstleister:innen und gewerbliche Nutzer:innen",
+    "text": "Mit klaren Informationen, guter Vergleichbarkeit und direktem Kontakt schaffen wir eine professionelle Suche nach passenden Flächen im gewerblichen Kontext."
   },
   "featuresTitle": "Vorteile bei der Suche nach Büros & Gewerbeflächen",
+  "featuresSection": {
+    "eyebrow": "Ihre Vorteile",
+    "text": "Eine gute Gewerbefläche überzeugt nicht nur durch Lage, sondern auch durch Struktur, Nutzbarkeit und nachvollziehbare Konditionen. Genau darauf sollte Ihre Suche ausgerichtet sein."
+  },
   "features": [
     {
       "title": "Zentrale Lage",
-      "text": "Finden Sie Büroflächen in attraktiven Stadtlagen mit guter Verkehrsanbindung."
+      "text": "Finden Sie Büroflächen in attraktiven Stadtlagen mit guter Verkehrsanbindung und hoher Sichtbarkeit."
     },
     {
       "title": "Flexible Grundrisse",
-      "text": "Ob Einzelbüro oder große Gewerbefläche – wir zeigen passende Angebote."
+      "text": "Ob Einzelbüro, Praxisfläche oder größere Gewerbeeinheit – wir zeigen passende Angebote für unterschiedliche Anforderungen."
     },
     {
       "title": "Transparente Konditionen",
-      "text": "Mietpreise, Nebenkosten und Vertragsbedingungen auf einen Blick."
+      "text": "Mietpreise, Nebenkosten und wichtige Vertragsinformationen werden klar und übersichtlich dargestellt."
     },
     {
       "title": "Direkter Kontakt",
-      "text": "Kontaktieren Sie Eigentümer:innen oder Makler:innen direkt über das Formular."
+      "text": "Kontaktieren Sie Eigentümer:innen oder Makler:innen direkt und klären Sie Verfügbarkeit sowie Details ohne Umwege."
     }
   ],
-  "tipTitle": "Tipp für Ihre Suche",
-  "tipText": "Aktualisieren Sie regelmäßig die Karte, um neue Büroangebote in Ihrer Region zu sehen.",
+  "tipLabel": "Praxis-Tipp",
+  "tipTitle": "Behalten Sie Lage, Nutzung und Flexibilität im Blick",
+  "tipText": "Achten Sie bei der Suche nicht nur auf den Preis, sondern auch auf Erreichbarkeit, Flächenaufteilung, Vertragslaufzeit und Entwicklungspotenzial Ihres Standorts.",
   "cta": {
-    "primary": "Büros auf der Karte anzeigen"
+    "primary": "Büros auf der Karte anzeigen",
+    "secondary": "Beratung anfragen"
   }
 }

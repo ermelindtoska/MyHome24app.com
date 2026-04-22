@@ -1,5 +1,5 @@
 // src/pages/AgentProfilePage.jsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase";
@@ -26,8 +26,15 @@ const AgentProfilePage = () => {
   const [form, setForm] = useState(emptyProfile);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [hadDoc, setHadDoc] = useState(false); // ✅ a ekziston doc-i paraprakisht?
 
   const lang = i18n.language?.slice(0, 2) || "de";
+  const canonical = `${window.location.origin}/agent/profile`;
+
+  const displayNameFallback = useMemo(
+    () => currentUser?.displayName || "",
+    [currentUser?.displayName]
+  );
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -39,11 +46,13 @@ const AgentProfilePage = () => {
       try {
         const ref = doc(db, "agents", currentUser.uid);
         const snap = await getDoc(ref);
+
         if (snap.exists()) {
+          setHadDoc(true);
           const data = snap.data();
 
           setForm({
-            fullName: data.fullName || currentUser.displayName || "",
+            fullName: data.fullName || displayNameFallback || "",
             city: data.city || "",
             region: data.region || "",
             phone: data.phone || "",
@@ -56,9 +65,10 @@ const AgentProfilePage = () => {
             bio: data.bio || "",
           });
         } else {
+          setHadDoc(false);
           setForm((prev) => ({
             ...prev,
-            fullName: currentUser.displayName || "",
+            fullName: displayNameFallback || "",
           }));
         }
       } catch (err) {
@@ -74,19 +84,23 @@ const AgentProfilePage = () => {
     };
 
     loadProfile();
-  }, [currentUser, t]);
+  }, [currentUser?.uid, displayNameFallback, t]);
 
   const handleChange = (field) => (e) => {
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
   };
 
+  const normalizeCommaList = (value) =>
+    String(value || "")
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!currentUser?.uid) {
       toast.error(
-        t("errors.notLoggedIn", {
-          defaultValue: "Bitte melde dich zuerst an.",
-        })
+        t("errors.notLoggedIn", { defaultValue: "Bitte melde dich zuerst an." })
       );
       return;
     }
@@ -95,14 +109,8 @@ const AgentProfilePage = () => {
     try {
       const ref = doc(db, "agents", currentUser.uid);
 
-      const languagesArray = form.languages
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean);
-      const specialtiesArray = form.specialties
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean);
+      const languagesArray = normalizeCommaList(form.languages);
+      const specialtiesArray = normalizeCommaList(form.specialties);
 
       const payload = {
         fullName: form.fullName.trim(),
@@ -115,18 +123,16 @@ const AgentProfilePage = () => {
         userId: currentUser.uid,
         email: currentUser.email || "",
         updatedAt: serverTimestamp(),
-        // këto fusha mund të përdoren në kërkim
         verified: false, // admin e ndryshon kur e verifikon
       };
 
-      await setDoc(
-        ref,
-        {
-          ...payload,
-          createdAt: serverTimestamp(),
-        },
-        { merge: true }
-      );
+      // ✅ createdAt vetëm herën e parë (nëse doc nuk ka ekzistuar)
+      const toSave = hadDoc
+        ? payload
+        : { ...payload, createdAt: serverTimestamp() };
+
+      await setDoc(ref, toSave, { merge: true });
+      setHadDoc(true);
 
       toast.success(
         t("success.saved", {
@@ -138,10 +144,7 @@ const AgentProfilePage = () => {
         type: "agent.profile.saved",
         userId: currentUser.uid,
         context: "agent-profile-page",
-        extra: {
-          city: payload.city,
-          region: payload.region,
-        },
+        extra: { city: payload.city, region: payload.region },
       });
     } catch (err) {
       console.error("[AgentProfilePage] save error:", err);
@@ -156,98 +159,95 @@ const AgentProfilePage = () => {
     }
   };
 
+  const handleReset = () => {
+    setForm({
+      ...emptyProfile,
+      fullName: displayNameFallback || "",
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
+    <main className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 pt-16 md:pt-0">
       <SiteMeta
         titleKey="agentProfile.metaTitle"
         descKey="agentProfile.metaDescription"
         path="/agent/profile"
+        canonical={canonical}
         lang={lang}
+        noindex
       />
 
-      <div className="max-w-3xl mx-auto px-4 py-8 md:py-10">
+      <div className="max-w-3xl mx-auto px-4 py-8 md:py-12">
         <header className="mb-6">
           <h1 className="text-2xl md:text-3xl font-bold">
-            {t("title", {
-              defaultValue: "Maklerprofil bearbeiten",
-            })}
+            {t("title", { defaultValue: "Maklerprofil bearbeiten" })}
           </h1>
-          <p className="mt-2 text-sm md:text-base text-slate-300">
+          <p className="mt-2 text-sm md:text-base text-slate-600 dark:text-slate-300">
             {t("subtitle", {
-              defaultValue:
-                "Diese Angaben werden in der Makler:innensuche angezeigt.",
+              defaultValue: "Diese Angaben werden in der Makler:innensuche angezeigt.",
             })}
           </p>
         </header>
 
-        {/* KARTA E PROFILIT (forma për editim) */}
-        <div className="rounded-3xl border border-slate-800 bg-slate-900/80 p-5 md:p-6 shadow-sm">
+        {/* CARD */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
           {loading ? (
-            <p className="text-sm text-slate-300">
-              {t("loading", {
-                defaultValue: "Profil wird geladen…",
-              })}
+            <p className="text-sm text-slate-600 dark:text-slate-300">
+              {t("loading", { defaultValue: "Profil wird geladen…" })}
             </p>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Emri i plotë */}
               <Field
-                label={t("fields.fullName", {
-                  defaultValue: "Vollständiger Name",
-                })}
+                label={t("fields.fullName", { defaultValue: "Vollständiger Name" })}
               >
                 <input
                   type="text"
                   value={form.fullName}
                   onChange={handleChange("fullName")}
-                  className="w-full rounded-lg border border-slate-700 bg-slate-950/70 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none
+                             focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20
+                             dark:border-slate-700 dark:bg-slate-950/40 dark:text-slate-100"
                   required
                 />
               </Field>
 
-              {/* Qyteti & Rajoni */}
               <div className="grid gap-4 md:grid-cols-2">
-                <Field
-                  label={t("fields.city", {
-                    defaultValue: "Stadt",
-                  })}
-                >
+                <Field label={t("fields.city", { defaultValue: "Stadt" })}>
                   <input
                     type="text"
                     value={form.city}
                     onChange={handleChange("city")}
-                    className="w-full rounded-lg border border-slate-700 bg-slate-950/70 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                    className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none
+                               focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20
+                               dark:border-slate-700 dark:bg-slate-950/40 dark:text-slate-100"
                   />
                 </Field>
+
                 <Field
-                  label={t("fields.region", {
-                    defaultValue: "Region / Bundesland",
-                  })}
+                  label={t("fields.region", { defaultValue: "Region / Bundesland" })}
                 >
                   <input
                     type="text"
                     value={form.region}
                     onChange={handleChange("region")}
-                    className="w-full rounded-lg border border-slate-700 bg-slate-950/70 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                    className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none
+                               focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20
+                               dark:border-slate-700 dark:bg-slate-950/40 dark:text-slate-100"
                   />
                 </Field>
               </div>
 
-              {/* Telefoni */}
-              <Field
-                label={t("fields.phone", {
-                  defaultValue: "Telefonnummer",
-                })}
-              >
+              <Field label={t("fields.phone", { defaultValue: "Telefonnummer" })}>
                 <input
                   type="text"
                   value={form.phone}
                   onChange={handleChange("phone")}
-                  className="w-full rounded-lg border border-slate-700 bg-slate-950/70 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none
+                             focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20
+                             dark:border-slate-700 dark:bg-slate-950/40 dark:text-slate-100"
                 />
               </Field>
 
-              {/* Gjuhët */}
               <Field
                 label={t("fields.languages", {
                   defaultValue: "Sprachen (durch Komma getrennt)",
@@ -260,11 +260,12 @@ const AgentProfilePage = () => {
                   type="text"
                   value={form.languages}
                   onChange={handleChange("languages")}
-                  className="w-full rounded-lg border border-slate-700 bg-slate-950/70 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none
+                             focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20
+                             dark:border-slate-700 dark:bg-slate-950/40 dark:text-slate-100"
                 />
               </Field>
 
-              {/* Specialitetet */}
               <Field
                 label={t("fields.specialties", {
                   defaultValue: "Schwerpunkte (durch Komma getrennt)",
@@ -278,15 +279,14 @@ const AgentProfilePage = () => {
                   type="text"
                   value={form.specialties}
                   onChange={handleChange("specialties")}
-                  className="w-full rounded-lg border border-slate-700 bg-slate-950/70 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none
+                             focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20
+                             dark:border-slate-700 dark:bg-slate-950/40 dark:text-slate-100"
                 />
               </Field>
 
-              {/* Bio / Përshkrimi */}
               <Field
-                label={t("fields.bio", {
-                  defaultValue: "Kurzprofil / Beschreibung",
-                })}
+                label={t("fields.bio", { defaultValue: "Kurzprofil / Beschreibung" })}
                 helper={t("fields.bioHelper", {
                   defaultValue:
                     "Beschreibe kurz deine Erfahrung, Arbeitsweise und was dich als Makler:in auszeichnet.",
@@ -296,62 +296,58 @@ const AgentProfilePage = () => {
                   rows={5}
                   value={form.bio}
                   onChange={handleChange("bio")}
-                  className="w-full rounded-lg border border-slate-700 bg-slate-950/70 px-3 py-2 text-sm text-slate-100 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none
+                             focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20
+                             dark:border-slate-700 dark:bg-slate-950/40 dark:text-slate-100"
                 />
               </Field>
 
-              {/* Butonat */}
               <div className="pt-2 flex justify-end gap-3">
                 <button
                   type="button"
-                  onClick={() => setForm(emptyProfile)}
-                  className="rounded-full border border-slate-600 px-4 py-2 text-sm font-medium text-slate-100 hover:bg-slate-800 transition"
+                  onClick={handleReset}
+                  className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50 transition
+                             dark:border-slate-700 dark:bg-slate-950/30 dark:text-slate-100 dark:hover:bg-slate-900"
                   disabled={saving}
                 >
-                  {t("actions.reset", {
-                    defaultValue: "Zurücksetzen",
-                  })}
+                  {t("actions.reset", { defaultValue: "Zurücksetzen" })}
                 </button>
+
                 <button
                   type="submit"
                   disabled={saving}
-                  className="rounded-full bg-emerald-500 px-5 py-2 text-sm font-semibold text-white hover:bg-emerald-600 disabled:opacity-60 disabled:cursor-not-allowed transition"
+                  className="rounded-full bg-emerald-600 px-5 py-2 text-sm font-semibold text-white hover:bg-emerald-700 disabled:opacity-60 disabled:cursor-not-allowed transition shadow-sm"
                 >
                   {saving
-                    ? t("actions.saving", {
-                        defaultValue: "Speichern…",
-                      })
-                    : t("actions.save", {
-                        defaultValue: "Profil speichern",
-                      })}
+                    ? t("actions.saving", { defaultValue: "Speichern…" })
+                    : t("actions.save", { defaultValue: "Profil speichern" })}
                 </button>
               </div>
             </form>
           )}
-        </div>
+        </section>
 
-        {/* ⭐ Këtu poshtë kartës shtojmë seksionin e vlerësimeve të maklerit */}
+        {/* ⭐ Ratings */}
         {currentUser?.uid && (
           <div className="mt-6">
-            <AgentRatingSection
-              agentId={currentUser.uid}
-              agentName={form.fullName}
-            />
+            <AgentRatingSection agentId={currentUser.uid} agentName={form.fullName} />
           </div>
         )}
       </div>
-    </div>
+    </main>
   );
 };
 
 const Field = ({ label, helper, children }) => (
   <div className="space-y-1">
-    <label className="block text-xs font-semibold text-slate-200">
+    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-200">
       {label}
     </label>
     {children}
     {helper && (
-      <p className="text-[11px] text-slate-400 leading-snug">{helper}</p>
+      <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">
+        {helper}
+      </p>
     )}
   </div>
 );

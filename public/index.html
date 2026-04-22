@@ -16,7 +16,7 @@
       content="MyHome24App – Immobilienplattform in Deutschland"
     />
 
-    <!-- ✅ Saubere, konsistente CSP (Cloud Functions FIX enthalten) -->
+    <!-- ✅ Saubere, konsistente CSP (Firebase Auth + reCAPTCHA FIX enthalten) -->
     <meta
       http-equiv="Content-Security-Policy"
       content="
@@ -28,12 +28,16 @@
           data:
           blob:
           https://*.gstatic.com
+          https://www.gstatic.com
+          https://www.google.com
+          https://www.recaptcha.net
           https://*.googleapis.com
           https://lh3.googleusercontent.com
           https://firebasestorage.googleapis.com
           https://api.mapbox.com
           https://*.tiles.mapbox.com
           https://*.mapbox.com;
+          https://ui-avatars.com
 
         font-src
           'self'
@@ -56,6 +60,8 @@
           https://www.google.com
           https://www.google.com/recaptcha/
           https://www.gstatic.com/recaptcha/
+          https://www.recaptcha.net
+          https://www.recaptcha.net/recaptcha/
           https://www.googleapis.com
           https://www.googletagmanager.com
           https://apis.google.com
@@ -72,6 +78,8 @@
           https://apis.google.com
           https://*.googleusercontent.com
           https://www.googleapis.com
+          https://www.recaptcha.net
+          https://www.google.com
           https://*.firebaseio.com
           wss://*.firebaseio.com
           https://www.gstatic.com
@@ -82,20 +90,25 @@
           https://*.tiles.mapbox.com
           https://*.mapbox.com
           https://nominatim.openstreetmap.org
-          https://*.cloudfunctions.net;
+          https://*.cloudfunctions.net
+          https://*.a.run.app
+          https://*.run.app
+          
 
         frame-src
           'self'
-          https://*.google.com
+          https://www.google.com
           https://www.google.com/recaptcha/
-          https://www.gstatic.com/recaptcha/
+          https://www.recaptcha.net
           https://*.firebaseapp.com;
 
         worker-src 'self' blob:;
         child-src blob:;
         object-src 'none';
         frame-ancestors 'self';
-        upgrade-insecure-requests;
+
+        <!-- ⚠️ Dev: better OFF. In prod you can enable via headers -->
+        <!-- upgrade-insecure-requests; -->
       "
     />
 

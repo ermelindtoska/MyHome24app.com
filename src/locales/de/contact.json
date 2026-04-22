@@ -1,12 +1,162 @@
 {
   
   "object": "Objekt",
+    "badge": "Kontaktformular",
+      "chat": {
+    "title": "Verkäufer:in kontaktieren",
+    "subtitle": "Direkter Austausch zur Immobilie.",
+    "loading": "Chat wird geladen …",
+    "loginHint": "Bitte melden Sie sich an, um den Chat zu nutzen.",
+    "empty": "Noch keine Nachrichten. Stellen Sie Ihre erste Frage zur Immobilie.",
+    "placeholder": "Nachricht schreiben …",
+    "send": "Senden",
+    "sending": "Wird gesendet…"
+  },
+  "placeholders": {
+    "name": "Ihr Name",
+    "phone": "+49 ...",
+    "message": "Ihre Nachricht …"
+  },
+ 
+  "inbox": {
+    "badge": "Eigentümer:innen-Postfach",
+    "title": "Kontaktanfragen zu Ihren Immobilien",
+    "subtitle": "Hier sehen Sie alle Nachrichten von Interessent:innen zu Ihren veröffentlichten Immobilienanzeigen.",
+    "loginRequired": "Bitte melden Sie sich an, um Ihre Kontaktanfragen zu sehen.",
+    "loading": "Lade Kontaktanfragen …",
+    "emptyTitle": "Noch keine Kontaktanfragen",
+    "empty": "Aktuell liegen keine Kontaktanfragen vor. Sobald Interessent:innen schreiben, erscheinen sie hier.",
+    "noTitle": "Ohne Titel",
+     "contactBadge": "Direkter Kontakt",
+  "advisorTitle": "Ansprechpartner:in",
+  "ownerAvailable": "Eigentümer:in verfügbar",
+  "loginHint": "Melden Sie sich an, um den Live-Chat zu nutzen.",
+  "privacyHint": "Ihre Anfrage wird direkt im Zusammenhang mit diesem Inserat übermittelt.",
+  "chatTitle": "Direkter Chat zum Inserat",
+  "chatLive": "Aktiv",
+  "benefits": {
+    "directMessageTitle": "Direkte Nachricht",
+    "directMessageText": "Schreiben Sie direkt zur Immobilie und erhalten Sie schneller eine Rückmeldung.",
+    "visitTitle": "Besichtigung anfragen",
+    "visitText": "Klären Sie offene Fragen und vereinbaren Sie auf Wunsch direkt einen Termin.",
+    "fastResponseTitle": "Schneller Austausch",
+    "fastResponseText": "Nutzen Sie Formular oder Chat, um Details effizient zu besprechen."
+  },
+    "noDate": "Datum unbekannt",
+    "unknownSender": "Unbekannte:r Interessent:in",
+    "listingLabel": "Immobilie",
+    "senderTitle": "Interessent:in",
+    "messageTitle": "Nachricht",
+    "actionsTitle": "Aktionen",
+    "actionsText": "Sie können direkt per E-Mail auf diese Anfrage antworten.",
+    "replyButton": "Per E-Mail antworten",
+    "replyUnavailable": "Keine Antwort möglich",
+    "replySubject": "Antwort zu Ihrer Anfrage: {{title}}",
+    "noEmail": "Keine E-Mail angegeben",
+    "noPhone": "Keine Telefonnummer angegeben",
+    "noMessage": "Keine Nachricht vorhanden.",
+    "stats": {
+      "total": "Gesamt",
+      "email": "Mit E-Mail",
+      "phone": "Mit Telefon"
+    }
+  },
    "default": {
     "title": "Kontakt mit MyHome24App",
     "intro": "Sie haben Fragen zu MyHome24App, zu Neubau-Projekten oder benötigen Unterstützung? Unser Team hilft Ihnen gerne weiter.",
     "boxTitle": "Kontakt zu MyHome24App",
     "boxText": "Nutzen Sie dieses Formular für allgemeine Anfragen zu MyHome24App, technischen Themen oder Feedback.",
     "boxHint": "Bitte senden Sie keine sensiblen Daten (z.B. Konto- oder Ausweisdaten) über dieses Formular."
+  },
+   "meta": {
+    "title": "Kontakt – MyHome24App",
+    "description": "Kontaktiere uns für Support, Partnerschaften oder Feedback."
+  },
+  "hero": {
+    "badge": "Support & Kontakt",
+    "nav": {
+    "back": "Zurück",
+    "breadcrumb": "MyHome24App · Kontakt"
+  },
+  "hero": {
+    "badge": "Sicher & schnell",
+    "agentBadge": "Agent:in kontaktieren"
+  },
+  "privacy": {
+    "note": "Mit dem Absenden stimmst du der Verarbeitung deiner Angaben zur Bearbeitung deiner Anfrage zu."
+  },
+
+  "default": {
+    "title": "Kontakt",
+    "intro": "Schreib uns – wir helfen dir gerne weiter. Für schnelle Antworten gib bitte so viele Details wie möglich an.",
+    "metaTitle": "Kontakt – MyHome24App",
+    "boxTitle": "So erreichst du uns",
+    "boxText": "Wir beantworten Anfragen rund um Listings, technische Probleme, Feedback und Partnerschaften.",
+    "boxHint": "Tipp: Wenn es um ein bestimmtes Listing geht, nenne bitte Stadt, Preisrahmen und den Link (falls vorhanden)."
+  },
+
+  "agent": {
+    "title": "Agent:in kontaktieren",
+    "intro": "Sende eine Nachricht direkt an eine:n Agent:in. Je genauer deine Anfrage, desto schneller bekommst du eine passende Rückmeldung.",
+    "metaTitle": "Agent:in kontaktieren – MyHome24App",
+    "targetBoxTitle": "Anfrage geht an",
+    "loading": "Agent:in wird geladen…",
+    "notFound": "Agent:in konnte nicht gefunden werden. Bitte prüfe den Link oder wähle eine:n andere:n Agent:in.",
+    "hint": "Hinweis: Deine Nachricht wird an die hinterlegte Kontaktadresse weitergeleitet.",
+    "defaultSubject": "Anfrage zur Immobilienberatung",
+    "verifiedHint": "Profil",
+    "replyTime": "Antwort üblicherweise innerhalb von 24–48h."
+  },
+
+  "form": {
+    "nameLabel": "Name",
+    "namePlaceholder": "Dein Name",
+    "emailLabel": "E-Mail",
+    "emailPlaceholder": "name@example.com",
+    "phoneLabel": "Telefon (optional)",
+    "phonePlaceholder": "+49 …",
+    "subjectLabel": "Betreff",
+    "subjectPlaceholder": "Worum geht es?",
+    "messageLabel": "Nachricht",
+    "messagePlaceholder": "Beschreibe kurz, wobei wir helfen können…",
+    "requiredHint": "Pflichtfelder: Name, E-Mail, Nachricht",
+
+    "submit": "Nachricht senden",
+    "sending": "Senden…",
+
+    "successTitle": "Erfolgreich gesendet",
+    "successDefault": "Danke! Wir melden uns so schnell wie möglich bei dir.",
+    "successAgent": "Danke! Deine Nachricht wurde an die Agent:in gesendet.",
+
+    "errorTitle": "Fehler",
+    "validationError": "Bitte fülle Name, E-Mail und Nachricht aus.",
+    "invalidEmail": "Bitte gib eine gültige E-Mail-Adresse ein.",
+    "errorDescription": "Etwas ist schiefgelaufen. Bitte versuche es später erneut."
+  },
+    "title": "Wir sind für dich da.",
+    "subtitle": "Schreib uns bei Fragen zu Listings, Konto, Partnerschaften oder Feedback. Wir antworten normalerweise innerhalb von 1–2 Werktagen.",
+    "note": "Bitte sende keine sensiblen Daten (z. B. Ausweisnummern) über dieses Formular."
+  },
+  "info": {
+    "emailTitle": "E-Mail",
+    "emailValue": "kontakt@myhome24app.com",
+    "phoneTitle": "Telefon",
+    "phoneValue": "+49 (0) 000 000000",
+    "hoursTitle": "Öffnungszeiten",
+    "hoursValue": "Mo–Fr · 09:00–17:00"
+  },
+  
+  
+  "status": {
+    "success": "Danke! Deine Nachricht wurde gesendet.",
+    "error": "Ups! Etwas ist schiefgelaufen. Bitte erneut versuchen.",
+    "errorNetwork": "Netzwerkfehler. Bitte prüfe deine Verbindung und versuche es erneut."
+  },
+  "bottom": {
+    "title": "Schnellere Hilfe?",
+    "text": "Schau in unsere Hilfeseiten oder starte direkt eine Suche nach Listings.",
+    "help": "Hilfe",
+    "search": "Zur Suche"
   },
 
   "agent": {
@@ -28,7 +178,25 @@
     "messageLabel": "Ihre Nachricht",
     "submit": "Nachricht senden",
     "sending": "Wird gesendet…",
-
+"title": "Nachricht senden",
+    "subtitle": "Fülle das Formular aus – wir melden uns so schnell wie möglich.",
+   
+    "namePlaceholder": "Dein Name",
+    
+    "emailPlaceholder": "name@email.de",
+    "topicLabel": "Thema",
+    
+    "messagePlaceholder": "Beschreibe kurz dein Anliegen…",
+    "send": "Senden",
+    
+    "privacyNote": "Mit dem Absenden stimmst du der Verarbeitung deiner Daten gemäß Datenschutz zu.",
+    "topics": [
+      { "value": "general", "label": "Allgemein" },
+      { "value": "listing", "label": "Listing / Anzeige" },
+      { "value": "account", "label": "Konto / Login" },
+      { "value": "partner-finance", "label": "Partner (Finanzierung)" },
+      { "value": "business", "label": "Business / Werbung" }
+    ],
     "errorTitle": "Ein Fehler ist aufgetreten",
     "validationError": "Bitte füllen Sie alle Pflichtfelder aus (Name, E-Mail und Nachricht).",
     "errorDescription": "Ihre Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es später erneut.",
@@ -87,13 +255,29 @@
     "hintTitle": "Hinweis",
     "hintText": "Bitte senden Sie keine sensiblen Daten (z.B. Konto- oder Ausweisdaten) über dieses Formular."
   },
-    "chat": {
-    "loginHint": "Bitte melden Sie sich an, um den Chat mit der Eigentümer:in zu nutzen.",
-    "title": "Nachricht an Verkäufer:in",
-    "placeholder": "Nachricht schreiben …",
-    "send": "Senden",
-    "empty": "Noch keine Nachrichten. Stellen Sie Ihre erste Frage zur Immobilie."
+    "contactForm": {
+    "subtitle": "Nutzen Sie das Formular, um Fragen zu stellen oder eine Besichtigung anzufragen.",
+    "sending": "Wird gesendet…",
+    "placeholders": {
+      "name": "Ihr Name",
+       "contactOwner": "Kontakt zur Eigentümer:in",
+   
+    "email": "E-Mail",
+    "message": "Nachricht",
+    "send": "Nachricht senden",
+    "successMessage": "Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet."
+      
+    },
+    "errors": {
+      "nameRequired": "Bitte geben Sie Ihren Namen ein.",
+      "emailRequired": "Bitte geben Sie Ihre E-Mail-Adresse ein.",
+      "emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      "messageRequired": "Bitte schreiben Sie eine Nachricht.",
+      "missingListingData": "Die Kontaktdaten zur Anzeige fehlen.",
+      "submitFailed": "Die Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es später erneut."
+    }
   },
+  
 
   "topics": {
     "general": {
@@ -126,14 +310,6 @@
   },
   
 
-  "contactForm": {
-    "contactOwner": "Kontakt zur Eigentümer:in",
-    "name": "Name",
-    "email": "E-Mail",
-    "message": "Nachricht",
-    "send": "Nachricht senden",
-    "successMessage": "Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet."
-  },
 
   "title": "Verkäufer kontaktieren",
   "fields": {

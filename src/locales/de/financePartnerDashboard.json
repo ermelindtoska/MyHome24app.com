@@ -1,71 +1,76 @@
 {
-  "metaTitle": "Partnerbereich Finanzierung – MyHome24App",
-  "metaDescription": "Übersicht für Banken, Vermittler:innen und Finanzberater:innen, die mit MyHome24App bei Immobilienfinanzierungen zusammenarbeiten.",
-  "badge": "Partnerbereich",
-  "title": "Finanzierungspartner:innen-Dashboard",
-  "subtitle": "Hier entsteht Ihr zentraler Bereich für Leads, Statistiken und die Anbindung Ihrer eigenen Finanzierungsprozesse.",
-  "welcome": "Angemeldet als {{email}}",
+  "metaTitle": "Finanzierungspartner-Dashboard – MyHome24App",
+  "metaDescription": "Übersicht, Roadmap und nächste Schritte für Finanzierungspartner:innen auf MyHome24App.",
+  "badge": "Finanzierungspartner",
+  "title": "Dashboard für Finanzierungspartner:innen",
+  "subtitle": "Hier erhalten Sie einen Überblick über den geplanten Partnerbereich, Integrationen, Roadmap und nächste Schritte für die Zusammenarbeit mit MyHome24App.",
+  "welcome": "Willkommen, {{email}}",
   "actions": {
     "goToCalculator": "Zum Hypothekenrechner",
-    "contactPlatform": "Kontakt zur Plattform aufnehmen"
+    "contactPlatform": "Plattform kontaktieren"
   },
   "stats": {
-    "title": "Aktueller Überblick (Demo)",
-    "activeListings": "Angebundene Immobilien",
-    "openLeads": "Offene Finanzierungsanfragen",
-    "pendingApplications": "Laufende Finanzierungsfälle",
-    "integrations": "Aktive Integrationen",
-    "hint": "Die Zahlen sind Platzhalter und werden später mit echten Daten aus Ihrem Partnerprofil und den MyHome24App-Leads ersetzt."
+    "title": "Übersicht & Orientierung",
+    "statusLabel": "B2B Übersicht",
+    "activeListings": "Aktive Einbindungen",
+    "openLeads": "Offene Leads",
+    "pendingApplications": "Offene Prüfungen",
+    "integrations": "Integrationen",
+    "hint": "Diese Werte sind aktuell Platzhalter und werden später mit echten Partner- und Lead-Daten verbunden."
   },
   "sections": {
     "profile": {
-      "badge": "Profil & Sichtbarkeit",
-      "title": "Ihr Profil auf MyHome24App",
-      "text": "Halten Sie Ihre Kontaktdaten, Zielregionen und Produktschwerpunkte aktuell, damit Interessent:innen schnell die passende Ansprechperson finden.",
+      "badge": "Profil",
+      "title": "Partnerprofil",
+      "text": "Darstellung von Ansprechpartner:innen, Finanzierungsfokus, Regionen und Produktarten.",
       "items": [
-        "Bank- oder Unternehmensprofil mit Logo und Kurzbeschreibung",
-        "Regionale Schwerpunkte und Zielgruppen definieren",
-        "Ansprechpartner:innen mit Durchwahl und E-Mail hinterlegen"
+        "Sichtbare Profilinformationen für Nutzer:innen",
+        "Klare Positionierung nach Region und Schwerpunkt",
+        "Vertrauensaufbau durch transparente Darstellung"
       ]
     },
     "integration": {
       "badge": "Integration",
-      "title": "Digitale Anbindung",
-      "text": "Langfristig können Sie eigene Tools oder Formulare einbinden – z.B. Voranfragen, Dokumentenupload oder Terminbuchung.",
+      "title": "Lead- & Systemintegration",
+      "text": "Schrittweise Anbindung strukturierter Anfragen und definierter Kontaktwege.",
       "items": [
-        "Verlinkung auf eigene Online-Formulare möglich",
-        "Option für API-Anbindung in einer späteren Ausbaustufe",
-        "Export von Leads zur Weiterverarbeitung in Ihrem System (geplant)"
+        "Strukturierte Übernahme von Anfragen",
+        "Klare Weiterleitung nach Regeln und Zuständigkeiten",
+        "Saubere Übergaben zwischen Plattform und Partner"
       ]
     },
     "compliance": {
       "badge": "Compliance",
-      "title": "Rechtliche Rahmenbedingungen",
-      "text": "MyHome24App unterstützt die transparente Darstellung Ihrer Finanzierungsangebote, ersetzt aber keine gesetzliche Beratungspflicht.",
+      "title": "Qualität & Sicherheit",
+      "text": "Seriöse Zusammenarbeit mit klaren Rahmenbedingungen, Datenstruktur und Qualitätsanspruch.",
       "items": [
-        "Hinweise zu Informationspflichten nach deutschem Recht",
-        "Klare Trennung zwischen Orientierungshilfe und Angebot",
-        "Kooperationen nur mit regulierten Finanzdienstleister:innen"
+        "Klare Rollen und Zuständigkeiten",
+        "Nachvollziehbare Prozesse",
+        "Vertrauenswürdiger Rahmen für Nutzer:innen"
       ]
     }
   },
   "roadmap": {
-    "title": "Roadmap – was als Nächstes geplant ist",
-    "text": "Der Partnerbereich befindet sich im Aufbau. So planen wir die nächsten Schritte, damit Sie MyHome24App optimal als Plattform nutzen können.",
+    "title": "Roadmap",
+    "text": "Diese Schritte bilden den geplanten Ausbau für Finanzierungspartner:innen auf MyHome24App ab.",
+    "disclaimer": "Roadmap – Stand heute",
     "items": [
       {
-        "title": "Leads aus konkreten Immobilienanfragen",
-        "text": "Verknüpfung von Interessent:innen aus dem Hypothekenrechner und konkreten Inseraten mit Ihrem Partnerprofil."
+        "title": "Partnerprofile",
+        "text": "Erstellung strukturierter Profile für Banken, Vermittler:innen und Berater:innen."
       },
       {
-        "title": "Eigener Login-Bereich für Finanzpartner:innen",
-        "text": "Verwaltung von Ansprechpartner:innen, Regionen, Produkten und Benachrichtigungen direkt im Dashboard."
+        "title": "Lead-Zuordnung",
+        "text": "Zuordnung von Finanzierungsanfragen nach Profil, Region und Produktfokus."
       },
       {
-        "title": "Auswertungen & Performance-Übersicht",
-        "text": "Einfache Auswertungen zu eingegangenen Anfragen, erfolgreichen Abschlüssen und genutzten Produkten."
+        "title": "Integrationen",
+        "text": "Schrittweise technische Anbindung für professionelle und nachvollziehbare Übergaben."
       }
-    ],
-    "disclaimer": "Die Funktionen auf dieser Seite sind noch im Aufbau und dienen aktuell nur zur Orientierung. Konkrete Integrationen und Zugänge werden individuell abgestimmt."
+    ]
+  },
+  "bottomCta": {
+    "title": "Nächste Schritte für Finanzierungspartner:innen",
+    "text": "Nutzen Sie Rechner, Kontaktwege und die nächsten Integrationsschritte, um Ihre Zusammenarbeit mit MyHome24App strukturiert aufzubauen."
   }
 }

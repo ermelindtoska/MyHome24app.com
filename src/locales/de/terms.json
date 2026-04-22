@@ -1,5 +1,30 @@
 {
+  "metaTitle": "Nutzungsbedingungen – MyHome24App",
+  "metaDescription": "Lesen Sie die Nutzungsbedingungen für die Verwendung der MyHome24App-Plattform.",
   "title": "Nutzungsbedingungen",
-  "intro": "Bitte lies dir unsere allgemeinen Geschäftsbedingungen sorgfältig durch.",
-  "accept": "Mit der Nutzung unserer Plattform akzeptierst du diese Bedingungen."
+  "intro": "Diese Nutzungsbedingungen regeln die Nutzung der Plattform MyHome24App. Durch den Zugriff auf unsere Website erklären Sie sich mit diesen Bedingungen einverstanden.",
+  "lastUpdated": "Letzte Aktualisierung: 2025",
+
+  "sections": [
+    {
+      "title": "1. Nutzung der Plattform",
+      "text": "Sie verpflichten sich, die Plattform nur im Rahmen der geltenden Gesetze zu nutzen und keine missbräuchlichen oder betrügerischen Inhalte zu veröffentlichen."
+    },
+    {
+      "title": "2. Benutzerkonten",
+      "text": "Sie sind verantwortlich für die Sicherheit Ihres Kontos und Ihrer Zugangsdaten. Aktivitäten unter Ihrem Konto liegen in Ihrer Verantwortung."
+    },
+    {
+      "title": "3. Inhalte und Inserate",
+      "text": "Alle veröffentlichten Inhalte müssen korrekt und rechtmäßig sein. MyHome24App behält sich das Recht vor, Inhalte zu entfernen."
+    },
+    {
+      "title": "4. Haftung",
+      "text": "Wir übernehmen keine Haftung für Schäden, die aus der Nutzung der Plattform entstehen, soweit gesetzlich zulässig."
+    },
+    {
+      "title": "5. Änderungen",
+      "text": "Wir behalten uns das Recht vor, diese Bedingungen jederzeit zu ändern. Die aktualisierte Version wird auf dieser Seite veröffentlicht."
+    }
+  ]
 }

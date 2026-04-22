@@ -1,5 +1,13 @@
 {
-  "title": "Unauthorized",
-  "description": "You are not authorized to access this page.",
-  "backHome": "Back to Home"
+  "metaTitle": "Access denied – MyHome24App",
+  "metaDescription": "You currently do not have permission to access this page.",
+  "badge": "Access denied",
+  "title": "You do not have access to this page",
+  "description": "You currently do not have the required permissions to open this area.",
+  "helpTitle": "Why am I seeing this page?",
+  "helpText": "This area is only available to certain roles or verified users.",
+  "nextStepTitle": "What can you do now?",
+  "nextStepText": "Go back to the homepage or sign in with an appropriate account.",
+  "backHome": "Back to home",
+  "login": "Log in"
 }

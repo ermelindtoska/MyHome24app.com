@@ -1,5 +1,30 @@
 {
+  "metaTitle": "Terms of Use – MyHome24App",
+  "metaDescription": "Read the terms of use for using the MyHome24App platform.",
   "title": "Terms of Use",
-  "intro": "Please read our terms and conditions carefully.",
-  "accept": "By using our platform, you agree to these terms."
+  "intro": "These terms of use govern your access to and use of the MyHome24App platform. By using our website, you agree to these terms.",
+  "lastUpdated": "Last updated: 2025",
+
+  "sections": [
+    {
+      "title": "1. Use of the Platform",
+      "text": "You agree to use the platform only in accordance with applicable laws and not to publish abusive or fraudulent content."
+    },
+    {
+      "title": "2. User Accounts",
+      "text": "You are responsible for maintaining the confidentiality of your account and credentials. All activities under your account are your responsibility."
+    },
+    {
+      "title": "3. Content and Listings",
+      "text": "All published content must be accurate and lawful. MyHome24App reserves the right to remove content."
+    },
+    {
+      "title": "4. Liability",
+      "text": "We are not liable for damages arising from the use of the platform, to the extent permitted by law."
+    },
+    {
+      "title": "5. Changes",
+      "text": "We reserve the right to modify these terms at any time. The updated version will be published on this page."
+    }
+  ]
 }

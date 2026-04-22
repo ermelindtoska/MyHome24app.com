@@ -7,7 +7,52 @@
   "bdShort": "bd",
   "baShort": "ba",
   "perMonthShort": "/mo",
- 
+    "modal": {
+    "badge": "Neues Inserat",
+    "title": "Inserat hinzufügen",
+    "subtitle": "Erstellen Sie schnell ein neues Immobilieninserat.",
+    "fields": {
+      "title": "Titel",
+      "city": "Stadt",
+      "price": "Preis",
+      "type": "Typ",
+      "purpose": "Zweck",
+      "images": "Bilder"
+    },
+    
+    "placeholders": {
+      "title": "z. B. Moderne Wohnung in Berlin",
+      "city": "z. B. München",
+      "price": "z. B. 1200"
+    },
+    "upload": "Bilder hochladen",
+    "cancel": "Abbrechen",
+    "errors": {
+      "titleRequired": "Bitte geben Sie einen Titel ein.",
+      "cityRequired": "Bitte geben Sie eine Stadt ein.",
+      "priceRequired": "Bitte geben Sie einen gültigen Preis ein."
+    }
+  },
+ "listPage": {
+    "metaTitle": "Alle Immobilienangebote – MyHome24App",
+    "metaDescription": "Entdecken Sie alle Immobilienangebote auf MyHome24App – Häuser, Wohnungen und weitere Objekte in Deutschland.",
+    "badge": "Immobilienübersicht",
+    "title": "Alle Immobilienangebote",
+    "subtitle": "Durchsuchen Sie alle aktuell verfügbaren Immobilien auf MyHome24App. Finden Sie passende Häuser, Wohnungen und weitere Objekte in ganz Deutschland.",
+    "refresh": "Neu laden",
+    "stats": {
+      "total": "Gesamt",
+      "buy": "Kaufen",
+      "rent": "Mieten"
+    },
+    "loadErrorTitle": "Anzeigen konnten nicht geladen werden.",
+    "loadErrorText": "Beim Laden der Daten ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+    "tryAgain": "Erneut versuchen",
+    "emptyTitle": "Keine Anzeigen gefunden",
+    "emptyText": "Aktuell sind keine Immobilienangebote verfügbar. Bitte schauen Sie später noch einmal vorbei.",
+    "bottomTitle": "Mehr entdecken",
+    "bottomText": "Nutzen Sie zusätzlich die Kartenansicht, Filter und Detailseiten, um schneller die passende Immobilie zu finden."
+  },
 "allPurposes": "Alle Zwecke",
   "office": "Büro",
  
@@ -251,6 +296,14 @@
   "missingFields": "Please complete all required fields",
   "invalidLocation": "Location could not be found",
 
+  "untitled": "Ohne Titel",
+   "noSimilar": "Keine ähnlichen Immobilien gefunden.",
+  "sameCity": "Gleiche Stadt",
+  "sameType": "Gleicher Typ",
+  "matchScore": "Match-Score: {{score}}",
+  
+  "bedroomsShort": "SZ",
+  "bathroomsShort": "BZ",
   "listingsFound": "{{count}} listings found",
   "editListing": "Edit Listing",
   "category": "Category",

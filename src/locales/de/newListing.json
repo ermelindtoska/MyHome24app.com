@@ -1,14 +1,120 @@
 {
-  "title": "Neue Anzeige erstellen",
-  "imageAlt": "Neue Anzeige erstellen",
-  "description": "Erstellen Sie schnell und einfach Ihre neue Immobilienanzeige. Unser System führt Sie durch alle notwendigen Schritte – von der Eingabe der Objektdetails bis zur Veröffentlichung.",
-  "features": [
-    { "title": "Intuitive Eingabe", "text": "Geführter Prozess für schnelle Veröffentlichung" },
-    { "title": "Bilder hochladen", "text": "Präsentieren Sie Ihr Objekt visuell ansprechend" },
-    { "title": "Reichweite maximieren", "text": "Automatische Sichtbarkeit auf der Plattform" },
-    { "title": "Kostenkontrolle", "text": "Transparente Tarife und einfache Auswahloptionen" }
-  ],
-  "tipTitle": "Tipp:",
-  "tipText": "Bereiten Sie hochwertige Fotos und präzise Beschreibungen vor – das erhöht die Chancen auf Anfragen erheblich.",
-  "button": "Anzeige jetzt erstellen"
+  "badge": "Neues Inserat",
+  "pageTitle": "Immobilie veröffentlichen",
+  "pageDescription": "Fülle die wichtigsten Informationen aus, lade Fotos hoch und veröffentliche dein Inserat professionell auf MyHome24App.",
+  "loginRequired": "Bitte melde dich zuerst an, um Inserate zu erstellen.",
+  "progress": "Fortschritt",
+  "step": "Schritt",
+  "steps": {
+    "info": "Infos",
+    "location": "Standort",
+    "photos": "Fotos",
+    "review": "Prüfen"
+  },
+  "back": "Zurück",
+  "next": "Weiter",
+  "publishNow": "Jetzt veröffentlichen",
+  "publishing": "Wird veröffentlicht…",
+  "purposeOptions": {
+    "buy": "Kaufen",
+    "rent": "Mieten"
+  },
+  "typeOptions": {
+    "apartment": "Wohnung",
+    "house": "Haus",
+    "commercial": "Büro / Gewerbe"
+  },
+  "amenities": {
+    "balcony": "Balkon",
+    "parking": "Parkplatz",
+    "garden": "Garten",
+    "elevator": "Aufzug"
+  },
+  "form": {
+    "infoTitle": "Grundinformationen",
+    "infoSubtitle": "Fülle die wichtigsten Angaben aus. Du kannst später weitere Details ergänzen.",
+    "purposeLabel": "Zweck",
+    "typeLabel": "Typ",
+    "titleLabel": "Titel",
+    "titlePlaceholder": "Helle 3-Zimmer-Wohnung im Zentrum",
+    "descriptionLabel": "Beschreibung",
+    "descriptionPlaceholder": "Beschreibe die Immobilie ausführlich…",
+    "priceLabel": "Preis (€)",
+    "rentPriceLabel": "Miete (€/Monat)",
+    "pricePreview": "Vorschau",
+    "sizeLabel": "Wohnfläche (m²)",
+    "roomsLabel": "Zimmer",
+    "bedroomsLabel": "Schlafzimmer",
+    "bathroomsLabel": "Badezimmer",
+    "yearBuiltLabel": "Baujahr",
+    "amenitiesLabel": "Ausstattung"
+  },
+  "location": {
+    "title": "Standort",
+    "subtitle": "Gib die Adresse deiner Immobilie an und verorte sie auf der Karte.",
+    "addressLabel": "Adresse",
+    "addressPlaceholder": "Straße und Hausnummer",
+    "zipLabel": "PLZ",
+    "cityLabel": "Stadt",
+    "geocodeTitle": "Adresse automatisch verorten",
+    "coordsFound": "Koordinaten gefunden",
+    "coordsEmpty": "Noch keine Koordinaten vorhanden.",
+    "geocodeButton": "Adresse verorten",
+    "geocoding": "Wird verortet…"
+  },
+  "photos": {
+    "title": "Fotos hochladen",
+    "subtitle": "Gute Bilder erhöhen die Sichtbarkeit und verbessern den ersten Eindruck.",
+    "uploadTitle": "Bilder auswählen",
+    "uploadHint": "JPG, PNG, WEBP · maximal 10 Bilder · max. 8 MB pro Datei",
+    "selectFiles": "Dateien auswählen",
+    "previewTitle": "Vorschau",
+    "coverImage": "Titelbild"
+  },
+  "review": {
+    "title": "Alles prüfen",
+    "subtitle": "Kontrolliere alle Angaben, bevor du dein Inserat veröffentlichst.",
+    "purpose": "Zweck",
+    "type": "Typ",
+    "price": "Preis",
+    "size": "Fläche",
+    "rooms": "Zimmer",
+    "bedrooms": "Schlafzimmer",
+    "bathrooms": "Badezimmer",
+    "yearBuilt": "Baujahr",
+    "address": "Adresse",
+    "amenities": "Ausstattung",
+    "photos": "Fotos"
+  },
+  "summary": {
+    "title": "Kurzüberblick",
+    "purpose": "Zweck",
+    "type": "Typ",
+    "price": "Preis",
+    "city": "Stadt",
+    "photos": "Fotos"
+  },
+  "tips": {
+    "title": "Tipps für bessere Inserate",
+    "tip1": "Verwende einen klaren und präzisen Titel.",
+    "tip2": "Beschreibe Lage, Zustand und Highlights der Immobilie.",
+    "tip3": "Lade helle, scharfe Fotos in guter Qualität hoch.",
+    "tip4": "Prüfe Preis, Fläche und Adresse sorgfältig vor dem Veröffentlichen."
+  },
+  "toast": {
+    "noMapboxToken": "Kein Mapbox-Token für Geocoding konfiguriert.",
+    "geocodeServer": "Adresse konnte nicht automatisch verortet werden (Server-Antwort).",
+    "geocodeSuccess": "Adresse erfolgreich verortet.",
+    "geocodeNoResult": "Adresse konnte nicht automatisch verortet werden (kein Ergebnis).",
+    "geocodeNetwork": "Adresse konnte nicht automatisch verortet werden (Netzwerkfehler).",
+    "maxImages": "Maximal {{count}} Bilder erlaubt.",
+    "invalidImageType": "Nur Bilddateien sind erlaubt.",
+    "imageTooLarge": "Ein Bild ist größer als {{max}} MB.",
+    "mustBeLoggedInPhotos": "Du musst angemeldet sein, um Fotos hochzuladen.",
+    "photoUploadFailed": "Ein Foto konnte nicht hochgeladen werden.",
+    "mustBeLoggedIn": "Du musst angemeldet sein.",
+    "fillRequired": "Bitte fülle alle Pflichtfelder aus.",
+    "publishSuccess": "Immobilie erfolgreich veröffentlicht!",
+    "publishError": "Speichern fehlgeschlagen."
+  }
 }

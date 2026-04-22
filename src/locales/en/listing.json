@@ -6,7 +6,57 @@
 "viewListing": "View",
 "noSimilar": "No similar listings found.",
   "map.title": "MyHome24App",
- 
+   "modal": {
+    "badge": "New listing",
+    "title": "Add listing",
+    "subtitle": "Quickly create a new property listing.",
+
+    "fields": {
+      "title": "Title",
+      "city": "City",
+      "price": "Price",
+      "type": "Type",
+      "purpose": "Purpose",
+      "images": "Images"
+    },
+
+    "placeholders": {
+      "title": "e.g. Modern apartment in Berlin",
+      "city": "e.g. Munich",
+      "price": "e.g. 1200"
+    },
+
+    "upload": "Upload images",
+    "cancel": "Cancel",
+
+    "errors": {
+      "titleRequired": "Please enter a title.",
+      "cityRequired": "Please enter a city.",
+      "priceRequired": "Please enter a valid price."
+    }
+  },
+
+
+ "listPage": {
+    "metaTitle": "All property listings – MyHome24App",
+    "metaDescription": "Browse all property listings on MyHome24App – houses, apartments and more across Germany.",
+    "badge": "Property overview",
+    "title": "All property listings",
+    "subtitle": "Browse all currently available properties on MyHome24App. Find suitable houses, apartments and more across Germany.",
+    "refresh": "Reload",
+    "stats": {
+      "total": "Total",
+      "buy": "Buy",
+      "rent": "Rent"
+    },
+    "loadErrorTitle": "Listings could not be loaded.",
+    "loadErrorText": "An error occurred while loading the data. Please try again.",
+    "tryAgain": "Try again",
+    "emptyTitle": "No listings found",
+    "emptyText": "There are currently no property listings available. Please check back later.",
+    "bottomTitle": "Discover more",
+    "bottomText": "Use the map view, filters and detail pages to find the right property faster."
+  },
   "new": "New",
   "verified": "Verified",
   "share": "Share",
@@ -14,7 +64,15 @@
   "baShort": "ba",
   "perMonthShort": "/mo",
   "listingId": "ID",
- 
+  
+  "untitled": "Untitled",
+   
+  "sameCity": "Same city",
+  "sameType": "Same type",
+  "matchScore": "Match score: {{score}}",
+  
+  "bedroomsShort": "bd",
+  "bathroomsShort": "ba",
   "office": "Office",
   "myOffers": {
   "title": "My offers",

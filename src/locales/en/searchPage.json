@@ -1,0 +1,53 @@
+{
+  "metaTitle": "Search properties",
+  "metaDescription": "Search properties for rent or sale by type, city, price and more on MyHome24App.",
+  "badge": "Property search",
+  "title": "Find the right home",
+  "description": "Filter active property listings by purpose, type, city, bedrooms and price to discover the right home faster.",
+  "resultsCount": "{{count}} results",
+  "filters": {
+    "title": "Search filters",
+    "subtitle": "Adjust the search to match your needs and budget.",
+    "purposeLabel": "Purpose",
+    "purposeOptions": {
+      "rent": "Rent",
+      "sale": "Buy",
+      "any": "Any"
+    },
+    "typeLabel": "Property type",
+    "typeOptions": {
+      "any": "Any type",
+      "apartment": "Apartment",
+      "house": "House",
+      "condo": "Condo"
+    },
+    "bedsLabel": "Bedrooms",
+    "bedsOptions": {
+      "any": "Any",
+      "one": "1+",
+      "two": "2+",
+      "three": "3+",
+      "four": "4+"
+    },
+    "cityLabel": "City",
+    "cityPlaceholder": "Enter city",
+    "minPriceLabel": "Minimum price",
+    "minPricePlaceholder": "Min €",
+    "maxPriceLabel": "Maximum price",
+    "maxPricePlaceholder": "Max €",
+    "reset": "Reset"
+  },
+  "states": {
+    "loadingTitle": "Loading properties",
+    "loadingText": "Please wait a moment while matching listings are being loaded.",
+    "errorTitle": "Loading error",
+    "errorText": "The properties could not be loaded.",
+    "emptyTitle": "No matching properties found",
+    "emptyText": "Adjust your search filters to get more results."
+  },
+  "cards": {
+    "untitled": "Untitled",
+    "beds": "bd",
+    "baths": "ba"
+  }
+}

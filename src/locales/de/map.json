@@ -8,7 +8,17 @@
   "sort": "Sortieren",
   "loadingShort": "Lade…",
   "loadError": "Daten konnten nicht geladen werden.",
+   "badge": "Interaktive Karte",
   
+  "mapPlaceholder": "Hier kann später eine interaktive Map oder ein Karten-Preview integriert werden.",
+  "sectionHighlights": {
+    "locationTitle": "Präzise Standorte",
+    "locationText": "Entdecken Sie Immobilien nach Stadt, Region und genauer Lage auf einer interaktiven Karte.",
+    "navigationTitle": "Schnelle Orientierung",
+    "navigationText": "Filtern Sie passende Objekte direkt auf der Karte und behalten Sie den Überblick über alle sichtbaren Angebote.",
+    "propertiesTitle": "Mehr passende Objekte",
+    "propertiesText": "Vergleichen Sie mehrere Immobilien schneller und finden Sie das passende Zuhause in Ihrer Wunschlage."
+  },
   "noResultsText": "Zoomen oder Filter anpassen, um mehr Treffer zu sehen.",
   "openResults": "Ergebnisse",
   "close": "Schließen",

@@ -1,18 +1,24 @@
 {
+  "title": "New-build properties in Germany",
+  "description": "New-builds offer modern architecture, high energy efficiency and long-term planning reliability. Perfect if you are looking for a future-proof property – either as your own home or as an investment.",
   "metaTitle": "New-build properties in Germany | MyHome24App",
   "metaDescription": "Discover modern, energy-efficient new-build homes and apartments in Germany – directly from developers.",
-
-   "imageAlt": "New construction property in Germany",
+  "imageAlt": "New construction property in Germany",
   "hero": {
     "badge": "New-build homes – modern, efficient, future-proof",
     "imgAlt": "Modern new-build home in Germany",
-    
+    "badgeSecondary": "Modern living",
+    "title": "Discover new-build projects with clarity, structure and modern planning",
+    "subtitle": "From energy-efficient apartments to family-friendly homes: discover new-build listings, understand the advantages and plan your next step with greater confidence.",
+    "primaryCta": "View new-build listings",
+    "secondaryCta": "Calculate financing",
+    "tertiaryCta": "Request consultation",
+    "imageAlt": "Modern new-build project",
+    "overlayBadge": "Project overview",
+    "overlayTitle": "Compare new-builds professionally",
+    "overlayText": "Assess location, features, energy efficiency and financing in one place.",
     "headline": "New-build properties in Germany",
     "subline": "Energy-efficient homes & apartments with contemporary architecture and sustainable technology.",
-    "title": "New construction properties in Germany",
-    "subtitle": "Plan your new-build project with MyHome24App – from the first idea to moving in. We bring together market insights, construction know-how and financing tips in one place.",
-    "primaryCta": "View new-build listings",
-    "secondaryCta": "See guidance & process",
     "note": "Get an initial overview in just a few minutes – free and without obligation.",
     "overlay": {
       "badge": "Sample image – not a real listing",
@@ -41,6 +47,24 @@
       }
     ]
   },
+  "secondaryButton": "Learn more",
+  "faq": {
+  "title": "Frequently asked questions about new-builds",
+  "intro": "Here you can find important answers about planning, financing, the construction phase and buying security for new-build properties."
+},
+"checklist": {
+  "title": "Checklist for your new-build project",
+  "subtitle": "Keep track of the most important steps from budget planning and financing to developer selection and final handover.",
+  "ctaPrimary": "View checklist",
+  "ctaSecondary": "Request consultation"
+},
+"contactCta": {
+  "heading": "Questions about your new-build project?",
+  "title": "Questions about your new-build project?",
+  "text": "Are you currently planning a new-build or thinking about your next step? Use our contact form to briefly describe your plans – we’ll help you with orientation.",
+  "button": "Open contact form",
+  "secondaryButton": "Learn more"
+},
   "features": {
     "heading": "Key advantages of new-build homes",
     "lead": "New construction offers modern architecture, energy efficiency and long-term warranties – ideal for buyers who want a low-maintenance and future-proof property.",
@@ -63,8 +87,13 @@
       }
     ]
   },
-
- 
+  "tip": {
+    "title": "Tip: Check KfW funding & subsidies",
+    "heading": "Tip: make use of KfW funding",
+    "note": "Note: This is not financial advice. Please seek individual advice from your bank or an independent financial advisor.",
+    "text": "Many new-build projects are eligible for subsidised loans or grants for energy-efficient buildings. Check early on which programmes might apply to your project.",
+    "button": "Learn more"
+  },
   "reasons": {
     "title": "Why new-build with MyHome24App?",
     "intro": "With new-build properties you invest in modern standards, safe technology and predictable costs. Our platform supports you with selection and orientation.",
@@ -87,8 +116,6 @@
       }
     ]
   },
- 
-  
   "steps": {
     "heading": "How we guide you through the process",
     "title": "Your path to the right new-build project",
@@ -113,21 +140,8 @@
       }
     ]
   },
-  "tip": {
-    "heading": "Tip: make use of KfW funding",
-    "title": "Tip: Check KfW funding & subsidies",
-    "text": "Many new-build projects are eligible for subsidised loans or grants for energy-efficient buildings. Check early on which programmes might apply to your project.",
-    "note": "Note: This is not financial advice. Please seek individual advice from your bank or an independent financial advisor."
-  },
-  "contactCta": {
-    "heading": "Questions about your new-build project?",
-    "title": "Questions about your new-build project?",
-    "text": "Are you currently planning a new-build or thinking about your next step? Use our contact form to briefly describe your plans – we’ll help you with orientation.",
-    "button": "Open contact form"
-  },
-  "title": "New-build properties in Germany",
-  "description": "New-builds offer modern architecture, high energy efficiency and long-term planning reliability. Perfect if you are looking for a future-proof property – either as your own home or as an investment.",
 
+  "button": "Discover now",
   "tipTitle": "Tip: Check KfW funding and subsidies",
   "tipText": "Many new-build projects are eligible for funding. Check KfW loans, repayment bonuses and regional support programmes to optimise your financing.",
   "ready": "Ready for your new-build home?",

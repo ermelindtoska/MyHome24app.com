@@ -1,77 +1,129 @@
-// src/components/EmailActionGate.jsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { applyActionCode } from "firebase/auth";
 import { auth } from "../firebase";
+import { FiCheckCircle, FiAlertCircle, FiLoader } from "react-icons/fi";
 
-export default function EmailActionGate() {
-  const loc = useLocation();
+const EmailActionGate = () => {
+  const location = useLocation();
   const navigate = useNavigate();
 
-  // Shfaqe VETËM në /auth/action
-  if (loc.pathname !== "/auth/action") return null;
+  const isAuthActionPage = location.pathname === "/auth/action";
 
-  const params = new URLSearchParams(loc.search);
+  const params = useMemo(() => new URLSearchParams(location.search), [location.search]);
   const mode = params.get("mode");
   const oobCode = params.get("oobCode");
 
   const [title, setTitle] = useState("Working…");
-  const [msg, setMsg] = useState("");
-  const [state, setState] = useState("loading"); // loading | ok | error
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState("loading"); // loading | success | error
 
   useEffect(() => {
-    async function run() {
+    if (!isAuthActionPage) return;
+
+    let cancelled = false;
+
+    const run = async () => {
       if (!mode || !oobCode) {
-        setState("error");
+        if (cancelled) return;
+        setStatus("error");
         setTitle("Verification failed");
-        setMsg("Missing verification code.");
+        setMessage("Missing verification code.");
         return;
       }
+
       try {
         if (mode === "verifyEmail") {
           await applyActionCode(auth, oobCode);
-          setState("ok");
+
+          if (cancelled) return;
+          setStatus("success");
           setTitle("E-mail verified");
-          setMsg("You may sign in now.");
+          setMessage("Your e-mail address was verified successfully. You can sign in now.");
         } else {
-          setState("error");
+          if (cancelled) return;
+          setStatus("error");
           setTitle("Unsupported action");
-          setMsg(`Unknown mode: ${mode}`);
+          setMessage(`Unknown action: ${mode}`);
         }
-      } catch (e) {
-        setState("error");
+      } catch (error) {
+        if (cancelled) return;
+        setStatus("error");
         setTitle("Verification failed");
-        setMsg(e?.message || "Could not verify this link.");
+        setMessage(error?.message || "This link could not be verified.");
       }
-    }
+    };
+
     run();
-  }, [mode, oobCode]);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isAuthActionPage, mode, oobCode]);
+
+  if (!isAuthActionPage) return null;
 
   const goHome = () => navigate("/", { replace: true });
   const goLogin = () => navigate("/login", { replace: true });
 
+  const icon =
+    status === "loading" ? (
+      <FiLoader className="h-5 w-5 animate-spin text-blue-400" />
+    ) : status === "success" ? (
+      <FiCheckCircle className="h-5 w-5 text-emerald-400" />
+    ) : (
+      <FiAlertCircle className="h-5 w-5 text-red-400" />
+    );
+
+  const accentClass =
+    status === "loading"
+      ? "border-blue-500/30"
+      : status === "success"
+      ? "border-emerald-500/30"
+      : "border-red-500/30";
+
   return (
-    <div className="fixed inset-x-0 top-6 z-[9999] flex justify-center pointer-events-none">
-      <div className="pointer-events-auto w-[380px] rounded-lg bg-slate-900/90 text-white shadow-lg ring-1 ring-black/10 p-4">
-        <div className="font-semibold mb-1">{title}</div>
-        {msg && <div className="text-sm opacity-90 mb-3">{msg}</div>}
-        <div className="flex gap-2">
-          <button
-            onClick={goHome}
-            className="px-3 py-1 rounded bg-blue-600 hover:bg-blue-700"
-          >
-            Back to Home
-          </button>
-          {state === "ok" && (
+    <div className="fixed inset-x-0 top-4 z-[9999] flex justify-center px-4 pointer-events-none">
+      <div
+        className={`pointer-events-auto w-full max-w-md rounded-2xl border ${accentClass} bg-slate-950/95 text-white shadow-2xl backdrop-blur-xl`}
+      >
+        <div className="p-4 sm:p-5">
+          <div className="flex items-start gap-3">
+            <div className="mt-0.5 flex h-10 w-10 items-center justify-center rounded-full bg-white/5">
+              {icon}
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <h2 className="text-base font-semibold">{title}</h2>
+              {message ? (
+                <p className="mt-1 text-sm text-slate-300 leading-6">{message}</p>
+              ) : null}
+            </div>
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-2">
             <button
-              onClick={goLogin}
-              className="px-3 py-1 rounded bg-green-600 hover:bg-green-700"
+              type="button"
+              onClick={goHome}
+              className="rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
             >
-              Sign in
+              Back to Home
             </button>
-          )}
+
+            {status === "success" && (
+              <button
+                type="button"
+                onClick={goLogin}
+                className="rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700"
+              >
+                Sign in
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default EmailActionGate;

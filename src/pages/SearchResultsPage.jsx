@@ -1,10 +1,20 @@
-// src/pages/SearchResultsPage.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import ListingCard from "../components/ListingCard";
 import { useTranslation } from "react-i18next";
+import SiteMeta from "../components/SEO/SiteMeta";
+import {
+  FaSearch,
+  FaEuroSign,
+  FaBed,
+  FaBath,
+  FaHome,
+  FaSortAmountDown,
+  FaUndo,
+  FaMapMarkedAlt,
+} from "react-icons/fa";
 
 function useQuery() {
   const { search } = useLocation();
@@ -12,11 +22,10 @@ function useQuery() {
 }
 
 export default function SearchResultsPage() {
-  const { t } = useTranslation("search");
+  const { t, i18n } = useTranslation("search");
   const navigate = useNavigate();
   const qs = useQuery();
 
-  // 1) URL → state
   const [query, setQuery] = useState(qs.get("query") || "");
   const [minPrice, setMinPrice] = useState(qs.get("minPrice") || "");
   const [maxPrice, setMaxPrice] = useState(qs.get("maxPrice") || "");
@@ -25,15 +34,15 @@ export default function SearchResultsPage() {
   const [type, setType] = useState(qs.get("type") || "");
   const [sort, setSort] = useState(qs.get("sort") || "newest");
 
-  // 2) data
   const [all, setAll] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 3) pagination
   const [page, setPage] = useState(Number(qs.get("page") || 1));
   const perPage = 12;
 
-  // Sync state -> URL (pa eslint-disable)
+  const lang = i18n.language?.slice(0, 2) || "de";
+  const canonical = `${window.location.origin}/search`;
+
   useEffect(() => {
     const params = new URLSearchParams();
 
@@ -49,9 +58,9 @@ export default function SearchResultsPage() {
     navigate({ pathname: "/search", search: params.toString() }, { replace: true });
   }, [query, minPrice, maxPrice, beds, baths, type, sort, page, navigate]);
 
-  // Fetch listings (client-side filter)
   useEffect(() => {
     let isMounted = true;
+
     (async () => {
       setLoading(true);
       try {
@@ -65,12 +74,12 @@ export default function SearchResultsPage() {
         if (isMounted) setLoading(false);
       }
     })();
+
     return () => {
       isMounted = false;
     };
   }, []);
 
-  // 4) filtrimi
   const filtered = useMemo(() => {
     const q = (query || "").toLowerCase();
 
@@ -78,13 +87,15 @@ export default function SearchResultsPage() {
     const MPrice = Number(maxPrice) || null;
     const minB = Number(beds) || null;
     const minBa = Number(baths) || null;
-    const t = (type || "").toLowerCase();
+    const tt = (type || "").toLowerCase();
 
     let items = all.filter((l) => {
-      // përshtat emrat e fushave nëse i ke ndryshe
       const title = (l.title || "").toLowerCase();
       const city = (l.city || "").toLowerCase();
-      const address = (l.address || "").toLowerCase();
+      const address =
+        typeof l.address === "string"
+          ? l.address.toLowerCase()
+          : (l.address?.street || "").toLowerCase();
       const zip = (l.zipCode || "").toLowerCase();
 
       const matchesQ =
@@ -96,16 +107,15 @@ export default function SearchResultsPage() {
 
       const bedsOk = minB == null || (l.bedrooms ?? l.beds ?? 0) >= minB;
       const bathsOk = minBa == null || (l.bathrooms ?? l.baths ?? 0) >= minBa;
-      const typeOk = !t || (l.type || "").toLowerCase() === t;
+      const typeOk = !tt || (l.type || "").toLowerCase() === tt;
 
       return matchesQ && priceOk && bedsOk && bathsOk && typeOk;
     });
 
-    // 5) renditja
     items.sort((a, b) => {
       if (sort === "price_asc") return (a.price ?? 0) - (b.price ?? 0);
       if (sort === "price_desc") return (b.price ?? 0) - (a.price ?? 0);
-      // newest by createdAt
+
       const aT = a.createdAt?.toMillis ? a.createdAt.toMillis() : Date.parse(a.createdAt || 0);
       const bT = b.createdAt?.toMillis ? b.createdAt.toMillis() : Date.parse(b.createdAt || 0);
       return (bT || 0) - (aT || 0);
@@ -114,7 +124,6 @@ export default function SearchResultsPage() {
     return items;
   }, [all, query, minPrice, maxPrice, beds, baths, type, sort]);
 
-  // 6) pagination
   const totalPages = Math.max(1, Math.ceil(filtered.length / perPage));
   const currentPage = Math.min(page, totalPages);
   const start = (currentPage - 1) * perPage;
@@ -123,176 +132,304 @@ export default function SearchResultsPage() {
   const goPrev = () => setPage((p) => Math.max(1, p - 1));
   const goNext = () => setPage((p) => Math.min(totalPages, p + 1));
 
-  // 7) UI e filtrave
-  const FilterBar = (
-    <div className="mb-6 grid grid-cols-1 md:grid-cols-6 gap-3">
-      <input
-        className="border rounded px-3 py-2"
-        placeholder="Search city / address"
-        value={query}
-        onChange={(e) => {
-          setPage(1);
-          setQuery(e.target.value);
-        }}
-      />
-      <input
-        className="border rounded px-3 py-2"
-        type="number"
-        min="0"
-        placeholder="Min €"
-        value={minPrice}
-        onChange={(e) => {
-          setPage(1);
-          setMinPrice(e.target.value);
-        }}
-      />
-      <input
-        className="border rounded px-3 py-2"
-        type="number"
-        min="0"
-        placeholder="Max €"
-        value={maxPrice}
-        onChange={(e) => {
-          setPage(1);
-          setMaxPrice(e.target.value);
-        }}
-      />
-      <select
-        className="border rounded px-3 py-2"
-        value={beds}
-        onChange={(e) => {
-          setPage(1);
-          setBeds(e.target.value);
-        }}
-      >
-        <option value="">Beds</option>
-        <option value="1">1+</option>
-        <option value="2">2+</option>
-        <option value="3">3+</option>
-        <option value="4">4+</option>
-      </select>
-      <select
-        className="border rounded px-3 py-2"
-        value={baths}
-        onChange={(e) => {
-          setPage(1);
-          setBaths(e.target.value);
-        }}
-      >
-        <option value="">Baths</option>
-        <option value="1">1+</option>
-        <option value="2">2+</option>
-        <option value="3">3+</option>
-      </select>
-      <select
-        className="border rounded px-3 py-2"
-        value={type}
-        onChange={(e) => {
-          setPage(1);
-          setType(e.target.value);
-        }}
-      >
-        <option value="">Type</option>
-        <option value="apartment">Apartment</option>
-        <option value="house">House</option>
-        <option value="commercial">Commercial</option>
-      </select>
-
-      <div className="md:col-span-6 flex gap-3">
-        <select
-          className="border rounded px-3 py-2"
-          value={sort}
-          onChange={(e) => setSort(e.target.value)}
-        >
-          <option value="newest">Newest</option>
-          <option value="price_asc">Price ↑</option>
-          <option value="price_desc">Price ↓</option>
-        </select>
-        <button
-          onClick={() => {
-            setQuery("");
-            setMinPrice("");
-            setMaxPrice("");
-            setBeds("");
-            setBaths("");
-            setType("");
-            setSort("newest");
-            setPage(1);
-          }}
-          className="border px-3 py-2 rounded"
-        >
-          Clear
-        </button>
-      </div>
-    </div>
-  );
+  const handleClear = () => {
+    setQuery("");
+    setMinPrice("");
+    setMaxPrice("");
+    setBeds("");
+    setBaths("");
+    setType("");
+    setSort("newest");
+    setPage(1);
+  };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 px-4 py-24 relative">
-      {/* Mobile Map button */}
+    <div className="min-h-screen bg-slate-50 px-4 py-24 text-slate-900 dark:bg-slate-950 dark:text-slate-50 relative">
+      <SiteMeta
+        title={t("metaTitle")}
+        description={t("metaDescription")}
+        canonical={canonical}
+        lang={lang}
+      />
+
       <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden">
         <button
           onClick={() => navigate("/map")}
-          className="w-full bg-blue-600 text-white font-semibold py-3 rounded-full shadow-lg hover:bg-blue-700 transition"
+          className="w-full rounded-full bg-blue-600 py-3 font-semibold text-white shadow-lg transition hover:bg-blue-700"
         >
           {t("mapSearch", { ns: "navbar", defaultValue: "Map" })}
         </button>
       </div>
 
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl font-bold mb-2 text-gray-900 dark:text-white">
-          {t("resultsFor", { defaultValue: "Results for" })} "
-          {query || qs.get("query") || ""}"
-        </h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-          {filtered.length} results • page {currentPage}/{totalPages}
-        </p>
+      <div className="mx-auto max-w-7xl">
+        <section className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
+          <div className="bg-gradient-to-r from-blue-600/10 via-transparent to-emerald-500/10 p-6 md:p-8">
+            <div className="max-w-4xl">
+              <div className="inline-flex items-center rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-700 dark:text-blue-300">
+                <FaSearch className="mr-2 text-[10px]" />
+                {t("badge", { defaultValue: "Immobiliensuche" })}
+              </div>
 
-        {FilterBar}
+              <h1 className="mt-4 text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+                {t("resultsFor", { defaultValue: "Suchergebnisse für" })}{" "}
+                <span className="text-blue-600 dark:text-blue-400">
+                  "{query || qs.get("query") || t("searchResults")}"
+                </span>
+              </h1>
 
-        {loading ? (
-          <p className="text-gray-500 dark:text-gray-400 text-lg">
-            {t("loading") || "Loading"}…
-          </p>
-        ) : filtered.length === 0 ? (
-          <p className="text-gray-500 dark:text-gray-400 text-lg">
-            {t("noResults") || "No results"}
-          </p>
-        ) : (
-          <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {pageItems.map((listing) => (
-                <ListingCard key={listing.id} listing={listing} />
-              ))}
+              <p className="mt-3 text-sm md:text-base text-slate-600 dark:text-slate-300 max-w-3xl">
+                {t("description", {
+                  defaultValue:
+                    "Filtern Sie aktive Immobilienanzeigen nach Preis, Typ, Zimmeranzahl und weiteren Kriterien."
+                })}
+              </p>
+
+              <div className="mt-5 inline-flex items-center rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-950/50 dark:text-slate-200">
+                {t("resultsFound", { count: filtered.length, defaultValue: `${filtered.length} Einträge gefunden` })} • {t("pageInfo", {
+                  current: currentPage,
+                  total: totalPages,
+                  defaultValue: `Seite ${currentPage} von ${totalPages}`
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-8 rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 md:p-6">
+          <div className="mb-5">
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-50">
+              {t("filters.title", { defaultValue: "Suchfilter" })}
+            </h2>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              {t("filters.subtitle", { defaultValue: "Passen Sie die Suche an Ihre Wünsche an." })}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-4">
+            <FilterField icon={<FaSearch />} label={t("searchTitle", { defaultValue: "Suche" })}>
+              <input
+                className="input-search-results"
+                placeholder={t("searchPlaceholder", { defaultValue: "Stadt, Postleitzahl, Adresse oder Bundesland" })}
+                value={query}
+                onChange={(e) => {
+                  setPage(1);
+                  setQuery(e.target.value);
+                }}
+              />
+            </FilterField>
+
+            <FilterField icon={<FaEuroSign />} label={t("filters.minPriceLabel", { defaultValue: "Mindestpreis" })}>
+              <input
+                className="input-search-results"
+                type="number"
+                min="0"
+                placeholder={t("filters.minPricePlaceholder", { defaultValue: "Min €" })}
+                value={minPrice}
+                onChange={(e) => {
+                  setPage(1);
+                  setMinPrice(e.target.value);
+                }}
+              />
+            </FilterField>
+
+            <FilterField icon={<FaEuroSign />} label={t("filters.maxPriceLabel", { defaultValue: "Höchstpreis" })}>
+              <input
+                className="input-search-results"
+                type="number"
+                min="0"
+                placeholder={t("filters.maxPricePlaceholder", { defaultValue: "Max €" })}
+                value={maxPrice}
+                onChange={(e) => {
+                  setPage(1);
+                  setMaxPrice(e.target.value);
+                }}
+              />
+            </FilterField>
+
+            <FilterField icon={<FaBed />} label={t("bedrooms", { defaultValue: "Schlafzimmer" })}>
+              <select
+                className="input-search-results"
+                value={beds}
+                onChange={(e) => {
+                  setPage(1);
+                  setBeds(e.target.value);
+                }}
+              >
+                <option value="">{t("filters.bedsOptions.any", { defaultValue: "Beliebig" })}</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
+              </select>
+            </FilterField>
+
+            <FilterField icon={<FaBath />} label={t("cards.baths", { defaultValue: "Bäder" })}>
+              <select
+                className="input-search-results"
+                value={baths}
+                onChange={(e) => {
+                  setPage(1);
+                  setBaths(e.target.value);
+                }}
+              >
+                <option value="">{t("filters.bedsOptions.any", { defaultValue: "Beliebig" })}</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+              </select>
+            </FilterField>
+
+            <FilterField icon={<FaHome />} label={t("type", { defaultValue: "Immobilientyp" })}>
+              <select
+                className="input-search-results"
+                value={type}
+                onChange={(e) => {
+                  setPage(1);
+                  setType(e.target.value);
+                }}
+              >
+                <option value="">{t("filters.typeOptions.any", { defaultValue: "Alle Typen" })}</option>
+                <option value="apartment">{t("apartment", { defaultValue: "Wohnung" })}</option>
+                <option value="house">{t("house", { defaultValue: "Haus" })}</option>
+                <option value="commercial">Commercial</option>
+              </select>
+            </FilterField>
+          </div>
+
+          <div className="mt-5 flex flex-wrap gap-3">
+            <div className="min-w-[220px]">
+              <label className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300">
+                <span className="text-slate-400 dark:text-slate-500">
+                  <FaSortAmountDown />
+                </span>
+                {t("sortBy", { defaultValue: "Sortieren nach" })}
+              </label>
+              <select
+                className="input-search-results"
+                value={sort}
+                onChange={(e) => setSort(e.target.value)}
+              >
+                <option value="newest">{t("sortNewest", { defaultValue: "Neueste zuerst" })}</option>
+                <option value="price_asc">{t("sortPriceLowHigh", { defaultValue: "Preis: aufsteigend" })}</option>
+                <option value="price_desc">{t("sortPriceHighLow", { defaultValue: "Preis: absteigend" })}</option>
+              </select>
             </div>
 
-            {totalPages > 1 && (
-              <div className="mt-10 flex justify-center items-center gap-4">
-                <button
-                  onClick={goPrev}
-                  disabled={currentPage === 1}
-                  className="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50"
-                >
-                  {t("previous") || "Previous"}
-                </button>
+            <div className="flex items-end">
+              <button
+                onClick={handleClear}
+                className="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-950/40 dark:text-slate-100 dark:hover:bg-slate-900"
+              >
+                <FaUndo className="mr-2" />
+                {t("resetFilters", { defaultValue: "Filter zurücksetzen" })}
+              </button>
+            </div>
 
-                <span className="text-gray-700 dark:text-gray-300">
-                  {t("pageInfo", { current: currentPage, total: totalPages }) ||
-                    `Page ${currentPage} of ${totalPages}`}
-                </span>
+            <div className="flex items-end md:ml-auto">
+              <button
+                onClick={() => navigate("/map")}
+                className="inline-flex items-center justify-center rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
+              >
+                <FaMapMarkedAlt className="mr-2" />
+                {t("visibleOnMap", { defaultValue: "Sichtbar auf der Karte" })}
+              </button>
+            </div>
+          </div>
+        </section>
 
-                <button
-                  onClick={goNext}
-                  disabled={currentPage === totalPages}
-                  className="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50"
-                >
-                  {t("next") || "Next"}
-                </button>
+        <section className="mt-8">
+          {loading ? (
+            <StateBox
+              title={t("states.loadingTitle", { defaultValue: "Immobilien werden geladen" })}
+              text={t("states.loadingText", { defaultValue: "Bitte warten Sie einen Moment, während passende Immobilien geladen werden." })}
+            />
+          ) : filtered.length === 0 ? (
+            <StateBox
+              title={t("states.emptyTitle", { defaultValue: "Keine passenden Immobilien gefunden" })}
+              text={t("states.emptyText", { defaultValue: "Passen Sie Ihre Suchfilter an, um weitere Treffer zu erhalten." })}
+            />
+          ) : (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {pageItems.map((listing) => (
+                  <ListingCard key={listing.id} listing={listing} />
+                ))}
               </div>
-            )}
-          </>
-        )}
+
+              {totalPages > 1 && (
+                <div className="mt-10 flex flex-wrap justify-center items-center gap-4">
+                  <button
+                    onClick={goPrev}
+                    disabled={currentPage === 1}
+                    className="rounded-full bg-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-800 transition hover:bg-slate-300 disabled:opacity-50 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600"
+                  >
+                    {t("previous", { defaultValue: "Zurück" })}
+                  </button>
+
+                  <span className="text-sm text-slate-600 dark:text-slate-300">
+                    {t("pageInfo", {
+                      current: currentPage,
+                      total: totalPages,
+                      defaultValue: `Seite ${currentPage} von ${totalPages}`,
+                    })}
+                  </span>
+
+                  <button
+                    onClick={goNext}
+                    disabled={currentPage === totalPages}
+                    className="rounded-full bg-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-800 transition hover:bg-slate-300 disabled:opacity-50 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600"
+                  >
+                    {t("next", { defaultValue: "Weiter" })}
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </section>
       </div>
+
+      <style>{`
+        .input-search-results {
+          width: 100%;
+          padding: 0.9rem 1rem;
+          border-radius: 1rem;
+          border: 1px solid rgb(203 213 225);
+          background: white;
+          color: rgb(15 23 42);
+          outline: none;
+          transition: all 0.2s ease;
+        }
+        .input-search-results:focus {
+          border-color: rgb(59 130 246);
+          box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+        }
+        .dark .input-search-results {
+          background: rgb(30 41 59);
+          border-color: rgb(71 85 105);
+          color: rgb(248 250 252);
+        }
+      `}</style>
+    </div>
+  );
+}
+
+function FilterField({ label, children, icon }) {
+  return (
+    <div>
+      <label className="mb-2 flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300">
+        <span className="text-slate-400 dark:text-slate-500">{icon}</span>
+        {label}
+      </label>
+      {children}
+    </div>
+  );
+}
+
+function StateBox({ title, text }) {
+  return (
+    <div className="rounded-[28px] border border-slate-200 bg-white p-8 text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300">
+      <h3 className="text-lg font-semibold">{title}</h3>
+      <p className="mt-2 text-sm leading-relaxed">{text}</p>
     </div>
   );
 }

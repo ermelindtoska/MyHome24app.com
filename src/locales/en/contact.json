@@ -2,7 +2,156 @@
   
     
     "object": "Property",
+     "chat": {
+    "title": "Contact seller",
+    "subtitle": "Direct communication about the property.",
+    "loading": "Loading chat …",
+    "loginHint": "Please sign in to use the chat.",
+    "empty": "No messages yet. Ask your first question about the property.",
+    "placeholder": "Write a message …",
+    "send": "Send",
+    "sending": "Sending…"
+  },
+      "badge": "Contact form",
+  "placeholders": {
+    "name": "Your name",
+    "phone": "+49 ...",
+    "message": "Your message …"
+  },
+  
     "description": "This could be contact information or a form.",
+    "inbox": {
+    "badge": "Owner inbox",
+    "title": "Contact requests for your properties",
+    "subtitle": "Here you can see all messages from interested users regarding your published property listings.",
+    "loginRequired": "Please sign in to view your contact requests.",
+    "loading": "Loading contact requests…",
+    "emptyTitle": "No contact requests yet",
+    "empty": "There are currently no contact requests. As soon as interested users contact you, they will appear here.",
+    "noTitle": "Untitled",
+    "noDate": "Unknown date",
+     "contactBadge": "Direct contact",
+  "advisorTitle": "Contact person",
+  "ownerAvailable": "Owner available",
+  "loginHint": "Please sign in to use the live chat.",
+  "privacyHint": "Your inquiry will be sent directly in relation to this listing.",
+  "chatTitle": "Direct chat about this listing",
+  "chatLive": "Active",
+  "benefits": {
+    "directMessageTitle": "Direct message",
+    "directMessageText": "Write directly about the property and receive a faster response.",
+    "visitTitle": "Request a viewing",
+    "visitText": "Clarify open questions and arrange a visit if needed.",
+    "fastResponseTitle": "Fast communication",
+    "fastResponseText": "Use the form or chat to discuss details efficiently."
+  },
+    "unknownSender": "Unknown interested party",
+    "listingLabel": "Property",
+    "senderTitle": "Interested user",
+    "messageTitle": "Message",
+    "actionsTitle": "Actions",
+    "actionsText": "You can reply directly to this request via email.",
+    "replyButton": "Reply by email",
+    "replyUnavailable": "Reply unavailable",
+    "replySubject": "Reply to your inquiry: {{title}}",
+    "noEmail": "No email provided",
+    "noPhone": "No phone number provided",
+    "noMessage": "No message available.",
+    "stats": {
+      "total": "Total",
+      "email": "With email",
+      "phone": "With phone"
+    }
+  },
+    "meta": {
+    "title": "Contact – MyHome24App",
+    "description": "Contact us for support, partnerships or feedback."
+  },
+  "hero": {
+    "badge": "Support & Contact",
+     "nav": {
+    "back": "Back",
+    "breadcrumb": "MyHome24App · Contact"
+  },
+  "hero": {
+    "badge": "Secure & fast",
+    "agentBadge": "Contact an agent"
+  },
+  "privacy": {
+    "note": "By submitting, you agree that we process your details to handle your request."
+  },
+
+  "default": {
+    "title": "Contact",
+    "intro": "Message us — we’re happy to help. For faster replies, please include as many details as possible.",
+    "metaTitle": "Contact – MyHome24App",
+    "boxTitle": "How to reach us",
+    "boxText": "We respond to questions about listings, technical issues, feedback, and partnerships.",
+    "boxHint": "Tip: If it’s about a specific listing, include the city, price range, and the link (if available)."
+  },
+
+  "agent": {
+    "title": "Contact an agent",
+    "intro": "Send a message directly to an agent. The more details you share, the faster you’ll receive a helpful response.",
+    "metaTitle": "Contact an agent – MyHome24App",
+    "targetBoxTitle": "Your message goes to",
+    "loading": "Loading agent…",
+    "notFound": "We couldn’t find this agent. Please check the link or choose another agent.",
+    "hint": "Note: Your message will be forwarded to the agent’s saved contact email.",
+    "defaultSubject": "Request for property advice",
+    "verifiedHint": "Profile",
+    "replyTime": "Usually replies within 24–48h."
+  },
+
+  "form": {
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@example.com",
+    "phoneLabel": "Phone (optional)",
+    "phonePlaceholder": "+1 …",
+    "subjectLabel": "Subject",
+    "subjectPlaceholder": "What is this about?",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Briefly describe how we can help…",
+    "requiredHint": "Required: name, email, message",
+
+    "submit": "Send message",
+    "sending": "Sending…",
+
+    "successTitle": "Sent successfully",
+    "successDefault": "Thanks! We’ll get back to you as soon as possible.",
+    "successAgent": "Thanks! Your message has been sent to the agent.",
+
+    "errorTitle": "Error",
+    "validationError": "Please fill out name, email, and message.",
+    "invalidEmail": "Please enter a valid email address.",
+    "errorDescription": "Something went wrong. Please try again later."
+  },
+    "title": "We’re here to help.",
+    "subtitle": "Write to us about listings, account, partnerships or feedback. We usually reply within 1–2 business days.",
+    "note": "Please do not send sensitive data (e.g. ID numbers) via this form."
+  },
+  "info": {
+    "emailTitle": "Email",
+    "emailValue": "kontakt@myhome24app.com",
+    "phoneTitle": "Phone",
+    "phoneValue": "+49 (0) 000 000000",
+    "hoursTitle": "Hours",
+    "hoursValue": "Mon–Fri · 09:00–17:00"
+  },
+  
+  "status": {
+    "success": "Thanks! Your message has been sent.",
+    "error": "Oops! Something went wrong. Please try again.",
+    "errorNetwork": "Network error. Please check your connection and try again."
+  },
+  "bottom": {
+    "title": "Need faster help?",
+    "text": "Check our help pages or start a listing search.",
+    "help": "Help",
+    "search": "Go to search"
+  },
     "close": "Close",
     "default": {
     "title": "Contact MyHome24App",
@@ -31,7 +180,25 @@
     "messageLabel": "Your message",
     "submit": "Send message",
     "sending": "Sending…",
-
+"title": "Send a message",
+    "subtitle": "Fill out the form — we’ll get back to you as soon as possible.",
+   
+    "namePlaceholder": "Your name",
+   
+    "emailPlaceholder": "name@email.com",
+    "topicLabel": "Topic",
+ 
+    "messagePlaceholder": "Briefly describe your request…",
+    "send": "Send",
+   
+    "privacyNote": "By sending, you agree to the processing of your data according to our privacy policy.",
+    "topics": [
+      { "value": "general", "label": "General" },
+      { "value": "listing", "label": "Listing / Ad" },
+      { "value": "account", "label": "Account / Login" },
+      { "value": "partner-finance", "label": "Partner (Mortgage)" },
+      { "value": "business", "label": "Business / Ads" }
+    ],
     "errorTitle": "An error occurred",
     "validationError": "Please fill in all required fields (name, email and message).",
     "errorDescription": "Your message could not be sent. Please try again later.",
@@ -94,13 +261,7 @@
     "hintTitle": "Note",
     "hintText": "Please do not send sensitive data (e.g. bank or ID details) via this form."
   },
-   "chat": {
-    "loginHint": "Please sign in to use the chat with the owner.",
-    "title": "Message to the seller",
-    "placeholder": "Write a message…",
-    "send": "Send",
-    "empty": "No messages yet. Ask your first question about this property."
-  },
+  
 
   "topics": {
     "general": {
@@ -138,7 +299,22 @@
     "email": "Email",
     "message": "Message",
     "send": "Send message",
+    "subtitle": "Use the form to ask questions or request a viewing.",
+    "sending": "Sending…",
+    "placeholders": {
+      "name": "Your name",
+      "message": "Your message …",
     "successMessage": "Thank you! Your message has been sent."
+  },
+   
+    "errors": {
+      "nameRequired": "Please enter your name.",
+      "emailRequired": "Please enter your email address.",
+      "emailInvalid": "Please enter a valid email address.",
+      "messageRequired": "Please write a message.",
+      "missingListingData": "The listing contact data is missing.",
+      "submitFailed": "The message could not be sent. Please try again later."
+    }
   },
 
   "title": "Contact seller",

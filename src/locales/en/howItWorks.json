@@ -1,9 +1,88 @@
 {
+  "metaTitle": "How MyHome24App works – find properties easily",
+  "metaDescription": "Learn step by step how MyHome24App helps you search, compare, and contact people for properties across Germany.",
+
+  "badge": "Easy to understand",
   "title": "How does MyHome24App work?",
+  "intro": "From the first search to getting in touch: discover how MyHome24App helps you find, compare, and evaluate properties in Germany more efficiently.",
+
+  "ctaPrimary": "Get started",
+  "ctaSecondary": "Ask questions",
+
+  "heroStats": [
+    {
+      "title": "Search",
+      "text": "Filter by city, price, and property type."
+    },
+    {
+      "title": "Compare",
+      "text": "Save favorites and review listings side by side."
+    },
+    {
+      "title": "Contact",
+      "text": "Get in touch directly with owners or agents."
+    }
+  ],
+
+  "quickOverviewTitle": "Quick overview",
+  "quickOverview": [
+    {
+      "title": "Discover properties",
+      "text": "Buy or rent with a modern map view and smart search."
+    },
+    {
+      "title": "Save favorites",
+      "text": "Keep interesting listings for later."
+    },
+    {
+      "title": "Find agents",
+      "text": "Discover the right contacts for your region."
+    },
+    {
+      "title": "More transparency",
+      "text": "Compare prices, sizes, and important details at a glance."
+    }
+  ],
+
+  "stepsTitle": "Step by step",
+  "stepsIntro": "This is how the platform is typically used — simple, clear, and designed for a modern real estate search experience.",
+  "stepLabel": "Step",
+
   "steps": [
-    "🔍 Browse properties by city, zip code, or category.",
-    "⭐ Save favorites and manage everything in your dashboard.",
-    "📩 Contact owners or agents directly through the system.",
-    "📝 Publish your listing in just a few minutes."
-  ]
+    {
+      "title": "Browse properties by city, ZIP code, or category",
+      "text": "Use search, filters, and the map view to find matching properties in your preferred area more quickly."
+    },
+    {
+      "title": "Save favorites and stay organized",
+      "text": "Keep interesting listings, compare offers, and manage your selection in one place."
+    },
+    {
+      "title": "Contact owners or agents directly",
+      "text": "Send quick inquiries through the platform and ask specific questions about location, price, or features."
+    },
+    {
+      "title": "Publish your listing in just a few steps",
+      "text": "Owners and agents can create their own listings and present their properties visibly on the platform."
+    }
+  ],
+
+  "benefitsTitle": "Why this is helpful",
+  "benefits": [
+    "You save time with a clearly structured search experience.",
+    "You can compare listings, prices, and sizes much faster.",
+    "You can filter more precisely by region, type, and purpose.",
+    "You get a simpler way to contact owners or agents."
+  ],
+
+  "tipTitle": "Tip",
+  "tipText": "Start with the map view and save promising listings to your favorites. This makes it much easier to stay organized, especially when there are many results.",
+  "tipHint": "Especially helpful when searching in larger cities or across several neighborhoods.",
+
+  "bottomCta": {
+    "title": "Ready to start your property search?",
+    "text": "Start now with buying, renting, or finding the right agents on MyHome24App.",
+    "buy": "Buy properties",
+    "rent": "Rent properties"
+  }
 }

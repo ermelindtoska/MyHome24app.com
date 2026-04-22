@@ -1,0 +1,22 @@
+{
+  "badge": "Account",
+  "titleProcessing": "Verifying…",
+  "titleOk": "Email verified",
+  "titleFailed": "Invalid link",
+  "processing": "Please wait a moment. We’re verifying your request…",
+  "ok": "Your email has been verified successfully. Redirecting you to login…",
+  "okHint": "If the redirect doesn’t work, use the button below.",
+  "failed": "Email verification failed or the link has expired.",
+  "failedHint": "Please try again from the login page or request a new verification link.",
+  "debugMode": "Action: {{mode}}",
+  "actions": {
+    "goLogin": "Go to login",
+    "goRegister": "Create account"
+  },
+  "metaTitleProcessing": "Verifying… – MyHome24App",
+  "metaTitleOk": "Email verified – MyHome24App",
+  "metaTitleFailed": "Invalid link – MyHome24App",
+  "metaDescriptionProcessing": "We are verifying your email. Please wait.",
+  "metaDescriptionOk": "Your email was verified successfully. You’ll be redirected to login shortly.",
+  "metaDescriptionFailed": "The verification link is invalid or expired. Please request a new link."
+}

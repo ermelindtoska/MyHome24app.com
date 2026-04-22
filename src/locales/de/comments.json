@@ -5,6 +5,8 @@
     "rating": "Bewertung (1–5)",
     "submit": "Absenden",
       "title": "Kommentare",
+  
+  "empty": "Noch keine Kommentare vorhanden.",
   "addComment": "Kommentar hinzufügen",
   "placeholder": "Schreibe deinen Kommentar...",
   "noComments": "Noch keine Kommentare vorhanden.",

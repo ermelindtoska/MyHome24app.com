@@ -1,10 +1,13 @@
 {
+  "metaTitle": "Einstellungen – MyHome24App",
+  "metaDescription": "Verwalten Sie Ihr Profil, Ihre Kontaktdaten und grundlegende Kontoeinstellungen auf MyHome24App.",
+  "badge": "Kontoeinstellungen",
   "title": "Einstellungen",
+  "description": "Verwalten Sie Ihre persönlichen Angaben, Ihr Profilbild und Ihre grundlegenden Kontoeinstellungen.",
   "language": "Sprache",
   "notifications": "Benachrichtigungen",
   "privacy": "Datenschutz",
   "account": "Kontoeinstellungen",
-    
   "name": "Name",
   "email": "E-Mail",
   "phone": "Telefonnummer",
@@ -18,46 +21,16 @@
   "loginRequired": "Bitte melden Sie sich an, um auf die Einstellungen zuzugreifen.",
   "save": "Speichern",
   "changePassword": "Passwort ändern",
-      "settings": {
-        "title": "Einstellungen",
-        "language": "Sprache",
-        "theme": "Design",
-        "notifications": "Benachrichtigungen",
-        "account": {
-            "profile": "Profil bearbeiten",
-            "privacy": "Datenschutz",
-            "logout": "Abmelden",
-              "title": "Einstellungen",
-  "language": "Sprache",
-  "selectLanguage": "Sprache auswählen",
-  "theme": "Design",
-  "lightMode": "Heller Modus",
-  "darkMode": "Dunkler Modus",
-  "notifications": "Benachrichtigungen",
-  "enableNotifications": "Benachrichtigungen aktivieren",
-    
-  "name": "Name",
-  "email": "E-Mail",
-  "phone": "Telefonnummer",
-  "dateOfBirth": "Geburtsdatum",
-  "profilePicture": "Profilbild",
-  "profilePictureUrl": "Profilbild URL",
-  
-  "saving": "Speichern...",
-  "profileUpdated": "Profil erfolgreich aktualisiert!",
-  "updateFailed": "Fehler beim Aktualisieren des Profils.",
-  "loginRequired": "Bitte melden Sie sich an, um auf die Einstellungen zuzugreifen.",
-  
-  
-  "changeEmail": "E-Mail-Adresse ändern",
-  "changePassword": "Passwort ändern",
-  "deleteAccount": "Konto löschen",
-  "confirmDelete": "Bist du sicher, dass du dein Konto löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.",
-  "saveChanges": "Änderungen speichern",
   "cancel": "Abbrechen",
-  "successUpdate": "Deine Einstellungen wurden erfolgreich gespeichert.",
-  "errorUpdate": "Beim Speichern ist ein Fehler aufgetreten. Bitte versuche es erneut."
-        }
-    }
-
+  "securityTitle": "Konto & Sicherheit",
+  "securityText": "Ihr Konto wird über Ihre E-Mail-Adresse verwaltet. Passwortänderungen und sicherheitsrelevante Schritte sollten bewusst und geschützt durchgeführt werden.",
+  "accountCardTitle": "Profil & Kontaktdaten",
+  "accountCardText": "Aktualisieren Sie Ihren Namen, Ihre Telefonnummer, Ihr Geburtsdatum und Ihr Profilbild.",
+  "profileTipsTitle": "Tipps für ein starkes Profil",
+  "profileTipsText": "Ein klares Profil schafft Vertrauen bei Interessent:innen, Eigentümer:innen und Partner:innen auf der Plattform.",
+  "tip1": "Verwenden Sie einen klaren Anzeigenamen.",
+  "tip2": "Hinterlegen Sie eine aktuelle Telefonnummer.",
+  "tip3": "Nutzen Sie ein professionelles Profilbild.",
+  "helpTitle": "Hinweis",
+  "helpText": "Wenn Sie Ihr Profilbild über Upload statt URL verwalten möchten, bauen wir das im nächsten Schritt direkt an Ihren bestehenden Upload-Flow an."
 }

@@ -2,7 +2,24 @@
   "title": "Neubau Immobilien in Deutschland",
   "description": "Neubauten bieten moderne Architektur, Energieeffizienz und eine langfristige Gewährleistung. Ideal für Käufer*innen, die eine sorgenfreie und zukunftssichere Immobilie suchen.",
  
-    
+    "faq": {
+  "title": "Häufige Fragen rund um Neubau",
+  "intro": "Hier finden Sie wichtige Antworten zu Planung, Finanzierung, Bauphase und Sicherheit beim Kauf einer Neubau-Immobilie."
+},
+"checklist": {
+  "title": "Checkliste für Ihren Neubau",
+  "subtitle": "Behalten Sie die wichtigsten Schritte von Budget, Finanzierung und Bauträger-Auswahl bis zur Abnahme im Blick.",
+  "ctaPrimary": "Checkliste ansehen",
+  "ctaSecondary": "Beratung anfragen"
+},
+"secondaryButton": "Mehr erfahren",
+"contactCta": {
+  "heading": "Fragen zu Ihrem Neubau-Projekt?",
+  "title": "Fragen zu Ihrem Neubau-Projekt?",
+  "text": "Sie planen aktuell einen Neubau oder denken über den nächsten Schritt nach? Über unser Kontaktformular können Sie uns Ihr Vorhaben kurz schildern – wir helfen Ihnen bei der Orientierung.",
+  "button": "Kontakt aufnehmen",
+  "secondaryButton": "Mehr erfahren"
+},
   
     "metaTitle": "Neubau-Immobilien in Deutschland | MyHome24App",
   "metaDescription": "Entdecken Sie moderne, energieeffiziente Neubau-Immobilien in Deutschland – Häuser und Wohnungen direkt vom Bauträger.",
@@ -12,12 +29,19 @@
     "badge": "Neubau – modern, effizient, zukunftssicher",
     "imgAlt": "Moderner Neubau in Deutschland",
     
+    "badgeSecondary": "Modern wohnen",
+    "title": "Neubauprojekte mit Klarheit, Struktur und moderner Planung entdecken",
+    "subtitle": "Von energieeffizienten Wohnungen bis zu familienfreundlichen Häusern: Entdecken Sie Neubauangebote, verstehen Sie die Vorteile und planen Sie den nächsten Schritt mit mehr Sicherheit.",
+    "primaryCta": "Neubau-Angebote ansehen",
+    "secondaryCta": "Finanzierung berechnen",
+    "tertiaryCta": "Beratung anfragen",
+    "imageAlt": "Modernes Neubauprojekt",
+    "overlayBadge": "Projektübersicht",
+    "overlayTitle": "Neubau professionell vergleichen",
+    "overlayText": "Lage, Ausstattung, Energieeffizienz und Finanzierung an einem Ort bewerten.",
     "headline": "Neubau-Immobilien in Deutschland",
     "subline": "Energieeffiziente Häuser & Wohnungen mit moderner Architektur und nachhaltiger Technik.",
-    "title": "Neubau-Immobilien in Deutschland",
-    "subtitle": "Planen Sie Ihren Neubau mit MyHome24App – von der ersten Idee bis zum Einzug. Wir bündeln Marktkenntnis, Bau-Know-how und Finanzierungstipps an einem Ort.",
-    "primaryCta": "Zu den Neubau-Angeboten",
-    "secondaryCta": "Beratung & Ablauf ansehen",
+   
     "note": "Erste Orientierung in wenigen Minuten – unverbindlich und kostenlos.",
     "overlay": {
       "badge": "Beispielbild – keine echte Anzeige",
@@ -122,12 +146,7 @@
     ]
   },
  
-  "contactCta": {
-    "heading": "Fragen zu Ihrem Neubau-Projekt?",
-    "title": "Fragen zu Ihrem Neubau-Projekt?",
-    "text": "Sie planen aktuell einen Neubau oder denken über den nächsten Schritt nach? Über unser Kontaktformular können Sie uns Ihr Vorhaben kurz schildern – wir helfen Ihnen bei der Orientierung.",
-    "button": "Kontakt aufnehmen"
-  },
+
   
   "button": "Jetzt entdecken",
     "tipTitle": "Tipp: KfW-Förderung & Zuschüsse prüfen",

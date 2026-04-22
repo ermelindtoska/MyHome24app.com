@@ -1,5 +1,13 @@
 {
-  "title": "Nicht autorisiert",
-  "description": "Sie haben keine Berechtigung, auf diese Seite zuzugreifen.",
-  "backHome": "Zurück zur Startseite"
+  "metaTitle": "Kein Zugriff – MyHome24App",
+  "metaDescription": "Sie haben aktuell keine Berechtigung, diese Seite aufzurufen.",
+  "badge": "Zugriff verweigert",
+  "title": "Kein Zugriff auf diese Seite",
+  "description": "Sie verfügen derzeit nicht über die erforderlichen Berechtigungen, um diesen Bereich aufzurufen.",
+  "helpTitle": "Warum sehe ich diese Seite?",
+  "helpText": "Dieser Bereich ist nur für bestimmte Rollen oder verifizierte Benutzer:innen freigegeben.",
+  "nextStepTitle": "Was können Sie jetzt tun?",
+  "nextStepText": "Gehen Sie zurück zur Startseite oder melden Sie sich mit einem passenden Konto an.",
+  "backHome": "Zur Startseite",
+  "login": "Anmelden"
 }

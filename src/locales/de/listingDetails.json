@@ -13,7 +13,42 @@
   "save": "Speichern",
   "saved": "Gespeichert",
   "share": "Teilen",
-
+"loading": "Wird geladen...",
+  "notFound": "Anzeige nicht gefunden.",
+  "backToListings": "Zurück zu den Anzeigen",
+  "premium": "Premium",
+  
+  "youAreOwner": "Sie sind der:die Eigentümer:in dieser Anzeige.",
+  "keyFacts": "Wichtige Eckdaten",
+  "purposeBuy": "Kaufen",
+  "purposeRent": "Mieten",
+  "roomsShort": "Zi.",
+  "contactBox": {
+    "title": "Verkäufer kontaktieren",
+    "text": "Nehmen Sie direkt Kontakt mit dem:der Anbieter:in auf oder senden Sie ein Angebot für diese Immobilie."
+  },
+  "infoBox": {
+    "title": "Hinweis",
+    "text": "Alle Angaben basieren auf den vom Anbieter bereitgestellten Informationen. Bitte prüfen Sie wichtige Details vor einer endgültigen Entscheidung."
+  },
+  "myOfferBox": {
+    
+ 
+    "status": "Status:",
+    "date": "Abgegeben am",
+    "hint": "Details und Aktionen findest du im Bereich „Meine Angebote“ in deinem Dashboard.",
+    "statusValues": {
+      "open": "Offen",
+      "accepted": "Angenommen",
+      "rejected": "Abgelehnt",
+      "pending": "Ausstehend",
+      "withdrawn": "Zurückgezogen"
+    }
+  },
+  "seo": {
+    "fallbackTitle": "Listing",
+    "fallbackDesc": "Immobilienangebot – Details & Bilder."
+  },
   "toastSaved": "Gespeichert",
   "toastRemoved": "Entfernt",
   "toastLinkCopied": "Link kopiert",
@@ -57,19 +92,7 @@
   "similarTitle": "Ähnliche Anzeigen",
   "similarHint": "Kommt als nächster Schritt (klickbar wie Zillow).",
     "details": "Details",
-"myOfferBox": {
-  "title": "Dein Angebot zu diesem Inserat",
-  "amount": "Betrag:",
-  "status": "Status:",
-  "date": "Abgegeben am",
-  "hint": "Details und weitere Aktionen findest du im Bereich „Meine Angebote“ in deinem Dashboard.",
-  "statusValues": {
-    "open": "Offen",
-    "accepted": "Angenommen",
-    "rejected": "Abgelehnt",
-    "withdrawn": "Zurückgezogen"
-  }
-},
+
   "city": "Stadt",
   "state": "Bundesland",
   "zip": "Postleitzahl",

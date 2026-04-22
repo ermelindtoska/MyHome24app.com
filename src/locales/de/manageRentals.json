@@ -8,6 +8,31 @@
     { "title": "Statistik", "text": "Sehen Sie, wie oft Ihre Anzeige angesehen wurde" },
     { "title": "Benachrichtigungen", "text": "Bleiben Sie über Anfragen und Änderungen informiert" }
   ],
+  "metaTitle": "Mietobjekte verwalten – MyHome24App",
+  "metaDescription": "Verwalten Sie Mietobjekte, Anfragen, Änderungen und Performance zentral an einem Ort – modern, übersichtlich und effizient.",
+  "heroBadge": "Rental Management",
+  "sectionTitle": "Alles an einem Ort verwalten",
+  "sectionIntro": "Behalten Sie Ihre Mietobjekte, Änderungen, Leistungsdaten und Benachrichtigungen im Blick – mit einer klaren Oberfläche, die an moderne Immobilienplattformen wie Zillow erinnert.",
+  "featuresTitle": "Was Sie mit dem Bereich verwalten können",
+  "featuresIntro": "Von der Objektübersicht bis zu Benachrichtigungen: alles in einer professionellen Oberfläche.",
+  "secondaryButton": "Immobilie hinzufügen",
+  "contactButton": "Beratung anfragen",
+  "ctaBoxTitle": "Bereit für den nächsten Schritt?",
+  "ctaBoxText": "Erstellen Sie neue Mietobjekte, pflegen Sie bestehende Inserate und behalten Sie die wichtigsten Kennzahlen jederzeit im Blick.",
+  "trust": [
+    {
+      "title": "Übersichtlich",
+      "text": "Klare Verwaltung statt Chaos in Excel oder E-Mail."
+    },
+    {
+      "title": "Messbar",
+      "text": "Performance und Nachfrage besser verstehen."
+    },
+    {
+      "title": "Reaktionsschnell",
+      "text": "Wichtige Updates und Aktivitäten direkt sehen."
+    }
+  ],
   "tipTitle": "Tipp:",
   "tipText": "Nutzen Sie die Favoriten-Funktion, um Immobilien zu markieren, die Sie später bearbeiten oder erneut aktivieren möchten.",
   "button": "Jetzt Immobilien verwalten"

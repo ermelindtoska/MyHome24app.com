@@ -1,25 +1,85 @@
 {
-  "title": "Kaufen",
-  "description": "Entdecken Sie unsere Kaufangebote – für jeden Stil und jedes Budget.",
-  "info1": "Bei uns finden Sie eine große Auswahl an Immobilien zum Kauf – von modernen Stadtwohnungen bis zu idyllischen Landhäusern.",
-  "info2": "Wir unterstützen Sie auf dem gesamten Weg: von der Suche bis zur Schlüsselübergabe.",
-  "info3": "Nutzen Sie unsere Filteroptionen, um genau das Objekt zu finden, das zu Ihnen passt.",
-   "metaTitle": "Immobilien kaufen in Deutschland – MyHome24App",
-  "metaDescription": "Kaufe Häuser & Wohnungen in ganz Deutschland. Smarte Filter, Kartenansicht und Vergleich.",
-  
-  
-        
-        "filters": {
-            "priceRange": "Preisspanne",
-            "propertyType": "Immobilienart",
-            "bedrooms": "Schlafzimmer",
-            "bathrooms": "Badezimmer",
-            "area": "Fläche",
-            "moreFilters": "Weitere Filter",
-                 "actions": {
-            "viewListings": "Anzeigen",
-            "contactAgent": "Makler kontaktieren"
-        }
-        
-}
+  "metaTitle": "Immobilien kaufen in Deutschland – MyHome24App",
+  "metaDescription": "Durchsuche Häuser, Wohnungen und Neubauten zum Kauf in Deutschland. Kartenansicht, Filter, Favoriten & Vergleich – lokalisiert für DE.",
+
+  "breadcrumbs": {
+    "home": "Startseite",
+    "current": "Kaufen"
+  },
+
+  "hero": {
+    "badge": "Kaufen · Deutschland",
+    "title": "Finde dein neues Zuhause – mit Karte, Filtern & Vergleich",
+    "subtitle": "Entdecke Häuser, Wohnungen und Neubauten. Speichere Favoriten, vergleiche Angebote und finde schneller die passende Immobilie.",
+    "ctaPrimary": "Jetzt suchen",
+    "ctaSecondary": "Vergleich öffnen",
+    "ctaMortgage": "Finanzierung berechnen",
+    "perks": [
+      "Kartenansicht wie bei Zillow (Split View)",
+      "Filter & Sortierung in Echtzeit",
+      "Favoriten & Vergleich (Charts/PDF)",
+      "Dark Mode & Mobile optimiert"
+    ],
+    "note": "Hinweis: Einige Daten/Angebote können je nach Quelle variieren."
+  },
+
+  "quickBox": {
+    "title": "Schnell starten",
+    "text": "Springe direkt zu beliebten Bereichen oder starte mit einer Karte und Filtern.",
+    "tipTitle": "Pro-Tipp",
+    "tipText": "Setze zuerst Stadt + Budget – danach Schlafzimmer & Größe. So bekommst du die besten Treffer."
+  },
+
+  "quickLinks": {
+    "items": [
+      { "label": "Neubauten entdecken", "to": "/new-construction" },
+      { "label": "Favoriten ansehen", "to": "/favorites" },
+      { "label": "Vergleich starten", "to": "/compare" }
+    ]
+  },
+
+  "valueCards": {
+    "title": "Warum MyHome24App?",
+    "subtitle": "Eine moderne, schnelle Immobiliensuche – klar, lokalisiert und mit Tools, die wirklich helfen.",
+    "items": [
+      { "title": "Karte & Split View", "text": "Behalte Lage, Preise und Umgebung im Blick – ohne ständiges Wechseln." },
+      { "title": "Starke Filter", "text": "Filtern nach Preis, Typ, Größe, Schlafzimmern und mehr – in Sekunden." },
+      { "title": "Vergleich & Insights", "text": "Vergleiche Angebote und erkenne Unterschiede auf einen Blick (inkl. Export)." },
+      { "title": "Vertrauen & Sicherheit", "text": "Saubere UX, klare Datenstruktur und fokus auf sichere Abläufe." }
+    ]
+  },
+
+  "mapSection": {
+    "title": "Kaufen: Karte & Trefferliste",
+    "subtitle": "Zoome in Städte/Regionen, filtere nach deinen Kriterien und öffne Details direkt aus der Karte.",
+    "favorites": "Favoriten",
+    "compare": "Vergleich"
+  },
+
+  "faq": {
+    "title": "Häufige Fragen",
+    "subtitle": "Kurze Antworten auf die wichtigsten Punkte rund um den Immobilienkauf.",
+    "items": [
+      {
+        "q": "Wie finde ich die besten Angebote?",
+        "a": "Starte mit Stadt/Region und Budget. Nutze danach Filter wie Typ, Schlafzimmer und Größe. Speichere Favoriten, um später gezielt zu vergleichen."
+      },
+      {
+        "q": "Kann ich Angebote vergleichen?",
+        "a": "Ja. Lege Favoriten an und nutze die Vergleichsfunktion, um Unterschiede (Preis/Fläche/Features) schnell zu sehen."
+      },
+      {
+        "q": "Gibt es eine Finanzierungshilfe?",
+        "a": "Du kannst den Rechner nutzen oder direkt eine Anfrage an Finanzierungspartner:innen stellen."
+      }
+    ]
+  },
+
+  "bottomCta": {
+    "title": "Bereit für den nächsten Schritt?",
+    "text": "Starte die Suche auf der Karte oder prüfe direkt deine Finanzierung – schnell und übersichtlich.",
+    "primary": "Zur Karte",
+    "secondary": "Finanzierung anfragen",
+    "note": "MyHome24App ist eine Plattform zur Orientierung. Entscheidungen bitte immer mit passenden Expert:innen abstimmen."
+  }
 }

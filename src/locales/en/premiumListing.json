@@ -1,14 +1,29 @@
 {
+  "badge": "Premium visibility",
   "title": "Premium Listing for Maximum Visibility",
   "imageAlt": "Premium Listing",
   "description": "Highlight your listing with a premium placement and reach significantly more interested parties. Premium listings appear at the top of search results, attract more attention, and offer enhanced presentation features.",
+  "featuresLead": "A premium listing is ideal for properties that should be presented faster, more prominently and with maximum reach.",
   "features": [
-    { "title": "Top Placement", "text": "Your listing appears at the top of search results" },
-    { "title": "Highlighted Design", "text": "Special colors and frames make your ad stand out immediately" },
-    { "title": "Gallery & Video", "text": "Showcase your property with multimedia" },
-    { "title": "Performance Reports", "text": "Track how well your listing is performing" }
+    {
+      "title": "Top Placement",
+      "text": "Your listing appears at the top of search results."
+    },
+    {
+      "title": "Highlighted Design",
+      "text": "Special colors and frames make your ad stand out immediately."
+    },
+    {
+      "title": "Gallery & Video",
+      "text": "Showcase your property with multimedia and stronger visual impact."
+    },
+    {
+      "title": "Performance Reports",
+      "text": "Track how well your listing performs and how strongly it is being noticed."
+    }
   ],
   "tipTitle": "Tip:",
   "tipText": "Combine the premium listing with targeted banner ads to further increase your visibility.",
-  "button": "Book Premium Listing Now"
+  "button": "Book Premium Listing Now",
+  "secondaryButton": "Learn more about premium"
 }

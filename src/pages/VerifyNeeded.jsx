@@ -1,242 +1,180 @@
 // src/pages/VerifyNeeded.jsx
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  sendEmailVerification,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-import { auth } from "../firebase";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+
+import { auth, appCheckReady } from "../firebase";
 
 export default function VerifyNeeded() {
-  const { t } = useTranslation("auth");
-  const location = useLocation();
+  const { t, i18n } = useTranslation("auth");
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const emailFromQuery = useMemo(() => {
-    const sp = new URLSearchParams(location.search);
-    return sp.get("email") || "";
-  }, [location.search]);
+  const query = useMemo(() => new URLSearchParams(location.search), [location.search]);
+  const emailFromUrl = (query.get("email") || "").trim().toLowerCase();
 
-  const [email, setEmail] = useState(emailFromQuery);
+  const [email] = useState(emailFromUrl);
   const [password, setPassword] = useState("");
+
   const [loading, setLoading] = useState(false);
-  const [msg, setMsg] = useState("");
-  const [err, setErr] = useState("");
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const [cooldown, setCooldown] = useState(0);
+  const lang2 = useMemo(() => (i18n?.language || "de").slice(0, 2), [i18n?.language]);
 
-  useEffect(() => {
-    if (!cooldown) return;
-    const id = setInterval(() => setCooldown((s) => Math.max(0, s - 1)), 1000);
-    return () => clearInterval(id);
-  }, [cooldown]);
+  // ✅ handler page (duhet të jetë në Firebase Authorized domains)
+  const CONTINUE_URL = "https://www.myhome24app.com/auth/action";
 
-  const actionCodeSettings = useMemo(() => {
-    // Muss in Firebase -> Authentication -> Authorized domains erlaubt sein
-    const origin = window.location.origin; // z.B. http://localhost:3001 oder https://www.myhome24app.com
-    return {
-      url: `${origin}/auth/action`,
-      handleCodeInApp: true,
-    };
-  }, []);
+  // ✅ HTTP endpoint (nga deploy output)
+  const VERIFY_FN_URL = "https://sendverificationemaildirectv2-om4vattvlq-uc.a.run.app";
 
-  const handleResend = async () => {
-    if (cooldown > 0) return;
+  const redirectBackToLogin = async () => {
+    try {
+      await signOut(auth);
+    } catch {}
+    setTimeout(() => navigate("/login", { replace: true }), 1200);
+  };
 
-    setErr("");
-    setMsg("");
+  const handleResend = async (e) => {
+    e.preventDefault();
+    setError("");
+    setSuccessMessage("");
     setLoading(true);
 
     try {
-      // 1) BEST CASE: User ist noch eingeloggt -> KEIN Passwort nötig
-      const current = auth.currentUser;
+      if (!email) throw new Error(t("emailRequired"));
 
-      if (current && !current.emailVerified) {
-        // Optional: wenn email im query gesetzt ist und NICHT zum current user passt,
-        // dann erzwingen wir Re-Login, um an den richtigen Account zu kommen.
-        if (email && current.email && current.email !== email) {
-          // fallthrough zur Login-Variante unten
-        } else {
-          await sendEmailVerification(current, actionCodeSettings);
-          setMsg(
-            t("verifyNeeded.sent", {
-              defaultValue:
-                "✅ Bestätigungs-E-Mail wurde erneut gesendet. Bitte prüfe auch Spam/Promotions.",
-            })
-          );
-          setCooldown(60);
-          return;
-        }
+      // 1) AppCheck gati
+      await appCheckReady;
+
+      auth.languageCode = lang2;
+
+      let user = auth.currentUser;
+
+      // 2) Nëse s’je logged-in me atë email, kërko password dhe hyr
+      if (!user || (user?.email || "").toLowerCase() !== email) {
+        if (!password) throw new Error(t("passwordRequired"));
+        const cred = await signInWithEmailAndPassword(auth, email, password);
+        user = cred.user;
       }
 
-      // 2) FALLBACK: User ist NICHT eingeloggt oder Email passt nicht -> Login nötig
-      if (!email) {
-        throw new Error(
-          t("verifyNeeded.emailMissing", {
-            defaultValue: "Bitte gib deine E-Mail-Adresse ein.",
-          })
-        );
-      }
-
-      if (!password) {
-        throw new Error(
-          t("verifyNeeded.passwordRequired", {
-            defaultValue:
-              "Bitte gib dein Passwort ein, damit wir dich kurz anmelden und die Verifizierung erneut senden können.",
-          })
-        );
-      }
-
-      const cred = await signInWithEmailAndPassword(auth, email, password);
-
-      if (cred.user.emailVerified) {
-        setMsg(
-          t("verifyNeeded.alreadyVerified", {
-            defaultValue:
-              "✅ Deine E-Mail ist bereits verifiziert. Du wirst weitergeleitet …",
-          })
-        );
-        setTimeout(() => navigate("/"), 800);
+      // 3) Nëse user është verifikuar tashmë
+      if (user?.emailVerified) {
+        setSuccessMessage(t("alreadyVerified"));
+        await redirectBackToLogin();
         return;
       }
 
-      await sendEmailVerification(cred.user, actionCodeSettings);
+      // 4) Merr ID token
+      const idToken = await user.getIdToken(true);
 
-      // Optional: danach direkt wieder ausloggen (wie du es bisher machst)
-      await signOut(auth);
+      // 5) Thirr HTTP function me Bearer token
+      const resp = await fetch(VERIFY_FN_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${idToken}`,
+        },
+        body: JSON.stringify({
+          continueUrl: CONTINUE_URL,
+          locale: lang2,
+        }),
+      });
 
-      setMsg(
-        t("verifyNeeded.sent", {
-          defaultValue:
-            "✅ Bestätigungs-E-Mail wurde erneut gesendet. Bitte prüfe auch Spam/Promotions.",
-        })
-      );
-      setCooldown(60);
-    } catch (e) {
-      const code = e?.code || "";
-      const message = e?.message || String(e);
+      const data = await resp.json().catch(() => ({}));
+      console.log("[VerifyNeeded] verify response:", resp.status, data);
 
-      // Häufige Firebase Fehler hübsch machen
-      if (code === "auth/wrong-password" || code === "auth/invalid-credential") {
-        setErr(
-          t("verifyNeeded.wrongPassword", {
-            defaultValue: "❌ Passwort ist falsch.",
-          })
-        );
-      } else if (code === "auth/user-not-found") {
-        setErr(
-          t("verifyNeeded.userNotFound", {
-            defaultValue: "❌ Kein Account mit dieser E-Mail gefunden.",
-          })
-        );
-      } else if (code === "auth/too-many-requests") {
-        setErr(
-          t("verifyNeeded.tooMany", {
-            defaultValue:
-              "⏳ Zu viele Versuche. Bitte warte kurz und versuche es später erneut.",
-          })
-        );
-      } else {
-        setErr(
-          t("verifyNeeded.genericError", {
-            defaultValue: "❌ Fehler beim Senden: {{msg}}",
-            msg: message,
-          })
-        );
+      if (!resp.ok) {
+        const msg = data?.message || data?.error || `HTTP ${resp.status}`;
+        throw new Error(msg);
       }
-      // eslint-disable-next-line no-console
-      console.error("[VerifyNeeded] resend failed:", e);
+
+      if (data?.alreadyVerified) {
+        setSuccessMessage(t("alreadyVerified"));
+        await redirectBackToLogin();
+        return;
+      }
+
+      setSuccessMessage(t("verifyEmailResent"));
+      await redirectBackToLogin();
+    } catch (err) {
+      console.error("[VerifyNeeded] resend FAILED:", err);
+      setError(err?.message || t("somethingWrong"));
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4">
-      <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 shadow-xl backdrop-blur dark:bg-black/20">
-        <h1 className="text-xl font-semibold text-white">
-          {t("verifyNeeded.title", { defaultValue: "E-Mail bestätigen" })}
-        </h1>
-        <p className="mt-2 text-sm text-white/70">
-          {t("verifyNeeded.hint", {
-            defaultValue:
-              "Bitte bestätige deine E-Mail-Adresse. Du kannst dir die Bestätigungs-Mail erneut senden lassen.",
-          })}
+    <div className="max-w-md mx-auto p-6 mt-10 bg-white dark:bg-gray-800 shadow rounded transition-colors duration-300">
+      <Helmet>
+        <title>{t("verifyNeededTitle")}</title>
+      </Helmet>
+
+      <h2 className="text-2xl font-bold mb-2 text-center text-gray-900 dark:text-white">
+        {t("verifyNeededTitle")}
+      </h2>
+
+      <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+        {t("verifyNeededHint")}
+      </p>
+
+      {successMessage && (
+        <p className="text-green-600 dark:text-green-400 mb-3 text-sm">
+          {successMessage}
         </p>
+      )}
+      {error && <p className="text-red-600 dark:text-red-400 mb-3 text-sm">{error}</p>}
 
-        <div className="mt-5 space-y-3">
-          <div>
-            <label className="text-sm text-white/80">
-              {t("email", { defaultValue: "E-Mail" })}
-            </label>
-            <input
-              className="mt-1 w-full rounded-lg border border-white/10 bg-white/10 px-3 py-2 text-white outline-none focus:border-sky-400 dark:bg-black/20"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="name@example.com"
-              autoComplete="email"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm text-white/80">
-              {t("password", { defaultValue: "Passwort" })}
-              <span className="ml-2 text-xs text-white/50">
-                {t("verifyNeeded.passwordOptional", {
-                  defaultValue:
-                    "(nur nötig, wenn du nicht mehr eingeloggt bist)",
-                })}
-              </span>
-            </label>
-            <input
-              className="mt-1 w-full rounded-lg border border-white/10 bg-white/10 px-3 py-2 text-white outline-none focus:border-sky-400 dark:bg-black/20"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              type="password"
-              autoComplete="current-password"
-            />
-          </div>
-
-          {err ? (
-            <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-200">
-              {err}
-            </div>
-          ) : null}
-
-          {msg ? (
-            <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-200">
-              {msg}
-            </div>
-          ) : null}
-
-          <button
-            onClick={handleResend}
-            disabled={loading || cooldown > 0}
-            className="mt-2 w-full rounded-xl bg-sky-600 px-4 py-2 font-semibold text-white hover:bg-sky-500 disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {cooldown > 0
-              ? t("verifyNeeded.cooldown", {
-                  defaultValue: "Bitte warten ({{s}}s)…",
-                  s: cooldown,
-                })
-              : loading
-              ? t("loading", { defaultValue: "Lädt…" })
-              : t("verifyNeeded.resend", {
-                  defaultValue: "Verifizierung erneut senden",
-                })}
-          </button>
-
-          <button
-            onClick={() => navigate("/login")}
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2 font-semibold text-white hover:bg-white/10"
-          >
-            {t("backToLogin", { defaultValue: "Zurück zum Login" })}
-          </button>
+      <form onSubmit={handleResend} className="space-y-3">
+        <div>
+          <label className="block text-xs text-gray-600 dark:text-gray-300 mb-1">
+            {t("email")}
+          </label>
+          <input
+            value={email}
+            readOnly
+            className="w-full px-3 py-2 border rounded bg-gray-100 dark:bg-gray-700 dark:border-gray-600 text-sm text-gray-900 dark:text-white"
+          />
         </div>
-      </div>
+
+        <div>
+          <label className="block text-xs text-gray-600 dark:text-gray-300 mb-1">
+            {t("password")}
+          </label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder={t("password")}
+            autoComplete="current-password"
+            className="w-full px-3 py-2 border rounded bg-white dark:bg-gray-700 dark:border-gray-600 text-sm text-gray-900 dark:text-white"
+          />
+          <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-1">
+            {t("passwordResendHint")}
+          </p>
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className={`w-full ${
+            loading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
+          } text-white py-2 rounded transition`}
+        >
+          {loading ? t("sending") : t("resendVerification")}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => navigate("/login")}
+          className="w-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-white py-2 rounded transition"
+        >
+          {t("backToLogin")}
+        </button>
+      </form>
     </div>
   );
 }

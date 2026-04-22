@@ -1,10 +1,117 @@
 {
-  "title": "Meine Immobilien",
-
+  "metaTitle": "Mein Dashboard – MyHome24App",
+  "metaDescription": "Verwalten Sie Ihre Inserate, Favoriten und Angebote zentral im persönlichen Dashboard.",
+  "title": "Mein Dashboard",
+  "dashboardTitle": "Willkommen in Ihrem Dashboard",
+  "dashboardDescription": "Verwalten Sie Ihre Anzeigen, Favoriten und abgegebenen Angebote an einem Ort.",
+  "userOffers": {
+    "badge": "Meine Kaufangebote",
+    "title": "Meine Angebote",
+    "subtitle": "Behalte den Überblick über alle Kaufangebote, die du für Immobilien abgegeben hast.",
+    "emptyTitle": "Noch keine Angebote vorhanden",
+    "empty": "Du hast bisher noch keine Angebote abgegeben.",
+    "offerAmount": "Dein Angebot",
+    "unknownCity": "Ort unbekannt",
+    "chips": {
+      "total": "Gesamt",
+      "open": "Offen",
+      "accepted": "Angenommen",
+      "rejected": "Abgelehnt",
+      "withdrawn": "Zurückgezogen"
+    },
+    "actions": {
+      "viewListing": "Inserat öffnen",
+      "viewListingShort": "Details"
+    }
+  },
+  "loading": "Wird geladen...",
   "addNew": "Neue Anzeige",
-  "noListings": "Keine Anzeigen gefunden.",
   "new": "Neu",
-    "owner_dashboard_title": "Meine Immobilien",
+
+  "filtersTitle": "Filter",
+  "myListingsTitle": "Meine Inserate",
+  "myListingsSubtitle": "Bearbeiten, löschen und verwalten Sie Ihre eigenen Immobilienanzeigen.",
+  "noListings": "Keine Anzeigen gefunden.",
+  "noListingsHint": "Sobald Sie eine Anzeige erstellen, erscheint sie hier im Dashboard.",
+  "imageFallback": "Kein Bild",
+
+  "details": "Details",
+  "delete": "Löschen",
+  "edit": "Bearbeiten",
+  "favorite": "Favorisieren",
+  "unfavorite": "Favorit entfernen",
+  "contactOwner": "Anbieter kontaktieren",
+  "viewMap": "Karte anzeigen",
+
+  "stats": {
+    "totalListings": "Gesamtanzeigen",
+    "buyListings": "Kaufobjekte",
+    "rentListings": "Mietobjekte",
+    "favorites": "Favoriten"
+  },
+
+  "fields": {
+    "apartment": "Wohnung",
+    "house": "Haus",
+    "office": "Büro / Gewerbe",
+    "buy": "Kaufen",
+    "rent": "Mieten"
+  },
+
+  "myOffers": {
+    "title": "Meine Angebote",
+    "subtitle": "Behalte den Überblick über alle Kaufangebote, die du für Immobilien abgegeben hast.",
+    "empty": "Du hast bisher noch keine Angebote abgegeben.",
+    "withdraw": "Zurückziehen",
+    "chips": {
+      "total": "Gesamt",
+      "open": "Offen",
+      "accepted": "Angenommen",
+      "rejected": "Abgelehnt",
+      "withdrawn": "Zurückgezogen"
+    },
+    "status": {
+      "open": "Offen",
+      "accepted": "Angenommen",
+      "rejected": "Abgelehnt",
+      "withdrawn": "Zurückgezogen"
+    },
+    "modal": {
+      "title": "Angebotsdetails",
+      "listing": "Inserat: ",
+      "amount": "Angebot: ",
+      "message": "Nachricht an den:die Anbieter:in:",
+      "createdAt": "Erstellt am {{date}}",
+      "status": "Status:"
+    }
+  },
+
+  "purposeOptions": {
+    "buy": "Zum Kauf",
+    "rent": "Zur Miete"
+  },
+
+  "typeOptions": {
+    "apartment": "Wohnung",
+    "house": "Haus",
+    "office": "Büro / Gewerbe"
+  },
+
+  "allPurposes": "Alle Zwecke",
+  "allTypes": "Alle Typen",
+  "searchPlaceholder": "Suche nach Stadt, PLZ, Region oder Stichwort",
+
+  "confirm": {
+    "deleteTitle": "Anzeige löschen?",
+    "deleteText": "Möchten Sie diese Anzeige wirklich dauerhaft löschen?"
+  },
+
+  "confirm_delete_title": "Anzeige löschen?",
+  "confirm_delete_message": "Möchtest du diese Anzeige wirklich dauerhaft löschen?",
+  "yes_delete": "Ja, löschen",
+  "cancel": "Abbrechen",
+
+  "owner_dashboard_title": "Meine Immobilien",
   "owner_dashboard_welcome": "Verwalte hier deine eigenen Inserate.",
   "add_property": "Neue Anzeige",
   "total_properties": "Gesamtanzahl Inserate",
@@ -16,89 +123,20 @@
   "manage_rentals": "Mietobjekte verwalten",
   "your_properties": "Deine Inserate",
   "no_properties": "Keine Anzeigen gefunden.",
-  
-  "myOffers": {
-  "title": "Meine Angebote",
-    "subtitle": "Behalte den Überblick über alle Kaufangebote, die du für Immobilien abgegeben hast.",
-  
-    "chips": {
-      "total": "Gesamt",
-      "open": "Offen",
-      "accepted": "Angenommen",
-      "rejected": "Abgelehnt",
-      "withdrawn": "Zurückgezogen"
-  },
-  "empty": "Du hast bisher noch keine Angebote abgegeben.",
-  "withdraw": "Zurückziehen"
-},
- "view": "Ansehen",
-  "city": "Stadt",
-  "price": "Preis",
 
-
-  "confirm_delete_title": "Anzeige löschen?",
-  "confirm_delete_message": "Möchtest du diese Anzeige wirklich dauerhaft löschen?",
-  "yes_delete": "Ja, löschen",
-  "cancel": "Abbrechen",
-
- 
-  "purposeOptions": {
-    "buy": "Zum Kauf",
-    "rent": "Zur Miete"
-  },
-  "typeOptions": {
-    "apartment": "Wohnung",
-    "house": "Haus",
-    "office": "Büro / Gewerbe"
-  },
-  "allPurposes": "Alle Zwecke",
-  "searchPlaceholder": "Suche nach Stadt, PLZ, Region oder Stichwort",
-  "allTypes": "Alle Typen",
-  
-  "purpose": {
-    "buy": "Zum Kauf",
-    "rent": "Zur Miete"
-  },
-  "type": {
-    "apartment": "Wohnung",
-    "house": "Haus",
-    "office": "Büro / Gewerbe"
-  },
-  "newListing": "Neue Anzeige",
   "requestOwnerRole": "Eigentümerrolle beantragen",
-  "noResults": "Keine Anzeigen gefunden.",
-  "actions": {
-    "edit": "Bearbeiten",
-    "delete": "Löschen"
-  },
-  "confirm": {
-    "deleteTitle": "Anzeige löschen?",
-    "deleteText": "Möchten Sie diese Anzeige wirklich dauerhaft löschen?"
-  },
   "requestOwnerUpgrade": "Eigentümerrolle beantragen",
-  "details": "Details",
-  "delete": "Löschen",
-  "edit": "Bearbeiten",
-  "favorite": "Favorisieren",
-  "unfavorite": "Favorit entfernen",
-  "contactOwner": "Anbieter kontaktieren",
-  "viewMap": "Karte anzeigen",
-  "loading": "Wird geladen...",
-  "fields": {
-    "apartment": "Wohnung",
-    "house": "Haus",
-    "rent": "Mieten",
-    "buy": "Kaufen",
-  "title": "Mein Dashboard",
-  "welcomeMessage": "Willkommen zurück, {{name}}!",
-  "myListings": "Meine Inserate",
-  "favorites": "Gespeicherte Immobilien",
-  "messages": "Nachrichten",
-  "profile": "Profil bearbeiten",
-  "settings": "Kontoeinstellungen",
-  "logout": "Abmelden",
-  "analytics": "Analysen & Statistiken",
-  "notifications": "Benachrichtigungen"
+
+  "dashboard": {
+    "title": "Mein Dashboard",
+    "welcomeMessage": "Willkommen zurück, {{name}}!",
+    "myListings": "Meine Inserate",
+    "favorites": "Gespeicherte Immobilien",
+    "messages": "Nachrichten",
+    "profile": "Profil bearbeiten",
+    "settings": "Kontoeinstellungen",
+    "logout": "Abmelden",
+    "analytics": "Analysen & Statistiken",
+    "notifications": "Benachrichtigungen"
   }
-  
 }

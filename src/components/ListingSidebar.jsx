@@ -1,8 +1,13 @@
-// src/components/ListingSidebar.jsx
-import React, { memo, useMemo } from "react";
+import React, { memo, useMemo, useCallback } from "react";
 import PropTypes from "prop-types";
 import FavoriteButton from "./FavoriteButton";
 import { useTranslation } from "react-i18next";
+import {
+  FiShare2,
+  FiMapPin,
+  FiHome,
+  FiCheckCircle,
+} from "react-icons/fi";
 
 const FALLBACK_IMG = "/images/hero-1.jpg";
 
@@ -18,11 +23,22 @@ function formatPrice(v) {
 }
 
 function firstImage(item) {
-  return item?.images?.[0] || item?.imageUrls?.[0] || item?.image || FALLBACK_IMG;
+  return (
+    item?.images?.[0] ||
+    item?.imageUrls?.[0] ||
+    item?.imageUrl ||
+    item?.image ||
+    FALLBACK_IMG
+  );
 }
 
 function formatAddress(item) {
-  const parts = [item?.address || item?.street || "", item?.zip || "", item?.city || ""].filter(Boolean);
+  const parts = [
+    item?.address || item?.street || "",
+    item?.zip || item?.zipCode || "",
+    item?.city || "",
+  ].filter(Boolean);
+
   return parts.length ? parts.join(", ") : item?.city || "—";
 }
 
@@ -32,17 +48,28 @@ function isNewish(item) {
     const ageMs = Date.now() - sec * 1000;
     return ageMs <= 1000 * 60 * 60 * 24 * 14;
   }
+
   const d = item?.createdAt ? new Date(item.createdAt) : null;
   if (d && !Number.isNaN(d.getTime())) {
     return Date.now() - d.getTime() <= 1000 * 60 * 60 * 24 * 14;
   }
+
   return false;
 }
 
 function getBadge(item) {
-  const promo = (item?.promotion || item?.tier || item?.plan || "").toString().toLowerCase();
-  if (promo.includes("showcase") || promo.includes("premium")) return { key: "showcase", label: "Showcase" };
-  if (promo.includes("featured")) return { key: "featured", label: "Featured" };
+  const promo = (item?.promotion || item?.tier || item?.plan || "")
+    .toString()
+    .toLowerCase();
+
+  if (promo.includes("showcase") || promo.includes("premium")) {
+    return { key: "showcase", label: "Showcase" };
+  }
+
+  if (promo.includes("featured")) {
+    return { key: "featured", label: "Featured" };
+  }
+
   return null;
 }
 
@@ -61,51 +88,77 @@ async function shareListing(item, t) {
       await navigator.share({ title, url });
       return;
     }
-  } catch {
-    // ignore
-  }
+  } catch {}
 
   try {
     await navigator.clipboard.writeText(url);
-    dispatchMiniToast(t("toastLinkCopied", { ns: "listingDetails", defaultValue: "Link kopiert" }));
+    dispatchMiniToast(
+      t("toastLinkCopied", {
+        ns: "listingDetails",
+        defaultValue: "Link kopiert",
+      })
+    );
   } catch {
-    dispatchMiniToast(t("toastCopyFailed", { ns: "listingDetails", defaultValue: "Kopieren fehlgeschlagen" }));
+    dispatchMiniToast(
+      t("toastCopyFailed", {
+        ns: "listingDetails",
+        defaultValue: "Kopieren fehlgeschlagen",
+      })
+    );
   }
 }
 
 const ListingCard = memo(function ListingCard({ item, onClickItem, onHover }) {
-  const { t } = useTranslation(["listing", "map", "listingDetails"]);
+  const { t } = useTranslation(["listing", "listingDetails"]);
 
   const img = firstImage(item);
   const badge = getBadge(item);
   const isNew = isNewish(item);
 
   const price = formatPrice(item?.price);
-  const purpose = (item?.purpose || item?.intent || "").toString().toLowerCase();
+  const purpose = (item?.purpose || item?.intent || "")
+    .toString()
+    .toLowerCase();
 
   const rentSuffix =
     purpose === "rent" || item?.isRent
-      ? ` ${t("perMonthShort", { ns: "listing", defaultValue: "/mo" })}`
+      ? ` ${t("perMonthShort", { ns: "listing", defaultValue: "/Monat" })}`
       : "";
 
   const beds = item?.bedrooms ?? item?.rooms ?? "–";
   const baths = item?.bathrooms ?? "–";
-  const size = item?.size ? `${item.size} m²` : `– m²`;
+  const size = item?.size ? `${item.size} m²` : "– m²";
   const type = item?.type || item?.category || "";
 
   const verified = Boolean(item?.verified);
   const openHouse = item?.openHouseText || item?.openHouse || "";
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onClickItem?.(item);
+    }
+  };
 
   return (
     <article
       onMouseEnter={() => onHover?.(item)}
       onMouseLeave={() => onHover?.(null)}
       onClick={() => onClickItem?.(item)}
-      className="group cursor-pointer rounded-2xl border border-gray-200/80 dark:border-gray-700/70 bg-white dark:bg-gray-900 shadow-sm hover:shadow-md transition overflow-hidden"
+      onKeyDown={handleKeyDown}
+      className="
+        group cursor-pointer overflow-hidden rounded-3xl
+        border border-gray-200 bg-white text-gray-900 shadow-sm transition
+        hover:-translate-y-0.5 hover:shadow-xl
+        dark:border-slate-800 dark:bg-slate-950 dark:text-gray-100
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500
+      "
       role="button"
       tabIndex={0}
+      aria-label={item?.title || "Listing"}
     >
-      <div className="relative aspect-[16/10] w-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
+      {/* IMAGE */}
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100 dark:bg-slate-900">
         <img
           src={img}
           alt={item?.title || item?.city || "Listing"}
@@ -113,92 +166,124 @@ const ListingCard = memo(function ListingCard({ item, onClickItem, onHover }) {
           loading="lazy"
         />
 
-        <div className="absolute left-2 top-2 flex flex-wrap gap-2">
+        {/* Top badges */}
+        <div className="absolute left-2.5 top-2.5 flex flex-wrap gap-2">
           {badge && (
-            <span className="rounded-full bg-black/70 text-white text-[11px] px-2 py-1">
+            <span className="rounded-full bg-black/75 px-2.5 py-1 text-[11px] font-semibold text-white">
               {badge.label}
             </span>
           )}
+
           {isNew && (
-            <span className="rounded-full bg-blue-600 text-white text-[11px] px-2 py-1">
+            <span className="rounded-full bg-blue-600 px-2.5 py-1 text-[11px] font-semibold text-white">
               {t("new", { ns: "listing", defaultValue: "Neu" })}
             </span>
           )}
+
           {verified && (
-            <span className="rounded-full bg-emerald-600 text-white text-[11px] px-2 py-1">
+            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-600 px-2.5 py-1 text-[11px] font-semibold text-white">
+              <FiCheckCircle size={12} />
               {t("verified", { ns: "listing", defaultValue: "Verifiziert" })}
             </span>
           )}
         </div>
 
-        <div className="absolute right-2 top-2 flex items-center gap-2">
+        {/* Actions */}
+        <div className="absolute right-2.5 top-2.5 flex items-center gap-2">
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
               shareListing(item, t);
             }}
-            className="h-9 w-9 rounded-full bg-white/95 dark:bg-gray-950/80 border border-gray-200 dark:border-gray-700 grid place-items-center text-gray-700 dark:text-gray-200 hover:scale-[1.03] transition"
-            aria-label={t("share", { ns: "listingDetails", defaultValue: "Teilen" })}
-            title={t("share", { ns: "listingDetails", defaultValue: "Teilen" })}
+            className="
+              grid h-9 w-9 place-items-center rounded-full border
+              border-white/70 bg-white/95 text-gray-800 shadow-sm transition hover:scale-[1.03]
+              dark:border-slate-700 dark:bg-slate-900/95 dark:text-gray-100
+            "
+            aria-label={t("share", {
+              ns: "listingDetails",
+              defaultValue: "Teilen",
+            })}
+            title={t("share", {
+              ns: "listingDetails",
+              defaultValue: "Teilen",
+            })}
           >
-            ↗
+            <FiShare2 size={15} />
           </button>
 
           <div
-            className="h-9 w-9 rounded-full bg-white/95 dark:bg-gray-950/80 border border-gray-200 dark:border-gray-700 grid place-items-center"
+            className="grid h-9 w-9 place-items-center rounded-full border border-white/70 bg-white/95 shadow-sm dark:border-slate-700 dark:bg-slate-900/95"
             onClick={(e) => e.stopPropagation()}
           >
             <FavoriteButton listingId={item?.id} />
           </div>
         </div>
 
-        <div className="absolute bottom-2 left-2 rounded-xl bg-white/95 dark:bg-gray-950/85 px-2.5 py-1.5 shadow border border-gray-200/60 dark:border-gray-700/60">
-          <div className="text-sm font-semibold text-gray-900 dark:text-gray-50">
-            € {price}
-            <span className="text-xs font-medium text-gray-600 dark:text-gray-300">{rentSuffix}</span>
-          </div>
+        {/* Price badge */}
+        <div className="absolute bottom-2.5 left-2.5 rounded-2xl bg-slate-950/85 px-3 py-2 text-sm font-bold text-white shadow-lg backdrop-blur">
+          € {price}
+          <span className="ml-1 text-xs font-medium text-white/80">
+            {rentSuffix}
+          </span>
         </div>
 
+        {/* Open house */}
         {openHouse ? (
-          <div className="absolute bottom-2 right-2 rounded-xl bg-black/70 text-white text-[11px] px-2 py-1">
+          <div className="absolute bottom-2.5 right-2.5 rounded-xl bg-white/95 px-2.5 py-1 text-[11px] font-medium text-slate-800 shadow dark:bg-slate-900/95 dark:text-slate-100">
             {openHouse}
           </div>
         ) : null}
       </div>
 
-      <div className="p-3">
-        <h3 className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-1">
+      {/* CONTENT */}
+      <div className="p-4">
+        <h3 className="line-clamp-1 text-[15px] font-bold leading-5 text-slate-900 dark:text-white">
           {item?.title || "—"}
         </h3>
 
-        <p className="mt-0.5 text-xs text-gray-600 dark:text-gray-300 line-clamp-1">
+        <p className="mt-1.5 line-clamp-1 text-xs text-slate-500 dark:text-slate-400">
           {formatAddress(item)}
         </p>
 
-        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-700 dark:text-gray-300">
+        <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-slate-700 dark:text-slate-300">
           <span className="inline-flex items-center gap-1">
-            <span className="opacity-70">🛏</span> {beds} {t("bdShort", { ns: "listing", defaultValue: "bd" })}
+            <span className="opacity-70">🛏</span> {beds}{" "}
+            {t("bdShort", { ns: "listing", defaultValue: "Zi." })}
           </span>
+
           <span className="inline-flex items-center gap-1">
-            <span className="opacity-70">🛁</span> {baths} {t("baShort", { ns: "listing", defaultValue: "ba" })}
+            <span className="opacity-70">🛁</span> {baths}{" "}
+            {t("baShort", { ns: "listing", defaultValue: "Bad" })}
           </span>
+
           <span className="inline-flex items-center gap-1">
             <span className="opacity-70">📐</span> {size}
           </span>
+        </div>
+
+        <div className="mt-3 flex items-center justify-between gap-2">
+          <div className="inline-flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400">
+            <FiMapPin size={12} />
+            <span className="truncate">{item?.city || "—"}</span>
+          </div>
 
           {type ? (
-            <span className="ml-auto rounded-full border border-gray-200 dark:border-gray-700 px-2 py-0.5 text-[11px] text-gray-600 dark:text-gray-300">
+            <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 px-2.5 py-1 text-[11px] font-medium text-slate-500 dark:border-slate-700 dark:text-slate-400">
+              <FiHome size={11} />
               {type}
             </span>
           ) : null}
         </div>
 
-        <div className="mt-2 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
+        <div className="mt-3 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
           <span className="truncate">
-            {t("listingId", { ns: "listing", defaultValue: "ID" })}: {item?.id?.slice?.(0, 6) || "—"}
+            {t("listingId", { ns: "listing", defaultValue: "ID" })}:{" "}
+            {item?.id?.slice?.(0, 6) || "—"}
           </span>
-          <span className="inline-flex items-center gap-1">
+
+          <span className="inline-flex items-center gap-1 font-medium">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
             {t("active", { ns: "listing", defaultValue: "Aktiv" })}
           </span>
@@ -209,20 +294,30 @@ const ListingCard = memo(function ListingCard({ item, onClickItem, onHover }) {
 });
 
 const ListingSidebar = ({ listings = [], onClickItem, onHoverItem }) => {
-  const { t } = useTranslation(["map", "listing"]);
+  const { t } = useTranslation(["map"]);
 
-  const safe = useMemo(() => (Array.isArray(listings) ? listings : []), [listings]);
+  const safe = useMemo(
+    () => (Array.isArray(listings) ? listings : []),
+    [listings]
+  );
+
+  const handleClick = useCallback((item) => onClickItem?.(item), [onClickItem]);
+  const handleHover = useCallback((item) => onHoverItem?.(item), [onHoverItem]);
 
   if (safe.length === 0) {
     return (
-      <div className="h-full p-6 flex flex-col items-center justify-center text-center">
-        <div className="text-lg font-semibold text-gray-900 dark:text-white">
-          {t("noResultsTitle", { ns: "map", defaultValue: "Keine Ergebnisse" })}
+      <div className="flex h-full flex-col items-center justify-center p-6 text-center">
+        <div className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+          {t("noResultsTitle", {
+            ns: "map",
+            defaultValue: "Keine Ergebnisse",
+          })}
         </div>
-        <div className="mt-1 text-sm text-gray-600 dark:text-gray-300 max-w-sm">
+        <div className="mt-1 max-w-sm text-sm text-gray-500 dark:text-gray-400">
           {t("noResultsDesc", {
             ns: "map",
-            defaultValue: "In diesem Kartenausschnitt wurden keine Immobilien gefunden. Zoome heraus oder ändere die Filter.",
+            defaultValue:
+              "In diesem Kartenausschnitt wurden keine Immobilien gefunden. Zoome heraus oder ändere die Filter.",
           })}
         </div>
       </div>
@@ -231,9 +326,15 @@ const ListingSidebar = ({ listings = [], onClickItem, onHoverItem }) => {
 
   return (
     <div className="h-full overflow-y-auto">
-      <div className="p-3 grid grid-cols-1 lg:grid-cols-2 gap-3">
+      {/* 1 auf klein, 2 auf mittel, 3 auf groß */}
+      <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 2xl:grid-cols-3">
         {safe.map((item) => (
-          <ListingCard key={item.id} item={item} onClickItem={onClickItem} onHover={onHoverItem} />
+          <ListingCard
+            key={item.id}
+            item={item}
+            onClickItem={handleClick}
+            onHover={handleHover}
+          />
         ))}
       </div>
     </div>

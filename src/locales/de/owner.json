@@ -1,31 +1,14 @@
 {
-  
   "imageAlt": "Immobilien direkt vom Eigentümer kaufen",
-    "metaTitle": "Direkt vom Eigentümer:innen – ohne Maklerprovision",
+  "metaTitle": "Direkt vom Eigentümer:innen – ohne Maklerprovision",
   "metaDescription": "Auf MyHome24App finden Sie Immobilienangebote, die direkt von Eigentümer:innen veröffentlicht wurden – ohne Maklerprovision, mit persönlichem Kontakt und flexiblen Vereinbarungen.",
-
   "badge": "Direkt vom Eigentümer:innen",
   "title": "Direkt vom Eigentümer:in kaufen oder mieten",
   "description": "Direktangebote bieten Ihnen oft mehr Flexibilität bei Preis, Übergabetermin und individuellen Vereinbarungen. Auf MyHome24App finden Sie Objekte, bei denen Sie unmittelbar mit dem:der Eigentümer:in verhandeln.",
-"ctaListings": "Direktangebote ansehen",
+  "ctaListings": "Direktangebote ansehen",
   "ctaSecondary": "Vorteile entdecken",
-
   "featuresTitle": "Ihre Vorteile bei Direktangeboten",
   "featuresLead": "Wenn Sie direkt mit Eigentümer:innen sprechen, gewinnen Sie mehr Transparenz, Flexibilität und persönliche Einblicke.",
- "myOffers": {
-  "title": "Meine Angebote",
-  "subtitle": "Behalte den Überblick über alle Kaufangebote, die du für Immobilien abgegeben hast.",
-  "chips": {
-    "total": "Gesamt",
-    "open": "Offen",
-    "accepted": "Angenommen",
-    "rejected": "Abgelehnt",
-    "withdrawn": "Zurückgezogen"
-  },
-  "empty": "Du hast bisher noch keine Angebote abgegeben.",
-  "withdraw": "Zurückziehen"
-},
- 
   "features": [
     {
       "title": "Keine Provision",
@@ -46,15 +29,29 @@
   ],
   "tipTitle": "💡 Tipp für Interessenten",
   "tipText": "Verhandeln Sie fair und transparent. Viele Eigentümer schätzen direkte Kommunikation und unkomplizierte Abwicklung – das schafft Vertrauen auf beiden Seiten.",
-  "ready": "Jetzt stöbern und direkt Kontakt aufnehmen",
+  "readyTitle": "Jetzt stöbern und direkt Kontakt aufnehmen",
+  "readyText": "Entdecken Sie Direktangebote auf MyHome24App und treten Sie ohne Umwege mit Eigentümer:innen in Kontakt – transparent, persönlich und effizient.",
   "button": "Angebote entdecken",
-    "highlight": {
+  "highlight": {
     "label": "Keine Maklerprovision",
-    "text": "Sie sparen Courtage und verhandeln Konditionen direkt mit dem:der Eigentümer:in.",
-      "ownerCta": {
+    "text": "Sie sparen Courtage und verhandeln Konditionen direkt mit dem:der Eigentümer:in."
+  },
+  "ownerCta": {
     "title": "Sie sind selbst Eigentümer:in?",
     "text": "Veröffentlichen Sie Ihre Immobilie in wenigen Schritten auf MyHome24App und erreichen Sie passende Interessent:innen – transparent und ohne versteckte Gebühren.",
     "button": "Immobilie veröffentlichen"
-  }
+  },
+  "myOffers": {
+    "title": "Meine Angebote",
+    "subtitle": "Behalte den Überblick über alle Kaufangebote, die du für Immobilien abgegeben hast.",
+    "chips": {
+      "total": "Gesamt",
+      "open": "Offen",
+      "accepted": "Angenommen",
+      "rejected": "Abgelehnt",
+      "withdrawn": "Zurückgezogen"
+    },
+    "empty": "Du hast bisher noch keine Angebote abgegeben.",
+    "withdraw": "Zurückziehen"
   }
 }

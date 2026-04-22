@@ -1,23 +1,19 @@
-// src/components/Map/MapWithMarkers.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
-
 import MapFilters from "./MapFilters";
 import { useSearchState } from "../../state/useSearchState";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
-// Germany bbox (lng/lat)
 const DE_BOUNDS = [
-  [5.5, 47.0],   // SW
-  [15.5, 55.2],  // NE
+  [5.5, 47.0],
+  [15.5, 55.2],
 ];
 
-// Zillow-like default view for Germany
-const DE_CENTER = [10.4515, 51.1657]; // lng, lat
+const DE_CENTER = [10.4515, 51.1657];
 const DE_ZOOM = 5.6;
 
 const debounce = (fn, ms) => {
@@ -30,50 +26,105 @@ const debounce = (fn, ms) => {
 
 const isValidDEPoint = (lng, lat) => {
   if (!Number.isFinite(lng) || !Number.isFinite(lat)) return false;
-  return lng >= DE_BOUNDS[0][0] && lng <= DE_BOUNDS[1][0] && lat >= DE_BOUNDS[0][1] && lat <= DE_BOUNDS[1][1];
+  return (
+    lng >= DE_BOUNDS[0][0] &&
+    lng <= DE_BOUNDS[1][0] &&
+    lat >= DE_BOUNDS[0][1] &&
+    lat <= DE_BOUNDS[1][1]
+  );
 };
 
-const MapWithMarkers = ({ listings = [], onListingSelect, onVisibleChange, onRequestOpenMobileList }) => {
+const getListingsBounds = (items = []) => {
+  const valid = items.filter((it) =>
+    isValidDEPoint(Number(it.longitude), Number(it.latitude))
+  );
+
+  if (!valid.length) return null;
+
+  const bounds = new mapboxgl.LngLatBounds();
+
+  valid.forEach((it) => {
+    bounds.extend([Number(it.longitude), Number(it.latitude)]);
+  });
+
+  return bounds;
+};
+
+const MapWithMarkers = ({
+  listings = [],
+  onListingSelect,
+  onVisibleChange,
+  onRequestOpenMobileList,
+}) => {
   const { t } = useTranslation(["map", "filterBar", "listing"]);
 
   const mapEl = useRef(null);
   const mapRef = useRef(null);
+  const firstAutoFitDoneRef = useRef(false);
+  const prevFitSignatureRef = useRef("");
 
-  // Subscribe to state (no store.get() in render)
-  const storeState = useSearchState((s) => ({
-    filters: s.filters,
-    sortBy: s.sortBy,
-    searchInArea: s.searchInArea,
-    bounds: s.bounds,
-  }));
-  const store = useSearchState(); // actions
+  const store = useSearchState();
+  const filters = store?.filters || {};
+  const sortBy = store?.sortBy || "";
+  const searchInArea = !!store?.searchInArea;
+  const bounds = store?.bounds || null;
 
-  const { filters, sortBy, searchInArea, bounds } = storeState;
-
-  // keep latest callbacks without re-init
   const onListingSelectRef = useRef(onListingSelect);
   const onVisibleChangeRef = useRef(onVisibleChange);
-  useEffect(() => { onListingSelectRef.current = onListingSelect; }, [onListingSelect]);
-  useEffect(() => { onVisibleChangeRef.current = onVisibleChange; }, [onVisibleChange]);
+  const filteredListingsRef = useRef([]);
+  const searchInAreaRef = useRef(searchInArea);
 
-  // ================= FILTER / SORT (also sanitize coords to DE) =================
+  useEffect(() => {
+    onListingSelectRef.current = onListingSelect;
+  }, [onListingSelect]);
+
+  useEffect(() => {
+    onVisibleChangeRef.current = onVisibleChange;
+  }, [onVisibleChange]);
+
+  useEffect(() => {
+    searchInAreaRef.current = searchInArea;
+  }, [searchInArea]);
+
   const filteredListings = useMemo(() => {
-   let arr = (listings || []).filter((it) => {
-  const lat = Number(it.latitude);
-  const lng = Number(it.longitude);
-  return Number.isFinite(lat) && Number.isFinite(lng);
-});
+    let arr = (listings || [])
+      .map((it) => {
+        const lat = Number(it.latitude);
+        const lng = Number(it.longitude);
 
-    const cityQ = String(filters?.city || "").trim().toLowerCase();
-    if (cityQ) arr = arr.filter((it) => String(it.city || "").toLowerCase().includes(cityQ));
+        return {
+          ...it,
+          latitude: lat,
+          longitude: lng,
+        };
+      })
+      .filter((it) => isValidDEPoint(it.longitude, it.latitude));
+
+    const cityQ = String(filters?.city || "")
+      .trim()
+      .toLowerCase();
+
+    if (cityQ) {
+      arr = arr.filter((it) =>
+        String(it.city || "").toLowerCase().includes(cityQ)
+      );
+    }
 
     const type = String(filters?.type || "").trim();
-    if (type) arr = arr.filter((it) => String(it.type || "") === type);
+    if (type) {
+      arr = arr.filter((it) => String(it.type || "") === type);
+    }
 
     const min = filters?.priceMin ? Number(filters.priceMin) : null;
     const max = filters?.priceMax ? Number(filters.priceMax) : null;
-    if (min != null && Number.isFinite(min)) arr = arr.filter((it) => Number(it.price ?? 0) >= min);
-    if (max != null && Number.isFinite(max)) arr = arr.filter((it) => Number(it.price ?? 0) <= max);
+
+    if (min != null && Number.isFinite(min)) {
+      arr = arr.filter((it) => Number(it.price ?? 0) >= min);
+    }
+
+    if (max != null && Number.isFinite(max)) {
+      arr = arr.filter((it) => Number(it.price ?? 0) <= max);
+    }
 
     if (searchInArea && bounds) {
       arr = arr.filter(
@@ -85,24 +136,56 @@ const MapWithMarkers = ({ listings = [], onListingSelect, onVisibleChange, onReq
       );
     }
 
-    if (sortBy === "priceAsc") arr.sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
-    if (sortBy === "priceDesc") arr.sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
-    if (sortBy === "newest") arr.sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0));
+    const sorted = [...arr];
 
-    return arr;
+    if (sortBy === "priceAsc") {
+      sorted.sort((a, b) => Number(a.price ?? 0) - Number(b.price ?? 0));
+    }
+
+    if (sortBy === "priceDesc") {
+      sorted.sort((a, b) => Number(b.price ?? 0) - Number(a.price ?? 0));
+    }
+
+    if (sortBy === "newest") {
+      sorted.sort(
+        (a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0)
+      );
+    }
+
+    return sorted;
   }, [listings, filters, sortBy, searchInArea, bounds]);
 
-  // ================= GEOJSON =================
-  const geojson = useMemo(() => ({
-    type: "FeatureCollection",
-    features: filteredListings.map((it) => ({
-      type: "Feature",
-      properties: { id: String(it.id), price: Number(it.price ?? 0) },
-      geometry: { type: "Point", coordinates: [Number(it.longitude), Number(it.latitude)] },
-    })),
-  }), [filteredListings]);
+  useEffect(() => {
+    filteredListingsRef.current = filteredListings;
+  }, [filteredListings]);
+
+  const fitSignature = useMemo(() => {
+    return filteredListings
+      .map((it) => `${it.id}:${it.longitude}:${it.latitude}`)
+      .join("|");
+  }, [filteredListings]);
+
+  const geojson = useMemo(
+    () => ({
+      type: "FeatureCollection",
+      features: filteredListings.map((it) => ({
+        type: "Feature",
+        properties: {
+          id: String(it.id),
+          price: Number(it.price ?? 0),
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [Number(it.longitude), Number(it.latitude)],
+        },
+      })),
+    }),
+    [filteredListings]
+  );
 
   const syncBoundsToStore = (map) => {
+    if (typeof store?.setBounds !== "function") return;
+
     const b = map.getBounds();
     store.setBounds({
       w: b.getWest(),
@@ -112,12 +195,46 @@ const MapWithMarkers = ({ listings = [], onListingSelect, onVisibleChange, onReq
     });
   };
 
+  const fitMapToCurrentListings = (map, options = {}) => {
+    if (!map || map._removed) return;
+
+    const currentListings = filteredListingsRef.current || [];
+    const boundsObj = getListingsBounds(currentListings);
+
+    if (!boundsObj) {
+      map.fitBounds(DE_BOUNDS, {
+        padding: 60,
+        duration: options.duration ?? 500,
+        maxZoom: 7,
+      });
+      return;
+    }
+
+    // Wenn nur ein Objekt da ist -> gezielt drauf zoomen
+    if (currentListings.length === 1) {
+      const one = currentListings[0];
+      map.flyTo({
+        center: [Number(one.longitude), Number(one.latitude)],
+        zoom: 12.5,
+        duration: options.duration ?? 650,
+      });
+      return;
+    }
+
+    map.fitBounds(boundsObj, {
+      padding: options.padding ?? 70,
+      duration: options.duration ?? 650,
+      maxZoom: options.maxZoom ?? 12,
+    });
+  };
+
   const ensureSourceAndLayers = (map) => {
     if (!map || map._removed) return;
     if (!map.isStyleLoaded?.()) return;
 
-    const src = map.getSource("mh24-listings");
-    if (!src) {
+    const existingSource = map.getSource("mh24-listings");
+
+    if (!existingSource) {
       map.addSource("mh24-listings", {
         type: "geojson",
         data: geojson,
@@ -126,7 +243,7 @@ const MapWithMarkers = ({ listings = [], onListingSelect, onVisibleChange, onReq
         clusterMaxZoom: 12,
       });
     } else {
-      src.setData(geojson);
+      existingSource.setData(geojson);
     }
 
     if (!map.getLayer("mh24-clusters")) {
@@ -156,7 +273,9 @@ const MapWithMarkers = ({ listings = [], onListingSelect, onVisibleChange, onReq
           "text-size": 12,
           "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
         },
-        paint: { "text-color": "#ffffff" },
+        paint: {
+          "text-color": "#ffffff",
+        },
       });
     }
 
@@ -186,24 +305,26 @@ const MapWithMarkers = ({ listings = [], onListingSelect, onVisibleChange, onReq
   const reportVisible = (map) => {
     if (!map || map._removed) return;
 
-    // if search-in-area OFF => everything (already sanitized to DE)
-    if (!store.get().searchInArea) {
-      onVisibleChangeRef.current?.(filteredListings);
+    const currentListings = filteredListingsRef.current || [];
+
+    if (!searchInAreaRef.current) {
+      onVisibleChangeRef.current?.(currentListings);
       return;
     }
 
     const b = map.getBounds();
-    const visible = filteredListings.filter(
+
+    const visible = currentListings.filter(
       (it) =>
         it.longitude >= b.getWest() &&
         it.longitude <= b.getEast() &&
         it.latitude >= b.getSouth() &&
         it.latitude <= b.getNorth()
     );
+
     onVisibleChangeRef.current?.(visible);
   };
 
-  // ================= MAP INIT (RUN ONCE) =================
   useEffect(() => {
     if (!mapEl.current) return;
     if (mapRef.current) return;
@@ -216,13 +337,17 @@ const MapWithMarkers = ({ listings = [], onListingSelect, onVisibleChange, onReq
       attributionControl: false,
     });
 
-    // ✅ IMPORTANT: keep map inside Germany so bad coords can't throw it to Scandinavia
-    //map.setMaxBounds(DE_BOUNDS);
-
+    map.setMaxBounds(DE_BOUNDS);
     mapRef.current = map;
 
-    map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "bottom-right");
-    map.addControl(new mapboxgl.AttributionControl({ compact: true }), "bottom-left");
+    map.addControl(
+      new mapboxgl.NavigationControl({ showCompass: false }),
+      "bottom-right"
+    );
+    map.addControl(
+      new mapboxgl.AttributionControl({ compact: true }),
+      "bottom-left"
+    );
 
     let t1 = null;
     let t2 = null;
@@ -230,88 +355,170 @@ const MapWithMarkers = ({ listings = [], onListingSelect, onVisibleChange, onReq
     const safeResize = () => {
       const m = mapRef.current;
       if (!m || m._removed) return;
-      const c = m.getCanvas?.();
-      if (!c) return;
-      try { m.resize(); } catch {}
+      try {
+        m.resize();
+      } catch {}
     };
 
     const onMoveEnd = debounce(() => {
       const m = mapRef.current;
       if (!m || m._removed) return;
       if (!m.isStyleLoaded?.()) return;
+
       syncBoundsToStore(m);
       reportVisible(m);
     }, 120);
 
     const onLoad = () => {
-      // force Germany on load
-      map.jumpTo({ center: DE_CENTER, zoom: DE_ZOOM });
+      map.jumpTo({
+        center: DE_CENTER,
+        zoom: DE_ZOOM,
+      });
 
       t1 = setTimeout(safeResize, 120);
       t2 = setTimeout(safeResize, 350);
 
       syncBoundsToStore(map);
       ensureSourceAndLayers(map);
+
+      // Initial sauber auf Listings fitten
+      fitMapToCurrentListings(map, {
+        duration: 0,
+        padding: 70,
+        maxZoom: 11.5,
+      });
+
+      firstAutoFitDoneRef.current = true;
+
       reportVisible(map);
 
       map.on("moveend", onMoveEnd);
 
       map.on("click", "mh24-clusters", (e) => {
-        const feats = map.queryRenderedFeatures(e.point, { layers: ["mh24-clusters"] });
+        const feats = map.queryRenderedFeatures(e.point, {
+          layers: ["mh24-clusters"],
+        });
+
         const clusterId = feats?.[0]?.properties?.cluster_id;
         const source = map.getSource("mh24-listings");
-        if (!source || clusterId == null) return;
+
+        if (!source || clusterId == null || !feats?.[0]) return;
 
         source.getClusterExpansionZoom(clusterId, (err, zoom) => {
           if (err) return;
-          map.easeTo({ center: feats[0].geometry.coordinates, zoom });
+          map.easeTo({
+            center: feats[0].geometry.coordinates,
+            zoom,
+          });
         });
       });
 
       map.on("click", "mh24-point", (e) => {
-        const f = e.features?.[0];
-        const id = f?.properties?.id;
+        const feature = e.features?.[0];
+        const id = feature?.properties?.id;
         if (!id) return;
-        const full = filteredListings.find((x) => String(x.id) === String(id));
-        if (full) onListingSelectRef.current?.(full);
+
+        const full = (filteredListingsRef.current || []).find(
+          (x) => String(x.id) === String(id)
+        );
+
+        if (full) {
+          onListingSelectRef.current?.(full);
+        }
       });
 
-      map.on("mouseenter", "mh24-point", () => (map.getCanvas().style.cursor = "pointer"));
-      map.on("mouseleave", "mh24-point", () => (map.getCanvas().style.cursor = ""));
-      map.on("mouseenter", "mh24-clusters", () => (map.getCanvas().style.cursor = "pointer"));
-      map.on("mouseleave", "mh24-clusters", () => (map.getCanvas().style.cursor = ""));
+      map.on("mouseenter", "mh24-point", () => {
+        map.getCanvas().style.cursor = "pointer";
+      });
+
+      map.on("mouseleave", "mh24-point", () => {
+        map.getCanvas().style.cursor = "";
+      });
+
+      map.on("mouseenter", "mh24-clusters", () => {
+        map.getCanvas().style.cursor = "pointer";
+      });
+
+      map.on("mouseleave", "mh24-clusters", () => {
+        map.getCanvas().style.cursor = "";
+      });
     };
 
     map.on("load", onLoad);
 
     return () => {
-      try { if (t1) clearTimeout(t1); if (t2) clearTimeout(t2); } catch {}
-      try { map.off("load", onLoad); map.off("moveend", onMoveEnd); } catch {}
-      try { map.remove(); } catch {}
+      try {
+        if (t1) clearTimeout(t1);
+        if (t2) clearTimeout(t2);
+      } catch {}
+
+      try {
+        map.off("load", onLoad);
+        map.off("moveend", onMoveEnd);
+      } catch {}
+
+      try {
+        map.remove();
+      } catch {}
+
       mapRef.current = null;
     };
-  }, []); // ✅ never re-init
+  }, []);
 
-  // ================= UPDATE DATA (NO RE-INIT) =================
   useEffect(() => {
     const map = mapRef.current;
     if (!map || map._removed) return;
-    if (!map.isStyleLoaded?.()) return;
-    ensureSourceAndLayers(map);
-    reportVisible(map);
-  }, [geojson]); // ok
 
-  // ================= SEARCH UI (Nominatim) =================
+    const applyUpdate = () => {
+      ensureSourceAndLayers(map);
+      reportVisible(map);
+
+      // Auto-fit nur wenn Such-in-Ausschnitt NICHT aktiv ist,
+      // damit der User die Karte frei bewegen kann
+      if (!searchInArea && fitSignature !== prevFitSignatureRef.current) {
+        prevFitSignatureRef.current = fitSignature;
+
+        if (filteredListings.length > 0) {
+          fitMapToCurrentListings(map, {
+            duration: firstAutoFitDoneRef.current ? 500 : 0,
+            padding: 70,
+            maxZoom: 11.5,
+          });
+        } else {
+          map.fitBounds(DE_BOUNDS, {
+            padding: 60,
+            duration: 450,
+            maxZoom: 7,
+          });
+        }
+      }
+    };
+
+    if (map.isStyleLoaded?.()) {
+      applyUpdate();
+    } else {
+      map.once("load", applyUpdate);
+    }
+  }, [geojson, searchInArea, fitSignature, filteredListings.length]);
+
   const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
-  const fetchSuggestions = async (q) => {
-    if (!q || q.length < 2) return setSuggestions([]);
+  const fetchSuggestions = async (queryText) => {
+    if (!queryText || queryText.length < 2) {
+      setSuggestions([]);
+      return;
+    }
+
     try {
       const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&countrycodes=de&addressdetails=1&limit=6`
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+          queryText
+        )}&countrycodes=de&addressdetails=1&limit=6`
       );
-      setSuggestions(await res.json());
+
+      const data = await res.json();
+      setSuggestions(Array.isArray(data) ? data : []);
     } catch {
       setSuggestions([]);
     }
@@ -320,38 +527,51 @@ const MapWithMarkers = ({ listings = [], onListingSelect, onVisibleChange, onReq
   const handleSuggestionClick = (item) => {
     setSearch(item.display_name);
     setSuggestions([]);
+
     const map = mapRef.current;
     if (!map || map._removed) return;
-    // still inside DE via maxBounds
-    map.flyTo({ center: [parseFloat(item.lon), parseFloat(item.lat)], zoom: 12, duration: 650 });
+
+    const lat = parseFloat(item.lat);
+    const lng = parseFloat(item.lon);
+
+    if (!isValidDEPoint(lng, lat)) return;
+
+    map.flyTo({
+      center: [lng, lat],
+      zoom: 12,
+      duration: 650,
+    });
   };
 
   return (
-    <div className="w-full h-full relative">
-      {/* Topbar */}
-      <div className="absolute top-3 left-1/2 -translate-x-1/2 z-50 w-[96%] max-w-5xl">
-        <div className="flex flex-wrap items-center gap-2 rounded-2xl bg-white/95 dark:bg-gray-900/90 border border-gray-200 dark:border-gray-700 shadow-xl backdrop-blur px-3 py-3">
-          <div className="relative flex-1 min-w-[240px]">
+    <div className="relative h-full w-full">
+      <div className="absolute left-1/2 top-3 z-50 w-[96%] max-w-5xl -translate-x-1/2">
+        <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-slate-200 bg-white/95 px-3 py-3 shadow-xl backdrop-blur dark:border-slate-700 dark:bg-slate-900/90">
+          <div className="relative min-w-[240px] flex-1">
             <input
               type="text"
-              placeholder={t("searchLocation", { ns: "filterBar", defaultValue: "Adresse, Stadt…" })}
+              placeholder={t("searchLocation", {
+                ns: "filterBar",
+                defaultValue: "Adresse, Stadt…",
+              })}
               value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
                 fetchSuggestions(e.target.value);
               }}
-              className="w-full h-10 px-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 text-gray-900 dark:text-white text-sm"
+              className="h-10 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-900 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
             />
+
             {suggestions.length > 0 && (
-              <div className="absolute left-0 right-0 mt-2 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-950 shadow-2xl z-50">
-                {suggestions.map((it, idx) => (
+              <div className="absolute left-0 right-0 z-50 mt-2 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-700 dark:bg-slate-950">
+                {suggestions.map((item, idx) => (
                   <button
-                    key={idx}
+                    key={`${item.place_id || idx}`}
                     type="button"
-                    onClick={() => handleSuggestionClick(it)}
-                    className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
+                    onClick={() => handleSuggestionClick(item)}
+                    className="w-full px-3 py-2 text-left text-sm text-slate-900 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800"
                   >
-                    {it.display_name}
+                    {item.display_name}
                   </button>
                 ))}
               </div>
@@ -360,13 +580,19 @@ const MapWithMarkers = ({ listings = [], onListingSelect, onVisibleChange, onReq
 
           <MapFilters />
 
-          <label className="ml-auto flex items-center gap-2 text-xs text-gray-700 dark:text-gray-200">
+          <label className="ml-auto flex items-center gap-2 text-xs text-slate-700 dark:text-slate-200">
             <input
               type="checkbox"
               checked={!!searchInArea}
-              onChange={(e) => store.setSearchInArea(e.target.checked)}
+              onChange={(e) =>
+                typeof store?.setSearchInArea === "function" &&
+                store.setSearchInArea(e.target.checked)
+              }
             />
-            {t("searchInArea", { ns: "filterBar", defaultValue: "In diesem Kartenausschnitt suchen" })}
+            {t("searchInArea", {
+              ns: "filterBar",
+              defaultValue: "In diesem Kartenausschnitt suchen",
+            })}
           </label>
 
           <button
@@ -374,28 +600,42 @@ const MapWithMarkers = ({ listings = [], onListingSelect, onVisibleChange, onReq
             onClick={() => {
               const map = mapRef.current;
               if (!map || map._removed) return;
-              // ✅ Always Germany
-              map.fitBounds(DE_BOUNDS, { padding: 60, duration: 450, maxZoom: 7 });
+
+              map.fitBounds(DE_BOUNDS, {
+                padding: 60,
+                duration: 450,
+                maxZoom: 7,
+              });
             }}
-            className="h-10 px-4 rounded-full border border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-950/70 text-sm font-semibold"
+            className="h-10 rounded-full border border-slate-200 bg-white/95 px-4 text-sm font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-950/70 dark:text-slate-100"
           >
-            {t("resetGermany", { ns: "map", defaultValue: "Deutschland" })}
+            {t("resetGermany", {
+              ns: "map",
+              defaultValue: "Deutschland",
+            })}
           </button>
 
-          <div className="text-sm text-gray-700 dark:text-gray-200">
-            {filteredListings.length} {t("results", { ns: "map", defaultValue: "Ergebnisse" })}
+          <div className="text-sm text-slate-700 dark:text-slate-200">
+            {filteredListings.length}{" "}
+            {t("results", {
+              ns: "map",
+              defaultValue: "Ergebnisse",
+            })}
           </div>
 
           <button
             onClick={() => onRequestOpenMobileList?.()}
-            className="md:hidden h-10 px-3 rounded-xl text-sm bg-blue-600 text-white"
+            className="h-10 rounded-xl bg-blue-600 px-3 text-sm text-white md:hidden"
           >
-            {t("openList", { ns: "map", defaultValue: "Liste" })}
+            {t("openList", {
+              ns: "map",
+              defaultValue: "Liste",
+            })}
           </button>
         </div>
       </div>
 
-      <div ref={mapEl} className="w-full h-full" />
+      <div ref={mapEl} className="h-full w-full" />
     </div>
   );
 };

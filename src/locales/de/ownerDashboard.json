@@ -1,135 +1,39 @@
 {
-"offers": {
-  "sectionTitle": "Kaufangebote",
-  "sectionSubtitle": "Verwalte Angebote, die Interessent:innen für deine Inserate abgegeben haben.",
-  "loading": "Angebote werden geladen …",
-  "empty": "Bisher gibt es keine Angebote.",
+  "ownerDashboard": {
     "title": "Owner-Dashboard",
-  "subtitle": "Verwalte deine Inserate, Angebote und Anfragen – alles an einem Ort.",
- 
-  "communicationCenter": {
-    "unknownSender": "Unbekannt",
-    "noEmail": "Keine E-Mail angegeben.",
-    "noPhone": "Keine Telefonnummer angegeben.",
-    "copied": "Kopiert.",
-    "copyFailed": "Kopieren fehlgeschlagen.",
-    "mailSubject": "Antwort zu deinem Interesse: {{title}}",
-
-        "title": "Kommunikations-Center",
-    "subtitle": "Alle Kontaktanfragen und Kaufangebote gebündelt pro Inserat.",
-    "chips": {
-      "listings": "Inserate",
-      "contacts": "Kontaktanfragen",
-      "offers": "Angebote"
-    },
-    "loading": "Daten werden geladen…",
-    "empty": "Es liegen noch keine Kontaktanfragen oder Angebote zu deinen Inseraten vor.",
-    "unknownListing": "Unbekanntes Inserat",
-    "badges": {
-      "contacts": "Kontaktanfragen: {{count}}",
-      "offers": "Angebote: {{count}}"
-    },
-    "toggleDetails": "Details anzeigen",
-    "section": {
-      "contacts": "Kontaktanfragen",
-      "offers": "Kaufangebote"
-    },
-    "noContacts": "Keine Kontaktanfragen zu diesem Inserat.",
-    "noOffers": "Keine Angebote zu diesem Inserat.",
-    "status": {
-      "open": "Offen",
-      "accepted": "Angenommen",
-      "rejected": "Abgelehnt",
-      "withdrawn": "Zurückgezogen"
-    },
-
-    "actions": {
-      "mail": "E-Mail",
-      "call": "Anrufen",
-      "copy": "Kopieren",
-      "reply": "Antworten"
-    },
-    "replyHint": "Schreibe eine Antwort. (Optional: später senden wir das automatisch per E-Mail via Cloud Function.)",
-    "replyPlaceholder": "Deine Antwort…",
-    "buttons": {
-      "cancel": "Abbrechen",
-      "send": "Speichern",
-      "sending": "Wird gesendet…"
-    },
-    "replySent": "Antwort gespeichert.",
-    "replyError": "Antwort konnte nicht gespeichert werden.",
-    "replies": {
-      "title": "Deine Antworten",
-      "sentAt": "Gesendet"
-    }
-  },
-
-  "stats": {
-    "total": "Gesamt",
-    "active": "Aktiv",
-    "inactive": "Inaktiv / Entwurf",
-    "noStatus": "Ohne Status (älter)"
-  },
-
-  "quickActions": {
-    "title": "Schnellaktionen",
-    "newListing": "Neue Anzeige erstellen",
-    "viewPublic": "Öffentliche Seite anzeigen",
-    "support": "Support kontaktieren"
-  },
-
-  "listings": {
-    "title": "Deine Inserate",
-    "subtitle": "Bearbeite, lösche oder öffne deine Inserate in der Detailansicht.",
-    "loading": "Inserate werden geladen…",
-    "empty": "Du hast noch keine Inserate veröffentlicht.",
-    "columns": {
-      "image": "Bild",
-      "title": "Titel",
-      "location": "Ort",
-      "price": "Preis",
-      "status": "Status",
-      "actions": "Aktionen"
-    }
-  },
-
- 
-
- 
-
-  "statusBadge": {
-    "active": "Aktiv",
-    "draft": "Entwurf",
-    "inactive": "Inaktiv"
-  },
-
-  "offersPanel": {
-    "title": "Eingegangene Angebote",
-    "subtitle": "Verwalte Kaufangebote zu deinen Inseraten ähnlich wie bei Zillow.",
-    "stats": {
-      "total": "Gesamt",
-      "open": "Offen",
-      "accepted": "Angenommen",
-      "rejected": "Abgelehnt"
-    },
-    "empty": "Aktuell liegen keine Angebote zu deinen Inseraten vor."
-  },
-  "noUser": "Bitte zuerst einloggen.",
-
-  "ctaNewListing": "Neue Immobilie veröffentlichen",
-  "columns": {
-    "date": "Datum",
-      "image": "Bild",
-      "title": "Titel",
-      "location": "Ort",
-      "price": "Preis",
-        "ownerDashboard": {
-    "title": "Owner-Dashboard",
+    
     "subtitle": "Verwalte deine Inserate, Angebote und Anfragen – alles an einem Ort.",
     "loading": "Dashboard wird geladen…",
     "noUser": "Bitte zuerst einloggen.",
-
     "ctaNewListing": "Neue Immobilie veröffentlichen",
+    "buyer": "Interessent:in",
+"listing": "Inserat",
+"amount": "Angebot",
+"status": "Status",
+
+"date": "Datum",
+"financing": "Finanzierung",
+"moveInDate": "Einzug ab",
+"moveInDateShort": "Einzug ab",
+"financingOptions": {
+  "none": "Keine Angabe zur Finanzierung",
+  "cash": "Kaufpreis wird bar / ohne Finanzierung bezahlt",
+  "mortgageApproved": "Finanzierung ist bereits zugesagt",
+  "mortgagePlanned": "Finanzierung ist geplant"
+},
+"modal": {
+  "title": "Angebotsdetails",
+  "close": "Schließen",
+  "labels": {
+    "listing": "Inserat: ",
+    "buyer": "Käufer: ",
+    "offerAmount": "Angebot: ",
+    "financing": "Finanzierung: ",
+    "moveInDate": "Einzug ab: ",
+    "message": "Nachricht:",
+    "createdAt": "Erstellt am {{date}}"
+  }
+},
 
     "stats": {
       "total": "Gesamt",
@@ -193,74 +97,123 @@
       }
     }
   },
-     
+
+  "communicationCenter": {
+    "title": "Kommunikations-Center",
+    "subtitle": "Alle Kontaktanfragen und Kaufangebote gebündelt pro Inserat.",
+    "chips": {
+      "listings": "Inserate",
+      "contacts": "Kontaktanfragen",
+      "offers": "Angebote"
+    },
+    "loading": "Daten werden geladen…",
+    "empty": "Es liegen noch keine Kontaktanfragen oder Angebote zu deinen Inseraten vor.",
+    "unknownListing": "Unbekanntes Inserat",
+    "unknownSender": "Unbekannt",
+    "noEmail": "Keine E-Mail angegeben.",
+    "noPhone": "Keine Telefonnummer angegeben.",
+    "copied": "Kopiert.",
+    "copyFailed": "Kopieren fehlgeschlagen.",
+    "mailSubject": "Antwort zu deinem Interesse: {{title}}",
+    "badges": {
+      "contacts": "Kontaktanfragen: {{count}}",
+      "offers": "Angebote: {{count}}"
+    },
+    "toggleDetails": "Details anzeigen",
+    "section": {
+      "contacts": "Kontaktanfragen",
+      "offers": "Kaufangebote"
+    },
+    "noContacts": "Keine Kontaktanfragen zu diesem Inserat.",
+    "noOffers": "Keine Angebote zu diesem Inserat.",
+    "status": {
+      "open": "Offen",
+      "accepted": "Angenommen",
+      "rejected": "Abgelehnt",
+      "withdrawn": "Zurückgezogen"
+    },
+    "actions": {
+      "mail": "E-Mail",
+      "call": "Anrufen",
+      "copy": "Kopieren",
+      "reply": "Antworten"
+    },
+    "replyHint": "Schreibe eine Antwort. Beim Klicken auf „Senden“ wird automatisch eine E-Mail verschickt (Cloud Function).",
+    "replyPlaceholder": "Deine Antwort…",
+    "buttons": {
+      "cancel": "Abbrechen",
+      "send": "Senden",
+      "sending": "Wird gesendet…"
+    },
+    "replySent": "Antwort wurde gesendet.",
+    "replyError": "Antwort konnte nicht gesendet werden.",
+    "replies": {
+      "title": "Deine Antworten",
+      "sentAt": "Gesendet"
+    }
+  },
+
+  "offersPanel": {
+    "title": "Eingegangene Angebote",
+    "subtitle": "Verwalte Kaufangebote zu deinen Inseraten ähnlich wie bei Zillow.",
+    "stats": {
+      "total": "Gesamt",
+      "open": "Offen",
+      "accepted": "Angenommen",
+      "rejected": "Abgelehnt"
+    },
+    "empty": "Aktuell liegen keine Angebote zu deinen Inseraten vor."
+  },
+
+  "offers": {
+    "sectionTitle": "Kaufangebote",
+    "sectionSubtitle": "Verwalte Angebote, die Interessent:innen für deine Inserate abgegeben haben.",
+    "loading": "Angebote werden geladen…",
+    "empty": "Bisher gibt es keine Angebote.",
     "listing": "Inserat",
-    
     "buyer": "Interessent:in",
     "amount": "Angebot",
-    "status": "Status",
+    
     "message": "Nachricht",
-    "actions": "Aktionen"
-  },
-  "status": {
-    "pending": "Offen",
-       "total": "Gesamt",
-    "active": "Aktiv",
-    "inactive": "Inaktiv / Entwurf",
-    "noStatus": "Ohne Status",
-    "accepted": "Angenommen",
-    "rejected": "Abgelehnt",
-    "withdrawn": "Zurückgezogen"
-  },
-  
-
-  "filters": {
-    "all": "Alle"
-  },
-  "actions": {
-    "accept": "Annehmen",
-      "view": "Ansehen",
-    "edit": "Bearbeiten",
-    "delete": "Löschen",
-    "title": "Schnellaktionen",
-    "newListing": "Neue Anzeige erstellen",
-    "viewPublic": "Öffentliche Seite anzeigen",
-    "support": "Support kontaktieren",
-    "reject": "Ablehnen",
-    "details": "Details"
-  },
-    "delete": {
-    "title": "Inserat löschen?",
-    "text": "Diese Aktion kann nicht rückgängig gemacht werden.",
-    "cancel": "Abbrechen",
-    "confirm": "Ja, löschen"
-  },
-  "toast": {
-    "updated": "Angebotsstatus aktualisiert.",
-    "error": "Aktualisierung des Angebots ist fehlgeschlagen."
-  },
+    "actions": "Aktionen",
+    "date": "Datum",
     "tabs": {
       "all": "Alle Angebote",
       "pending": "Offen",
       "accepted": "Angenommen",
       "rejected": "Abgelehnt"
     },
-       
-      "listing": "Inserat",
-      "buyer": "Käufer:in",
-      "amount": "Angebot",
-      "message": "Nachricht",
-       "noOffers": "Keine Angebote vorhanden.",
+    "status": {
+      "pending": "Offen",
+      "accepted": "Angenommen",
+      "rejected": "Abgelehnt",
+      "withdrawn": "Zurückgezogen"
+    },
+    "noOffers": "Keine Angebote vorhanden.",
     "viewDetails": "Details ansehen",
     "acceptOffer": "Angebot annehmen",
     "rejectOffer": "Ablehnen",
     "openChat": "Chat öffnen"
   },
-      "date": "Datum"
-      
-    
-  
 
+  "statusBadge": {
+    "active": "Aktiv",
+    "draft": "Entwurf",
+    "inactive": "Inaktiv"
+  },
 
+  "filters": {
+    "all": "Alle"
+  },
 
+  "actions": {
+    "accept": "Annehmen",
+    "reject": "Ablehnen",
+    "details": "Details"
+  },
+
+  "toast": {
+    "updated": "Angebotsstatus aktualisiert.",
+    "error": "Aktualisierung des Angebots ist fehlgeschlagen."
+  }
 }

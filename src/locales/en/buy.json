@@ -1,26 +1,85 @@
 {
-  "title": "Buy",
-  "description": "Explore our property listings for sale – for every style and budget.",
-  "info1": "We offer a wide range of properties for sale – from modern city apartments to charming countryside homes.",
-  "info2": "We support you throughout the entire journey: from search to handing over the keys.",
-  "info3": "Use our filtering options to find exactly what suits your needs.",
-  "metaTitle": "Buy real estate in Germany – MyHome24App",
-  "metaDescription": "Browse homes, apartments and new constructions for sale across Germany. Map view, filters and compare.",
+  "metaTitle": "Buy property in Germany – MyHome24App",
+  "metaDescription": "Browse houses, apartments and new construction listings for sale in Germany. Map view, filters, favorites & compare – localized for DE/EN.",
 
-      "buy": {
-        "title": "Find Your Dream Home",
-        "description": "Browse thousands of properties for sale across Germany.",
-        "filters": {
-            "priceRange": "Price Range",
-            "propertyType": "Property Type",
-            "bedrooms": "Bedrooms",
-            "bathrooms": "Bathrooms",
-            "area": "Area",
-            "moreFilters": "More Filters"
-        },
-        "actions": {
-            "viewListings": "View Listings",
-            "contactAgent": "Contact Agent"
-        }
-    }
+  "breadcrumbs": {
+    "home": "Home",
+    "current": "Buy"
+  },
+
+  "hero": {
+    "badge": "Buy · Germany",
+    "title": "Find your next home — with map, filters & compare",
+    "subtitle": "Discover houses, apartments and new builds. Save favorites, compare listings and move faster towards the right choice.",
+    "ctaPrimary": "Start searching",
+    "ctaSecondary": "Open compare",
+    "ctaMortgage": "Mortgage calculator",
+    "perks": [
+      "Zillow-like map experience (split view)",
+      "Real-time filters & sorting",
+      "Favorites & compare (charts/PDF)",
+      "Dark mode & mobile ready"
+    ],
+    "note": "Note: Listing data may vary depending on the source."
+  },
+
+  "quickBox": {
+    "title": "Quick start",
+    "text": "Jump to popular sections or start with the map and filters.",
+    "tipTitle": "Pro tip",
+    "tipText": "Pick city + budget first, then bedrooms & size. You’ll get better results instantly."
+  },
+
+  "quickLinks": {
+    "items": [
+      { "label": "Explore new construction", "to": "/new-construction" },
+      { "label": "View favorites", "to": "/favorites" },
+      { "label": "Start compare", "to": "/compare" }
+    ]
+  },
+
+  "valueCards": {
+    "title": "Why MyHome24App?",
+    "subtitle": "A modern, fast home search — clean, localized and packed with tools that actually help.",
+    "items": [
+      { "title": "Map & split view", "text": "Keep location, pricing and context in view without constant switching." },
+      { "title": "Strong filters", "text": "Filter by price, type, size, bedrooms and more — in seconds." },
+      { "title": "Compare & insights", "text": "Compare listings and spot differences instantly (export included)." },
+      { "title": "Trust & safety", "text": "Clean UX, consistent data and a focus on safe flows." }
+    ]
+  },
+
+  "mapSection": {
+    "title": "Buy: map & results",
+    "subtitle": "Zoom into cities/regions, apply your filters and open details directly from the map.",
+    "favorites": "Favorites",
+    "compare": "Compare"
+  },
+
+  "faq": {
+    "title": "FAQ",
+    "subtitle": "Quick answers to the most common questions about buying property.",
+    "items": [
+      {
+        "q": "How do I find the best listings?",
+        "a": "Start with city/region and budget. Then use filters like type, bedrooms and size. Save favorites and compare later."
+      },
+      {
+        "q": "Can I compare listings?",
+        "a": "Yes. Add favorites and use the compare feature to quickly see differences (price/size/features)."
+      },
+      {
+        "q": "Do you offer mortgage help?",
+        "a": "Use the calculator or submit a request to financing partners."
+      }
+    ]
+  },
+
+  "bottomCta": {
+    "title": "Ready for the next step?",
+    "text": "Start on the map or check your financing — fast and clear.",
+    "primary": "Go to map",
+    "secondary": "Request financing",
+    "note": "MyHome24App provides guidance. Please consult professionals for final decisions."
+  }
 }

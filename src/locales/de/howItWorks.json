@@ -1,9 +1,88 @@
 {
-  "title": "Wie funktioniert MyHome24App?",
+  "metaTitle": "So funktioniert MyHome24App – Immobilien einfach finden",
+  "metaDescription": "Erfahren Sie Schritt für Schritt, wie MyHome24App beim Suchen, Vergleichen und Kontaktieren rund um Immobilien in Deutschland funktioniert.",
+
+  "badge": "Einfach erklärt",
+  "title": "So funktioniert MyHome24App",
+  "intro": "Von der ersten Suche bis zur Kontaktaufnahme: Entdecken Sie, wie Sie mit MyHome24App Immobilien in Deutschland schneller finden, vergleichen und besser bewerten können.",
+
+  "ctaPrimary": "Jetzt starten",
+  "ctaSecondary": "Fragen stellen",
+
+  "heroStats": [
+    {
+      "title": "Suchen",
+      "text": "Filtern Sie nach Stadt, Preis und Immobilientyp."
+    },
+    {
+      "title": "Vergleichen",
+      "text": "Speichern Sie Favoriten und prüfen Sie Angebote nebeneinander."
+    },
+    {
+      "title": "Kontaktieren",
+      "text": "Nehmen Sie direkt Kontakt zu Eigentümer:innen oder Makler:innen auf."
+    }
+  ],
+
+  "quickOverviewTitle": "Kurzüberblick",
+  "quickOverview": [
+    {
+      "title": "Immobilien entdecken",
+      "text": "Kaufen oder mieten – mit moderner Kartenansicht und smarter Suche."
+    },
+    {
+      "title": "Favoriten merken",
+      "text": "Speichern Sie interessante Angebote für später."
+    },
+    {
+      "title": "Makler:innen finden",
+      "text": "Entdecken Sie passende Ansprechpartner:innen für Ihre Region."
+    },
+    {
+      "title": "Mehr Transparenz",
+      "text": "Vergleichen Sie Preise, Größen und wichtige Details besser auf einen Blick."
+    }
+  ],
+
+  "stepsTitle": "Schritt für Schritt",
+  "stepsIntro": "So läuft die Nutzung auf der Plattform typischerweise ab – einfach, übersichtlich und auf moderne Immobiliensuche ausgerichtet.",
+  "stepLabel": "Schritt",
+
   "steps": [
-    "🔍 Durchsuchen Sie Immobilien nach Stadt, PLZ oder Kategorie.",
-    "⭐ Speichern Sie Favoriten und verwalten Sie alles in Ihrem Dashboard.",
-    "📩 Kontaktieren Sie Eigentümer oder Makler direkt über das System.",
-    "📝 Veröffentlichen Sie Ihre Anzeige in wenigen Minuten."
-  ]
+    {
+      "title": "Immobilien nach Stadt, PLZ oder Kategorie durchsuchen",
+      "text": "Nutzen Sie die Suche, Filter und Kartenansicht, um passende Immobilien in Ihrer Wunschregion schneller zu finden."
+    },
+    {
+      "title": "Favoriten speichern und Übersicht behalten",
+      "text": "Merken Sie interessante Objekte, vergleichen Sie Angebote und behalten Sie Ihre Auswahl an einem Ort im Blick."
+    },
+    {
+      "title": "Eigentümer:innen oder Makler:innen direkt kontaktieren",
+      "text": "Senden Sie schnell Anfragen über das System und stellen Sie gezielte Fragen zu Lage, Preis oder Ausstattung."
+    },
+    {
+      "title": "Immobilie in wenigen Schritten veröffentlichen",
+      "text": "Eigentümer:innen und Makler:innen können eigene Inserate anlegen und ihre Objekte sichtbar auf der Plattform präsentieren."
+    }
+  ],
+
+  "benefitsTitle": "Warum das hilfreich ist",
+  "benefits": [
+    "Sie sparen Zeit durch eine klar strukturierte Suche.",
+    "Sie sehen Angebote, Preise und Größen schneller im direkten Vergleich.",
+    "Sie können gezielt nach Regionen, Typen und Zwecken filtern.",
+    "Sie haben einen einfacheren Weg zur Kontaktaufnahme mit Anbieter:innen."
+  ],
+
+  "tipTitle": "Tipp",
+  "tipText": "Nutzen Sie zuerst die Kartenansicht und speichern Sie interessante Objekte in den Favoriten. So behalten Sie auch bei vielen Ergebnissen leichter den Überblick.",
+  "tipHint": "Besonders hilfreich bei der Suche in größeren Städten oder bei mehreren passenden Stadtteilen.",
+
+  "bottomCta": {
+    "title": "Bereit für die Immobiliensuche?",
+    "text": "Starten Sie jetzt mit Kaufen, Mieten oder der Suche nach passenden Makler:innen auf MyHome24App.",
+    "buy": "Immobilien kaufen",
+    "rent": "Immobilien mieten"
+  }
 }

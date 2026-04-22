@@ -1,4 +1,8 @@
 {
+  "metaTitle": "Makler:innen bewerten",
+  "metaDescription": "Teilen Sie Ihre Erfahrung mit einem Makler oder einer Maklerin auf MyHome24App und helfen Sie anderen Nutzer:innen bei ihrer Entscheidung.",
+  "badge": "Bewertung & Qualität",
+  "intro": "Ihr Feedback hilft dabei, Transparenz, Vertrauen und Qualität auf der Plattform zu stärken. Teilen Sie Ihre Erfahrung mit einer Maklerin oder einem Makler professionell und fair.",
   "titles": {
     "rating": "Bewertungen & Qualität",
     "latest": "Neueste Bewertungen"
@@ -15,10 +19,10 @@
   },
   "form": {
     "yourRatingLabel": "Deine Bewertung",
-    "commentLabel": "Deine Erfahrung (optional)",
-    "commentPlaceholder": "Wie war die Zusammenarbeit? War die Beratung hilfreich?",
+    "commentLabel": "Deine Erfahrung",
+    "commentPlaceholder": "Wie war die Zusammenarbeit? War die Beratung hilfreich? Was lief besonders gut?",
     "sending": "Wird gesendet …",
-    "submit": "Bewertung abgeben"
+    "submit": "Bewertung absenden"
   },
   "errors": {
     "loadFailed": "Bewertungen konnten nicht geladen werden.",
@@ -30,5 +34,13 @@
   },
   "success": {
     "saved": "Bewertung wurde gespeichert. Vielen Dank!"
-  }
+  },
+  "whyTitle": "Warum Bewertungen wichtig sind",
+  "whyText": "Bewertungen schaffen Vertrauen, helfen anderen Nutzer:innen bei der Orientierung und fördern eine transparente Zusammenarbeit zwischen Interessent:innen und Makler:innen.",
+  "tipsTitle": "Hinweise für eine hilfreiche Bewertung",
+  "tips": [
+    "Beschreiben Sie Ihre Erfahrung möglichst konkret und sachlich.",
+    "Konzentrieren Sie sich auf Kommunikation, Verlässlichkeit und Servicequalität.",
+    "Formulieren Sie fair, respektvoll und nachvollziehbar."
+  ]
 }

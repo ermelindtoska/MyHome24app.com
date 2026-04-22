@@ -7,6 +7,8 @@
     "rating": "Rating (1–5)",
     "submit": "Submit",
       "title": "Comments",
+   
+  "empty": "No comments yet.",
   "addComment": "Add a comment",
   "placeholder": "Write your comment...",
   "noComments": "No comments yet.",

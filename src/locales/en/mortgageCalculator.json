@@ -1,5 +1,51 @@
 {
   "metaTitle": "Mortgage calculator – estimate your monthly payment",
+  "introTitle": "Your strong banking partners",
+"trust": [
+  {
+    "title": "Strong partnerships",
+    "text": "Long-term cooperation with clear expectations, structured processes and professional communication."
+  },
+  {
+    "title": "Trust & quality",
+    "text": "A professional platform presence, high-quality user expectations and well-structured contact paths."
+  },
+  {
+    "title": "Growth potential",
+    "text": "Digital visibility and modern user journeys for sustainable reach in the real estate context."
+  }
+],
+"contactBoxTitle": "Are you a bank, broker or advisor?",
+"contactBoxText": "Start a partnership with MyHome24App. We place your services where users are actively searching for properties – with clear expectations and a clean lead context.",
+"statsTitle": "Overview & orientation",
+"statsIntro": "These figures serve as trust and structure indicators for future partner processes.",
+"statsHint": "Roadmap tracking · status · partner matching",
+"stats": [
+  {
+    "value": "3+",
+    "label": "Partner types",
+    "text": "Banks, brokers and independent advisors."
+  },
+  {
+    "value": "24/7",
+    "label": "Digital presence",
+    "text": "Visibility exactly where users are searching for real estate."
+  },
+  {
+    "value": "≤ 2 min",
+    "label": "Initial contact path",
+    "text": "Short paths from first interest to direct contact."
+  },
+  {
+    "value": "100%",
+    "label": "Transparent context",
+    "text": "Clear expectations between platform, users and partners."
+  }
+],
+"benefitsTitle": "Benefits as a financing partner",
+"benefitsIntro": "More visibility, clearer processes and better digital touchpoints for modern financing workflows.",
+"bottomMiniCtaTitle": "Start your partnership in a structured way",
+"bottomMiniCtaText": "Talk to us about lead processes, target groups, visibility and future integrations.",
   "metaDescription": "Estimate your monthly mortgage payment, total interest and overall costs. Includes legal notes and an entry point for financial partners.",
   "hero": {
     "imgAlt": "Illustration of a mortgage calculator",

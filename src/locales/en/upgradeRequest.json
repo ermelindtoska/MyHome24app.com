@@ -1,15 +1,10 @@
 {
-  
-  
   "sendRequest": "Send Request",
-  
   "successMessage": "Your request has been submitted successfully!",
   "close": "Close",
-   
-  "submit": "Send Request",
-  
 
-  
+  "submit": "Send Request",
+
   "upgradeToOwner": "Upgrade to Owner Role",
   "requestOwnerUpgrade": "Request Owner Upgrade",
   "goToPublish": "Go to Publish",
@@ -24,28 +19,30 @@
   "yourReasonWas": "Your provided reason was",
   "cannotRequestNow": "You cannot request at this time.",
   "helperText": "Briefly describe why you need the Owner role (e.g., you plan to publish your own properties).",
- 
+
   "title": "Request role upgrade",
   "description": "If you want to publish your own listings or act as a professional, you can request a higher role here.",
   "targetRoleLabel": "Desired role",
+
   "roles": {
     "owner": "Owner",
     "agent": "Agent"
   },
+
   "placeholder": "Briefly describe why you need this role (e.g. number of properties, professional usage, company details ...)",
-  
   "sending": "Sending...",
   "success": "Request sent",
- 
+
   "error": "Error",
-  
+
   "currentRole": {
     "user": "Standard user",
     "owner": "Owner",
     "agent": "Agent",
+    "admin": "Admin",
     "unknown": "Unknown"
   },
- 
+
   "card": {
     "title": "Role upgrade",
     "subtitle": "Manage your permissions for MyHome24App here.",
@@ -54,24 +51,26 @@
     "alreadyOwner": "You already have an elevated role.",
     "requestPending": "Request is being reviewed",
     "ctaRequestOwner": "Request \"Owner\" role",
-    "helperText": "After approval you can publish and manage your own listings professionally."
+    "helperText": "After approval you can publish and manage your own listings professionally.",
+    "helperRejected": "Your last request was rejected. You can review your details and submit a new request."
   },
+
   "becomeOwnerTitle": "Upgrade to Owner",
   "becomeOwnerDesc": "Owners can publish and manage listings. Send a short request to the admins.",
   "btnRequest": "Request upgrade",
   "btnPending": "Request pending…",
   "checking": "Checking…",
+
   "status": {
     "pending": "Pending",
     "approved": "Approved",
     "rejected": "Rejected"
   },
+
   "requestFailed": "We couldn’t send your request. Please try again later.",
   "mustBeLoggedIn": "You must be logged in to submit a request.",
   "cancel": "Cancel",
   "send": "Send Request",
- 
   "requestSent": "Your upgrade request has been sent successfully.",
-  
   "fillReason": "Please provide a reason for your request."
 }

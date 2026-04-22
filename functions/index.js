@@ -3,13 +3,14 @@
 const { onDocumentCreated } = require('firebase-functions/v2/firestore');
 const { defineSecret } = require('firebase-functions/params');
 const logger = require('firebase-functions/logger');
-const { onCall, HttpsError } = require('firebase-functions/v2/https');
-const { getAuth } = require('firebase-admin/auth');
+const { onRequest } = require('firebase-functions/v2/https');
 
+const cors = require('cors');
 const sgMail = require('@sendgrid/mail');
 
 const { initializeApp, getApps } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
+const { getAuth } = require('firebase-admin/auth');
 
 // =============================
 // 🔐 Secret (NUR SendGrid)
@@ -27,7 +28,7 @@ const VERIFIED_FROM_EMAIL = 'noreply@myhome24app.com'; // muss bei SendGrid als 
 // =====================================================
 function ensureAdmin() {
   if (!getApps().length) {
-    initializeApp(); // nutzt automatisch die Runtime-Credentials in Cloud Functions
+    initializeApp();
     logger.info('✅ Firebase Admin initialized (default app)');
   }
 }
@@ -44,7 +45,6 @@ function setSendGrid() {
   const raw = SENDGRID_API_KEY.value();
   const key = (raw || '').trim();
 
-  // niemals Key loggen!
   if (!key || key.length < 20) {
     throw new Error(
       `SENDGRID_API_KEY missing/invalid. length=${key.length}. ` +
@@ -80,7 +80,6 @@ exports.sendNewContactNotificationFinalV2 = onDocumentCreated(
       const db = getDb();
       setSendGrid();
 
-      // 1) Typ bestimmen
       const isAgentContact =
         contact.category === 'agent-contact' || contact.source === 'agent-profile';
 
@@ -90,7 +89,6 @@ exports.sendNewContactNotificationFinalV2 = onDocumentCreated(
         contact.source === 'listingDetailsModal' ||
         contact.source === 'contactOwnerModal';
 
-      // 2) ownerEmail sauber ermitteln (falls im Contact fehlt)
       let resolvedOwnerEmail = contact.ownerEmail || null;
 
       if (isListingContact && !resolvedOwnerEmail && contact.listingId) {
@@ -105,19 +103,19 @@ exports.sendNewContactNotificationFinalV2 = onDocumentCreated(
               null;
           }
         } catch (e) {
-          logger.error('❌ Could not resolve ownerEmail from listing', { contactId, err: e?.message || e });
+          logger.error('❌ Could not resolve ownerEmail from listing', {
+            contactId,
+            err: e?.message || e,
+          });
         }
       }
 
-      // 3) Zieladresse festlegen
       let targetEmail = DEFAULT_ADMIN_EMAIL;
 
       if (isListingContact && resolvedOwnerEmail) {
         targetEmail = resolvedOwnerEmail;
       } else if (isAgentContact && (contact.ownerEmail || resolvedOwnerEmail)) {
         targetEmail = contact.ownerEmail || resolvedOwnerEmail;
-      } else {
-        targetEmail = DEFAULT_ADMIN_EMAIL;
       }
 
       if (!targetEmail) {
@@ -427,109 +425,159 @@ MyHome24App – Systembenachrichtigung
     }
   }
 );
+
 // =====================================================
-// ✅ 4) Email Verification (SendGrid direkt, pa Firestore)
-// Callable: sendVerificationEmailDirectV2
+// ✅ 4) Email Verification (SendGrid + Firebase Admin)
+// HTTP: POST /sendVerificationEmailDirectV2
+//
+// ✅ expects Authorization: Bearer <Firebase ID Token>
+// body: { continueUrl?, locale? }
 // =====================================================
-exports.sendVerificationEmailDirectV2 = onCall(
+const corsHandler = cors({
+  origin: (origin, callback) => {
+    // requests pa Origin (p.sh. curl/postman) i lejojmë
+    if (!origin) return callback(null, true);
+
+    const allowed = [
+      "https://www.myhome24app.com",
+      "https://myhome24app.com",
+    ];
+
+    // lejo localhost me çdo port (3000, 3001, etj.)
+    const isLocalhost =
+      /^http:\/\/localhost:\d+$/.test(origin) ||
+      /^http:\/\/127\.0\.0\.1:\d+$/.test(origin);
+
+    if (isLocalhost || allowed.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error("Not allowed by CORS: " + origin));
+  },
+  methods: ["POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: false,
+});
+
+exports.sendVerificationEmailDirectV2 = onRequest(
   {
     region: 'us-central1',
     secrets: [SENDGRID_API_KEY],
     memory: '256MiB',
     timeoutSeconds: 60,
+    cors: false,
   },
-  async (request) => {
-    try {
-      // ✅ duhet user i loguar (Callable)
-      const uid = request.auth?.uid;
-      if (!uid) throw new HttpsError('unauthenticated', 'Not authenticated.');
+  (req, res) => {
+    return corsHandler(req, res, async () => {
+      try {
+        // Preflight
+        if (req.method === 'OPTIONS') {
+          return res.status(204).send('');
+        }
 
-      const locale = String(request.data?.locale || 'de').toLowerCase(); // de / en
-      const continueUrl = String(
-        request.data?.continueUrl || 'https://www.myhome24app.com/auth/action'
-      );
+        if (req.method !== 'POST') {
+          return res.status(405).json({ error: 'Method Not Allowed' });
+        }
 
-      ensureAdmin();
-      setSendGrid();
+        const authHeader = String(req.headers.authorization || '');
+        const match = authHeader.match(/^Bearer\s+(.+)$/i);
+        const idToken = match?.[1];
 
-      const auth = getAuth();
-      const user = await auth.getUser(uid);
+        if (!idToken) {
+          return res.status(401).json({
+            error: 'Missing Authorization Bearer token',
+            hint: 'Send Authorization: Bearer <Firebase ID token>',
+          });
+        }
 
-      const email = (user?.email || '').trim();
-      if (!email) throw new HttpsError('failed-precondition', 'User has no email.');
-      if (user.emailVerified) {
-        return { ok: true, alreadyVerified: true };
+        const locale = String(req.body?.locale || 'de').toLowerCase();
+        const continueUrl = String(req.body?.continueUrl || 'https://www.myhome24app.com/auth/action');
+
+        ensureAdmin();
+        setSendGrid();
+
+        const auth = getAuth();
+        const decoded = await auth.verifyIdToken(idToken);
+        const uid = decoded?.uid;
+
+        if (!uid) {
+          return res.status(401).json({ error: 'Invalid token (no uid)' });
+        }
+
+        const user = await auth.getUser(uid);
+        const email = (user?.email || '').trim();
+
+        if (!email) {
+          return res.status(400).json({ error: 'User has no email' });
+        }
+
+        if (user.emailVerified) {
+          return res.status(200).json({ ok: true, alreadyVerified: true });
+        }
+
+        const actionCodeSettings = {
+          url: continueUrl,
+          handleCodeInApp: true,
+        };
+
+        const link = await auth.generateEmailVerificationLink(email, actionCodeSettings);
+
+        const isDE = locale.startsWith('de');
+        const subject = isDE ? 'E-Mail bestätigen – MyHome24App' : 'Verify your email – MyHome24App';
+
+        const html = `
+          <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;padding:20px">
+            <h2 style="margin:0 0 10px">${isDE ? 'E-Mail bestätigen' : 'Verify your email'}</h2>
+            <p style="color:#444;line-height:1.5">
+              ${isDE
+                ? 'Bitte bestätige deine E-Mail-Adresse, um dein Konto zu aktivieren.'
+                : 'Please verify your email address to activate your account.'}
+            </p>
+            <p style="margin:20px 0">
+              <a href="${link}"
+                 style="background:#2563eb;color:#fff;padding:12px 16px;border-radius:10px;text-decoration:none;display:inline-block">
+                ${isDE ? 'E-Mail bestätigen' : 'Verify email'}
+              </a>
+            </p>
+            <p style="color:#777;font-size:12px;line-height:1.4">
+              ${isDE
+                ? 'Wenn du das nicht warst, ignoriere diese E-Mail.'
+                : "If you didn't request this, you can ignore this email."}
+            </p>
+          </div>
+        `;
+
+        await sgMail.send({
+          to: email,
+          from: VERIFIED_FROM_EMAIL,
+          subject,
+          html,
+        });
+
+        logger.info('✅ Verification email sent (HTTP + SendGrid)', {
+          uid,
+          email,
+          continueUrl,
+          locale,
+        });
+
+        return res.status(200).json({ ok: true });
+      } catch (error) {
+        const status = error?.code || error?.response?.statusCode || error?.response?.status;
+        const body = error?.response?.body;
+
+        logger.error('❌ sendVerificationEmailDirectV2 (HTTP) error', {
+          status,
+          body: body || null,
+          message: error?.message || String(error),
+        });
+
+        return res.status(500).json({
+          error: 'Failed to send verification email.',
+          status: status || null,
+          message: error?.message || String(error),
+        });
       }
-
-      // ✅ Gjenero link verifikimi (Admin Auth)
-      const actionCodeSettings = {
-        url: continueUrl,         // faqja jote handler
-        handleCodeInApp: true,
-      };
-
-      const link = await auth.generateEmailVerificationLink(email, actionCodeSettings);
-
-      const isDE = locale.startsWith('de');
-      const subject = isDE
-        ? 'E-Mail bestätigen – MyHome24App'
-        : 'Verify your email – MyHome24App';
-
-      const html = `
-        <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;padding:20px">
-          <h2 style="margin:0 0 10px">${isDE ? 'E-Mail bestätigen' : 'Verify your email'}</h2>
-          <p style="color:#444;line-height:1.5">
-            ${isDE
-              ? 'Bitte bestätige deine E-Mail-Adresse, um dein Konto zu aktivieren.'
-              : 'Please verify your email address to activate your account.'}
-          </p>
-          <p style="margin:20px 0">
-            <a href="${link}"
-               style="background:#2563eb;color:#fff;padding:12px 16px;border-radius:10px;text-decoration:none;display:inline-block">
-              ${isDE ? 'E-Mail bestätigen' : 'Verify email'}
-            </a>
-          </p>
-          <p style="color:#777;font-size:12px;line-height:1.4">
-            ${isDE
-              ? 'Wenn du das nicht warst, ignoriere diese E-Mail.'
-              : "If you didn't request this, you can ignore this email."}
-          </p>
-        </div>
-      `;
-
-      await sgMail.send({
-        to: email,
-        from: VERIFIED_FROM_EMAIL,
-        subject,
-        html,
-      });
-
-      logger.info('✅ Verification email sent (direct SendGrid)', {
-        uid,
-        email,
-        continueUrl,
-      });
-
-      return { ok: true };
-    } catch (error) {
-      const status = error?.code || error?.response?.statusCode || error?.response?.status;
-      const body = error?.response?.body;
-
-      logger.error('❌ sendVerificationEmailDirectV2 error', {
-        status,
-        body: body || null,
-        message: error?.message || String(error),
-      });
-
-      // nëse është HttpsError, ktheje ashtu
-      if (error instanceof HttpsError) throw error;
-
-      // përndryshe bëje HttpsError për klientin
-      throw new HttpsError(
-        'internal',
-        'Failed to send verification email.',
-        { status, message: error?.message || String(error) }
-      );
-    }
+    });
   }
 );
-

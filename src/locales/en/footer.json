@@ -8,6 +8,29 @@
   "contact": "Contact",
   "terms": "Terms of Use",
   "help": "Help",
+    
+  "termsMetaDescription": "Read the terms of use for using the MyHome24App platform.",
+  "termsIntro": "Our terms of use describe the rules and guidelines for using our services.",
+  "termsSections": [
+    {
+      "title": "1. General Use",
+      "content": "The use of MyHome24App is subject to applicable legal provisions. Users agree to provide only accurate and lawful content."
+    },
+    {
+      "title": "2. Content and Listings",
+      "content": "Users are solely responsible for the content, images and information published in their listings. MyHome24App does not guarantee completeness or accuracy."
+    },
+    {
+      "title": "3. Liability",
+      "content": "MyHome24App is only liable within the framework of statutory regulations. No liability is assumed for technical interruptions, external content or actions of other users."
+    },
+    {
+      "title": "4. Changes to the Terms",
+      "content": "We reserve the right to update these terms of use at any time. The version published at the time of use shall apply."
+    }
+  ],
+  "footerDescription": "Your modern property platform for buying, renting and professional property management in Germany.",
+  "socialHint": "Follow us for new listings, market trends and updates.",
   "followUs": "Follow Us",
   "newsletter": "Subscribe to Newsletter",
   "subscribe": "Subscribe",

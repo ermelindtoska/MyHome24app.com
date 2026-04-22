@@ -16,7 +16,10 @@
   "buy": "For Sale",
   "rent": "For Rent",
   "submit": "Submit Property",
-  
+  "notFoundTitle": "Property not found",
+  "notFoundText": "The requested property could not be loaded or no longer exists.",
+  "detailsTitle": "Property details",
+  "contactHint": "If you are interested, you can contact the responsible person directly.",
   "success_uploaded": "Property uploaded successfully!",
   "error_upload": "An error occurred during upload. Try again.",
   "error_image_required": "Please select an image.",

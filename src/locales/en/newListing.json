@@ -1,14 +1,120 @@
 {
-  "title": "Create New Listing",
-  "imageAlt": "Create New Listing",
-  "description": "Create your new property listing quickly and easily. Our system guides you through all the necessary steps – from entering property details to publishing.",
-  "features": [
-    { "title": "Intuitive Input", "text": "Guided process for fast publication" },
-    { "title": "Upload Images", "text": "Present your property visually appealing" },
-    { "title": "Maximize Reach", "text": "Automatic visibility on the platform" },
-    { "title": "Cost Control", "text": "Transparent pricing and easy selection options" }
-  ],
-  "tipTitle": "Tip:",
-  "tipText": "Prepare high-quality photos and precise descriptions – this greatly increases the chances of inquiries.",
-  "button": "Create Listing Now"
+  "badge": "New listing",
+  "pageTitle": "Publish property",
+  "pageDescription": "Fill in the key information, upload photos and publish your property professionally on MyHome24App.",
+  "loginRequired": "Please sign in first to create listings.",
+  "progress": "Progress",
+  "step": "Step",
+  "steps": {
+    "info": "Info",
+    "location": "Location",
+    "photos": "Photos",
+    "review": "Review"
+  },
+  "back": "Back",
+  "next": "Next",
+  "publishNow": "Publish now",
+  "publishing": "Publishing…",
+  "purposeOptions": {
+    "buy": "Buy",
+    "rent": "Rent"
+  },
+  "typeOptions": {
+    "apartment": "Apartment",
+    "house": "House",
+    "commercial": "Office / Commercial"
+  },
+  "amenities": {
+    "balcony": "Balcony",
+    "parking": "Parking",
+    "garden": "Garden",
+    "elevator": "Elevator"
+  },
+  "form": {
+    "infoTitle": "Basic information",
+    "infoSubtitle": "Fill in the most important details. You can add more later.",
+    "purposeLabel": "Purpose",
+    "typeLabel": "Type",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Bright 3-room apartment in the city center",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Describe the property in detail…",
+    "priceLabel": "Price (€)",
+    "rentPriceLabel": "Rent (€/month)",
+    "pricePreview": "Preview",
+    "sizeLabel": "Living space (m²)",
+    "roomsLabel": "Rooms",
+    "bedroomsLabel": "Bedrooms",
+    "bathroomsLabel": "Bathrooms",
+    "yearBuiltLabel": "Year built",
+    "amenitiesLabel": "Amenities"
+  },
+  "location": {
+    "title": "Location",
+    "subtitle": "Enter the property address and place it on the map.",
+    "addressLabel": "Address",
+    "addressPlaceholder": "Street and house number",
+    "zipLabel": "ZIP code",
+    "cityLabel": "City",
+    "geocodeTitle": "Locate address automatically",
+    "coordsFound": "Coordinates found",
+    "coordsEmpty": "No coordinates available yet.",
+    "geocodeButton": "Locate address",
+    "geocoding": "Locating…"
+  },
+  "photos": {
+    "title": "Upload photos",
+    "subtitle": "Good photos increase visibility and improve the first impression.",
+    "uploadTitle": "Select images",
+    "uploadHint": "JPG, PNG, WEBP · maximum 10 images · max 8 MB per file",
+    "selectFiles": "Select files",
+    "previewTitle": "Preview",
+    "coverImage": "Cover image"
+  },
+  "review": {
+    "title": "Review everything",
+    "subtitle": "Check all details before publishing your listing.",
+    "purpose": "Purpose",
+    "type": "Type",
+    "price": "Price",
+    "size": "Size",
+    "rooms": "Rooms",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "yearBuilt": "Year built",
+    "address": "Address",
+    "amenities": "Amenities",
+    "photos": "Photos"
+  },
+  "summary": {
+    "title": "Quick overview",
+    "purpose": "Purpose",
+    "type": "Type",
+    "price": "Price",
+    "city": "City",
+    "photos": "Photos"
+  },
+  "tips": {
+    "title": "Tips for better listings",
+    "tip1": "Use a clear and precise title.",
+    "tip2": "Describe the location, condition and highlights of the property.",
+    "tip3": "Upload bright, sharp photos in good quality.",
+    "tip4": "Carefully review price, size and address before publishing."
+  },
+  "toast": {
+    "noMapboxToken": "No Mapbox token configured for geocoding.",
+    "geocodeServer": "Address could not be located automatically (server response).",
+    "geocodeSuccess": "Address located successfully.",
+    "geocodeNoResult": "Address could not be located automatically (no result).",
+    "geocodeNetwork": "Address could not be located automatically (network error).",
+    "maxImages": "A maximum of {{count}} images is allowed.",
+    "invalidImageType": "Only image files are allowed.",
+    "imageTooLarge": "One image is larger than {{max}} MB.",
+    "mustBeLoggedInPhotos": "You must be signed in to upload photos.",
+    "photoUploadFailed": "A photo could not be uploaded.",
+    "mustBeLoggedIn": "You must be signed in.",
+    "fillRequired": "Please fill in all required fields.",
+    "publishSuccess": "Property published successfully!",
+    "publishError": "Saving failed."
+  }
 }

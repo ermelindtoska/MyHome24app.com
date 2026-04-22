@@ -1,14 +1,7 @@
 // src/pages/AgentDashboard.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import SiteMeta from "../components/SEO/SiteMeta";
@@ -29,7 +22,7 @@ function AgentDashboard() {
 
   const lang = i18n.language?.slice(0, 2) || "de";
 
-  // 🔹 Ngarko profilin e agjentit nga koleksioni "agents"
+  // 🔹 Load agent profile
   useEffect(() => {
     const loadProfile = async () => {
       if (!currentUser?.uid) {
@@ -40,11 +33,8 @@ function AgentDashboard() {
       try {
         const ref = doc(db, "agents", currentUser.uid);
         const snap = await getDoc(ref);
-        if (snap.exists()) {
-          setAgentProfile({ id: snap.id, ...snap.data() });
-        } else {
-          setAgentProfile(null);
-        }
+        if (snap.exists()) setAgentProfile({ id: snap.id, ...snap.data() });
+        else setAgentProfile(null);
       } catch (err) {
         console.error("[AgentDashboard] loadProfile error:", err);
         setAgentProfile(null);
@@ -56,7 +46,7 @@ function AgentDashboard() {
     loadProfile();
   }, [currentUser?.uid]);
 
-  // 🔹 Ngarko listimet e lidhura me agjentin
+  // 🔹 Load listings assigned to agent
   useEffect(() => {
     const loadListings = async () => {
       if (!currentUser?.uid) {
@@ -66,16 +56,10 @@ function AgentDashboard() {
       }
       setListingsLoading(true);
       try {
-        // 🔍 provojmë të gjejmë listime ku agjenti është caktuar
-        // mund të përdorësh cilindo fushë që ke: "agentId", "assignedAgentId" etj.
-        const q = query(
-          collection(db, "listings"),
-          where("agentId", "==", currentUser.uid)
-        );
+        const q = query(collection(db, "listings"), where("agentId", "==", currentUser.uid));
         const snap = await getDocs(q);
         const items = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
 
-        // Sortim: më të rejat sipër
         items.sort((a, b) => {
           const ta = a.createdAt?.toMillis?.() ?? 0;
           const tb = b.createdAt?.toMillis?.() ?? 0;
@@ -94,7 +78,7 @@ function AgentDashboard() {
     loadListings();
   }, [currentUser?.uid]);
 
-  // 🔹 Ngarko kontaktet (leads) për këtë agjent
+  // 🔹 Load contacts/leads for this agent
   useEffect(() => {
     const loadContacts = async () => {
       if (!currentUser?.uid) {
@@ -104,11 +88,7 @@ function AgentDashboard() {
       }
       setContactsLoading(true);
       try {
-        // Nëse ke fushë tjetër (p.sh. listingOwnerId), ndrysho këtu
-        const q = query(
-          collection(db, "contacts"),
-          where("agentId", "==", currentUser.uid)
-        );
+        const q = query(collection(db, "contacts"), where("agentId", "==", currentUser.uid));
         const snap = await getDocs(q);
         const items = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
 
@@ -130,48 +110,24 @@ function AgentDashboard() {
     loadContacts();
   }, [currentUser?.uid]);
 
-  // 🔹 Stats të llogaritura
+  // 🔹 Computed stats
   const stats = useMemo(() => {
     const totalListings = listings.length;
-    const activeListings = listings.filter(
-      (l) => (l.status || "active") === "active"
-    ).length;
-    const pendingListings = listings.filter(
-      (l) => l.status === "pending"
-    ).length;
-
+    const activeListings = listings.filter((l) => (l.status || "active") === "active").length;
+    const pendingListings = listings.filter((l) => l.status === "pending").length;
     const totalLeads = contacts.length;
 
-    const rating =
-      typeof agentProfile?.rating === "number" ? agentProfile.rating : 0;
-    const reviewsCount =
-      typeof agentProfile?.reviewsCount === "number"
-        ? agentProfile.reviewsCount
-        : 0;
+    const rating = typeof agentProfile?.rating === "number" ? agentProfile.rating : 0;
+    const reviewsCount = typeof agentProfile?.reviewsCount === "number" ? agentProfile.reviewsCount : 0;
 
-    return {
-      totalListings,
-      activeListings,
-      pendingListings,
-      totalLeads,
-      rating,
-      reviewsCount,
-    };
+    return { totalListings, activeListings, pendingListings, totalLeads, rating, reviewsCount };
   }, [listings, contacts, agentProfile]);
 
-  // 🔹 Përqindja e kompletimit të profilit
+  // 🔹 Profile completion %
   const profileCompletion = useMemo(() => {
     if (!agentProfile) return 0;
     let filled = 0;
-    const fields = [
-      "fullName",
-      "city",
-      "region",
-      "phone",
-      "languages",
-      "specialties",
-      "bio",
-    ];
+    const fields = ["fullName", "city", "region", "phone", "languages", "specialties", "bio"];
     fields.forEach((f) => {
       const v = agentProfile[f];
       if (Array.isArray(v) && v.length > 0) filled += 1;
@@ -180,7 +136,6 @@ function AgentDashboard() {
     return Math.round((filled / fields.length) * 100);
   }, [agentProfile]);
 
-  // 🔹 CTA: hap profilin për edit
   const handleOpenProfile = () => {
     logEvent({
       type: "agent.dashboard.openProfile",
@@ -190,25 +145,27 @@ function AgentDashboard() {
     window.location.href = "/agent/profile";
   };
 
+  const canonical = `${window.location.origin}/agent-dashboard`;
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
+    <main className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 pt-16 md:pt-0">
       <SiteMeta
         titleKey="agentDashboard.metaTitle"
         descKey="agentDashboard.metaDescription"
         path="/agent-dashboard"
+        canonical={canonical}
         lang={lang}
+        noindex
       />
 
-      <div className="max-w-6xl mx-auto px-4 py-8 md:py-10">
+      <div className="max-w-6xl mx-auto px-4 py-8 md:py-12 space-y-10">
         {/* HEADER */}
-        <header className="mb-8 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <header className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold">
-              {t("title", {
-                defaultValue: "Dein Makler:innen-Dashboard",
-              })}
+              {t("title", { defaultValue: "Dein Makler:innen-Dashboard" })}
             </h1>
-            <p className="text-sm md:text-base text-slate-300 mt-2">
+            <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 mt-2 max-w-2xl">
               {t("subtitle", {
                 defaultValue:
                   "Behalte deine Inserate, Anfragen und Bewertungen im Blick – ähnlich wie bei Zillow.",
@@ -220,64 +177,51 @@ function AgentDashboard() {
             <button
               type="button"
               onClick={handleOpenProfile}
-              className="inline-flex items-center rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600 transition"
+              className="inline-flex items-center rounded-full bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 transition shadow-sm"
             >
-              {t("actions.editProfile", {
-                defaultValue: "Maklerprofil bearbeiten",
-              })}
+              {t("actions.editProfile", { defaultValue: "Maklerprofil bearbeiten" })}
             </button>
           </div>
         </header>
 
         {/* STATS GRID */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard
-            label={t("stats.totalListings", {
-              defaultValue: "Gesamtinserate",
-            })}
+            label={t("stats.totalListings", { defaultValue: "Gesamtinserate" })}
             value={stats.totalListings}
+            variant="default"
           />
           <StatCard
-            label={t("stats.activeListings", {
-              defaultValue: "Aktive Inserate",
-            })}
+            label={t("stats.activeListings", { defaultValue: "Aktive Inserate" })}
             value={stats.activeListings}
-            badgeColor="emerald"
+            variant="emerald"
           />
           <StatCard
-            label={t("stats.pendingListings", {
-              defaultValue: "Ausstehende Freigaben",
-            })}
+            label={t("stats.pendingListings", { defaultValue: "Ausstehende Freigaben" })}
             value={stats.pendingListings}
-            badgeColor="amber"
+            variant="amber"
           />
           <StatCard
-            label={t("stats.totalLeads", {
-              defaultValue: "Kontaktanfragen",
-            })}
+            label={t("stats.totalLeads", { defaultValue: "Kontaktanfragen" })}
             value={stats.totalLeads}
-            badgeColor="sky"
+            variant="sky"
           />
         </section>
 
-        {/* PROFIL + RATING */}
-        <section className="grid gap-6 md:grid-cols-[1.1fr,0.9fr] mb-10">
-          {/* Profil */}
-          <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-5 md:p-6">
+        {/* PROFILE + RATING */}
+        <section className="grid gap-6 md:grid-cols-[1.1fr,0.9fr]">
+          {/* Profile card */}
+          <div className="rounded-3xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
             <h2 className="text-lg md:text-xl font-semibold mb-3">
-              {t("profile.title", {
-                defaultValue: "Dein öffentliches Maklerprofil",
-              })}
+              {t("profile.title", { defaultValue: "Dein öffentliches Maklerprofil" })}
             </h2>
 
             {profileLoading ? (
-              <p className="text-sm text-slate-300">
-                {t("profile.loading", {
-                  defaultValue: "Profil wird geladen…",
-                })}
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                {t("profile.loading", { defaultValue: "Profil wird geladen…" })}
               </p>
             ) : !agentProfile ? (
-              <div className="text-sm text-slate-300">
+              <div className="text-sm text-slate-700 dark:text-slate-300">
                 <p>
                   {t("profile.empty", {
                     defaultValue:
@@ -287,36 +231,32 @@ function AgentDashboard() {
                 <button
                   type="button"
                   onClick={handleOpenProfile}
-                  className="mt-4 inline-flex items-center rounded-full bg-emerald-500 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-600 transition"
+                  className="mt-4 inline-flex items-center rounded-full bg-emerald-600 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-700 transition"
                 >
-                  {t("actions.createProfile", {
-                    defaultValue: "Profil anlegen",
-                  })}
+                  {t("actions.createProfile", { defaultValue: "Profil anlegen" })}
                 </button>
               </div>
             ) : (
-              <div className="space-y-3 text-sm text-slate-200">
+              <div className="space-y-3 text-sm">
                 <div>
-                  <p className="font-semibold text-base">
+                  <p className="font-semibold text-base text-slate-900 dark:text-slate-50">
                     {agentProfile.fullName || "–"}
                   </p>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     {agentProfile.city && agentProfile.region
                       ? `${agentProfile.city}, ${agentProfile.region}`
                       : agentProfile.city || agentProfile.region || ""}
                   </p>
                 </div>
 
-                {agentProfile.specialties &&
-                  Array.isArray(agentProfile.specialties) &&
-                  agentProfile.specialties.length > 0 && (
-                    <p className="text-xs text-slate-300">
-                      {t("profile.specialtiesLabel", {
-                        defaultValue: "Schwerpunkte:",
-                      })}{" "}
-                      {agentProfile.specialties.join(", ")}
-                    </p>
-                  )}
+                {Array.isArray(agentProfile.specialties) && agentProfile.specialties.length > 0 && (
+                  <p className="text-xs text-slate-600 dark:text-slate-300">
+                    <span className="font-semibold">
+                      {t("profile.specialtiesLabel", { defaultValue: "Schwerpunkte:" })}{" "}
+                    </span>
+                    {agentProfile.specialties.join(", ")}
+                  </p>
+                )}
 
                 {agentProfile.languages && (
                   <div className="flex flex-wrap gap-1 pt-1">
@@ -326,7 +266,8 @@ function AgentDashboard() {
                     ).map((lng) => (
                       <span
                         key={lng}
-                        className="inline-flex items-center rounded-full bg-slate-800 px-2 py-0.5 text-[11px] text-slate-100"
+                        className="inline-flex items-center rounded-full bg-slate-100 border border-slate-200 px-2 py-0.5 text-[11px] text-slate-800
+                                   dark:bg-slate-950/40 dark:border-slate-800 dark:text-slate-100"
                       >
                         {lng.trim()}
                       </span>
@@ -335,28 +276,22 @@ function AgentDashboard() {
                 )}
 
                 {agentProfile.bio && (
-                  <p className="text-xs text-slate-300 pt-2 whitespace-pre-line">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 pt-2 whitespace-pre-line">
                     {agentProfile.bio}
                   </p>
                 )}
 
                 <div className="pt-3">
-                  <p className="text-xs text-slate-400 mb-1">
-                    {t("profile.completion", {
-                      defaultValue: "Profilvollständigkeit",
-                    })}
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">
+                    {t("profile.completion", { defaultValue: "Profilvollständigkeit" })}
                   </p>
-                  <div className="h-2 w-full rounded-full bg-slate-800 overflow-hidden">
-                    <div
-                      className="h-full bg-emerald-500"
-                      style={{ width: `${profileCompletion}%` }}
-                    />
+                  <div className="h-2 w-full rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                    <div className="h-full bg-emerald-600" style={{ width: `${profileCompletion}%` }} />
                   </div>
-                  <p className="mt-1 text-xs text-slate-300">
+                  <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
                     {profileCompletion}%{" "}
                     {t("profile.completionHint", {
-                      defaultValue:
-                        "– je vollständiger dein Profil, desto besser wirst du gefunden.",
+                      defaultValue: "– je vollständiger dein Profil, desto besser wirst du gefunden.",
                     })}
                   </p>
                 </div>
@@ -364,119 +299,91 @@ function AgentDashboard() {
             )}
           </div>
 
-          {/* Rating & Reviews */}
-          <div className="rounded-3xl border border-slate-800 bg-slate-900/70 p-5 md:p-6">
+          {/* Rating card */}
+          <div className="rounded-3xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/70">
             <h2 className="text-lg md:text-xl font-semibold mb-3">
-              {t("rating.title", {
-                defaultValue: "Bewertungen & Qualität",
-              })}
+              {t("rating.title", { defaultValue: "Bewertungen & Qualität" })}
             </h2>
+
             <div className="space-y-3 text-sm">
-              <p className="text-3xl font-bold text-amber-300">
+              <p className="text-3xl font-bold text-amber-600 dark:text-amber-300">
                 {stats.rating > 0 ? stats.rating.toFixed(1) : "–"}{" "}
-                <span className="text-base text-slate-300">/ 5</span>
+                <span className="text-base text-slate-500 dark:text-slate-300">/ 5</span>
               </p>
-              <p className="text-xs text-slate-300">
+
+              <p className="text-xs text-slate-600 dark:text-slate-300">
                 {t("rating.reviewsCount", {
                   defaultValue: "{{count}} veröffentlichte Bewertungen",
                   count: stats.reviewsCount,
                 })}
               </p>
-              <p className="text-xs text-slate-400">
+
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 {t("rating.hint", {
-                  defaultValue:
-                    "Zufriedene Kund:innen erhöhen deine Sichtbarkeit in der Suche.",
+                  defaultValue: "Zufriedene Kund:innen erhöhen deine Sichtbarkeit in der Suche.",
                 })}
               </p>
             </div>
           </div>
         </section>
 
-        {/* LISTIMET E FUNDIT */}
-        <section className="mb-10">
-          <div className="flex items-center justify-between mb-3">
+        {/* LISTINGS */}
+        <section className="space-y-3">
+          <div className="flex items-center justify-between">
             <h2 className="text-lg md:text-xl font-semibold">
-              {t("listings.title", {
-                defaultValue: "Deine letzten Inserate",
-              })}
+              {t("listings.title", { defaultValue: "Deine letzten Inserate" })}
             </h2>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               {listings.length}{" "}
-              {t("listings.countLabel", {
-                defaultValue: "Inserate insgesamt",
-              })}
+              {t("listings.countLabel", { defaultValue: "Inserate insgesamt" })}
             </p>
           </div>
 
           {listingsLoading ? (
-            <p className="text-sm text-slate-300">
-              {t("listings.loading", {
-                defaultValue: "Inserate werden geladen…",
-              })}
+            <p className="text-sm text-slate-600 dark:text-slate-300">
+              {t("listings.loading", { defaultValue: "Inserate werden geladen…" })}
             </p>
           ) : listings.length === 0 ? (
-            <p className="text-sm text-slate-300 border border-dashed border-slate-800 rounded-2xl px-4 py-5">
-              {t("listings.empty", {
-                defaultValue:
-                  "Dir sind aktuell keine Inserate zugeordnet.",
-              })}
+            <p className="text-sm text-slate-600 dark:text-slate-300 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl px-4 py-5">
+              {t("listings.empty", { defaultValue: "Dir sind aktuell keine Inserate zugeordnet." })}
             </p>
           ) : (
-            <div className="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/70">
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/70">
               <table className="min-w-full text-sm">
-                <thead className="bg-slate-900">
+                <thead className="bg-slate-50 dark:bg-slate-950/60">
                   <tr>
-                    <th className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wide">
-                      {t("listings.columns.title", {
-                        defaultValue: "Titel",
-                      })}
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wide">
+                      {t("listings.columns.title", { defaultValue: "Titel" })}
                     </th>
-                    <th className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wide">
-                      {t("listings.columns.city", {
-                        defaultValue: "Ort",
-                      })}
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wide">
+                      {t("listings.columns.city", { defaultValue: "Ort" })}
                     </th>
-                    <th className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wide">
-                      {t("listings.columns.type", {
-                        defaultValue: "Typ",
-                      })}
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wide">
+                      {t("listings.columns.type", { defaultValue: "Typ" })}
                     </th>
-                    <th className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wide">
-                      {t("listings.columns.status", {
-                        defaultValue: "Status",
-                      })}
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wide">
+                      {t("listings.columns.status", { defaultValue: "Status" })}
                     </th>
-                    <th className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wide">
-                      {t("listings.columns.createdAt", {
-                        defaultValue: "Erstellt am",
-                      })}
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wide">
+                      {t("listings.columns.createdAt", { defaultValue: "Erstellt am" })}
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800">
+
+                <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
                   {listings.slice(0, 5).map((l) => (
-                    <tr
-                      key={l.id}
-                      className="hover:bg-slate-900/80 transition-colors"
-                    >
-                      <td className="px-4 py-2 text-slate-100">
-                        {l.title || "–"}
+                    <tr key={l.id} className="hover:bg-slate-50 dark:hover:bg-slate-950/40 transition-colors">
+                      <td className="px-4 py-3 font-medium">{l.title || "–"}</td>
+                      <td className="px-4 py-3 text-xs text-slate-600 dark:text-slate-300">{l.city || "–"}</td>
+                      <td className="px-4 py-3 text-xs text-slate-600 dark:text-slate-300">{l.type || "–"}</td>
+                      <td className="px-4 py-3 text-xs">
+                        <StatusBadge
+                          status={l.status || "active"}
+                          t={t}
+                        />
                       </td>
-                      <td className="px-4 py-2 text-slate-200 text-xs">
-                        {l.city || "–"}
-                      </td>
-                      <td className="px-4 py-2 text-slate-200 text-xs">
-                        {l.type || "–"}
-                      </td>
-                      <td className="px-4 py-2 text-xs">
-                        <StatusBadge status={l.status || "active"} />
-                      </td>
-                      <td className="px-4 py-2 text-xs text-slate-300">
-                        {l.createdAt?.toDate
-                          ? l.createdAt
-                              .toDate()
-                              .toLocaleString("de-DE")
-                          : "–"}
+                      <td className="px-4 py-3 text-xs text-slate-600 dark:text-slate-300">
+                        {l.createdAt?.toDate ? l.createdAt.toDate().toLocaleString("de-DE") : "–"}
                       </td>
                     </tr>
                   ))}
@@ -486,80 +393,54 @@ function AgentDashboard() {
           )}
         </section>
 
-        {/* KONTAKTET E FUNDIT */}
-        <section className="mb-10">
-          <div className="flex items-center justify-between mb-3">
+        {/* LEADS */}
+        <section className="space-y-3">
+          <div className="flex items-center justify-between">
             <h2 className="text-lg md:text-xl font-semibold">
-              {t("leads.title", {
-                defaultValue: "Neueste Kontaktanfragen",
-              })}
+              {t("leads.title", { defaultValue: "Neueste Kontaktanfragen" })}
             </h2>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               {contacts.length}{" "}
-              {t("leads.countLabel", {
-                defaultValue: "Anfragen insgesamt",
-              })}
+              {t("leads.countLabel", { defaultValue: "Anfragen insgesamt" })}
             </p>
           </div>
 
           {contactsLoading ? (
-            <p className="text-sm text-slate-300">
-              {t("leads.loading", {
-                defaultValue: "Kontaktanfragen werden geladen…",
-              })}
+            <p className="text-sm text-slate-600 dark:text-slate-300">
+              {t("leads.loading", { defaultValue: "Kontaktanfragen werden geladen…" })}
             </p>
           ) : contacts.length === 0 ? (
-            <p className="text-sm text-slate-300 border border-dashed border-slate-800 rounded-2xl px-4 py-5">
-              {t("leads.empty", {
-                defaultValue: "Noch keine Kontaktanfragen vorhanden.",
-              })}
+            <p className="text-sm text-slate-600 dark:text-slate-300 border border-dashed border-slate-300 dark:border-slate-800 rounded-2xl px-4 py-5">
+              {t("leads.empty", { defaultValue: "Noch keine Kontaktanfragen vorhanden." })}
             </p>
           ) : (
-            <div className="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900/70">
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/70">
               <table className="min-w-full text-sm">
-                <thead className="bg-slate-900">
+                <thead className="bg-slate-50 dark:bg-slate-950/60">
                   <tr>
-                    <th className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wide">
-                      {t("leads.columns.name", {
-                        defaultValue: "Name",
-                      })}
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wide">
+                      {t("leads.columns.name", { defaultValue: "Name" })}
                     </th>
-                    <th className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wide">
-                      {t("leads.columns.email", {
-                        defaultValue: "E-Mail",
-                      })}
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wide">
+                      {t("leads.columns.email", { defaultValue: "E-Mail" })}
                     </th>
-                    <th className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wide">
-                      {t("leads.columns.listing", {
-                        defaultValue: "Inserat",
-                      })}
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wide">
+                      {t("leads.columns.listing", { defaultValue: "Inserat" })}
                     </th>
-                    <th className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wide">
-                      {t("leads.columns.date", {
-                        defaultValue: "Datum",
-                      })}
+                    <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wide">
+                      {t("leads.columns.date", { defaultValue: "Datum" })}
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800">
+
+                <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
                   {contacts.slice(0, 5).map((c) => (
-                    <tr
-                      key={c.id}
-                      className="hover:bg-slate-900/80 transition-colors"
-                    >
-                      <td className="px-4 py-2 text-slate-100">
-                        {c.name || "–"}
-                      </td>
-                      <td className="px-4 py-2 text-slate-200 text-xs">
-                        {c.email || "–"}
-                      </td>
-                      <td className="px-4 py-2 text-slate-200 text-xs">
-                        {c.listingTitle || "–"}
-                      </td>
-                      <td className="px-4 py-2 text-xs text-slate-300">
-                        {c.sentAt?.toDate
-                          ? c.sentAt.toDate().toLocaleString("de-DE")
-                          : "–"}
+                    <tr key={c.id} className="hover:bg-slate-50 dark:hover:bg-slate-950/40 transition-colors">
+                      <td className="px-4 py-3 font-medium">{c.name || "–"}</td>
+                      <td className="px-4 py-3 text-xs text-slate-600 dark:text-slate-300">{c.email || "–"}</td>
+                      <td className="px-4 py-3 text-xs text-slate-600 dark:text-slate-300">{c.listingTitle || "–"}</td>
+                      <td className="px-4 py-3 text-xs text-slate-600 dark:text-slate-300">
+                        {c.sentAt?.toDate ? c.sentAt.toDate().toLocaleString("de-DE") : "–"}
                       </td>
                     </tr>
                   ))}
@@ -569,53 +450,71 @@ function AgentDashboard() {
           )}
         </section>
       </div>
-    </div>
+    </main>
   );
 }
 
-function StatCard({ label, value, badgeColor = "slate" }) {
-  const colorMap = {
-    slate: "bg-slate-900/80 border-slate-800",
-    emerald: "bg-emerald-950/40 border-emerald-700/60",
-    amber: "bg-amber-950/40 border-amber-700/60",
-    sky: "bg-sky-950/40 border-sky-700/60",
+function StatCard({ label, value, variant = "default" }) {
+  const styles = {
+    default:
+      "border-slate-200 bg-white text-slate-900 dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-50",
+    emerald:
+      "border-emerald-200 bg-emerald-50 text-slate-900 dark:border-emerald-900/40 dark:bg-emerald-900/15 dark:text-slate-50",
+    amber:
+      "border-amber-200 bg-amber-50 text-slate-900 dark:border-amber-900/40 dark:bg-amber-900/15 dark:text-slate-50",
+    sky:
+      "border-sky-200 bg-sky-50 text-slate-900 dark:border-sky-900/40 dark:bg-sky-900/15 dark:text-slate-50",
   };
-  const classes = colorMap[badgeColor] || colorMap.slate;
 
   return (
-    <div
-      className={`rounded-3xl border px-4 py-4 md:px-5 md:py-5 shadow-sm ${classes}`}
-    >
-      <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+    <div className={`rounded-3xl border p-4 md:p-5 shadow-sm ${styles[variant] || styles.default}`}>
+      <p className="text-xs font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-300">
         {label}
       </p>
-      <p className="mt-2 text-2xl md:text-3xl font-bold text-slate-50">
-        {value}
-      </p>
+      <p className="mt-2 text-2xl md:text-3xl font-bold">{value}</p>
     </div>
   );
 }
 
-function StatusBadge({ status }) {
+function StatusBadge({ status, t }) {
   const normalized = (status || "active").toLowerCase();
-  let label = normalized;
-  let classes =
+
+  const labels = {
+    active: t?.("status.active", { defaultValue: "Aktiv" }) || "Aktiv",
+    pending: t?.("status.pending", { defaultValue: "Ausstehend" }) || "Ausstehend",
+    inactive: t?.("status.inactive", { defaultValue: "Inaktiv" }) || "Inaktiv",
+  };
+
+  const base =
     "inline-flex items-center rounded-full px-3 py-0.5 text-[11px] font-semibold border";
 
   if (normalized === "active") {
-    label = "Aktiv";
-    classes += " bg-emerald-900/40 text-emerald-200 border-emerald-700/70";
-  } else if (normalized === "pending") {
-    label = "Ausstehend";
-    classes += " bg-amber-900/40 text-amber-200 border-amber-700/70";
-  } else if (normalized === "inactive") {
-    label = "Inaktiv";
-    classes += " bg-slate-900/60 text-slate-200 border-slate-700/70";
-  } else {
-    classes += " bg-slate-900/60 text-slate-200 border-slate-700/70";
+    return (
+      <span className={`${base} bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-900/20 dark:text-emerald-200 dark:border-emerald-900/40`}>
+        {labels.active}
+      </span>
+    );
+  }
+  if (normalized === "pending") {
+    return (
+      <span className={`${base} bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-900/20 dark:text-amber-200 dark:border-amber-900/40`}>
+        {labels.pending}
+      </span>
+    );
+  }
+  if (normalized === "inactive") {
+    return (
+      <span className={`${base} bg-slate-100 text-slate-800 border-slate-200 dark:bg-slate-900/40 dark:text-slate-200 dark:border-slate-800`}>
+        {labels.inactive}
+      </span>
+    );
   }
 
-  return <span className={classes}>{label}</span>;
+  return (
+    <span className={`${base} bg-slate-100 text-slate-800 border-slate-200 dark:bg-slate-900/40 dark:text-slate-200 dark:border-slate-800`}>
+      {normalized}
+    </span>
+  );
 }
 
 export default AgentDashboard;

@@ -8,7 +8,10 @@
   "register.desc": "Register to post, save and compare listings.",
   "admin.title": "Admin Dashboard",
   "admin.desc": "Administration area for MyHome24App (admins only).",
-
+ "global": {
+    "title": "Buy & rent properties in Germany",
+    "description": "MyHome24App – modern real estate platform in Germany. Buy, rent and compare properties easily."
+  },
 
   "buy.title": "Buy real estate",
   "buy.desc": "Find condos and houses for sale across Germany.",

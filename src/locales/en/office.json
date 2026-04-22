@@ -5,32 +5,47 @@
   },
   "imgAlt": "Modern office or commercial workspace",
   "hero": {
+    "badge": "Office & commercial",
     "title": "Modern Offices & Commercial Spaces for Rent",
-    "subtitle": "Discover flexible workspaces, coworking areas and commercial properties in top locations – with transparent details and easy direct contact.",
-    "button": "Show offices on map"
+    "subtitle": "Discover flexible workspaces, coworking areas and commercial properties in top locations – with transparent details and easy direct contact."
+  },
+  "intro": {
+    "eyebrow": "Search with focus",
+    "title": "Find the right space for your business",
+    "text": "Whether you are a start-up, an established company or a growing team: discover office and commercial spaces that match your location needs, size requirements and business use case."
+  },
+  "highlight": {
+    "title": "For companies, service providers and commercial users",
+    "text": "With clear information, easy comparison and direct contact options, we support a professional search for suitable commercial spaces."
   },
   "featuresTitle": "Why search for offices with MyHome24App?",
+  "featuresSection": {
+    "eyebrow": "Your benefits",
+    "text": "A strong commercial property is not only about location, but also about usability, layout and transparent conditions. Your search should be built around exactly those factors."
+  },
   "features": [
     {
       "title": "Prime locations",
-      "text": "Find office spaces in central areas with excellent accessibility."
+      "text": "Find office spaces in central areas with excellent accessibility and strong visibility."
     },
     {
       "title": "Flexible layouts",
-      "text": "From small offices to large commercial units – we show you the best options."
+      "text": "From small offices to practice spaces and larger commercial units – we show offers for different business needs."
     },
     {
       "title": "Transparent rental details",
-      "text": "View rental prices, utilities and contract terms at a glance."
+      "text": "Rental prices, utilities and important contract details are presented clearly and in a structured way."
     },
     {
       "title": "Direct contact",
-      "text": "Contact owners or agents directly through the built-in contact form."
+      "text": "Contact owners or agents directly and clarify availability and property details without unnecessary detours."
     }
   ],
-  "tipTitle": "Search tip",
-  "tipText": "Refresh the map regularly to discover newly listed offices in your area.",
+  "tipLabel": "Practical tip",
+  "tipTitle": "Keep location, usage and flexibility in mind",
+  "tipText": "When searching, do not focus on price alone. Also consider accessibility, floor plan, lease duration and the long-term potential of the location for your business.",
   "cta": {
-    "primary": "Show offices on the map"
+    "primary": "Show offices on the map",
+    "secondary": "Request advice"
   }
 }

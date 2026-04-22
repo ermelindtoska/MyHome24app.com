@@ -30,8 +30,10 @@ const mapAuthError = (code, t) => {
     "auth/user-disabled": t("userDisabled") || "Konto ist deaktiviert.",
     "auth/user-not-found": t("userNotFound") || "Benutzer wurde nicht gefunden.",
     "auth/wrong-password": t("wrongPassword") || "Passwort ist falsch.",
-    "auth/too-many-requests": t("tooManyRequests") || "Zu viele Versuche. Bitte später erneut.",
-    "auth/network-request-failed": t("networkFailed") || "Netzwerkfehler. Bitte erneut versuchen.",
+    "auth/too-many-requests":
+      t("tooManyRequests") || "Zu viele Versuche. Bitte später erneut.",
+    "auth/network-request-failed":
+      t("networkFailed") || "Netzwerkfehler. Bitte erneut versuchen.",
     "auth/operation-not-supported-in-this-environment":
       t("opNotSupported") ||
       "Diese Browser-Einstellung blockiert die Anmeldung (z. B. Privatmodus/Tracking-Schutz).",
@@ -55,13 +57,49 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
 
-  const q = useMemo(() => new URLSearchParams(location.search), [location.search]);
+  // ✅ query parsing
+  const q = useMemo(
+    () => new URLSearchParams(location.search),
+    [location.search]
+  );
   const justVerified = q.get("verified") === "1";
   const verifyFailed = q.get("verify") === "failed";
 
+  // ✅ banner states (so it can persist even after we clean the URL)
+  const [verifiedBanner, setVerifiedBanner] = useState(false);
+  const [verifyFailedBanner, setVerifyFailedBanner] = useState(false);
+
+  // ✅ Redirect away if already logged in
   useEffect(() => {
     if (currentUser) navigate("/", { replace: true });
   }, [currentUser, navigate]);
+
+  // ✅ Show banner once + remove query params so refresh doesn't repeat
+  useEffect(() => {
+    if (!location.search) return;
+
+    const params = new URLSearchParams(location.search);
+    const hasVerified = params.get("verified") === "1";
+    const hasVerifyFailed = params.get("verify") === "failed";
+
+    if (!hasVerified && !hasVerifyFailed) return;
+
+    if (hasVerified) setVerifiedBanner(true);
+    if (hasVerifyFailed) setVerifyFailedBanner(true);
+
+    // remove those params
+    params.delete("verified");
+    params.delete("verify");
+
+    const clean = params.toString();
+    navigate(
+      {
+        pathname: location.pathname,
+        search: clean ? `?${clean}` : "",
+      },
+      { replace: true }
+    );
+  }, [location.pathname, location.search, navigate]);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -105,7 +143,7 @@ export default function LoginForm() {
         "signIn"
       );
 
-      // ✅ blloko login nëse s’është verifikuar
+      // ✅ block login if not verified
       if (!cred.user.emailVerified) {
         await signOut(auth);
         navigate(`/verify-needed?email=${encodeURIComponent(email.trim())}`, {
@@ -132,7 +170,7 @@ export default function LoginForm() {
       const code = e2?.code || e2?.message || "";
       const isTimeout = String(e2?.message || "").startsWith("timeout:");
       const msg = isTimeout
-        ? (t("timeout") || "Netzwerk-Timeout. Bitte erneut versuchen.")
+        ? t("timeout") || "Netzwerk-Timeout. Bitte erneut versuchen."
         : mapAuthError(code, t);
 
       setErr(`${msg} (${code})`);
@@ -146,24 +184,39 @@ export default function LoginForm() {
     <div className="max-w-md mx-auto p-6 mt-10 bg-white dark:bg-gray-800 shadow rounded">
       <Helmet>
         <title>{t("loginTitle") || "Anmelden – MyHome24App"}</title>
-        <meta name="description" content={t("loginMeta") || "Melden Sie sich an, um fortzufahren."} />
+        <meta
+          name="description"
+          content={t("loginMeta") || "Melden Sie sich an, um fortzufahren."}
+        />
       </Helmet>
 
-      {justVerified && (
-        <p className="text-green-600 text-sm mb-3">
-          {t("emailVerifiedNowLogin") || "E-Mail bestätigt. Sie können sich jetzt anmelden."}
-        </p>
+      {/* ✅ Verified banner (once) */}
+      {(verifiedBanner || justVerified) && (
+        <div className="mb-3 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-700 dark:text-emerald-200">
+          {t("emailVerifiedNowLogin") ||
+            "E-Mail bestätigt. Sie können sich jetzt anmelden."}
+        </div>
       )}
-      {verifyFailed && (
-        <p className="text-red-500 text-sm mb-3">
-          {t("verifyFailed") || "E-Mail-Bestätigung fehlgeschlagen. Link ggf. abgelaufen."}
-        </p>
+
+      {/* ✅ Verify failed banner (once) */}
+      {(verifyFailedBanner || verifyFailed) && (
+        <div className="mb-3 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-700 dark:text-red-200">
+          {t("verifyFailed") ||
+            "E-Mail-Bestätigung fehlgeschlagen. Link ggf. abgelaufen."}
+        </div>
       )}
-      {err && <p className="text-red-500 text-sm mb-3">{err}</p>}
+
+      {err && (
+        <div className="mb-3 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-700 dark:text-red-200">
+          {err}
+        </div>
+      )}
 
       <form onSubmit={onSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm mb-1">{t("emailLabel") || "E-Mail"}</label>
+          <label className="block text-sm mb-1">
+            {t("emailLabel") || "E-Mail"}
+          </label>
           <input
             type="email"
             placeholder={t("email") || "E-Mail"}
@@ -176,7 +229,9 @@ export default function LoginForm() {
         </div>
 
         <div>
-          <label className="block text-sm mb-1">{t("passwordLabel") || "Passwort"}</label>
+          <label className="block text-sm mb-1">
+            {t("passwordLabel") || "Passwort"}
+          </label>
           <div className="relative">
             <input
               type={showPw ? "text" : "password"}
@@ -198,7 +253,11 @@ export default function LoginForm() {
               type="button"
               onClick={() => setShowPw((v) => !v)}
               className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-gray-500 hover:text-gray-700 dark:text-gray-300"
-              aria-label={showPw ? t("hidePassword") || "Passwort verbergen" : t("showPassword") || "Passwort zeigen"}
+              aria-label={
+                showPw
+                  ? t("hidePassword") || "Passwort verbergen"
+                  : t("showPassword") || "Passwort zeigen"
+              }
             >
               {showPw ? "🙈" : "👁️"}
             </button>
@@ -213,14 +272,18 @@ export default function LoginForm() {
               onChange={(e) => setRemember(e.target.checked)}
               className="h-4 w-4"
             />
-            <span className="text-sm">{t("staySignedIn") || "Angemeldet bleiben"}</span>
+            <span className="text-sm">
+              {t("staySignedIn") || "Angemeldet bleiben"}
+            </span>
           </label>
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className={`w-full ${loading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"} text-white py-2 rounded transition-colors`}
+          className={`w-full ${
+            loading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
+          } text-white py-2 rounded transition-colors`}
         >
           {loading ? t("pleaseWait") || "Bitte warten…" : t("login") || "Einloggen"}
         </button>

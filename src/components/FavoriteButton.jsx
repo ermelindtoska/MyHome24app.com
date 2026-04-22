@@ -16,10 +16,10 @@ import { useNavigate } from "react-router-dom";
 
 function dispatchMiniToast(message) {
   try {
-    window.dispatchEvent(new CustomEvent("mh24:toast", { detail: { message } }));
-  } catch {
-    // ignore
-  }
+    window.dispatchEvent(
+      new CustomEvent("mh24:toast", { detail: { message } })
+    );
+  } catch {}
 }
 
 const FavoriteButton = ({ listingId, className = "", variant = "icon" }) => {
@@ -32,55 +32,65 @@ const FavoriteButton = ({ listingId, className = "", variant = "icon" }) => {
 
   const id = useMemo(() => String(listingId ?? ""), [listingId]);
 
+  // ✅ LOAD FAVORITES
   useEffect(() => {
     let mounted = true;
 
-    const fetchFavorite = async () => {
+    const load = async () => {
       if (!user || !id) {
         if (mounted) setIsFavorite(false);
         return;
       }
+
       try {
-        const userRef = doc(db, "users", user.uid);
-        const snap = await getDoc(userRef);
+        const ref = doc(db, "users", user.uid);
+        const snap = await getDoc(ref);
 
         if (!mounted) return;
 
         if (snap.exists()) {
-          const favorites = snap.data()?.favorites || [];
-          setIsFavorite(Array.isArray(favorites) && favorites.includes(id));
+          const favs = snap.data()?.favorites || [];
+          setIsFavorite(favs.includes(id));
         } else {
-          // user doc missing -> treat as no favorites
           setIsFavorite(false);
         }
-      } catch (error) {
-        console.error("Error fetching favorites:", error?.message || error);
+      } catch (err) {
+        console.error("Favorite load error:", err);
       }
     };
 
-    fetchFavorite();
+    load();
+
     return () => {
       mounted = false;
     };
   }, [user, id]);
 
+  // ✅ ENSURE USER DOC (FIXED)
   const ensureUserDoc = async () => {
     if (!user) return;
-    const userRef = doc(db, "users", user.uid);
-    const snap = await getDoc(userRef);
+
+    const ref = doc(db, "users", user.uid);
+    const snap = await getDoc(ref);
+
     if (!snap.exists()) {
-      // minimal safe doc (mos e prish strukturën tënde)
       await setDoc(
-        userRef,
+        ref,
         {
           favorites: [],
-          updatedAt: new Date(),
         },
         { merge: true }
       );
+    } else {
+      // ✅ ensure favorites exists
+      const data = snap.data();
+      if (!Array.isArray(data.favorites)) {
+        await updateDoc(ref, { favorites: [] });
+      }
     }
   };
 
+  // ✅ TOGGLE FAVORITE (FIXED)
   const toggleFavorite = async (e) => {
     e?.preventDefault?.();
     e?.stopPropagation?.();
@@ -88,11 +98,9 @@ const FavoriteButton = ({ listingId, className = "", variant = "icon" }) => {
     if (!id) return;
 
     if (!user) {
-      // Zillow-ish: toast + redirect opsional
       dispatchMiniToast(
         t("please_login_to_favorite", {
-          ns: "listing",
-          defaultValue: "Bitte einloggen, um Favoriten zu speichern.",
+          defaultValue: "Bitte einloggen",
         })
       );
       navigate("/login");
@@ -102,37 +110,31 @@ const FavoriteButton = ({ listingId, className = "", variant = "icon" }) => {
     if (loading) return;
 
     const next = !isFavorite;
-    setIsFavorite(next); // ✅ optimistic UI
+    setIsFavorite(next); // optimistic
     setLoading(true);
 
     try {
       await ensureUserDoc();
 
-      const userRef = doc(db, "users", user.uid);
-      const action = next ? arrayUnion(id) : arrayRemove(id);
-      await updateDoc(userRef, { favorites: action });
+      const ref = doc(db, "users", user.uid);
+
+      await updateDoc(ref, {
+        favorites: next ? arrayUnion(id) : arrayRemove(id),
+      });
 
       dispatchMiniToast(
         next
-          ? t("toastSaved", {
-              ns: "listingDetails",
-              defaultValue: "Gespeichert",
-            })
-          : t("toastRemoved", {
-              ns: "listingDetails",
-              defaultValue: "Entfernt",
-            })
+          ? t("toastSaved", { ns: "listingDetails" })
+          : t("toastRemoved", { ns: "listingDetails" })
       );
-    } catch (error) {
-      console.error("Error updating favorites:", error?.message || error);
+    } catch (err) {
+      console.error("Favorite error:", err);
 
-      // rollback optimistic update
-      setIsFavorite(!next);
+      setIsFavorite(!next); // rollback
 
       dispatchMiniToast(
         t("toastFavoriteFailed", {
-          ns: "listingDetails",
-          defaultValue: "Aktion fehlgeschlagen",
+          defaultValue: "Fehler",
         })
       );
     } finally {
@@ -141,56 +143,38 @@ const FavoriteButton = ({ listingId, className = "", variant = "icon" }) => {
   };
 
   const aria = isFavorite
-    ? t("remove_from_favorites", {
-        ns: "listing",
-        defaultValue: "Aus Favoriten entfernen",
-      })
-    : t("add_to_favorites", {
-        ns: "listing",
-        defaultValue: "Zu Favoriten hinzufügen",
-      });
+    ? "Remove from favorites"
+    : "Add to favorites";
 
-  // variant: "icon" (default) ose "pill" nëse e do si button Zillow
+  // ✅ PILL VERSION (Zillow style button)
   if (variant === "pill") {
     return (
       <button
-        type="button"
         onClick={toggleFavorite}
         disabled={loading}
-        className={`h-10 px-3 rounded-full border text-sm font-semibold transition
-          ${
-            isFavorite
-              ? "bg-rose-600 border-rose-600 text-white hover:bg-rose-700"
-              : "bg-white dark:bg-slate-900 border-gray-200 dark:border-slate-800 text-slate-800 dark:text-slate-100 hover:bg-gray-50 dark:hover:bg-slate-800"
-          }
-          ${loading ? "opacity-70 cursor-not-allowed" : ""}
-          ${className}`}
-        aria-label={aria}
-        title={aria}
+        className={`h-10 px-4 rounded-full font-semibold transition
+        ${
+          isFavorite
+            ? "bg-rose-600 text-white"
+            : "bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700"
+        }`}
       >
-        {isFavorite
-          ? t("saved", { ns: "listingDetails", defaultValue: "Gespeichert" })
-          : t("save", { ns: "listingDetails", defaultValue: "Speichern" })}
+        {isFavorite ? "Saved" : "Save"}
       </button>
     );
   }
 
-  // icon-only (për Sidebar + top-right actions)
+  // ✅ ICON VERSION (FIXED CLICK)
   return (
     <button
-      type="button"
-       onClick={(e) => {
-        e.stopPropagation();        // ✅ wichtig
-        toggleFavorite();
-      }}
+      onClick={toggleFavorite}   // ✅ FIX CRITICAL
       disabled={loading}
-      className={`text-xl transition duration-200 ${
+      className={`text-xl transition ${
         isFavorite
-          ? "text-rose-500 hover:text-rose-600"
+          ? "text-rose-500"
           : "text-gray-400 hover:text-rose-500"
-      } ${loading ? "opacity-70 cursor-not-allowed" : ""} ${className}`}
+      } ${loading ? "opacity-50" : ""} ${className}`}
       aria-label={aria}
-      title={aria}
     >
       {isFavorite ? <FaHeart /> : <FaRegHeart />}
     </button>

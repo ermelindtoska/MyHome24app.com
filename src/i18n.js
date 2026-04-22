@@ -64,6 +64,10 @@ import agentDashboardDe from "./locales/de/agentDashboard.json";
 import agentProfileDe from "./locales/de/agentProfile.json";
 import agentPublicProfileDe from "./locales/de/agentPublicProfile.json";
 import mortgageRequestDE from "./locales/de/mortgageRequest.json";
+import financePartnerDashboardDE from "./locales/de/financePartnerDashboard.json";
+import publicListingsDE from './locales/de/publicListings.json';
+import searchPageDE from './locales/de/searchPage.json';
+import termsDE from "./locales/de/terms.json";
 
 // === EN English
 import homeEN from './locales/en/home.json';
@@ -128,7 +132,10 @@ import agentDashboardEn from "./locales/en/agentDashboard.json";
 import agentProfileEn from "./locales/en/agentProfile.json";
 import agentPublicProfileEn from "./locales/en/agentPublicProfile.json";
 import mortgageRequestEN from "./locales/en/mortgageRequest.json";
-
+import financePartnerDashboardEN from "./locales/en/financePartnerDashboard.json";
+import publicListingsEN from './locales/en/publicListings.json';
+import searchPageEN from './locales/en/searchPage.json';
+import termsEN from "./locales/en/terms.json";
 
 const resources = {
   de: {
@@ -193,6 +200,10 @@ const resources = {
     agentDashboard: agentDashboardDe,
     agentProfile: agentProfileDe,
     mortgageRequest: mortgageRequestDE,
+    financePartnerDashboard: financePartnerDashboardDE,
+    publicListings: publicListingsDE,
+    searchPage: searchPageDE,
+    terms: termsDE,
      agentPublicProfile: agentPublicProfileDe
   },
   en: {
@@ -257,6 +268,10 @@ const resources = {
     agentDashboard: agentDashboardEn,
     agentProfile: agentProfileEn,
     mortgageRequest: mortgageRequestEN,
+    financePartnerDashboard: financePartnerDashboardEN,
+    publicListings: publicListingsEN,
+    searchPage: searchPageEN,
+   terms: termsEN,
     agentPublicProfile: agentPublicProfileEn
   }
 };
@@ -280,7 +295,7 @@ i18n
       'support', 'howItWorks', 'userDashboard', 'listingDetails', 'filterBar', 'listingForm',
       'buy', 'rent', 'mortgage', 'findAgent', 'impressum', 'states', 'cities', 'districts',
       'streets', 'neighbourhoods', 'filterSidebar', 'unauthorized', 'upgradeRequest', 'meta', 'profile', 'mortgageCalculator', 
-      'agentBecome', 'offer', 'adminDashboard', 'agentDashboard', 'agentProfile', 'agentPublicProfile', 'mortgageRequest'
+      'agentBecome', 'offer', 'searchPage', 'publicListings', 'adminDashboard', 'terms','agentDashboard', 'agentProfile', 'agentPublicProfile', 'mortgageRequest', 'financePartnerDashboard'
     ],
     defaultNS: 'home',
     interpolation: {

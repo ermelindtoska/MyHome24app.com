@@ -1,0 +1,41 @@
+{
+  "metaTitle": "Alle Immobilien – MyHome24App",
+  "metaDescription": "Entdecken Sie alle öffentlichen Immobilienanzeigen auf MyHome24App mit Filtern, Suche und professioneller Übersicht.",
+  "badge": "Öffentliche Immobilien",
+  "title": "Alle Immobilien",
+  "description": "Durchsuchen Sie alle veröffentlichten Immobilienanzeigen auf MyHome24App. Nutzen Sie Suche und Filter, um passende Angebote schneller zu finden.",
+  "resultsCount": "{{count}} Ergebnisse",
+  "filters": {
+    "title": "Filter & Suche",
+    "subtitle": "Verfeinern Sie die Ergebnisse nach Titel, Stadt, Typ und Preis.",
+    "searchLabel": "Suche",
+    "searchPlaceholder": "Suche nach Titel",
+    "cityLabel": "Stadt",
+    "cityPlaceholder": "Stadt eingeben",
+    "typeLabel": "Immobilientyp",
+    "typeAll": "Typ wählen",
+    "types": {
+      "apartment": "Wohnung",
+      "house": "Haus"
+    },
+    "minPriceLabel": "Mindestpreis",
+    "minPricePlaceholder": "Min €",
+    "maxPriceLabel": "Höchstpreis",
+    "maxPricePlaceholder": "Max €",
+    "reset": "Filter zurücksetzen"
+  },
+  "states": {
+    "loadingTitle": "Immobilien werden geladen",
+    "loadingText": "Bitte warten Sie einen Moment, während die veröffentlichten Inserate geladen werden.",
+    "errorTitle": "Fehler beim Laden",
+    "errorText": "Die Immobilien konnten nicht geladen werden.",
+    "emptyTitle": "Keine passenden Immobilien gefunden",
+    "emptyText": "Passen Sie Ihre Filter an oder setzen Sie sie zurück, um weitere Immobilien zu sehen."
+  },
+  "map": {
+    "title": "Kartenübersicht",
+    "text": "Diese Seite kann später mit dem professionellen Kartenmodul von MyHome24App verbunden werden, damit Nutzer:innen Immobilien auch direkt auf der Karte erkunden können.",
+    "placeholderTitle": "Interaktive Karte folgt",
+    "placeholderText": "Sobald das zentrale Mapsystem angebunden ist, erscheint hier eine professionelle Kartenansicht für alle öffentlichen Immobilien."
+  }
+}

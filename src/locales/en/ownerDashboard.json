@@ -1,111 +1,38 @@
 {
-"offers": {
-  "sectionTitle": "Purchase offers",
-  "sectionSubtitle": "Manage offers that buyers have submitted for your listings.",
-  "loading": "Loading offers…",
-  "empty": "There are no offers yet.",
- "myOffers": {
-  "title": "My offers",
-  "subtitle": "Keep track of all purchase offers you have submitted for properties.",
-  "chips": {
-    "total": "Total",
-    "open": "Open",
-    "accepted": "Accepted",
-    "rejected": "Rejected",
-    "withdrawn": "Withdrawn"
-  },
-  "empty": "You have not submitted any offers yet.",
-  "withdraw": "Withdraw"
-},
- "ownerDashboard": {
+  "ownerDashboard": {
     "title": "Owner dashboard",
     "subtitle": "Manage your listings, offers and requests – all in one place.",
     "loading": "Loading dashboard…",
     "noUser": "Please sign in first.",
-
-
-    
- "communicationCenter": {
-    "title": "Communication Center",
-    "subtitle": "All contact requests and purchase offers grouped by listing.",
-    "chips": {
-      "listings": "Listings",
-      "contacts": "Contact requests",
-      "offers": "Offers",
-
-"unknownSender": "Unknown",
-
-"noEmail": "No email address provided.",
-
-"noPhone": "No phone number provided.",
-
-"copied": "Copied.",
-
-"copyFailed": "Copy failed.",
-
-"mailSubject": "Reply to your interest: {{title}}",
-
-"actions": {
-
-"mail": "Email",
-
-"call": "Call",
-
-"copy": "Copy",
-
-"reply": "Reply"
-
-},
-
-"replyHint": "Write a reply. (Optional: we will send this automatically via email later using a Cloud Function.)",
-
-"replyPlaceholder": "Your reply…",
-
-"buttons": {
-
-"cancel": "Cancel",
-
-"send": "Save",
-
-"sending": "Sending…"
-
-},
-
-"replySent": "Reply saved.",
-
-"replyError": "Reply could not be saved.",
-
-"replies": {
-
-"title": "Your replies",
-
-"sentAt": "Sent"
-
-}
-
-    },
-    "loading": "Loading data…",
-    "empty": "You haven’t received any contact requests or offers for your listings yet.",
-    "unknownListing": "Unknown listing",
-    "badges": {
-      "contacts": "Contact requests: {{count}}",
-      "offers": "Offers: {{count}}"
-    },
-    "toggleDetails": "Show details",
-    "section": {
-      "contacts": "Contact requests",
-      "offers": "Purchase offers"
-    },
-    "noContacts": "No contact requests for this listing.",
-    "noOffers": "No offers for this listing.",
-    "status": {
-      "open": "Open",
-      "accepted": "Accepted",
-      "rejected": "Rejected",
-      "withdrawn": "Withdrawn"
-    }
-  },
     "ctaNewListing": "Publish new property",
+    "buyer": "Interested buyer",
+"listing": "Listing",
+"amount": "Offer",
+"status": "Status",
+
+"date": "Date",
+"financing": "Financing",
+"moveInDate": "Move-in from",
+"moveInDateShort": "Move-in from",
+"financingOptions": {
+  "none": "No financing details provided",
+  "cash": "Purchase price will be paid in cash / without financing",
+  "mortgageApproved": "Financing has already been approved",
+  "mortgagePlanned": "Financing is planned"
+},
+"modal": {
+  "title": "Offer details",
+  "close": "Close",
+  "labels": {
+    "listing": "Listing: ",
+    "buyer": "Buyer: ",
+    "offerAmount": "Offer: ",
+    "financing": "Financing: ",
+    "moveInDate": "Move-in from: ",
+    "message": "Message:",
+    "createdAt": "Created on {{date}}"
+  }
+},
 
     "stats": {
       "total": "Total",
@@ -170,36 +97,59 @@
     }
   },
 
-  "quickActions": {
-    "title": "Quick actions",
-    "newListing": "Create new listing",
-    "viewPublic": "View public page",
-    "support": "Contact support"
-  },
-
-  "listings": {
-    "title": "Your listings",
-    "subtitle": "Edit, delete or open your listings in the detail view.",
-    "loading": "Loading listings…",
-    "empty": "You have not published any listings yet.",
-    "columns": {
-      "image": "Image",
-      "title": "Title",
-      "location": "Location",
-      "price": "Price",
-      "status": "Status",
-      "actions": "Actions"
+  "communicationCenter": {
+    "title": "Communication Center",
+    "subtitle": "All contact requests and purchase offers grouped by listing.",
+    "chips": {
+      "listings": "Listings",
+      "contacts": "Contact requests",
+      "offers": "Offers"
+    },
+    "loading": "Loading data…",
+    "empty": "You haven’t received any contact requests or offers for your listings yet.",
+    "unknownListing": "Unknown listing",
+    "unknownSender": "Unknown",
+    "noEmail": "No email address provided.",
+    "noPhone": "No phone number provided.",
+    "copied": "Copied.",
+    "copyFailed": "Copy failed.",
+    "mailSubject": "Reply to your interest: {{title}}",
+    "badges": {
+      "contacts": "Contact requests: {{count}}",
+      "offers": "Offers: {{count}}"
+    },
+    "toggleDetails": "Show details",
+    "section": {
+      "contacts": "Contact requests",
+      "offers": "Purchase offers"
+    },
+    "noContacts": "No contact requests for this listing.",
+    "noOffers": "No offers for this listing.",
+    "status": {
+      "open": "Open",
+      "accepted": "Accepted",
+      "rejected": "Rejected",
+      "withdrawn": "Withdrawn"
+    },
+    "actions": {
+      "mail": "Email",
+      "call": "Call",
+      "copy": "Copy",
+      "reply": "Reply"
+    },
+    "replyHint": "Write a reply. When clicking “Send”, an email is sent automatically via Cloud Function.",
+    "replyPlaceholder": "Your reply…",
+    "buttons": {
+      "cancel": "Cancel",
+      "send": "Send",
+      "sending": "Sending…"
+    },
+    "replySent": "Reply was sent.",
+    "replyError": "Reply could not be sent.",
+    "replies": {
+      "title": "Your replies",
+      "sentAt": "Sent"
     }
-  },
-
-  
-
- 
-
-  "statusBadge": {
-    "active": "Active",
-    "draft": "Draft",
-    "inactive": "Inactive"
   },
 
   "offersPanel": {
@@ -213,93 +163,56 @@
     },
     "empty": "There are currently no offers for your listings."
   },
-  "columns": {
-    "date": "Date",
-    "listing": "Listing",
-    "buyer": "Buyer",
-    "amount": "Offer",
-    "status": "Status",
-    "message": "Message",
-    "actions": "Actions"
-  },
-  
-    "title": "Owner Dashboard",
-  "subtitle": "Manage your listings, offers and inquiries – all in one place.",
-  
-  "noUser": "Please log in first.",
-
-  "ctaNewListing": "Publish new property",
-
-  "stats": {
-    "total": "Total",
-    "active": "Active",
-    "inactive": "Inactive / Draft",
-    "noStatus": "No Status"
-  },
-   
-
-  
-
-  "delete": {
-    "title": "Delete listing?",
-    "text": "This action cannot be undone.",
-    "cancel": "Cancel",
-    "confirm": "Yes, delete"
-  },
 
   "offers": {
-    "title": "Offers for your listings",
-    "subtitle": "All received purchase offers and negotiation statuses.",
-
+    "sectionTitle": "Purchase offers",
+    "sectionSubtitle": "Manage offers that buyers have submitted for your listings.",
+    "loading": "Loading offers…",
+    "empty": "There are no offers yet.",
+    "listing": "Listing",
+    "buyer": "Interested buyer",
+    "amount": "Offer",
+    
+    "message": "Message",
+    "actions": "Actions",
+    "date": "Date",
     "tabs": {
-      "all": "All",
-      "pending": "Pending",
+      "all": "All offers",
+      "pending": "Open",
       "accepted": "Accepted",
       "rejected": "Rejected"
     },
-
-    "columns": {
-      "listing": "Listing",
-      "buyer": "Buyer",
-      "amount": "Offer",
-      "message": "Message",
-      "status": "Status",
-      "date": "Date",
-      "actions": "Actions"
-    },
-
     "status": {
-      "pending": "Pending",
+      "pending": "Open",
       "accepted": "Accepted",
-      "rejected": "Rejected"
+      "rejected": "Rejected",
+      "withdrawn": "Withdrawn"
     },
-
     "noOffers": "No offers available.",
     "viewDetails": "View details",
     "acceptOffer": "Accept offer",
     "rejectOffer": "Reject",
     "openChat": "Open chat"
   },
-  
-   
-  "status": {
-    "pending": "Pending",
-    "accepted": "Accepted",
-    "rejected": "Rejected",
-    "withdrawn": "Withdrawn"
+
+  "statusBadge": {
+    "active": "Active",
+    "draft": "Draft",
+    "inactive": "Inactive"
   },
+
   "filters": {
     "all": "All"
   },
+
   "actions": {
     "accept": "Accept",
     "reject": "Reject",
     "details": "Details"
   },
+
   "toast": {
     "updated": "Offer status updated.",
     "error": "Failed to update offer."
   }
-  
-}
 }

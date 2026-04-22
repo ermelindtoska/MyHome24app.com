@@ -1,16 +1,109 @@
 {
-  "title": "Careers",
-  "description": "Find out how you can work with MyHome24.",
-  "positions": [
-    {
-      "title": "Frontend Developer",
-      "location": "Berlin, Germany",
-      "description": "Help us build great user interfaces with React."
-    },
-    {
-      "title": "Marketing Specialist",
-      "location": "Remote",
-      "description": "Reach new audiences and shape campaigns with us."
-    }
-  ]
+  "meta": {
+    "title": "Careers at MyHome24App – Jobs & Team",
+    "description": "Join MyHome24App. Explore open roles, our values, benefits and the hiring process."
+  },
+  "breadcrumbs": {
+    "home": "Home",
+    "current": "Careers"
+  },
+  "hero": {
+    "badge": "Careers · MyHome24App",
+    "title": "Build the next generation of home search with us",
+    "subtitle": "We’re looking for people who love products, take ownership, and craft great user experiences.",
+    "ctaPrimary": "Apply now",
+    "ctaSecondary": "Open roles",
+    "ctaAbout": "About us",
+    "highlights": [
+      "Remote-friendly & flexible hours",
+      "Impact over bureaucracy",
+      "High bar for product, design & engineering",
+      "Culture: clear, respectful, fast"
+    ],
+    "note": "Tip: You can also apply proactively if no role is a perfect match."
+  },
+  "quickBox": {
+    "title": "Proactive application",
+    "text": "Didn’t find the right role? Send us a message — we’ll get back to you soon.",
+    "tipTitle": "Tip",
+    "tipText": "Send 2–3 lines: role/interest, strengths, links (portfolio/GitHub/LinkedIn).",
+    "cta": "Open contact",
+    "secondary": "General contact"
+  },
+  "values": {
+    "title": "How we work",
+    "subtitle": "Principles that keep us focused and shipping fast — with quality.",
+    "items": [
+      { "title": "Clarity over complexity", "text": "We build solutions that users understand instantly." },
+      { "title": "Teamwork & ownership", "text": "We work transparently, give feedback, and take responsibility." },
+      { "title": "Learning & growth", "text": "We continuously improve product, process, and skills." }
+    ]
+  },
+  "roles": {
+    "title": "Open roles",
+    "subtitle": "These are typical roles. If you’re a good fit even without a 100% match — reach out.",
+    "cta": "Apply proactively",
+    "apply": "Apply",
+    "ask": "Ask a question",
+    "note": "We update roles regularly. Proactive applications are welcome.",
+    "items": [
+      {
+        "title": "Frontend Engineer (React)",
+        "location": "Germany / Remote",
+        "type": "Full-time",
+        "text": "Build Zillow-like UI flows: fast, clean, responsive and dark-mode-ready.",
+        "bullets": ["React + Tailwind", "i18n/SEO focus", "Performance & UX"]
+      },
+      {
+        "title": "Full-Stack Engineer (Firebase)",
+        "location": "Germany / Remote",
+        "type": "Full-time",
+        "text": "Auth, Firestore, Functions, AppCheck — robust backends and clean data models.",
+        "bullets": ["Firebase Auth/Firestore", "Cloud Functions", "Security Rules"]
+      },
+      {
+        "title": "Product / UX Designer",
+        "location": "Hybrid / Remote",
+        "type": "Part-time / Full-time",
+        "text": "Design clear, modern flows — minimal, user-centered and measurable.",
+        "bullets": ["Design system", "Prototyping", "Mobile-first"]
+      }
+    ]
+  },
+  "process": {
+    "title": "Hiring process",
+    "subtitle": "Fast, respectful and transparent — no unnecessary rounds.",
+    "steps": [
+      { "title": "Contact / application", "text": "Send a short profile + links. We reply quickly." },
+      { "title": "Intro call", "text": "15–30 minutes: expectations, role, mutual fit." },
+      { "title": "Mini case", "text": "Small task or review — realistic, fair, time-boxed." }
+    ]
+  },
+  "benefits": {
+    "title": "Benefits",
+    "subtitle": "What we care about — may vary by role/setup.",
+    "items": [
+      "Flexible hours & remote option",
+      "Clear priorities over endless meetings",
+      "Modern tools & fast shipping cycles",
+      "Learning & personal growth",
+      "Direct, respectful communication"
+    ]
+  },
+  "faq": {
+    "title": "FAQ",
+    "subtitle": "Quick answers.",
+    "items": [
+      { "q": "Can I apply without perfect experience?", "a": "Yes. We value learning mindset, ownership and solid fundamentals." },
+      { "q": "How fast will I hear back?", "a": "Usually within a few business days." },
+      { "q": "Do you offer remote?", "a": "Yes, many roles are remote-friendly. Details depend on the position." }
+    ]
+  },
+  "bottomCta": {
+    "title": "Sounds good?",
+    "text": "Send us a short message — we’d love to hear from you.",
+    "primary": "Contact us now",
+    "secondary": "Contact page",
+    "note": "Please don’t send sensitive data. Links (portfolio/GitHub) are perfect."
+  }
 }

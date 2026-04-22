@@ -16,7 +16,9 @@
   "apply": "Apply",
   "clear": "Clear",
   "openList": "List",
-  "searchInArea": "Search in this map area",
+   
+  "rent": "Mieten",
+  "buy": "Kaufen",
 
   "chips": {
     "price": "Price",

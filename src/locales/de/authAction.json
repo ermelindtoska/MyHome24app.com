@@ -1,0 +1,22 @@
+{
+  "badge": "Account",
+  "titleProcessing": "Verifizierung läuft…",
+  "titleOk": "E-Mail bestätigt",
+  "titleFailed": "Link ungültig",
+  "processing": "Bitte einen Moment warten. Wir prüfen deine Anfrage…",
+  "ok": "Deine E-Mail wurde erfolgreich bestätigt. Du wirst gleich zum Login weitergeleitet…",
+  "okHint": "Falls die Weiterleitung nicht funktioniert, nutze den Button unten.",
+  "failed": "E-Mail-Bestätigung fehlgeschlagen oder Link abgelaufen.",
+  "failedHint": "Bitte versuche es erneut über den Login oder fordere einen neuen Bestätigungslink an.",
+  "debugMode": "Aktion: {{mode}}",
+  "actions": {
+    "goLogin": "Zum Login",
+    "goRegister": "Konto erstellen"
+  },
+  "metaTitleProcessing": "Verifizierung… – MyHome24App",
+  "metaTitleOk": "E-Mail bestätigt – MyHome24App",
+  "metaTitleFailed": "Link ungültig – MyHome24App",
+  "metaDescriptionProcessing": "Wir verifizieren deine E-Mail. Bitte einen Moment warten.",
+  "metaDescriptionOk": "Deine E-Mail wurde erfolgreich bestätigt. Du wirst gleich zum Login weitergeleitet.",
+  "metaDescriptionFailed": "Der Bestätigungslink ist ungültig oder abgelaufen. Bitte fordere einen neuen Link an."
+}

@@ -1,0 +1,53 @@
+{
+  "metaTitle": "Immobilien suchen",
+  "metaDescription": "Suchen Sie Immobilien nach Kauf oder Miete, Typ, Stadt, Preis und weiteren Kriterien auf MyHome24App.",
+  "badge": "Immobiliensuche",
+  "title": "Passende Immobilien finden",
+  "description": "Filtern Sie aktive Immobilienanzeigen nach Zweck, Typ, Stadt, Zimmeranzahl und Preis, um schneller das passende Zuhause zu entdecken.",
+  "resultsCount": "{{count}} Ergebnisse",
+  "filters": {
+    "title": "Suchfilter",
+    "subtitle": "Passen Sie die Suche an Ihre Wünsche und Ihr Budget an.",
+    "purposeLabel": "Zweck",
+    "purposeOptions": {
+      "rent": "Mieten",
+      "sale": "Kaufen",
+      "any": "Alle"
+    },
+    "typeLabel": "Immobilientyp",
+    "typeOptions": {
+      "any": "Alle Typen",
+      "apartment": "Wohnung",
+      "house": "Haus",
+      "condo": "Condo"
+    },
+    "bedsLabel": "Schlafzimmer",
+    "bedsOptions": {
+      "any": "Beliebig",
+      "one": "1+",
+      "two": "2+",
+      "three": "3+",
+      "four": "4+"
+    },
+    "cityLabel": "Stadt",
+    "cityPlaceholder": "Stadt eingeben",
+    "minPriceLabel": "Mindestpreis",
+    "minPricePlaceholder": "Min €",
+    "maxPriceLabel": "Höchstpreis",
+    "maxPricePlaceholder": "Max €",
+    "reset": "Zurücksetzen"
+  },
+  "states": {
+    "loadingTitle": "Immobilien werden geladen",
+    "loadingText": "Bitte warten Sie einen Moment, während passende Immobilien geladen werden.",
+    "errorTitle": "Fehler beim Laden",
+    "errorText": "Die Immobilien konnten nicht geladen werden.",
+    "emptyTitle": "Keine passenden Immobilien gefunden",
+    "emptyText": "Passen Sie Ihre Suchfilter an, um weitere Treffer zu erhalten."
+  },
+  "cards": {
+    "untitled": "Ohne Titel",
+    "beds": "SZ",
+    "baths": "BZ"
+  }
+}

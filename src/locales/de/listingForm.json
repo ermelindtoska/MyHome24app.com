@@ -15,8 +15,52 @@
   "purpose": "Zweck",
   "price": "Preis",
   "imageUrl": "Bild-URL",
-
-    "formTitle": "Immobilie hinzufügen",
+"metaTitle": "Neues Inserat erstellen – MyHome24App",
+  "metaDescription": "Erstellen Sie ein neues Immobilieninserat auf MyHome24App und veröffentlichen Sie Ihr Objekt professionell.",
+  "badge": "Neues Inserat",
+  
+  "intro": "Erstellen Sie ein neues Exposé für Ihre Immobilie. Geben Sie die wichtigsten Eckdaten ein, damit Ihr Objekt professionell auf MyHome24App dargestellt werden kann.",
+  "formTitle": "Inseratdaten",
+  
+  "creating": "Wird erstellt…",
+  "selectType": "Typ auswählen",
+  "selectPurpose": "Zweck auswählen",
+  "imageHelper": "Optional: Fügen Sie einen direkten Bildlink hinzu, damit das Inserat sofort ein Vorschaubild erhält.",
+  
+  "errors": {
+    "loginRequired": "Bitte melden Sie sich zuerst an, um ein Inserat zu erstellen.",
+    "requiredFields": "Bitte füllen Sie alle Pflichtfelder aus.",
+    "invalidPrice": "Bitte geben Sie einen gültigen Preis ein.",
+    "createFailed": "Beim Erstellen des Inserats ist ein Fehler aufgetreten."
+  },
+  "placeholders": {
+    "title": "z. B. Moderne 3-Zimmer-Wohnung in Berlin",
+    "city": "z. B. Berlin",
+    "price": "z. B. 350000",
+    "imageUrl": "https://..."
+  },
+  "types": {
+    "apartment": "Wohnung",
+    "house": "Haus",
+    "office": "Büro",
+    "commercial": "Gewerbe",
+    "land": "Grundstück"
+  },
+  "purposes": {
+    "buy": "Kaufen",
+    "rent": "Mieten"
+  },
+  "tips": {
+    "typeTitle": "Klare Zuordnung",
+    "typeText": "Wählen Sie den passenden Immobilientyp und Zweck, damit Ihr Inserat in den richtigen Suchergebnissen erscheint.",
+    "priceTitle": "Transparenter Preis",
+    "priceText": "Ein klarer und realistischer Preis erhöht die Qualität Ihres Inserats und verbessert die Vergleichbarkeit.",
+    "imageTitle": "Bild hinzufügen",
+    "imageText": "Ein Bild- oder Cover-Link verbessert die Präsentation und macht das Inserat deutlich ansprechender.",
+    "cityTitle": "Standort angeben",
+    "cityText": "Die Stadt ist eines der wichtigsten Suchkriterien für Interessent:innen und sollte korrekt eingetragen werden."
+  },
+    
   "propertyType": "Immobilienart",
   "listingType": "Angebotsart",
   

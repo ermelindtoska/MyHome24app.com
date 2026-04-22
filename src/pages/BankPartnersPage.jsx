@@ -69,12 +69,12 @@ const BankPartnersPage = () => {
     return Array.isArray(raw) ? raw : [];
   }, [t]);
 
-  // Ikonat (mapping i kontrolluar)
+  // Icons (kontrolliertes Mapping)
   const featureIcons = [FaClipboardList, FaCheckCircle, FaHandshake, FaUserTie];
   const trustIconMap = [FaShieldAlt, FaBolt, FaRegClock];
   const benefitIconMap = [FaChartLine, FaHandshake, FaShieldAlt, FaBalanceScale];
 
-  // CTA routes (të saktat)
+  // CTA routes
   const goRequest = () => navigate("/mortgage/request");
   const goCalculator = () => navigate("/mortgage/calculator");
   const goPartner = () => navigate("/partner/finance");
@@ -83,8 +83,8 @@ const BankPartnersPage = () => {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
       <SiteMeta
-        title={t("meta.title")}
-        description={t("meta.description")}
+        title={t("meta.title", { defaultValue: "Finanzierungs-Partner:innen – MyHome24App" })}
+        description={t("meta.description", { defaultValue: "Kooperiere als Bank oder Finanzierungs-Partner:in mit MyHome24App." })}
         canonical={canonical}
         lang={lang}
         ogImage={`${window.location.origin}/og/og-mortgage-partners.jpg`}
@@ -97,7 +97,7 @@ const BankPartnersPage = () => {
           <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800">
             <img
               src={bankPartnerImg}
-              alt={t("hero.imgAlt")}
+              alt={t("hero.imgAlt", { defaultValue: "Bank-Partnerschaften & Finanzierung" })}
               className="w-full h-[320px] md:h-[420px] object-cover object-center"
               loading="eager"
             />
@@ -152,9 +152,7 @@ const BankPartnersPage = () => {
                 </button>
               </div>
 
-              <p className="text-[11px] text-slate-400">
-                {t("hero.note")}
-              </p>
+              <p className="text-[11px] text-slate-400">{t("hero.note")}</p>
             </div>
           </div>
 
@@ -182,9 +180,9 @@ const BankPartnersPage = () => {
                       <span className="h-8 w-8 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center">
                         <Icon className="text-emerald-400" />
                       </span>
-                      <div className="text-sm font-semibold">{item.title}</div>
+                      <div className="text-sm font-semibold">{item?.title}</div>
                     </div>
-                    <div className="text-xs text-slate-300">{item.text}</div>
+                    <div className="text-xs text-slate-300">{item?.text}</div>
                   </div>
                 );
               })}
@@ -204,10 +202,10 @@ const BankPartnersPage = () => {
                     </div>
                     <div>
                       <h3 className="text-sm md:text-base font-semibold">
-                        {feature.title}
+                        {feature?.title}
                       </h3>
                       <p className="text-xs md:text-sm text-slate-300">
-                        {feature.text}
+                        {feature?.text}
                       </p>
                     </div>
                   </div>
@@ -253,12 +251,8 @@ const BankPartnersPage = () => {
         <section className="rounded-3xl bg-slate-900/40 border border-slate-800 px-5 py-6 md:px-6 md:py-7">
           <div className="flex items-center justify-between gap-6 flex-wrap">
             <div>
-              <h2 className="text-lg md:text-xl font-semibold">
-                {t("stats.title")}
-              </h2>
-              <p className="text-sm text-slate-300 mt-1">
-                {t("stats.subtitle")}
-              </p>
+              <h2 className="text-lg md:text-xl font-semibold">{t("stats.title")}</h2>
+              <p className="text-sm text-slate-300 mt-1">{t("stats.subtitle")}</p>
             </div>
             <div className="text-xs text-slate-400">{t("stats.note")}</div>
           </div>
@@ -269,11 +263,9 @@ const BankPartnersPage = () => {
                 key={idx}
                 className="rounded-2xl bg-slate-950/40 border border-slate-800 px-4 py-4"
               >
-                <div className="text-2xl font-bold text-emerald-300">
-                  {s.value}
-                </div>
-                <div className="text-sm font-semibold mt-1">{s.label}</div>
-                <div className="text-xs text-slate-300 mt-1">{s.text}</div>
+                <div className="text-2xl font-bold text-emerald-300">{s?.value}</div>
+                <div className="text-sm font-semibold mt-1">{s?.label}</div>
+                <div className="text-xs text-slate-300 mt-1">{s?.text}</div>
               </div>
             ))}
           </div>
@@ -281,9 +273,7 @@ const BankPartnersPage = () => {
 
         {/* Partner benefits */}
         <section className="rounded-3xl bg-slate-900/70 border border-slate-800 px-5 py-6 md:px-6 md:py-7 space-y-6">
-          <h2 className="text-lg md:text-xl font-semibold">
-            {t("partnerBenefits.title")}
-          </h2>
+          <h2 className="text-lg md:text-xl font-semibold">{t("partnerBenefits.title")}</h2>
           <p className="text-sm text-slate-300">{t("partnerBenefits.subtitle")}</p>
 
           <div className="grid gap-4 md:grid-cols-2">
@@ -299,13 +289,10 @@ const BankPartnersPage = () => {
                       <Icon className="text-emerald-300" />
                     </div>
                     <div>
-                      <h3 className="text-sm md:text-base font-semibold">
-                        {b.title}
-                      </h3>
-                      <p className="text-xs md:text-sm text-slate-300 mt-1">
-                        {b.text}
-                      </p>
-                      {Array.isArray(b.bullets) && b.bullets.length > 0 && (
+                      <h3 className="text-sm md:text-base font-semibold">{b?.title}</h3>
+                      <p className="text-xs md:text-sm text-slate-300 mt-1">{b?.text}</p>
+
+                      {Array.isArray(b?.bullets) && b.bullets.length > 0 && (
                         <ul className="mt-3 space-y-1 text-xs text-slate-300">
                           {b.bullets.map((x, i) => (
                             <li key={i} className="flex gap-2">
@@ -330,9 +317,7 @@ const BankPartnersPage = () => {
               <FaClipboardList className="text-slate-200" />
             </span>
             <div>
-              <h2 className="text-lg md:text-xl font-semibold">
-                {t("howItWorks.title")}
-              </h2>
+              <h2 className="text-lg md:text-xl font-semibold">{t("howItWorks.title")}</h2>
               <p className="text-sm text-slate-300">{t("howItWorks.subtitle")}</p>
             </div>
           </div>
@@ -347,9 +332,9 @@ const BankPartnersPage = () => {
                   <div className="h-7 w-7 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-xs font-semibold text-emerald-300">
                     {idx + 1}
                   </div>
-                  <h3 className="text-sm md:text-base font-semibold">{s.title}</h3>
+                  <h3 className="text-sm md:text-base font-semibold">{s?.title}</h3>
                 </div>
-                <p className="text-xs md:text-sm text-slate-300">{s.text}</p>
+                <p className="text-xs md:text-sm text-slate-300">{s?.text}</p>
               </div>
             ))}
           </div>
@@ -360,26 +345,15 @@ const BankPartnersPage = () => {
           <h2 className="text-lg md:text-xl font-semibold">{t("columns.title")}</h2>
 
           <div className="grid gap-4 md:grid-cols-3">
-            <PartnerColumn
-              title={t("columns.banks.title")}
-              text={t("columns.banks.text")}
-            />
-            <PartnerColumn
-              title={t("columns.brokers.title")}
-              text={t("columns.brokers.text")}
-            />
-            <PartnerColumn
-              title={t("columns.clients.title")}
-              text={t("columns.clients.text")}
-            />
+            <PartnerColumn title={t("columns.banks.title")} text={t("columns.banks.text")} />
+            <PartnerColumn title={t("columns.brokers.title")} text={t("columns.brokers.text")} />
+            <PartnerColumn title={t("columns.clients.title")} text={t("columns.clients.text")} />
           </div>
         </section>
 
         {/* Testimonials */}
         <section className="rounded-3xl bg-slate-900/40 border border-slate-800 px-5 py-6 md:px-6 md:py-7 space-y-6">
-          <h2 className="text-lg md:text-xl font-semibold">
-            {t("testimonials.title")}
-          </h2>
+          <h2 className="text-lg md:text-xl font-semibold">{t("testimonials.title")}</h2>
 
           <div className="grid gap-4 md:grid-cols-3">
             {testimonials.map((x, idx) => (
@@ -387,12 +361,12 @@ const BankPartnersPage = () => {
                 key={idx}
                 className="rounded-2xl bg-slate-950/40 border border-slate-800 px-4 py-4"
               >
-                <div className="flex items-center gap-1 text-amber-300">
+                <div className="flex items-center gap-1 text-amber-300" aria-label="5 Sterne">
                   <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
                 </div>
-                <p className="text-sm text-slate-200 mt-3">“{x.quote}”</p>
+                <p className="text-sm text-slate-200 mt-3">“{x?.quote}”</p>
                 <div className="text-xs text-slate-400 mt-3">
-                  {x.name} · {x.role}
+                  {x?.name} · {x?.role}
                 </div>
               </div>
             ))}
@@ -417,9 +391,7 @@ const BankPartnersPage = () => {
 
           <div className="space-y-6">
             <aside className="rounded-3xl bg-emerald-500/10 border border-emerald-500/40 px-5 py-5 md:px-6 md:py-6 shadow-inner">
-              <h3 className="text-lg font-semibold text-emerald-400 mb-2">
-                {t("tip.title")}
-              </h3>
+              <h3 className="text-lg font-semibold text-emerald-400 mb-2">{t("tip.title")}</h3>
               <p className="text-sm text-slate-100 mb-4">{t("tip.text")}</p>
               <p className="text-xs text-slate-400">{t("tip.subtext")}</p>
             </aside>
@@ -429,9 +401,7 @@ const BankPartnersPage = () => {
                 <span className="h-9 w-9 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
                   <FaBalanceScale className="text-amber-200" />
                 </span>
-                <h3 className="text-lg font-semibold text-amber-200">
-                  {t("legal.title")}
-                </h3>
+                <h3 className="text-lg font-semibold text-amber-200">{t("legal.title")}</h3>
               </div>
 
               <ul className="space-y-2 text-xs md:text-sm text-amber-100">
@@ -447,12 +417,8 @@ const BankPartnersPage = () => {
         <section className="rounded-3xl border border-slate-800 bg-gradient-to-r from-slate-900/50 to-slate-950/50 px-5 py-6 md:px-6 md:py-7">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             <div className="max-w-2xl">
-              <h2 className="text-lg md:text-xl font-semibold">
-                {t("bottomCta.title")}
-              </h2>
-              <p className="text-sm text-slate-300 mt-2">
-                {t("bottomCta.text")}
-              </p>
+              <h2 className="text-lg md:text-xl font-semibold">{t("bottomCta.title")}</h2>
+              <p className="text-sm text-slate-300 mt-2">{t("bottomCta.text")}</p>
             </div>
 
             <div className="flex flex-wrap gap-3">
@@ -496,31 +462,49 @@ const PartnerColumn = ({ title, text }) => (
 );
 
 const Accordion = ({ items = [] }) => {
-  const [openIndex, setOpenIndex] = useState(0);
+  // ✅ standard: alles zu
+  const [openIndex, setOpenIndex] = useState(-1);
+
+  if (!Array.isArray(items) || items.length === 0) {
+    return (
+      <div className="rounded-2xl bg-slate-950/35 border border-slate-800 px-4 py-4 text-sm text-slate-300">
+        —
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-3">
       {items.map((it, idx) => {
         const isOpen = idx === openIndex;
+        const panelId = `faq-panel-${idx}`;
+        const buttonId = `faq-btn-${idx}`;
+
         return (
           <div
             key={idx}
             className="rounded-2xl bg-slate-950/35 border border-slate-800 overflow-hidden"
           >
             <button
+              id={buttonId}
               type="button"
+              aria-expanded={isOpen}
+              aria-controls={panelId}
               onClick={() => setOpenIndex(isOpen ? -1 : idx)}
               className="w-full flex items-center justify-between gap-4 px-4 py-3 text-left"
             >
-              <span className="text-sm font-semibold">{it.q}</span>
-              <span className="text-slate-400 text-xs">
-                {isOpen ? "—" : "+"}
-              </span>
+              <span className="text-sm font-semibold">{it?.q}</span>
+              <span className="text-slate-400 text-xs">{isOpen ? "—" : "+"}</span>
             </button>
 
             {isOpen && (
-              <div className="px-4 pb-4 text-sm text-slate-300 leading-relaxed">
-                {it.a}
+              <div
+                id={panelId}
+                role="region"
+                aria-labelledby={buttonId}
+                className="px-4 pb-4 text-sm text-slate-300 leading-relaxed"
+              >
+                {it?.a}
               </div>
             )}
           </div>

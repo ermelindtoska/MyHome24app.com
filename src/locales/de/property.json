@@ -4,6 +4,10 @@
   "price": "Preis",
   "location": "Standort",
   
+  "notFoundTitle": "Immobilie nicht gefunden",
+  "notFoundText": "Die angeforderte Immobilie konnte nicht geladen werden oder existiert nicht mehr.",
+  "detailsTitle": "Objektdetails",
+  "contactHint": "Bei Interesse können Sie direkt Kontakt mit der Ansprechperson aufnehmen.",
   "city": "Stadt",
   "state": "Bundesland",
   "zipcode": "Postleitzahl",

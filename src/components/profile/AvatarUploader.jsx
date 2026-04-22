@@ -1,5 +1,4 @@
-// src/components/profile/AvatarUploader.jsx
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage, appCheckReady } from "../../firebase";
 import { toast } from "react-toastify";
@@ -7,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { auth, db } from "../../firebase";
 import { updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { FiCamera, FiUploadCloud, FiCheckCircle } from "react-icons/fi";
 
 const mapStorageError = (err) => {
   const code = err?.code || "";
@@ -21,8 +21,17 @@ export default function AvatarUploader({ uid, value, onChange }) {
   const [pct, setPct] = useState(null);
   const [busy, setBusy] = useState(false);
 
+  const avatarSrc = useMemo(() => {
+    return (
+      value ||
+      auth.currentUser?.photoURL ||
+      "/images/default-avatar.png"
+    );
+  }, [value]);
+
   const onPick = () => {
     if (busy) return;
+
     const el = document.createElement("input");
     el.type = "file";
     el.accept = "image/*";
@@ -30,10 +39,13 @@ export default function AvatarUploader({ uid, value, onChange }) {
     el.click();
   };
 
-  // (Optional) lokaler Proxy für Storage im Dev – bleibt ungenutzt, nur als Notiz
+  // Optional dev helper, bleibt erhalten
   const patchStorageUploadURL = (url) => {
     if (process.env.NODE_ENV !== "development") return url;
-    return url.replace("https://firebasestorage.googleapis.com", `${window.location.origin}/__fs__`);
+    return url.replace(
+      "https://firebasestorage.googleapis.com",
+      `${window.location.origin}/__fs__`
+    );
   };
 
   const startUpload = async (file) => {
@@ -43,11 +55,16 @@ export default function AvatarUploader({ uid, value, onChange }) {
 
       const allowed = ["image/jpeg", "image/png", "image/webp"];
       if (!allowed.includes(file.type)) {
-        toast.error(t("errors.onlyImages", "Bitte wählen Sie eine Bilddatei (JPG/PNG/WEBP)."));
+        toast.error(
+          t("errors.onlyImages", "Bitte wählen Sie eine Bilddatei (JPG/PNG/WEBP).")
+        );
         return;
       }
+
       if (file.size > 5 * 1024 * 1024) {
-        toast.error(t("errors.imageTooLarge", "Das Bild ist größer als 5 MB."));
+        toast.error(
+          t("errors.imageTooLarge", "Das Bild ist größer als 5 MB.")
+        );
         return;
       }
 
@@ -62,21 +79,23 @@ export default function AvatarUploader({ uid, value, onChange }) {
       setBusy(true);
       setPct(0);
 
-      // —— WATCHDOG gegen „0 % hängt fest“ ——
       let lastBytes = 0;
       let stuckFor = 0;
+
       const watchdog = setInterval(() => {
         if (lastBytes === task.snapshot.bytesTransferred) {
           stuckFor += 1000;
           if (stuckFor >= 10000) {
-            try { task.cancel(); } catch {}
+            try {
+              task.cancel();
+            } catch {}
             clearInterval(watchdog);
             setBusy(false);
             setPct(null);
             toast.error(
               "Upload blockiert (0 %). Bitte prüfen Sie Ihre Content-Security-Policy: " +
-              "Erlauben Sie Verbindungen/Bilder zu securetoken.googleapis.com und firebasestorage.googleapis.com " +
-              "sowie App Check (in der Entwicklung nicht erzwingen)."
+                "Erlauben Sie Verbindungen/Bilder zu securetoken.googleapis.com und firebasestorage.googleapis.com " +
+                "sowie App Check (in der Entwicklung nicht erzwingen)."
             );
           }
         } else {
@@ -84,7 +103,6 @@ export default function AvatarUploader({ uid, value, onChange }) {
           stuckFor = 0;
         }
       }, 1000);
-      // ————————————————————————————————
 
       task.on(
         "state_changed",
@@ -103,17 +121,29 @@ export default function AvatarUploader({ uid, value, onChange }) {
           clearInterval(watchdog);
           try {
             const url = await getDownloadURL(task.snapshot.ref);
-            try { await updateProfile(auth.currentUser, { photoURL: url }); } catch {}
+
+            try {
+              await updateProfile(auth.currentUser, { photoURL: url });
+            } catch {}
+
             await setDoc(
               doc(db, "users", uid),
               { photoURL: url, updatedAt: new Date().toISOString() },
               { merge: true }
             );
+
             onChange?.(url);
-            toast.success(t("photoUpdated", "Foto wurde aktualisiert."));
+            toast.success(
+              t("photoUpdated", "Foto wurde aktualisiert.")
+            );
           } catch (e) {
             console.error(e);
-            toast.error(t("errors.couldNotFetchUrl", "Die Bild-URL konnte nach dem Upload nicht abgerufen werden."));
+            toast.error(
+              t(
+                "errors.couldNotFetchUrl",
+                "Die Bild-URL konnte nach dem Upload nicht abgerufen werden."
+              )
+            );
           } finally {
             setBusy(false);
             setPct(null);
@@ -129,32 +159,90 @@ export default function AvatarUploader({ uid, value, onChange }) {
   };
 
   return (
-    <div className="flex items-center gap-4">
-      <div className="relative w-16 h-16 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600">
-        <img
-          src={value || auth.currentUser?.photoURL || "https://via.placeholder.com/160x160?text=Avatar"}
-          alt={t("avatar", "Avatar")}
-          className="w-full h-full object-cover"
-        />
-        <button
-          type="button"
-          onClick={onPick}
-          disabled={busy}
-          className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 text-white text-xs transition flex items-center justify-center disabled:opacity-60"
-          title={t("change", "Ändern")}
-        >
-          {busy ? t("uploading", "Wird hochgeladen…") : t("change", "Ändern")}
-        </button>
-      </div>
+    <div className="rounded-[28px] border border-gray-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950">
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
+        {/* Avatar Preview */}
+        <div className="relative">
+          <div className="relative h-24 w-24 overflow-hidden rounded-full border-4 border-white bg-slate-100 shadow-md ring-1 ring-slate-200 dark:border-slate-900 dark:bg-slate-800 dark:ring-slate-700">
+            <img
+              src={avatarSrc}
+              alt={t("avatar", "Avatar")}
+              className="h-full w-full object-cover"
+            />
 
-      <button
-        type="button"
-        onClick={onPick}
-        disabled={busy}
-        className="px-3 py-1.5 rounded-md bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-60"
-      >
-        {busy ? `${pct ?? 0}%` : t("uploadPhoto", "Foto hochladen")}
-      </button>
+            <button
+              type="button"
+              onClick={onPick}
+              disabled={busy}
+              className="absolute inset-0 flex items-center justify-center bg-black/45 text-white opacity-0 transition hover:opacity-100 disabled:opacity-70"
+              title={t("change", "Ändern")}
+            >
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold backdrop-blur">
+                <FiCamera />
+                {busy
+                  ? t("uploading", "Wird hochgeladen…")
+                  : t("change", "Ändern")}
+              </span>
+            </button>
+          </div>
+
+          {busy && (
+            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-blue-600 px-3 py-1 text-[11px] font-semibold text-white shadow">
+              {pct ?? 0}%
+            </div>
+          )}
+        </div>
+
+        {/* Text / Actions */}
+        <div className="min-w-0 flex-1">
+          <h3 className="text-base font-bold text-slate-900 dark:text-white">
+            {t("avatarSectionTitle", "Profilbild")}
+          </h3>
+
+          <p className="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400">
+            {t(
+              "avatarSectionText",
+              "Laden Sie ein professionelles Profilbild hoch, damit Ihr Profil vertrauenswürdiger und persönlicher wirkt."
+            )}
+          </p>
+
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={onPick}
+              disabled={busy}
+              className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
+            >
+              <FiUploadCloud />
+              {busy
+                ? `${pct ?? 0}%`
+                : t("uploadPhoto", "Foto hochladen")}
+            </button>
+
+            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
+              <FiCheckCircle className="text-emerald-500" />
+              JPG, PNG, WEBP · max. 5 MB
+            </div>
+          </div>
+
+          {/* Progress bar */}
+          {busy && (
+            <div className="mt-4">
+              <div className="mb-1 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                <span>{t("uploading", "Wird hochgeladen…")}</span>
+                <span>{pct ?? 0}%</span>
+              </div>
+
+              <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
+                <div
+                  className="h-full rounded-full bg-blue-600 transition-all duration-300"
+                  style={{ width: `${pct ?? 0}%` }}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

@@ -15,7 +15,16 @@
   "updateError": "Failed to update listing.",
   
   "loading": "Loading listing…",
-
+  "subtitle": "Update the most important information about your property.",
+  "titlePlaceholder": "e.g. Modern apartment in Berlin",
+  "cityPlaceholder": "e.g. Hamburg",
+  "backButton": "Back",
+  "saving": "Saving…",
+  "previewTitle": "Preview",
+  "previewSubtitle": "This is how your listing looks with the current data.",
+  "previewFallbackTitle": "Listing title",
+  "previewFallbackCity": "City",
+  "validationRequired": "Please fill in title and city.",
 
 
   "placeholders": {

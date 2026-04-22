@@ -1,96 +1,179 @@
+/* src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ---------- Base / Light ---------- */
+/* =========================================================
+   THEME TOKENS (Light / Dark) — kontroll i centralizuar
+   ========================================================= */
+:root {
+  /* Light */
+  --bg: 255 255 255;         /* background */
+  --fg: 17 24 39;            /* text */
+  --muted: 75 85 99;         /* secondary text */
+  --card: 255 255 255;       /* surfaces */
+  --card-fg: 17 24 39;
+  --border: 229 231 235;     /* borders */
+  --ring: 59 130 246;        /* focus ring */
+  --primary: 37 99 235;      /* blue-600 */
+  --primary-fg: 255 255 255;
+}
+
+html.dark {
+  /* Dark (jo agresiv, lexueshmëri e lartë) */
+  --bg: 11 15 22;            /* deep navy-ish */
+  --fg: 243 244 246;         /* gray-100 */
+  --muted: 156 163 175;      /* gray-400 */
+  --card: 17 24 39;          /* gray-900-ish surface */
+  --card-fg: 243 244 246;
+  --border: 55 65 81;        /* gray-700 */
+  --ring: 96 165 250;        /* blue-400 */
+  --primary: 59 130 246;     /* blue-500 */
+  --primary-fg: 3 7 18;      /* very dark text on bright primary if needed */
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+html,
 body {
-  @apply bg-white text-gray-900;
+  height: 100%;
 }
 
-/* Hero background (shmang webpack resolve; përdor rrugën absolute te PUBLIC) */
+body {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--fg));
+}
+
+/* Hero background (PUBLIC path) */
 body.has-hero {
-  background: url('/public/images/myhomehintergrund.png') center/cover no-repeat fixed;
+  background: url(#{process.env.PUBLIC_URL}/images/myhomehintergrund.png) center/cover no-repeat fixed;
 }
 
-
-/* ---------- Dark mode i shëndoshë (jo agresiv) ---------- */
-html.dark body {
-  @apply bg-gray-900 text-gray-100;
-}
-
-/* Navbar – targeto vetëm navbar-in (shto klasën site-navbar te <header>) */
-.site-navbar { /* light, nëse do të shtosh diçka */
-}
-html.dark .site-navbar {
-  @apply bg-neutral-900 text-gray-100 shadow-none;
-}
-
-/* Përzgjedhja e tekstit */
+/* Selection */
 ::selection {
-  background: rgba(59, 130, 246, 0.4);
-  color: #fff;
-}
-html.dark ::selection {
-  background: rgba(59, 130, 246, 0.4);
+  background: rgba(59, 130, 246, 0.35);
   color: #fff;
 }
 
-/* Focus outline i butë */
-*:focus {
-  outline: 2px solid rgba(59, 130, 246, 0.5);
+/* =========================================================
+   READABILITY BASE (Light/Dark) — pa prishur layout
+   ========================================================= */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+p {
+  color: rgb(var(--fg));
+}
+
+small,
+.label-muted,
+.text-muted {
+  color: rgb(var(--muted));
+}
+
+/* në dark, elementët e zbehtë bëhen më të lexueshëm */
+html.dark .text-gray-500,
+html.dark .text-gray-600,
+html.dark .text-slate-500,
+html.dark .text-slate-600 {
+  color: rgb(var(--muted)) !important;
+}
+
+/* border helpers kur ndonjë komponent vjen me border shumë të zbehtë */
+html.dark .border-gray-200,
+html.dark .border-gray-300 {
+  border-color: rgb(var(--border)) !important;
+}
+
+/* Focus ring — mos i jep outline çdo elementi globalisht */
+:focus-visible {
+  outline: 2px solid rgb(var(--ring));
   outline-offset: 2px;
 }
 
-/* ---------- Panele / Karta / Forma ---------- */
-html.dark .sidebar,
-html.dark .filter-panel,
-html.dark .filter-container {
-  @apply bg-neutral-800 text-gray-100 border-gray-700;
+/* =========================================================
+   SMALL UI HELPERS (opsionale, por të shpëtojnë shumë)
+   Mund t’i përdorësh gradualisht: className="card" etj.
+   ========================================================= */
+@layer components {
+  .card {
+    @apply rounded-xl border;
+    background-color: rgb(var(--card));
+    color: rgb(var(--card-fg));
+    border-color: rgb(var(--border));
+  }
+
+  .surface {
+    background-color: rgb(var(--card));
+    color: rgb(var(--card-fg));
+  }
+
+  .ui-border {
+    border-color: rgb(var(--border));
+  }
+
+  .ui-muted {
+    color: rgb(var(--muted));
+  }
+
+  .input {
+    @apply w-full rounded-lg border px-3 py-2 text-sm;
+    background-color: rgb(var(--card));
+    color: rgb(var(--card-fg));
+    border-color: rgb(var(--border));
+  }
+  .input::placeholder {
+    color: rgb(var(--muted));
+  }
+  .input:focus {
+    outline: 2px solid rgb(var(--ring));
+    outline-offset: 2px;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold transition;
+    background-color: rgb(var(--primary));
+    color: rgb(var(--primary-fg));
+  }
+  .btn-primary:hover {
+    filter: brightness(0.95);
+  }
+
+  .dropdown-menu {
+    @apply rounded-xl border shadow-lg overflow-hidden;
+    background-color: rgb(var(--card));
+    color: rgb(var(--card-fg));
+    border-color: rgb(var(--border));
+  }
 }
 
-html.dark .listing-card {
-  @apply bg-neutral-800 text-gray-100 border-gray-700;
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.6);
+  border-radius: 4px;
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.8);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.9);
 }
 
-/* Input & Select – dark */
-html.dark input,
-html.dark select,
-html.dark textarea {
-  @apply bg-neutral-700 text-gray-100 placeholder-gray-400 border-gray-600;
-}
-
-/* Input & Select – light (default) */
-input,
-select,
-textarea {
-  @apply bg-white text-gray-900 border-gray-300;
-}
-
-/* Buttons: mos e prek çdo button globalisht; përdor klasa specifike */
-.btn-primary {
-  @apply bg-blue-600 text-white;
-}
-.btn-primary:hover {
-  @apply bg-blue-700;
-}
-html.dark .btn-primary {
-  @apply bg-blue-600 text-white;
-}
-html.dark .btn-primary:hover {
-  @apply bg-blue-700;
-}
-
-/* Dropdown menu container (nëse përdoret klasë) */
-html.dark .dropdown-menu {
-  @apply bg-neutral-800 text-gray-100 border-gray-700;
-}
-
-/* ---------- Scrollbar ---------- */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #555; }
-
-/* ---------- Zillow-like price marker pill ---------- */
+/* =========================================================
+   ZILLOW-LIKE PRICE MARKER (si e ke — vetëm e lëmë stabile)
+   ========================================================= */
 .mh24-marker {
   display: inline-flex;
   align-items: center;
@@ -99,39 +182,39 @@ html.dark .dropdown-menu {
   height: 28px;
   padding: 0 10px;
   background: #fff;
-  border: 1px solid #d1d5db; /* gray-300 */
+  border: 1px solid #d1d5db;
   border-radius: 9999px;
-  box-shadow: 0 1px 6px rgba(0,0,0,.12);
-  font: 600 12px/1 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-  color: #111827; /* gray-900 */
-  cursor: pointer;
-  transition: transform .1s ease, background .1s ease;
-}
-.mh24-marker:hover { transform: translateY(-1px) scale(1.02); }
-.mh24-marker.active { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
-.mh24-marker .type { opacity: .8; font-weight: 500; margin-left: 6px; }
-
-/* Marker në dark – shfaqet i lexueshëm */
-html.dark .mh24-marker {
-  background: #fff;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+  font: 600 12px/1 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   color: #111827;
-  border-color: #374151; /* gray-700 */
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.1s ease;
 }
-html.dark .mh24-marker.active {
+.mh24-marker:hover {
+  transform: translateY(-1px) scale(1.02);
+}
+.mh24-marker.active {
   background: #1d4ed8;
   color: #fff;
   border-color: #1d4ed8;
 }
+.mh24-marker .type {
+  opacity: 0.8;
+  font-weight: 500;
+  margin-left: 6px;
+}
 
-/* ---------- Harta gjithmonë poshtë UI ---------- */
+/* =========================================================
+   MAP LAYERS
+   ========================================================= */
 .mapboxgl-map,
 .mapboxgl-canvas,
 .leaflet-container {
-  z-index: 0 !important; /* harta poshtë */
+  z-index: 0 !important;
 }
 .mapboxgl-control-container {
-  z-index: 10; /* kontrollet e hartës mbi hartë, por poshtë navbar-it/menyve */
+  z-index: 10;
 }
-
-/* Lartësia e wrapper-it të hartës (p.sh. minus navbar ~64px) */
-.map-wrapper { height: calc(100vh - 64px); }
+.map-wrapper {
+  height: calc(100vh - 64px);
+}

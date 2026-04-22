@@ -5,6 +5,13 @@
     "allTypes": "Alle Typen",
     "allPurposes": "Alle Zwecke",
       "title": "Filter",
+      
+  "subtitle": "Find matching listings faster.",
+  "clear": "Reset",
+  "cityPlaceholder": "City / ZIP",
+ 
+  "locationPlaceholder": "City, ZIP or address…",
+  "geoapifyMissingKey": "Geoapify key missing: set VITE_GEOAPIFY_KEY in .env",
   "category": "Kategorie",
   "priceRange": "Preisbereich",
   "location": "Ort",

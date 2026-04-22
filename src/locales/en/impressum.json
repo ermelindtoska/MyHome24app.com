@@ -1,21 +1,41 @@
 {
-  "title": "Imprint",
-  "company": "Company",
-  "address": "Address Pestalozzistr .14 Landau 76829",
-  "contact": "Contact",
-  "managingDirector": "Managing Director",
-  "registration": "Commercial Register",
-  "vat": "VAT ID",
-   
-  "provider": "Information according to § 5 TMG",
-  "name": "myhome24app",
-  
-  "represented": "Represented by: Ermelind Toska",
- 
-  "phone": "Phone: +49 (0)1736695664",
-  "email": "Email: kontakt@myhome24app.com",
-  
-  "liability": "Liability for content",
-  "liabilityText": "The contents of our pages were created with great care. However, we cannot guarantee the contents’ accuracy, completeness or topicality."
+  "metaTitle": "Imprint – MyHome24App",
+  "metaDescription": "Legal notice and provider information for MyHome24App in accordance with German legal information requirements.",
 
+  "badge": "Legal information",
+  "title": "Imprint",
+  "intro": "Here you can find the legally required provider information, contact details, and transparency details for MyHome24App. This information is provided to comply with general legal notice requirements for online services in Germany.",
+
+  "summaryTitle": "Quick overview",
+
+  "provider": "Information according to § 5 TMG",
+  "providerText": "The following provider is responsible for this online service.",
+
+  "name": "MyHome24App",
+  "addressLabel": "Address",
+  "address": "Gartenstraße 15\n76829 Landau",
+
+  "representedByLabel": "Represented by",
+  "representedBy": "Ermelind Toska",
+
+  "emailLabel": "Email",
+  "email": "kontakt@myhome24app.com",
+
+  "phoneLabel": "Phone",
+  "phone": "+49 (0)1736695664",
+
+  "sectionProvider": "Provider",
+  "sectionRepresentation": "Represented by",
+  "sectionContact": "Contact",
+  "sectionLegal": "Liability for content",
+
+  "liabilityTitle": "Liability for content",
+  "liabilityText": "The contents of our pages were created with great care. However, we cannot guarantee the accuracy, completeness, or timeliness of the content.",
+
+  "additionalInfoTitle": "Additional information",
+  "vatLabel": "VAT ID",
+  "vatValue": "No information currently provided.",
+  "registerLabel": "Commercial register",
+  "registerValue": "No information currently provided.",
+  "additionalInfoHint": "As soon as commercial register or VAT information is available, it can be added here directly."
 }

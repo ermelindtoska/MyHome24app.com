@@ -4,9 +4,32 @@
   "careers": "Karriere",
   "press": "Presse",
   "legal": "Rechtliches",
+    "footerDescription": "Ihre moderne Immobilienplattform für Kaufen, Mieten und professionelles Verwalten in Deutschland.",
+  "socialHint": "Folgen Sie uns für neue Immobilien, Markttrends und Updates.",
   "contact": "Kontakt",
   "privacy": "Datenschutz",
   "help": "Hilfe",
+  
+  "termsMetaDescription": "Lesen Sie die Nutzungsbedingungen für die Verwendung der MyHome24App-Plattform.",
+  "termsIntro": "Unsere Nutzungsbedingungen beschreiben die Regeln und Richtlinien für die Nutzung unserer Dienste.",
+  "termsSections": [
+    {
+      "title": "1. Allgemeine Nutzung",
+      "content": "Die Nutzung von MyHome24App erfolgt gemäß den geltenden gesetzlichen Bestimmungen. Nutzer:innen verpflichten sich, nur korrekte und rechtmäßige Inhalte einzustellen."
+    },
+    {
+      "title": "2. Inhalte und Inserate",
+      "content": "Für Inhalte, Bilder und Angaben in Inseraten sind ausschließlich die jeweiligen Nutzer:innen verantwortlich. MyHome24App übernimmt keine Gewähr für Vollständigkeit oder Richtigkeit."
+    },
+    {
+      "title": "3. Haftung",
+      "content": "MyHome24App haftet nur im Rahmen der gesetzlichen Vorschriften. Für technische Unterbrechungen, externe Inhalte oder Handlungen anderer Nutzer:innen wird keine Haftung übernommen."
+    },
+    {
+      "title": "4. Änderungen der Bedingungen",
+      "content": "Wir behalten uns vor, diese Nutzungsbedingungen jederzeit zu aktualisieren. Maßgeblich ist jeweils die zum Zeitpunkt der Nutzung veröffentlichte Version."
+    }
+  ],
   "terms": "Nutzungsbedingungen",
   "rightsReserved": "Alle Rechte vorbehalten.",
   "followUs": "Folgen Sie uns",

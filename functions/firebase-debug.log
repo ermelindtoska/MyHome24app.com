@@ -1,0 +1,85 @@
+[debug] [2026-02-27T07:48:37.594Z] ----------------------------------------------------------------------
+[debug] [2026-02-27T07:48:37.596Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\adm-toska\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2026-02-27T07:48:37.596Z] CLI Version:   14.22.0
+[debug] [2026-02-27T07:48:37.596Z] Platform:      win32
+[debug] [2026-02-27T07:48:37.596Z] Node Version:  v22.15.1
+[debug] [2026-02-27T07:48:37.597Z] Time:          Fri Feb 27 2026 08:48:37 GMT+0100 (Mitteleuropäische Normalzeit)
+[debug] [2026-02-27T07:48:37.597Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-02-27T07:48:37.599Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2026-02-27T07:48:37.805Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-27T07:48:37.806Z] > authorizing via signed-in user (toskaermelind@gmail.com)
+[debug] [2026-02-27T07:48:37.806Z] [iam] checking project myhome24app-a0973 for permissions ["firebase.projects.get"]
+[debug] [2026-02-27T07:48:37.806Z] Checked if tokens are valid: false, expires at: 1772101304608
+[debug] [2026-02-27T07:48:37.806Z] Checked if tokens are valid: false, expires at: 1772101304608
+[debug] [2026-02-27T07:48:37.807Z] > refreshing access token with scopes: []
+[debug] [2026-02-27T07:48:37.807Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-02-27T07:48:37.807Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-02-27T07:48:37.889Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-02-27T07:48:37.889Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-02-27T07:48:37.898Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/myhome24app-a0973:testIamPermissions [none]
+[debug] [2026-02-27T07:48:37.899Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/myhome24app-a0973:testIamPermissions x-goog-quota-user=projects/myhome24app-a0973
+[debug] [2026-02-27T07:48:37.899Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/myhome24app-a0973:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2026-02-27T07:48:38.073Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2026-02-27T07:48:38.073Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2026-02-27T07:48:38.575Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/myhome24app-a0973:testIamPermissions 200
+[debug] [2026-02-27T07:48:38.575Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/myhome24app-a0973:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2026-02-27T07:48:38.576Z] Emulator locator file path: C:\Users\E8BFA~1.TOS\AppData\Local\Temp\hub-myhome24app-a0973.json
+[debug] [2026-02-27T07:48:38.579Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2026-02-27T07:48:38.596Z] defaultcredentials: writing to file C:\Users\e.toska\AppData\Roaming\firebase\toskaermelind_gmail_com_application_default_credentials.json
+[debug] [2026-02-27T07:48:38.599Z] DEBUG: Setting GAC to C:\Users\e.toska\AppData\Roaming\firebase\toskaermelind_gmail_com_application_default_credentials.json
+[debug] [2026-02-27T07:48:38.600Z] Checked if tokens are valid: true, expires at: 1772182116889
+[debug] [2026-02-27T07:48:38.600Z] Checked if tokens are valid: true, expires at: 1772182116889
+[debug] [2026-02-27T07:48:38.600Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/myhome24app-a0973/adminSdkConfig [none]
+[debug] [2026-02-27T07:48:39.033Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/myhome24app-a0973/adminSdkConfig 200
+[debug] [2026-02-27T07:48:39.033Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/myhome24app-a0973/adminSdkConfig {"projectId":"myhome24app-a0973","storageBucket":"myhome24app-a0973.firebasestorage.app"}
+[debug] [2026-02-27T07:48:39.042Z] [functions] Watching "C:\Users\e.toska\Myhome24app\functions" for Cloud Functions...
+[debug] [2026-02-27T07:48:39.044Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2026-02-27T07:48:40.385Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "main": "index.js",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.0",
+    "firebase-admin": "^13.6.1",
+    "firebase-functions": "^6.6.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true,
+  "types": "module",
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+[debug] [2026-02-27T07:48:40.385Z] Building nodejs source
+[debug] [2026-02-27T07:48:40.385Z] Failed to find version of module node: reached end of search path C:\Users\e.toska\Myhome24app\functions\node_modules
+[warn] !  functions: Your requested "node" version "20" doesn't match your global version "22". Using node@22 from host. 
+[debug] [2026-02-27T07:48:40.387Z] Could not find functions.yaml. Must use http discovery
+[debug] [2026-02-27T07:48:40.392Z] Found firebase-functions binary at 'C:\Users\e.toska\Myhome24app\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8163
+
+[debug] [2026-02-27T07:48:41.330Z] Got response from /__/functions.yaml {"endpoints":{"sendNewContactNotificationFinalV2":{"availableMemoryMb":256,"timeoutSeconds":60,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["us-central1"],"secretEnvironmentVariables":[{"key":"SENDGRID_API_KEY"}],"labels":{},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.created","eventFilters":{"database":"(default)","namespace":"(default)"},"eventFilterPathPatterns":{"document":"contacts/{contactId}"},"retry":false},"entryPoint":"sendNewContactNotificationFinalV2"},"sendContactReplyEmailFinalV2":{"availableMemoryMb":256,"timeoutSeconds":60,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["us-central1"],"secretEnvironmentVariables":[{"key":"SENDGRID_API_KEY"}],"labels":{},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.created","eventFilters":{"database":"(default)","namespace":"(default)"},"eventFilterPathPatterns":{"document":"contacts/{contactId}/replies/{replyId}"},"retry":false},"entryPoint":"sendContactReplyEmailFinalV2"},"sendRoleUpgradeRequestNotificationFinalV2":{"availableMemoryMb":256,"timeoutSeconds":60,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["us-central1"],"secretEnvironmentVariables":[{"key":"SENDGRID_API_KEY"}],"labels":{},"eventTrigger":{"eventType":"google.cloud.firestore.document.v1.created","eventFilters":{"database":"(default)","namespace":"(default)"},"eventFilterPathPatterns":{"document":"roleUpgradeRequests/{requestId}"},"retry":false},"entryPoint":"sendRoleUpgradeRequestNotificationFinalV2"},"sendVerificationEmailDirectV2":{"availableMemoryMb":256,"timeoutSeconds":60,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["us-central1"],"secretEnvironmentVariables":[{"key":"SENDGRID_API_KEY"}],"labels":{},"httpsTrigger":{},"entryPoint":"sendVerificationEmailDirectV2"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{},"params":[{"type":"secret","name":"SENDGRID_API_KEY"}]}
+[debug] [2026-02-27T07:48:45.365Z] [functions] Loaded functions definitions from source: sendNewContactNotificationFinalV2, sendContactReplyEmailFinalV2, sendRoleUpgradeRequestNotificationFinalV2, sendVerificationEmailDirectV2.
+[debug] [2026-02-27T07:48:45.366Z] [functions[us-central1-sendNewContactNotificationFinalV2]] function ignored because the firestore emulator does not exist or is not running.
+[debug] [2026-02-27T07:48:45.366Z] [functions[us-central1-sendContactReplyEmailFinalV2]] function ignored because the firestore emulator does not exist or is not running.
+[debug] [2026-02-27T07:48:45.366Z] [functions[us-central1-sendRoleUpgradeRequestNotificationFinalV2]] function ignored because the firestore emulator does not exist or is not running.
+[debug] [2026-02-27T07:48:45.366Z] [functions[us-central1-sendVerificationEmailDirectV2]] http function initialized (http://127.0.0.1:5000/myhome24app-a0973/us-central1/sendVerificationEmailDirectV2).
+[info] i  functions: Loaded functions: sendNewContactNotificationFinalV2, sendContactReplyEmailFinalV2, sendRoleUpgradeRequestNotificationFinalV2, sendVerificationEmailDirectV2 
+[warn] !  functions: The following emulators are not running, calls to these services will affect production: firestore, database, pubsub, storage, eventarc, tasks 

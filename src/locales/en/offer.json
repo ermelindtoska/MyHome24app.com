@@ -1,20 +1,25 @@
 {
   "title": "Submit purchase offer",
-
-  
-
- 
-
+  "badge": "Submit offer",
+  "close": "Close",
+  "amountHint": "Enter the amount you would like to offer for this property.",
+  "ownListingError": "You cannot submit an offer for your own listing.",
+  "submitting": "Sending…",
+  "privacyHint": "Your offer will be sent directly to the owner and stored in your dashboard.",
+  "communicationHint": "A clear and polite message increases the chance of a quick response.",
+  "summary": {
+    "askingPrice": "Listing price",
+    "yourOffer": "Your current offer",
+    "financing": "Financing",
+    "moveInDate": "Move-in"
+  },
   "status": {
     "open": "Open",
     "accepted": "Accepted",
     "rejected": "Rejected",
     "withdrawn": "Withdrawn"
   },
-
-
   "loading": "Loading offers…",
-
   "columns": {
     "buyer": "Buyer",
     "listing": "Listing",
@@ -24,26 +29,11 @@
     "date": "Date",
     "actions": "Actions"
   },
-
-  
-  "Subtitle": "This offer is non-binding. The owner will contact you.",
+  "subtitle": "This offer is non-binding. The owner will contact you.",
   "intro": "Send a non-binding purchase offer for this property. The owner will receive your details and can contact you if interested.",
   "amountLabel": "Offer amount",
   "amountPlaceholder": "e.g. 450000",
   "financingLabel": "Financing",
-  "myOffers": {
-  "title": "My offers",
-  "subtitle": "Keep track of all purchase offers you have submitted for properties.",
-  "chips": {
-    "total": "Total",
-    "open": "Open",
-    "accepted": "Accepted",
-    "rejected": "Rejected",
-    "withdrawn": "Withdrawn"
-  },
-  "empty": "You have not submitted any offers yet.",
-  "withdraw": "Withdraw"
-},
   "financingOptions": {
     "none": "Not specified",
     "cash": "Cash / equity",
@@ -51,6 +41,7 @@
     "mortgagePlanned": "Mortgage still in planning"
   },
   "moveInDateLabel": "Preferred move-in date",
+  "moveInDateShort": "Move-in from",
   "messageLabel": "Message to the owner",
   "messagePlaceholder": "Introduce yourself briefly and explain your offer (e.g. household size, timeline, special conditions)…",
   "cancel": "Cancel",
@@ -60,7 +51,6 @@
   "success": "Your purchase offer has been sent successfully.",
   "error": "An error occurred while sending your offer. Please try again later.",
   "amountRequired": "Please enter a valid offer amount.",
-  
   "makeOfferButton": "Make an offer",
   "loginHint": "Please log in to submit an offer.",
   "fields": {
@@ -74,11 +64,40 @@
   "actions": {
     "cancel": "Cancel",
     "submit": "Send offer",
-    "submitting": "Submitting…"
+    "submitting": "Submitting…",
+    "accept": "Accept",
+    "reject": "Reject",
+    "view": "Details"
   },
   "errors": {
     "notLoggedIn": "Please log in first.",
     "noAmount": "Please enter an offer price.",
     "submitFailed": "Your offer could not be saved. Please try again later."
+  },
+  "myOffers": {
+    "title": "My offers",
+    "subtitle": "Keep track of all purchase offers you have submitted for properties.",
+    "chips": {
+      "total": "Total",
+      "open": "Open",
+      "accepted": "Accepted",
+      "rejected": "Rejected",
+      "withdrawn": "Withdrawn"
+    },
+    "empty": "You have not submitted any offers yet.",
+    "withdraw": "Withdraw"
+  },
+  "labels": {
+    "buyer": "Buyer: ",
+    "listing": "Listing: ",
+    "offerAmount": "Offer: ",
+    "financing": "Financing: ",
+    "moveInDate": "Move-in from: ",
+    "message": "Message:",
+    "createdAt": "Created on {{date}}"
+  },
+  "modal": {
+    "title": "Offer details",
+    "close": "Close"
   }
 }

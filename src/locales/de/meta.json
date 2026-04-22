@@ -9,7 +9,10 @@
   "admin.title": "Admin-Dashboard",
   "admin.desc": "Administrationsbereich für MyHome24App (nur für Administratoren).",
    
-
+ "global": {
+    "title": "Immobilien kaufen & mieten in Deutschland",
+    "description": "MyHome24App – moderne Plattform für Immobilien in Deutschland. Kaufen, mieten und vergleichen."
+  },
   "buy.title": "Immobilien kaufen",
   "buy.desc": "Finde Eigentumswohnungen und Häuser zum Kauf in ganz Deutschland.",
 

@@ -7,7 +7,17 @@
   "zoomIn": "Zoom in",
   "zoomOut": "Zoom out",
   "filter": "Filter",
+  "badge": "Interactive map",
  
+  "mapPlaceholder": "An interactive map or map preview can be integrated here later.",
+  "sectionHighlights": {
+    "locationTitle": "Precise locations",
+    "locationText": "Discover properties by city, region and exact location on an interactive map.",
+    "navigationTitle": "Fast orientation",
+    "navigationText": "Filter matching properties directly on the map and keep an overview of all visible listings.",
+    "propertiesTitle": "More matching homes",
+    "propertiesText": "Compare multiple properties faster and find the right home in your preferred area."
+  },
   "noResultsDesc": "No homes found in this map area. Zoom out or change filters.",
   "subtitle": "Only homes within the visible map area",
  

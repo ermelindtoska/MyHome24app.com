@@ -1,7 +1,7 @@
-// src/components/HeroSearch.jsx
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { FiMapPin, FiHome, FiSearch, FiRotateCcw } from "react-icons/fi";
 
 const HeroSearch = () => {
   const { t } = useTranslation("home");
@@ -13,23 +13,41 @@ const HeroSearch = () => {
   const [priceMax, setPriceMax] = useState("");
   const [sizeMin, setSizeMin] = useState("");
   const [sizeMax, setSizeMax] = useState("");
+
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [loadingSuggestions, setLoadingSuggestions] = useState(false);
 
-  // Debounced suggestions nga Nominatim për Gjermani
+  const wrapperRef = useRef(null);
+
   useEffect(() => {
-    if (!query || query.length < 2) {
+    const handleOutsideClick = (e) => {
+      if (!wrapperRef.current?.contains(e.target)) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
+
+  useEffect(() => {
+    if (!query || query.trim().length < 2) {
       setSuggestions([]);
       setShowSuggestions(false);
+      setLoadingSuggestions(false);
       return;
     }
 
     const controller = new AbortController();
+
     const timeoutId = setTimeout(async () => {
       try {
+        setLoadingSuggestions(true);
+
         const res = await fetch(
           `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-            query
+            query.trim()
           )}&countrycodes=de&addressdetails=1&limit=5`,
           {
             signal: controller.signal,
@@ -38,16 +56,28 @@ const HeroSearch = () => {
             },
           }
         );
-        if (!res.ok) return;
+
+        if (!res.ok) {
+          setSuggestions([]);
+          setShowSuggestions(false);
+          return;
+        }
+
         const data = await res.json();
-        setSuggestions(data);
-        setShowSuggestions(true);
+        const safeData = Array.isArray(data) ? data : [];
+
+        setSuggestions(safeData);
+        setShowSuggestions(safeData.length > 0);
       } catch (err) {
         if (err.name !== "AbortError") {
-          console.error("Error fetching suggestions:", err);
+          console.error("[HeroSearch] Suggestion error:", err);
         }
+        setSuggestions([]);
+        setShowSuggestions(false);
+      } finally {
+        setLoadingSuggestions(false);
       }
-    }, 300); // 300ms debounce
+    }, 300);
 
     return () => {
       clearTimeout(timeoutId);
@@ -56,11 +86,19 @@ const HeroSearch = () => {
   }, [query]);
 
   const handleSuggestionClick = (item) => {
-    setQuery(item.display_name);
+    const label = item?.display_name || "";
+    setQuery(label);
     setShowSuggestions(false);
-    navigate(
-      `/search?query=${encodeURIComponent(item.display_name)}`
-    );
+
+    const params = new URLSearchParams();
+    if (label) params.set("query", label);
+    if (propertyType !== "all") params.set("type", propertyType);
+    if (priceMin) params.set("minPrice", priceMin);
+    if (priceMax) params.set("maxPrice", priceMax);
+    if (sizeMin) params.set("sizeMin", sizeMin);
+    if (sizeMax) params.set("sizeMax", sizeMax);
+
+    navigate(`/search?${params.toString()}`);
   };
 
   const handleSubmit = (e) => {
@@ -68,12 +106,12 @@ const HeroSearch = () => {
 
     const params = new URLSearchParams();
 
-    if (query.trim()) params.append("query", query.trim());
-    if (propertyType !== "all") params.append("type", propertyType);
-    if (priceMin) params.append("priceMin", priceMin);
-    if (priceMax) params.append("priceMax", priceMax);
-    if (sizeMin) params.append("sizeMin", sizeMin);
-    if (sizeMax) params.append("sizeMax", sizeMax);
+    if (query.trim()) params.set("query", query.trim());
+    if (propertyType !== "all") params.set("type", propertyType);
+    if (priceMin) params.set("minPrice", priceMin);
+    if (priceMax) params.set("maxPrice", priceMax);
+    if (sizeMin) params.set("sizeMin", sizeMin);
+    if (sizeMax) params.set("sizeMax", sizeMax);
 
     navigate(`/search?${params.toString()}`);
   };
@@ -85,116 +123,176 @@ const HeroSearch = () => {
     setPriceMax("");
     setSizeMin("");
     setSizeMax("");
-    setShowSuggestions(false);
     setSuggestions([]);
+    setShowSuggestions(false);
   };
 
-  useEffect(() => {
-    if (query === "") {
-      setShowSuggestions(false);
-      setSuggestions([]);
-    }
-  }, [query]);
+  const hasActiveFilters = useMemo(() => {
+    return Boolean(
+      query || propertyType !== "all" || priceMin || priceMax || sizeMin || sizeMax
+    );
+  }, [query, propertyType, priceMin, priceMax, sizeMin, sizeMax]);
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {/* Search Input with Autocomplete */}
+    <form onSubmit={handleSubmit} className="space-y-4" ref={wrapperRef}>
+      {/* Location Search */}
       <div className="relative">
-        <input
-          type="text"
-          placeholder={t("searchLocation")}
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onFocus={() => {
-            if (suggestions.length > 0) setShowSuggestions(true);
-          }}
-          onBlur={() =>
-            setTimeout(() => setShowSuggestions(false), 200)
-          }
-          className="w-full px-4 py-3 rounded-lg border border-white/30 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
-        />
-        {showSuggestions && suggestions.length > 0 && (
-          <ul className="absolute w-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-60 overflow-auto">
-            {suggestions.map((item, idx) => (
-              <li
-                key={idx}
-                onMouseDown={(e) => {
-                  e.preventDefault();
-                  handleSuggestionClick(item);
-                }}
-                className="px-4 py-2 cursor-pointer hover:bg-gray-100 text-gray-800"
-              >
-                {item.display_name}
-              </li>
-            ))}
-          </ul>
+        <label className="mb-2 block text-sm font-medium text-white/90">
+          {t("searchLocation", { defaultValue: "Ort, Adresse oder Region" })}
+        </label>
+
+        <div className="relative">
+          <FiMapPin className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-white/70" />
+          <input
+            type="text"
+            placeholder={t("searchLocation", { defaultValue: "Ort, Adresse oder Region" })}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => {
+              if (suggestions.length > 0) setShowSuggestions(true);
+            }}
+            className="w-full rounded-2xl border border-white/25 bg-white/15 py-3 pl-11 pr-4 text-white placeholder-white/70 backdrop-blur-md outline-none transition focus:border-white/40 focus:ring-2 focus:ring-white/30"
+          />
+        </div>
+
+        {showSuggestions && (
+          <div className="absolute left-0 right-0 z-50 mt-2 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl">
+            {loadingSuggestions ? (
+              <div className="px-4 py-3 text-sm text-gray-500">
+                {t("loadingSuggestions", { defaultValue: "Vorschläge werden geladen…" })}
+              </div>
+            ) : suggestions.length > 0 ? (
+              <ul className="max-h-72 overflow-auto">
+                {suggestions.map((item, idx) => (
+                  <li
+                    key={`${item.place_id || idx}`}
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      handleSuggestionClick(item);
+                    }}
+                    className="cursor-pointer px-4 py-3 text-sm text-gray-800 transition hover:bg-gray-100"
+                  >
+                    {item.display_name}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="px-4 py-3 text-sm text-gray-500">
+                {t("noSuggestions", { defaultValue: "Keine Vorschläge gefunden." })}
+              </div>
+            )}
+          </div>
         )}
       </div>
 
-      {/* Property Type */}
-      <div className="flex flex-wrap gap-2">
-        <select
-          value={propertyType}
-          onChange={(e) => setPropertyType(e.target.value)}
-          className="flex-1 px-4 py-2 rounded-lg border border-white/30 bg-white/20 text-white focus:outline-none focus:ring-2 focus:ring-white/50"
-        >
-          <option value="all">{t("allTypes")}</option>
-          <option value="apartment">{t("apartment")}</option>
-          <option value="house">{t("house")}</option>
-          <option value="office">{t("office")}</option>
-        </select>
+      {/* Filters */}
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        <div>
+          <label className="mb-2 block text-sm font-medium text-white/90">
+            {t("propertyType", { defaultValue: "Immobilientyp" })}
+          </label>
+          <div className="relative">
+            <FiHome className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-white/70" />
+            <select
+              value={propertyType}
+              onChange={(e) => setPropertyType(e.target.value)}
+              className="w-full appearance-none rounded-2xl border border-white/25 bg-white/15 py-3 pl-11 pr-4 text-white backdrop-blur-md outline-none transition focus:border-white/40 focus:ring-2 focus:ring-white/30"
+            >
+              <option value="all" className="text-gray-900">
+                {t("allTypes", { defaultValue: "Alle Typen" })}
+              </option>
+              <option value="apartment" className="text-gray-900">
+                {t("apartment", { defaultValue: "Wohnung" })}
+              </option>
+              <option value="house" className="text-gray-900">
+                {t("house", { defaultValue: "Haus" })}
+              </option>
+              <option value="office" className="text-gray-900">
+                {t("office", { defaultValue: "Büro" })}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label className="mb-2 block text-sm font-medium text-white/90">
+              {t("minPrice", { defaultValue: "Min. Preis" })}
+            </label>
+            <input
+              type="number"
+              min="0"
+              value={priceMin}
+              onChange={(e) => setPriceMin(e.target.value)}
+              placeholder={t("minPrice", { defaultValue: "Min. Preis" })}
+              className="w-full rounded-2xl border border-white/25 bg-white/15 px-4 py-3 text-white placeholder-white/70 backdrop-blur-md outline-none transition focus:border-white/40 focus:ring-2 focus:ring-white/30"
+            />
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-medium text-white/90">
+              {t("maxPrice", { defaultValue: "Max. Preis" })}
+            </label>
+            <input
+              type="number"
+              min="0"
+              value={priceMax}
+              onChange={(e) => setPriceMax(e.target.value)}
+              placeholder={t("maxPrice", { defaultValue: "Max. Preis" })}
+              className="w-full rounded-2xl border border-white/25 bg-white/15 px-4 py-3 text-white placeholder-white/70 backdrop-blur-md outline-none transition focus:border-white/40 focus:ring-2 focus:ring-white/30"
+            />
+          </div>
+        </div>
       </div>
 
-      {/* Price Range */}
-      <div className="grid grid-cols-2 gap-2">
-        <input
-          type="number"
-          placeholder={t("minPrice")}
-          value={priceMin}
-          onChange={(e) => setPriceMin(e.target.value)}
-          className="px-4 py-2 rounded-lg border border-white/30 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
-        />
-        <input
-          type="number"
-          placeholder={t("maxPrice")}
-          value={priceMax}
-          onChange={(e) => setPriceMax(e.target.value)}
-          className="px-4 py-2 rounded-lg border border-white/30 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
-        />
-      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <label className="mb-2 block text-sm font-medium text-white/90">
+            {t("minSize", { defaultValue: "Min. Fläche" })}
+          </label>
+          <input
+            type="number"
+            min="0"
+            value={sizeMin}
+            onChange={(e) => setSizeMin(e.target.value)}
+            placeholder={t("minSize", { defaultValue: "Min. Fläche" })}
+            className="w-full rounded-2xl border border-white/25 bg-white/15 px-4 py-3 text-white placeholder-white/70 backdrop-blur-md outline-none transition focus:border-white/40 focus:ring-2 focus:ring-white/30"
+          />
+        </div>
 
-      {/* Size Range */}
-      <div className="grid grid-cols-2 gap-2">
-        <input
-          type="number"
-          placeholder={t("minSize")}
-          value={sizeMin}
-          onChange={(e) => setSizeMin(e.target.value)}
-          className="px-4 py-2 rounded-lg border border-white/30 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
-        />
-        <input
-          type="number"
-          placeholder={t("maxSize")}
-          value={sizeMax}
-          onChange={(e) => setSizeMax(e.target.value)}
-          className="px-4 py-2 rounded-lg border border-white/30 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50"
-        />
+        <div>
+          <label className="mb-2 block text-sm font-medium text-white/90">
+            {t("maxSize", { defaultValue: "Max. Fläche" })}
+          </label>
+          <input
+            type="number"
+            min="0"
+            value={sizeMax}
+            onChange={(e) => setSizeMax(e.target.value)}
+            placeholder={t("maxSize", { defaultValue: "Max. Fläche" })}
+            className="w-full rounded-2xl border border-white/25 bg-white/15 px-4 py-3 text-white placeholder-white/70 backdrop-blur-md outline-none transition focus:border-white/40 focus:ring-2 focus:ring-white/30"
+          />
+        </div>
       </div>
 
       {/* Buttons */}
-      <div className="flex justify-between gap-2">
+      <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
         <button
           type="button"
           onClick={clearAll}
-          className="px-4 py-2 text-sm text-gray-300 hover:text-white border border-gray-400 rounded-lg transition"
+          disabled={!hasActiveFilters}
+          className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/25 px-4 py-3 text-sm font-medium text-white transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {t("clear")}
+          <FiRotateCcw />
+          {t("clear", { defaultValue: "Zurücksetzen" })}
         </button>
+
         <button
           type="submit"
-          className="px-6 py-2 bg-white text-blue-700 hover:bg-gray-100 rounded-lg font-medium transition"
+          className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-blue-700 shadow-lg transition hover:bg-gray-100"
         >
-          {t("search")}
+          <FiSearch />
+          {t("search", { defaultValue: "Suchen" })}
         </button>
       </div>
     </form>

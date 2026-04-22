@@ -1,0 +1,41 @@
+{
+  "metaTitle": "All Listings – MyHome24App",
+  "metaDescription": "Explore all public property listings on MyHome24App with search, filters and a professional overview.",
+  "badge": "Public listings",
+  "title": "All Listings",
+  "description": "Browse all published property listings on MyHome24App. Use search and filters to find matching homes more quickly.",
+  "resultsCount": "{{count}} results",
+  "filters": {
+    "title": "Filters & Search",
+    "subtitle": "Refine the results by title, city, type and price.",
+    "searchLabel": "Search",
+    "searchPlaceholder": "Search by title",
+    "cityLabel": "City",
+    "cityPlaceholder": "Enter city",
+    "typeLabel": "Property type",
+    "typeAll": "Select type",
+    "types": {
+      "apartment": "Apartment",
+      "house": "House"
+    },
+    "minPriceLabel": "Minimum price",
+    "minPricePlaceholder": "Min €",
+    "maxPriceLabel": "Maximum price",
+    "maxPricePlaceholder": "Max €",
+    "reset": "Reset filters"
+  },
+  "states": {
+    "loadingTitle": "Loading listings",
+    "loadingText": "Please wait a moment while published listings are being loaded.",
+    "errorTitle": "Loading error",
+    "errorText": "The listings could not be loaded.",
+    "emptyTitle": "No matching listings found",
+    "emptyText": "Adjust your filters or reset them to see more properties."
+  },
+  "map": {
+    "title": "Map overview",
+    "text": "This page can later be connected to the professional MyHome24App map module so users can also explore listings directly on a map.",
+    "placeholderTitle": "Interactive map coming soon",
+    "placeholderText": "As soon as the central map system is connected, a professional map view for all public listings will appear here."
+  }
+}

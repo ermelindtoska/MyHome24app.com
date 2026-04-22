@@ -1,71 +1,76 @@
 {
   "metaTitle": "Financing partner dashboard – MyHome24App",
-  "metaDescription": "Overview for banks, brokers and financial advisors who cooperate with MyHome24App for property financing.",
-  "badge": "Partner area",
-  "title": "Financing partner dashboard",
-  "subtitle": "This will become your central space for leads, statistics and the integration of your own financing processes.",
-  "welcome": "Signed in as {{email}}",
+  "metaDescription": "Overview, roadmap and next steps for financing partners on MyHome24App.",
+  "badge": "Financing partner",
+  "title": "Dashboard for financing partners",
+  "subtitle": "Here you get an overview of the planned partner area, integrations, roadmap and next steps for working with MyHome24App.",
+  "welcome": "Welcome, {{email}}",
   "actions": {
     "goToCalculator": "Go to mortgage calculator",
-    "contactPlatform": "Contact the platform team"
+    "contactPlatform": "Contact platform"
   },
   "stats": {
-    "title": "Current overview (demo)",
-    "activeListings": "Linked listings",
-    "openLeads": "Open financing requests",
-    "pendingApplications": "Ongoing financing cases",
-    "integrations": "Active integrations",
-    "hint": "The numbers are placeholders and will later be replaced with real data from your partner profile and MyHome24App leads."
+    "title": "Overview & orientation",
+    "statusLabel": "B2B overview",
+    "activeListings": "Active integrations",
+    "openLeads": "Open leads",
+    "pendingApplications": "Pending reviews",
+    "integrations": "Integrations",
+    "hint": "These values are currently placeholders and will later be connected to real partner and lead data."
   },
   "sections": {
     "profile": {
-      "badge": "Profile & visibility",
-      "title": "Your profile on MyHome24App",
-      "text": "Keep your contact details, regions and product focus up to date so that users can quickly find the right contact person.",
+      "badge": "Profile",
+      "title": "Partner profile",
+      "text": "Presentation of contact persons, financing focus, regions and product types.",
       "items": [
-        "Bank or company profile with logo and short description",
-        "Define regional focus and target groups",
-        "Store named contacts with direct phone number and e-mail"
+        "Visible profile information for users",
+        "Clear positioning by region and specialization",
+        "Trust-building through transparent presentation"
       ]
     },
     "integration": {
       "badge": "Integration",
-      "title": "Digital integration",
-      "text": "In the future you will be able to integrate your own tools and forms – for example pre-applications, document upload or appointment booking.",
+      "title": "Lead & system integration",
+      "text": "Step-by-step connection of structured requests and defined contact routes.",
       "items": [
-        "Link to your own online forms",
-        "Option for API integration in a later expansion stage",
-        "Export of leads into your internal systems (planned)"
+        "Structured intake of requests",
+        "Clear routing by rules and responsibilities",
+        "Clean handovers between platform and partner"
       ]
     },
     "compliance": {
       "badge": "Compliance",
-      "title": "Legal framework",
-      "text": "MyHome24App helps to display financing information transparently but does not replace statutory information and advisory duties.",
+      "title": "Quality & security",
+      "text": "Reliable cooperation with clear conditions, data structure and quality standards.",
       "items": [
-        "Notes on information duties under German law",
-        "Clear separation between non-binding guidance and offers",
-        "Cooperation only with regulated financial institutions"
+        "Clear roles and responsibilities",
+        "Traceable processes",
+        "Trustworthy framework for users"
       ]
     }
   },
   "roadmap": {
-    "title": "Roadmap – what is planned next",
-    "text": "The partner area is under construction. These are the next steps so that you can use MyHome24App as a professional platform.",
+    "title": "Roadmap",
+    "text": "These steps describe the planned expansion for financing partners on MyHome24App.",
+    "disclaimer": "Roadmap – current status",
     "items": [
       {
-        "title": "Leads from concrete listing enquiries",
-        "text": "Linking users from the mortgage calculator and specific listings directly to your partner profile."
+        "title": "Partner profiles",
+        "text": "Creation of structured profiles for banks, brokers and advisors."
       },
       {
-        "title": "Dedicated login area for partners",
-        "text": "Manage contacts, regions, products and notifications directly inside the dashboard."
+        "title": "Lead allocation",
+        "text": "Assignment of financing requests by profile, region and product focus."
       },
       {
-        "title": "Analytics & performance overview",
-        "text": "Simple analytics on incoming requests, successful closings and frequently used products."
+        "title": "Integrations",
+        "text": "Step-by-step technical integration for professional and traceable handovers."
       }
-    ],
-    "disclaimer": "The functions on this page are still being built and currently serve as a preview only. Concrete integrations and access details will be agreed individually."
+    ]
+  },
+  "bottomCta": {
+    "title": "Next steps for financing partners",
+    "text": "Use calculators, contact paths and the next integration steps to build your cooperation with MyHome24App in a structured way."
   }
 }

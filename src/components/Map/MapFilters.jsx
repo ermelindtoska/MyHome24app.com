@@ -1,15 +1,19 @@
-// src/components/Map/MapFilters.jsx
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState, useEffect } from "react";
 import { useSearchState } from "../../state/useSearchState";
 import { useTranslation } from "react-i18next";
+import {
+  FiChevronDown,
+  FiHome,
+  FiSliders,
+  FiCheck,
+} from "react-icons/fi";
 
-// util
 const cx = (...a) => a.filter(Boolean).join(" ");
 
 const money = (v) => {
   const n = Number(v);
   if (!Number.isFinite(n)) return "";
-  return n.toLocaleString();
+  return n.toLocaleString("de-DE");
 };
 
 const PRICE_PRESETS = [
@@ -43,6 +47,7 @@ export default function MapFilters() {
   } = useSearchState();
 
   const [open, setOpen] = useState(null); // "price" | "beds" | "type" | "more" | null
+  const rootRef = useRef(null);
 
   const update = (patch) => {
     setFilters((prev) => ({ ...prev, ...patch }));
@@ -64,9 +69,30 @@ export default function MapFilters() {
       newOnly: false,
       verifiedOnly: false,
     });
+    setOpen(null);
   };
 
-  // Labels (si Zillow)
+  useEffect(() => {
+    const onDocClick = (e) => {
+      if (!rootRef.current) return;
+      if (!rootRef.current.contains(e.target)) {
+        setOpen(null);
+      }
+    };
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setOpen(null);
+    };
+
+    document.addEventListener("mousedown", onDocClick);
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", onDocClick);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, []);
+
   const priceLabel = useMemo(() => {
     const min = filters.priceMin;
     const max = filters.priceMax;
@@ -80,8 +106,8 @@ export default function MapFilters() {
     const b = filters.bedsMin;
     const ba = filters.bathsMin;
     if (!b && !ba) return t("bedsBaths", { defaultValue: "Betten & Bäder" });
-    const bTxt = b ? `${b}+ ${t("bedsShort", { defaultValue: "bd" })}` : "";
-    const baTxt = ba ? `${ba}+ ${t("bathsShort", { defaultValue: "ba" })}` : "";
+    const bTxt = b ? `${b}+ ${t("bedsShort", { defaultValue: "Zi." })}` : "";
+    const baTxt = ba ? `${ba}+ ${t("bathsShort", { defaultValue: "Bad" })}` : "";
     return [bTxt, baTxt].filter(Boolean).join(" · ");
   }, [filters.bedsMin, filters.bathsMin, t]);
 
@@ -95,316 +121,402 @@ export default function MapFilters() {
     return keys.reduce((acc, k) => (filters?.[k] ? acc + 1 : acc), 0);
   }, [filters]);
 
-  // UI atoms
-  const barWrap =
-    "relative rounded-2xl border border-gray-200/70 dark:border-gray-700/70 bg-white/92 dark:bg-gray-950/80 backdrop-blur shadow-lg";
+  const pillBase =
+    "inline-flex h-11 items-center gap-2 rounded-2xl border px-4 text-sm font-medium transition";
+  const pillStyle =
+    "border-slate-200 bg-white text-slate-800 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800";
+  const activePill =
+    "border-blue-500 bg-blue-50 text-blue-700 dark:border-blue-500 dark:bg-blue-900/20 dark:text-blue-200";
+
   const inputBase =
-    "w-full h-11 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/60";
-  const pill =
-    "h-11 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 transition inline-flex items-center gap-2";
-  const dropdown =
-    "absolute mt-2 w-full max-w-[520px] rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-950 shadow-2xl p-4";
+    "h-11 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 placeholder-slate-400 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:placeholder-slate-500";
+
+  const dropdownBase =
+    "absolute left-0 top-full z-[80] mt-3 w-[min(520px,calc(100vw-2rem))] rounded-3xl border border-slate-200 bg-white p-4 shadow-2xl dark:border-slate-700 dark:bg-slate-950";
 
   return (
-    <div className={barWrap}>
-      {/* TOP ROW: search + pills */}
-      <div className="p-3">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-3 items-center">
-          {/* Search input */}
-          <div className="relative">
-            <input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder={t("searchLocation", {
-                defaultValue: "Adresse, Stadt oder PLZ",
-              })}
-              className={inputBase}
-            />
-            <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
-              ⌕
-            </div>
-          </div>
-
-          {/* Pills row */}
-          <div className="flex flex-wrap gap-2 justify-start lg:justify-end">
-            <button
-              type="button"
-              className={pill}
-              onClick={() => setOpen(open === "price" ? null : "price")}
-              aria-expanded={open === "price"}
-            >
-              {priceLabel} <span className="text-gray-400">▾</span>
-            </button>
-
-            <button
-              type="button"
-              className={pill}
-              onClick={() => setOpen(open === "beds" ? null : "beds")}
-              aria-expanded={open === "beds"}
-            >
-              {bedsLabel} <span className="text-gray-400">▾</span>
-            </button>
-
-            <button
-              type="button"
-              className={pill}
-              onClick={() => setOpen(open === "type" ? null : "type")}
-              aria-expanded={open === "type"}
-            >
-              {typeLabel} <span className="text-gray-400">▾</span>
-            </button>
-
-            <button
-              type="button"
-              className={pill}
-              onClick={() => setOpen(open === "more" ? null : "more")}
-              aria-expanded={open === "more"}
-            >
-              {t("more", { defaultValue: "Mehr" })}
-              {moreCount > 0 ? (
-                <span className="ml-1 inline-flex items-center justify-center min-w-6 h-6 px-2 rounded-full bg-blue-600 text-white text-xs">
-                  {moreCount}
-                </span>
-              ) : null}
-              <span className="text-gray-400">▾</span>
-            </button>
-
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="h-11 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm text-gray-900 dark:text-gray-100"
-              aria-label={t("sort", { defaultValue: "Sortieren" })}
-            >
-              <option value="">{t("default", { defaultValue: "Standard" })}</option>
-              <option value="priceAsc">{t("priceAsc", { defaultValue: "Preis ↑" })}</option>
-              <option value="priceDesc">{t("priceDesc", { defaultValue: "Preis ↓" })}</option>
-              <option value="newest">{t("newest", { defaultValue: "Neueste" })}</option>
-            </select>
-
-            <button
-              type="button"
-              onClick={resetAll}
-              className="h-11 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
-            >
-              {t("reset", { defaultValue: "Zurücksetzen" })}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* DROPDOWNS */}
-      <div className="relative px-3 pb-3">
+    <div ref={rootRef} className="relative w-full">
+      <div className="flex flex-wrap items-center gap-2">
         {/* Price */}
-        {open === "price" && (
-          <div className={dropdown}>
-            <div className="text-sm font-semibold text-gray-900 dark:text-white">
-              {t("price", { defaultValue: "Preis" })}
-            </div>
+        <div className="relative">
+          <button
+            type="button"
+            className={cx(
+              pillBase,
+              pillStyle,
+              open === "price" && activePill
+            )}
+            onClick={() => setOpen(open === "price" ? null : "price")}
+            aria-expanded={open === "price"}
+          >
+            {priceLabel}
+            <FiChevronDown
+              className={cx(
+                "transition",
+                open === "price" && "rotate-180"
+              )}
+            />
+          </button>
 
-            <div className="mt-3 grid grid-cols-2 gap-2">
-              <input
-                type="number"
-                inputMode="numeric"
-                value={filters.priceMin}
-                onChange={(e) => update({ priceMin: e.target.value })}
-                placeholder={t("minPrice", { defaultValue: "Min" })}
-                className={inputBase}
-              />
-              <input
-                type="number"
-                inputMode="numeric"
-                value={filters.priceMax}
-                onChange={(e) => update({ priceMax: e.target.value })}
-                placeholder={t("maxPrice", { defaultValue: "Max" })}
-                className={inputBase}
-              />
-            </div>
+          {open === "price" && (
+            <div className={dropdownBase}>
+              <div className="text-sm font-semibold text-slate-900 dark:text-white">
+                {t("price", { defaultValue: "Preis" })}
+              </div>
 
-            <div className="mt-3 flex flex-wrap gap-2">
-              {PRICE_PRESETS.map((p) => (
+              <div className="mt-4 grid grid-cols-2 gap-3">
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  value={filters.priceMin}
+                  onChange={(e) => update({ priceMin: e.target.value })}
+                  placeholder={t("minPrice", { defaultValue: "Min" })}
+                  className={inputBase}
+                />
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  value={filters.priceMax}
+                  onChange={(e) => update({ priceMax: e.target.value })}
+                  placeholder={t("maxPrice", { defaultValue: "Max" })}
+                  className={inputBase}
+                />
+              </div>
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                {PRICE_PRESETS.map((p) => (
+                  <button
+                    key={p.key}
+                    type="button"
+                    onClick={() => update({ priceMin: p.min, priceMax: p.max })}
+                    className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-800 transition hover:bg-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+                  >
+                    {p.key === "any"
+                      ? t("any", { defaultValue: "Beliebig" })
+                      : p.max
+                      ? `€${money(p.min)} - €${money(p.max)}`
+                      : `€${money(p.min)}+`}
+                  </button>
+                ))}
+              </div>
+
+              <div className="mt-5 flex justify-end gap-2">
                 <button
-                  key={p.key}
                   type="button"
-                  onClick={() => update({ priceMin: p.min, priceMax: p.max })}
-                  className="px-3 py-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-sm text-gray-800 dark:text-gray-200 hover:bg-white dark:hover:bg-gray-800"
+                  onClick={() => update({ priceMin: "", priceMax: "" })}
+                  className="rounded-2xl border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
                 >
-                  {p.key === "any"
-                    ? t("any", { defaultValue: "Beliebig" })
-                    : p.max
-                    ? `€${money(p.min)} - €${money(p.max)}`
-                    : `€${money(p.min)}+`}
+                  {t("reset", { defaultValue: "Zurücksetzen" })}
                 </button>
-              ))}
+                <button
+                  type="button"
+                  onClick={() => setOpen(null)}
+                  className="rounded-2xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+                >
+                  {t("done", { defaultValue: "Fertig" })}
+                </button>
+              </div>
             </div>
-
-            <div className="mt-4 flex justify-end gap-2">
-              <button
-                type="button"
-                onClick={() => setOpen(null)}
-                className="h-10 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm"
-              >
-                {t("done", { defaultValue: "Fertig" })}
-              </button>
-            </div>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Beds & Baths */}
-        {open === "beds" && (
-          <div className={dropdown}>
-            <div className="text-sm font-semibold text-gray-900 dark:text-white">
-              {t("bedsBaths", { defaultValue: "Betten & Bäder" })}
-            </div>
+        <div className="relative">
+          <button
+            type="button"
+            className={cx(
+              pillBase,
+              pillStyle,
+              open === "beds" && activePill
+            )}
+            onClick={() => setOpen(open === "beds" ? null : "beds")}
+            aria-expanded={open === "beds"}
+          >
+            {bedsLabel}
+            <FiChevronDown
+              className={cx(
+                "transition",
+                open === "beds" && "rotate-180"
+              )}
+            />
+          </button>
 
-            <div className="mt-3 grid grid-cols-2 gap-3">
-              <div>
-                <div className="text-xs text-gray-600 dark:text-gray-300 mb-1">
-                  {t("beds", { defaultValue: "Betten" })}
+          {open === "beds" && (
+            <div className={dropdownBase}>
+              <div className="text-sm font-semibold text-slate-900 dark:text-white">
+                {t("bedsBaths", { defaultValue: "Betten & Bäder" })}
+              </div>
+
+              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div>
+                  <div className="mb-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+                    {t("beds", { defaultValue: "Betten" })}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {BEDS.map((b) => (
+                      <button
+                        key={`b-${b || "any"}`}
+                        type="button"
+                        onClick={() => update({ bedsMin: b })}
+                        className={cx(
+                          "rounded-2xl border px-3 py-2 text-sm transition",
+                          filters.bedsMin === b
+                            ? "border-blue-500 bg-blue-50 text-blue-700 dark:border-blue-500 dark:bg-blue-900/20 dark:text-blue-200"
+                            : "border-slate-200 bg-white text-slate-800 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                        )}
+                      >
+                        {b ? b : t("any", { defaultValue: "Beliebig" })}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {BEDS.map((b) => (
-                    <button
-                      key={`b-${b || "any"}`}
-                      type="button"
-                      onClick={() => update({ bedsMin: b })}
-                      className={cx(
-                        "px-3 py-2 rounded-xl border text-sm",
-                        filters.bedsMin === b
-                          ? "border-blue-600 bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-200 dark:border-blue-500"
-                          : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200"
-                      )}
-                    >
-                      {b ? b : t("any", { defaultValue: "Beliebig" })}
-                    </button>
-                  ))}
+
+                <div>
+                  <div className="mb-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+                    {t("baths", { defaultValue: "Bäder" })}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {BATHS.map((b) => (
+                      <button
+                        key={`ba-${b || "any"}`}
+                        type="button"
+                        onClick={() => update({ bathsMin: b })}
+                        className={cx(
+                          "rounded-2xl border px-3 py-2 text-sm transition",
+                          filters.bathsMin === b
+                            ? "border-blue-500 bg-blue-50 text-blue-700 dark:border-blue-500 dark:bg-blue-900/20 dark:text-blue-200"
+                            : "border-slate-200 bg-white text-slate-800 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                        )}
+                      >
+                        {b ? b : t("any", { defaultValue: "Beliebig" })}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <div>
-                <div className="text-xs text-gray-600 dark:text-gray-300 mb-1">
-                  {t("baths", { defaultValue: "Bäder" })}
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {BATHS.map((b) => (
-                    <button
-                      key={`ba-${b || "any"}`}
-                      type="button"
-                      onClick={() => update({ bathsMin: b })}
-                      className={cx(
-                        "px-3 py-2 rounded-xl border text-sm",
-                        filters.bathsMin === b
-                          ? "border-blue-600 bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-200 dark:border-blue-500"
-                          : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200"
-                      )}
-                    >
-                      {b ? b : t("any", { defaultValue: "Beliebig" })}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 flex justify-end gap-2">
-              <button
-                type="button"
-                onClick={() => setOpen(null)}
-                className="h-10 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm"
-              >
-                {t("done", { defaultValue: "Fertig" })}
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Home Type */}
-        {open === "type" && (
-          <div className={dropdown}>
-            <div className="text-sm font-semibold text-gray-900 dark:text-white">
-              {t("homeType", { defaultValue: "Immobilientyp" })}
-            </div>
-
-            <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-2">
-              {TYPES.map((it) => (
+              <div className="mt-5 flex justify-end gap-2">
                 <button
-                  key={it.key}
                   type="button"
-                  onClick={() => update({ type: it.value })}
-                  className={cx(
-                    "px-3 py-2 rounded-xl border text-sm",
-                    filters.type === it.value
-                      ? "border-blue-600 bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-200 dark:border-blue-500"
-                      : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200"
-                  )}
+                  onClick={() => update({ bedsMin: "", bathsMin: "" })}
+                  className="rounded-2xl border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
                 >
-                  {t(it.i18n, { defaultValue: it.i18n })}
+                  {t("reset", { defaultValue: "Zurücksetzen" })}
                 </button>
-              ))}
+                <button
+                  type="button"
+                  onClick={() => setOpen(null)}
+                  className="rounded-2xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+                >
+                  {t("done", { defaultValue: "Fertig" })}
+                </button>
+              </div>
             </div>
+          )}
+        </div>
 
-            <div className="mt-4 flex justify-end gap-2">
-              <button
-                type="button"
-                onClick={() => setOpen(null)}
-                className="h-10 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm"
-              >
-                {t("done", { defaultValue: "Fertig" })}
-              </button>
+        {/* Type */}
+        <div className="relative">
+          <button
+            type="button"
+            className={cx(
+              pillBase,
+              pillStyle,
+              open === "type" && activePill
+            )}
+            onClick={() => setOpen(open === "type" ? null : "type")}
+            aria-expanded={open === "type"}
+          >
+            <FiHome className="opacity-70" />
+            {typeLabel}
+            <FiChevronDown
+              className={cx(
+                "transition",
+                open === "type" && "rotate-180"
+              )}
+            />
+          </button>
+
+          {open === "type" && (
+            <div className={dropdownBase}>
+              <div className="text-sm font-semibold text-slate-900 dark:text-white">
+                {t("homeType", { defaultValue: "Immobilientyp" })}
+              </div>
+
+              <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {TYPES.map((it) => (
+                  <button
+                    key={it.key}
+                    type="button"
+                    onClick={() => update({ type: it.value })}
+                    className={cx(
+                      "rounded-2xl border px-3 py-3 text-sm transition",
+                      filters.type === it.value
+                        ? "border-blue-500 bg-blue-50 text-blue-700 dark:border-blue-500 dark:bg-blue-900/20 dark:text-blue-200"
+                        : "border-slate-200 bg-white text-slate-800 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                    )}
+                  >
+                    {t(it.i18n, { defaultValue: it.i18n })}
+                  </button>
+                ))}
+              </div>
+
+              <div className="mt-5 flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => update({ type: "" })}
+                  className="rounded-2xl border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
+                >
+                  {t("reset", { defaultValue: "Zurücksetzen" })}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setOpen(null)}
+                  className="rounded-2xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+                >
+                  {t("done", { defaultValue: "Fertig" })}
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* More */}
-        {open === "more" && (
-          <div className={dropdown}>
-            <div className="text-sm font-semibold text-gray-900 dark:text-white">
-              {t("moreFilters", { defaultValue: "Weitere Filter" })}
-            </div>
+        <div className="relative">
+          <button
+            type="button"
+            className={cx(
+              pillBase,
+              pillStyle,
+              open === "more" && activePill
+            )}
+            onClick={() => setOpen(open === "more" ? null : "more")}
+            aria-expanded={open === "more"}
+          >
+            <FiSliders className="opacity-70" />
+            {t("more", { defaultValue: "Mehr" })}
+            {moreCount > 0 ? (
+              <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-blue-600 px-2 text-xs font-semibold text-white">
+                {moreCount}
+              </span>
+            ) : null}
+            <FiChevronDown
+              className={cx(
+                "transition",
+                open === "more" && "rotate-180"
+              )}
+            />
+          </button>
 
-            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {[
-                { k: "petsAllowed", label: t("petsAllowed", { defaultValue: "Haustiere erlaubt" }) },
-                { k: "furnished", label: t("furnished", { defaultValue: "Möbliert" }) },
-                { k: "parking", label: t("parking", { defaultValue: "Parkplatz" }) },
-                { k: "newOnly", label: t("newOnly", { defaultValue: "Nur neu" }) },
-                { k: "verifiedOnly", label: t("verifiedOnly", { defaultValue: "Nur verifiziert" }) },
-              ].map((x) => (
-                <label
-                  key={x.k}
-                  className="flex items-center gap-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 px-3 py-2 text-sm text-gray-800 dark:text-gray-200"
+          {open === "more" && (
+            <div className={dropdownBase}>
+              <div className="text-sm font-semibold text-slate-900 dark:text-white">
+                {t("moreFilters", { defaultValue: "Weitere Filter" })}
+              </div>
+
+              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {[
+                  {
+                    k: "petsAllowed",
+                    label: t("petsAllowed", { defaultValue: "Haustiere erlaubt" }),
+                  },
+                  {
+                    k: "furnished",
+                    label: t("furnished", { defaultValue: "Möbliert" }),
+                  },
+                  {
+                    k: "parking",
+                    label: t("parking", { defaultValue: "Parkplatz" }),
+                  },
+                  {
+                    k: "newOnly",
+                    label: t("newOnly", { defaultValue: "Nur neu" }),
+                  },
+                  {
+                    k: "verifiedOnly",
+                    label: t("verifiedOnly", { defaultValue: "Nur verifiziert" }),
+                  },
+                ].map((x) => (
+                  <label
+                    key={x.k}
+                    className={cx(
+                      "flex cursor-pointer items-center justify-between rounded-2xl border px-4 py-3 text-sm transition",
+                      filters?.[x.k]
+                        ? "border-blue-500 bg-blue-50 text-blue-700 dark:border-blue-500 dark:bg-blue-900/20 dark:text-blue-200"
+                        : "border-slate-200 bg-slate-50 text-slate-800 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                    )}
+                  >
+                    <span>{x.label}</span>
+                    <span
+                      className={cx(
+                        "inline-flex h-5 w-5 items-center justify-center rounded-full border text-[11px]",
+                        filters?.[x.k]
+                          ? "border-blue-500 bg-blue-600 text-white"
+                          : "border-slate-300 text-transparent dark:border-slate-600"
+                      )}
+                    >
+                      <FiCheck />
+                    </span>
+                    <input
+                      type="checkbox"
+                      checked={Boolean(filters?.[x.k])}
+                      onChange={(e) => update({ [x.k]: e.target.checked })}
+                      className="sr-only"
+                    />
+                  </label>
+                ))}
+              </div>
+
+              <div className="mt-5 flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() =>
+                    update({
+                      petsAllowed: false,
+                      furnished: false,
+                      parking: false,
+                      newOnly: false,
+                      verifiedOnly: false,
+                    })
+                  }
+                  className="rounded-2xl border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
                 >
-                  <input
-                    type="checkbox"
-                    checked={Boolean(filters?.[x.k])}
-                    onChange={(e) => update({ [x.k]: e.target.checked })}
-                  />
-                  {x.label}
-                </label>
-              ))}
+                  {t("reset", { defaultValue: "Zurücksetzen" })}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setOpen(null)}
+                  className="rounded-2xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+                >
+                  {t("done", { defaultValue: "Fertig" })}
+                </button>
+              </div>
             </div>
+          )}
+        </div>
 
-            <div className="mt-4 flex justify-end gap-2">
-              <button
-                type="button"
-                onClick={() => setOpen(null)}
-                className="h-10 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm"
-              >
-                {t("done", { defaultValue: "Fertig" })}
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
+        {/* Sort */}
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+          className="h-11 rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none transition hover:bg-slate-50 focus:border-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
+          aria-label={t("sort", { defaultValue: "Sortieren" })}
+        >
+          <option value="">{t("default", { defaultValue: "Standard" })}</option>
+          <option value="priceAsc">{t("priceAsc", { defaultValue: "Preis ↑" })}</option>
+          <option value="priceDesc">{t("priceDesc", { defaultValue: "Preis ↓" })}</option>
+          <option value="newest">{t("newest", { defaultValue: "Neueste" })}</option>
+        </select>
 
-      {/* click-away overlay (lightweight) */}
-      {open && (
+        {/* Reset */}
         <button
           type="button"
-          className="fixed inset-0 z-0 cursor-default"
-          onClick={() => setOpen(null)}
-          aria-label="Close"
-          style={{ background: "transparent" }}
-        />
-      )}
+          onClick={resetAll}
+          className="h-11 rounded-2xl border border-slate-200 bg-white px-4 text-sm font-medium text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+        >
+          {t("reset", { defaultValue: "Zurücksetzen" })}
+        </button>
+      </div>
     </div>
   );
 }

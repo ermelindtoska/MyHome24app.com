@@ -1,11 +1,119 @@
 {
-  "title": "My Listings",
-  "addNew": "Add New",
-  "noListings": "No listings found.",
+  "metaTitle": "My Dashboard – MyHome24App",
+  "metaDescription": "Manage your listings, favorites and offers centrally in your personal dashboard.",
+  "title": "My Dashboard",
+  "dashboardTitle": "Welcome to your dashboard",
+  "dashboardDescription": "Manage your listings, favorites and submitted offers in one place.",
+  "userOffers": {
+    "badge": "My purchase offers",
+    "title": "My offers",
+    "subtitle": "Keep track of all purchase offers you have submitted for properties.",
+    "emptyTitle": "No offers yet",
+    "empty": "You have not submitted any offers yet.",
+    "offerAmount": "Your offer",
+    "unknownCity": "Unknown location",
+    "chips": {
+      "total": "Total",
+      "open": "Open",
+      "accepted": "Accepted",
+      "rejected": "Rejected",
+      "withdrawn": "Withdrawn"
+    },
+    "actions": {
+      "viewListing": "Open listing",
+      "viewListingShort": "Details"
+    }
+  },
+  "loading": "Loading...",
+  "addNew": "Add new listing",
   "new": "New",
-    "owner_dashboard_title": "My Properties",
+
+  "filtersTitle": "Filters",
+  "myListingsTitle": "My listings",
+  "myListingsSubtitle": "Edit, delete and manage your own property listings.",
+  "noListings": "No listings found.",
+  "noListingsHint": "As soon as you create a listing, it will appear here in your dashboard.",
+  "imageFallback": "No image",
+
+  "details": "Details",
+  "delete": "Delete",
+  "edit": "Edit",
+  "favorite": "Favorite",
+  "unfavorite": "Remove favorite",
+  "contactOwner": "Contact owner",
+  "viewMap": "View map",
+
+  "stats": {
+    "totalListings": "Total listings",
+    "buyListings": "For sale",
+    "rentListings": "For rent",
+    "favorites": "Favorites"
+  },
+
+  "fields": {
+    "apartment": "Apartment",
+    "house": "House",
+    "office": "Office / Commercial",
+    "buy": "Buy",
+    "rent": "Rent"
+  },
+
+  "myOffers": {
+    "title": "My offers",
+    "subtitle": "Keep track of all purchase offers you have submitted for properties.",
+    "empty": "You have not submitted any offers yet.",
+    "withdraw": "Withdraw",
+    "chips": {
+      "total": "Total",
+      "open": "Open",
+      "accepted": "Accepted",
+      "rejected": "Rejected",
+      "withdrawn": "Withdrawn"
+    },
+    "status": {
+      "open": "Open",
+      "accepted": "Accepted",
+      "rejected": "Rejected",
+      "withdrawn": "Withdrawn"
+    },
+    "modal": {
+      "title": "Offer details",
+      "listing": "Listing: ",
+      "amount": "Offer: ",
+      "message": "Message to the owner:",
+      "createdAt": "Created on {{date}}",
+      "status": "Status:"
+    }
+  },
+
+  "purposeOptions": {
+    "buy": "For sale",
+    "rent": "For rent"
+  },
+
+  "typeOptions": {
+    "apartment": "Apartment",
+    "house": "House",
+    "office": "Office / Commercial"
+  },
+
+  "allPurposes": "All purposes",
+  "allTypes": "All types",
+  "searchPlaceholder": "Search by city, ZIP, region or keyword",
+
+  "confirm": {
+    "deleteTitle": "Delete listing?",
+    "deleteText": "Are you sure you want to permanently delete this listing?"
+  },
+
+  "confirm_delete_title": "Delete listing?",
+  "confirm_delete_message": "Do you really want to permanently delete this listing?",
+  "yes_delete": "Yes, delete",
+  "cancel": "Cancel",
+
+  "owner_dashboard_title": "My properties",
   "owner_dashboard_welcome": "Manage your own listings here.",
-  "add_property": "New Listing",
+  "add_property": "New listing",
   "total_properties": "Total listings",
   "active_rentals": "Active rentals",
   "pending_requests": "Pending requests",
@@ -16,85 +124,19 @@
   "your_properties": "Your listings",
   "no_properties": "No listings found.",
 
-  "myOffers": {
-  "title": "My offers",
-  "subtitle": "Keep track of all purchase offers you have submitted for properties.",
-  "chips": {
-    "total": "Total",
-    "open": "Open",
-    "accepted": "Accepted",
-    "rejected": "Rejected",
-    "withdrawn": "Withdrawn"
-  },
-  "empty": "You have not submitted any offers yet.",
-  "withdraw": "Withdraw"
-},
-  "city": "City",
-  "price": "Price",
-
-
-  "confirm_delete_title": "Delete listing?",
-  "confirm_delete_message": "Do you really want to permanently delete this listing?",
-  "yes_delete": "Yes, delete",
-  "cancel": "Cancel",
-
-"view": "View",
-  "purposeOptions": {
-    "buy": "For sale",
-    "rent": "For rent"
-  },
-  "typeOptions": {
-    "apartment": "Apartment",
-    "house": "House",
-    "office": "Office / Commercial"
-  },
-    "allPurposes": "All purposes",
-  "searchPlaceholder": "Search by city, ZIP, region or keyword",
-  "allTypes": "All types",
-  
-  "purpose": {
-    "buy": "For sale",
-    "rent": "For rent"
-  },
-  "type": {
-    "apartment": "Apartment",
-    "house": "House",
-    "office": "Office / Commercial"
-  },
-  "newListing": "New listing",
   "requestOwnerRole": "Request owner role",
-  "noResults": "No listings found.",
-  "actions": {
-    "edit": "Edit",
-    "delete": "Delete"
-  },
-  "confirm": {
-    "deleteTitle": "Delete listing?",
-    "deleteText": "Are you sure you want to permanently delete this listing?"
-  },
-  "details": "Details",
-  "delete": "Delete",
-  "edit": "Edit",
-  "favorite": "Favorite",
-  "unfavorite": "Unfavorite",
-  "contactOwner": "Contact Owner",
-  "viewMap": "View Map",
-  "loading": "Loading...",
-  "fields": {
-    "apartment": "Apartment",
-    "house": "House",
-    "rent": "Rent",
-    "buy": "Buy",
-      "title": "My Dashboard",
-  "welcomeMessage": "Welcome back, {{name}}!",
-  "myListings": "My Listings",
-  "favorites": "Saved Listings",
-  "requestOwnerUpgrade": "Request Owner Role",
-  "messages": "Messages",
-  "profile": "Edit Profile",
-  "settings": "Account Settings",
-  "logout": "Logout",
-  "analytics": "Analytics & Statistics",
-  "notifications": "Notifications"
+  "requestOwnerUpgrade": "Request owner role",
+
+  "dashboard": {
+    "title": "My dashboard",
+    "welcomeMessage": "Welcome back, {{name}}!",
+    "myListings": "My listings",
+    "favorites": "Saved listings",
+    "messages": "Messages",
+    "profile": "Edit profile",
+    "settings": "Account settings",
+    "logout": "Logout",
+    "analytics": "Analytics & statistics",
+    "notifications": "Notifications"
   }
 }

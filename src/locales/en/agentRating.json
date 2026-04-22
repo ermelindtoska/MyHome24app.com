@@ -1,66 +1,46 @@
 {
-
-"titles": {
-
-"rating": "Ratings & Quality",
-
-"latest": "Latest Reviews"
-
-},
-
-"labels": {
-
-"count": "Ratings"
-
-},
-
-"loading": "Loading ratings…",
-
-"empty": "There are currently no ratings for this profile.",
-
-"info": {
-
-"ownProfile": "This is your own profile. Other users can rate you here.",
-
-"loginToRate": "Log in to rate this agent.",
-
-"alreadyRated": "You have already rated this agent."
-
-},
-
-"form": {
-
-"yourRatingLabel": "Your rating",
-
-"commentLabel": "Your experience (optional)",
-
-"commentPlaceholder": "How was the collaboration? Was the consultation helpful?",
-
-"sending": "Sending…",
-
-"submit": "Submit rating"
-
-},
-
-"errors": {
-
-"loadFailed": "Reviews could not be loaded.",
-
-"notLoggedIn": "Please log in first to rate.",
-
-"ownProfile": "You cannot rate your own profile.",
-
-"alreadyRated": "You have already rated this agent.",
-
-"noStars": "Please select a star rating.",
-
-"saveFailed": "An error occurred while saving the rating."
-
-},
-
-"success": {
-
-"saved": "Rating saved. Thank you!"
-
-}
+  "metaTitle": "Rate agents",
+  "metaDescription": "Share your experience with an agent on MyHome24App and help other users make better decisions.",
+  "badge": "Rating & quality",
+  "intro": "Your feedback helps strengthen transparency, trust and service quality on the platform. Share your experience with an agent in a fair and professional way.",
+  "titles": {
+    "rating": "Ratings & Quality",
+    "latest": "Latest Reviews"
+  },
+  "labels": {
+    "count": "Ratings"
+  },
+  "loading": "Loading ratings…",
+  "empty": "There are currently no ratings for this profile.",
+  "info": {
+    "ownProfile": "This is your own profile. Other users can rate you here.",
+    "loginToRate": "Log in to rate this agent.",
+    "alreadyRated": "You have already rated this agent."
+  },
+  "form": {
+    "yourRatingLabel": "Your rating",
+    "commentLabel": "Your experience",
+    "commentPlaceholder": "How was the collaboration? Was the consultation helpful? What stood out positively?",
+    "sending": "Sending…",
+    "submit": "Submit rating"
+  },
+  "errors": {
+    "loadFailed": "Reviews could not be loaded.",
+    "notLoggedIn": "Please log in first to rate.",
+    "ownProfile": "You cannot rate your own profile.",
+    "alreadyRated": "You have already rated this agent.",
+    "noStars": "Please select a star rating.",
+    "saveFailed": "An error occurred while saving the rating."
+  },
+  "success": {
+    "saved": "Rating saved. Thank you!"
+  },
+  "whyTitle": "Why ratings matter",
+  "whyText": "Ratings build trust, help other users make informed decisions and support transparent collaboration between clients and agents.",
+  "tipsTitle": "Tips for a helpful review",
+  "tips": [
+    "Describe your experience as clearly and objectively as possible.",
+    "Focus on communication, reliability and service quality.",
+    "Keep your feedback fair, respectful and understandable."
+  ]
 }
