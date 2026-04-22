@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   HiX,
   HiChevronDown,
@@ -42,14 +42,10 @@ export default function MobileMenu({
   const [openSubmenu, setOpenSubmenu] = useState(null);
   const [visible, setVisible] = useState(false);
 
+  const closeTimerRef = useRef(null);
+
   useEffect(() => {
     const enterTimer = setTimeout(() => setVisible(true), 10);
-
-    const prevOverflow = document.body.style.overflow;
-    const prevTouchAction = document.body.style.touchAction;
-
-    document.body.style.overflow = "hidden";
-    document.body.style.touchAction = "none";
 
     const onKeyDown = (e) => {
       if (e.key === "Escape") {
@@ -61,24 +57,27 @@ export default function MobileMenu({
 
     return () => {
       clearTimeout(enterTimer);
-      document.body.style.overflow = prevOverflow;
-      document.body.style.touchAction = prevTouchAction;
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
       document.removeEventListener("keydown", onKeyDown);
     };
   }, []);
 
   const handleClose = () => {
     setVisible(false);
-    setTimeout(() => {
+
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+
+    closeTimerRef.current = setTimeout(() => {
       onClose?.();
     }, 220);
   };
 
   const handleNavigate = (path) => {
     handleClose();
+
     setTimeout(() => {
       navigate(path);
-      setTimeout(() => window.dispatchEvent(new Event("resize")), 450);
+      setTimeout(() => window.dispatchEvent(new Event("resize")), 350);
     }, 220);
   };
 
@@ -144,8 +143,8 @@ export default function MobileMenu({
     "dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800";
 
   const panelBase =
-    "rounded-3xl border border-gray-200 bg-white/90 backdrop-blur-sm shadow-sm " +
-    "dark:border-gray-700 dark:bg-gray-900/80";
+    "rounded-3xl border border-gray-200 bg-white/95 shadow-sm " +
+    "dark:border-gray-700 dark:bg-gray-900/95";
 
   const menuButtonBase =
     "w-full flex items-center justify-between gap-3 rounded-2xl px-4 py-3 text-left text-[15px] font-medium transition " +
@@ -164,12 +163,12 @@ export default function MobileMenu({
   }, [currentUser, t]);
 
   return createPortal(
-    <div className="fixed inset-0 z-[50000]">
+    <div className="fixed inset-0 z-[50000] pointer-events-none">
       {/* Backdrop */}
       <button
         type="button"
         aria-label={t("close", { defaultValue: "Schließen" })}
-        className={`absolute inset-0 bg-black/55 backdrop-blur-[2px] transition-opacity duration-200 ${
+        className={`absolute inset-0 pointer-events-auto bg-black/55 transition-opacity duration-200 ${
           visible ? "opacity-100" : "opacity-0"
         }`}
         onClick={handleClose}
@@ -181,7 +180,7 @@ export default function MobileMenu({
         aria-modal="true"
         aria-label={t("menu", { defaultValue: "Menü" })}
         className={`
-          absolute right-0 top-0 h-full w-[88%] max-w-[390px]
+          absolute right-0 top-0 h-full w-[88%] max-w-[390px] pointer-events-auto
           transform border-l border-gray-200 bg-white shadow-2xl transition-transform duration-200
           dark:border-gray-700 dark:bg-gray-950
           ${visible ? "translate-x-0" : "translate-x-full"}
@@ -189,11 +188,10 @@ export default function MobileMenu({
         style={{
           paddingTop: "max(12px, env(safe-area-inset-top))",
           paddingBottom: "max(12px, env(safe-area-inset-bottom))",
-          overscrollBehavior: "contain",
           WebkitOverflowScrolling: "touch",
         }}
       >
-        <div className="flex h-full flex-col">
+        <div className="flex h-full min-h-0 flex-col">
           {/* Header */}
           <div className="border-b border-gray-200 px-4 pb-4 pt-2 dark:border-gray-800">
             <div className="flex items-center justify-between gap-3">
@@ -243,7 +241,7 @@ export default function MobileMenu({
 
           {/* Scroll content */}
           <div className="flex-1 overflow-y-auto px-4 py-4">
-            <div className="space-y-4">
+            <div className="space-y-4 pb-4">
               {/* Discover */}
               <section className={panelBase}>
                 <div className="px-4 pb-2 pt-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-500 dark:text-gray-400">
@@ -251,7 +249,6 @@ export default function MobileMenu({
                 </div>
 
                 <div className="px-2 pb-3">
-                  {/* Buy */}
                   <div>
                     <button
                       onClick={() => toggleSubmenu("buy")}
@@ -286,7 +283,6 @@ export default function MobileMenu({
                     )}
                   </div>
 
-                  {/* Rent */}
                   <div>
                     <button
                       onClick={() => toggleSubmenu("rent")}
@@ -321,57 +317,38 @@ export default function MobileMenu({
                     )}
                   </div>
 
-                  <button
-                    onClick={() => handleNavigate("/mortgage")}
-                    className={simpleLinkBase}
-                  >
+                  <button onClick={() => handleNavigate("/mortgage")} className={simpleLinkBase}>
                     <HiCurrencyEuro className="text-lg text-blue-600 dark:text-blue-400" />
                     {t("mortgage")}
                   </button>
 
-                  <button
-                    onClick={() => handleNavigate("/agents")}
-                    className={simpleLinkBase}
-                  >
+                  <button onClick={() => handleNavigate("/agents")} className={simpleLinkBase}>
                     <HiUserGroup className="text-lg text-blue-600 dark:text-blue-400" />
                     {t("findAgent")}
                   </button>
 
-                  <button
-                    onClick={() => handleNavigate("/how-it-works")}
-                    className={simpleLinkBase}
-                  >
+                  <button onClick={() => handleNavigate("/how-it-works")} className={simpleLinkBase}>
                     <HiSparkles className="text-lg text-blue-600 dark:text-blue-400" />
                     {t("guide", { defaultValue: "Ratgeber" })}
                   </button>
 
-                  <button
-                    onClick={() => handleNavigate("/map")}
-                    className={simpleLinkBase}
-                  >
+                  <button onClick={() => handleNavigate("/map")} className={simpleLinkBase}>
                     <HiMap className="text-lg text-blue-600 dark:text-blue-400" />
                     {t("map")}
                   </button>
 
-                  <button
-                    onClick={() => handleNavigate("/compare")}
-                    className={simpleLinkBase}
-                  >
+                  <button onClick={() => handleNavigate("/compare")} className={simpleLinkBase}>
                     <HiScale className="text-lg text-blue-600 dark:text-blue-400" />
                     {t("compare")}
                   </button>
 
-                  <button
-                    onClick={() => handleNavigate("/contact")}
-                    className={simpleLinkBase}
-                  >
+                  <button onClick={() => handleNavigate("/contact")} className={simpleLinkBase}>
                     <HiPhone className="text-lg text-blue-600 dark:text-blue-400" />
                     {t("contact")}
                   </button>
                 </div>
               </section>
 
-              {/* Account */}
               {!currentUser ? (
                 <section className={panelBase}>
                   <div className="p-3 space-y-3">
@@ -398,10 +375,7 @@ export default function MobileMenu({
                     </div>
 
                     <div className="px-2 pb-3">
-                      <button
-                        onClick={() => handleNavigate("/profile")}
-                        className={simpleLinkBase}
-                      >
+                      <button onClick={() => handleNavigate("/profile")} className={simpleLinkBase}>
                         <HiUser className="text-lg text-gray-500 dark:text-gray-400" />
                         {t("profile")}
                       </button>
@@ -412,16 +386,11 @@ export default function MobileMenu({
                           className="flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-[15px] font-medium text-amber-700 transition hover:bg-amber-50 dark:text-amber-300 dark:hover:bg-amber-900/20"
                         >
                           <HiShieldCheck className="text-lg" />
-                          {t("adminDashboard", {
-                            defaultValue: "Admin-Dashboard",
-                          })}
+                          {t("adminDashboard", { defaultValue: "Admin-Dashboard" })}
                         </button>
                       )}
 
-                      <button
-                        onClick={() => handleNavigate("/owner-dashboard")}
-                        className={simpleLinkBase}
-                      >
+                      <button onClick={() => handleNavigate("/owner-dashboard")} className={simpleLinkBase}>
                         <HiOfficeBuilding className="text-lg text-gray-500 dark:text-gray-400" />
                         {t("myListings", { defaultValue: "Meine Immobilien" })}
                       </button>
@@ -436,17 +405,13 @@ export default function MobileMenu({
                         </button>
                       )}
 
-                      <button
-                        onClick={() => handleNavigate("/settings")}
-                        className={simpleLinkBase}
-                      >
+                      <button onClick={() => handleNavigate("/settings")} className={simpleLinkBase}>
                         <HiCog className="text-lg text-gray-500 dark:text-gray-400" />
                         {t("settings")}
                       </button>
                     </div>
                   </section>
 
-                  {/* Switch Role */}
                   <section className={panelBase}>
                     <div className="px-4 pb-2 pt-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-500 dark:text-gray-400">
                       {t("switchRole", { defaultValue: "Rolle wechseln" })}
@@ -465,7 +430,6 @@ export default function MobileMenu({
                     </div>
                   </section>
 
-                  {/* Logout */}
                   <section className={panelBase}>
                     <div className="p-3">
                       <button
@@ -488,7 +452,6 @@ export default function MobileMenu({
                 </>
               )}
 
-              {/* Language + Theme */}
               <section className={panelBase}>
                 <div className="px-4 pb-2 pt-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-500 dark:text-gray-400">
                   {t("preferences", { defaultValue: "Einstellungen" })}
