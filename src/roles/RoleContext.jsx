@@ -1,150 +1,195 @@
 // src/roles/RoleContext.jsx
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../firebase";
-import { doc, onSnapshot, getDoc } from "firebase/firestore";
+
+const ADMIN_EMAILS = ["toskaermelind1@gmail.com"];
 
 const RoleCtx = createContext({
-  role: null,
+  uid: null,
+  user: null,
+  role: "user",
   loading: true,
-  refresh: () => {},
+  isAdmin: false,
+  refresh: async () => {},
   setRoleLocal: () => {},
 });
 
+const normalizeRole = (value) => {
+  if (!value) return "user";
+  return String(value).trim().toLowerCase();
+};
+
+const getEffectiveRole = ({ firestoreRole, isAdminClaim, email }) => {
+  const cleanEmail = String(email || "").trim().toLowerCase();
+
+  if (isAdminClaim || ADMIN_EMAILS.includes(cleanEmail)) {
+    return "admin";
+  }
+
+  return normalizeRole(firestoreRole || "user");
+};
+
 export function RoleProvider({ children }) {
+  const [user, setUser] = useState(null);
   const [uid, setUid] = useState(null);
-  const [role, setRole] = useState(null);
+  const [role, setRole] = useState("user");
   const [loading, setLoading] = useState(true);
 
-  // 1) Login / Logout beobachten
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        console.log("[RoleContext] user logged out");
-        setUid(null);
-        setRole(null);
-        setLoading(false);
-      } else {
-        console.log("[RoleContext] user logged in:", user.email, user.uid);
-        setUid(user.uid);
-      }
-    });
-    return unsub;
+  const readAdminClaim = useCallback(async (firebaseUser) => {
+    if (!firebaseUser) return false;
+
+    try {
+      const tokenResult = await firebaseUser.getIdTokenResult(true);
+      return Boolean(tokenResult?.claims?.admin);
+    } catch (error) {
+      console.warn("[RoleContext] Could not read admin claim:", error);
+      return false;
+    }
   }, []);
 
-  // 2) Rolle ermitteln:
-  //    a) Custom Claim "admin"
-  //    b) Firestore users/{uid}.role
-  //    c) Fallback: Hardcoded E-Mail als Admin (toskaermelind1@gmail.com)
   useEffect(() => {
-    if (!uid) return;
-
-    let unsubFs;
-    let cancelled = false;
-
-    const setup = async () => {
+    const unsubscribeAuth = onAuthStateChanged(auth, (firebaseUser) => {
       setLoading(true);
 
-      const user = auth.currentUser;
-      let isAdminClaim = false;
-      let email = user?.email || "";
-
-      // --- a) Custom Claim lesen ---
-      if (user) {
-        try {
-          const tokenResult = await user.getIdTokenResult(true);
-          console.log("[RoleContext] token.claims:", tokenResult.claims);
-          isAdminClaim = !!tokenResult.claims.admin;
-        } catch (e) {
-          console.warn("[RoleContext] getIdTokenResult error:", e);
-        }
+      if (!firebaseUser) {
+        setUser(null);
+        setUid(null);
+        setRole("user");
+        setLoading(false);
+        return;
       }
 
-      // --- b) Firestore-Listener ---
-      unsubFs = onSnapshot(
+      setUser(firebaseUser);
+      setUid(firebaseUser.uid);
+    });
+
+    return () => unsubscribeAuth();
+  }, []);
+
+  useEffect(() => {
+    if (!uid || !user) return undefined;
+
+    let cancelled = false;
+    let unsubscribeUserDoc = null;
+
+    const setupRoleListener = async () => {
+      setLoading(true);
+
+      const isAdminClaim = await readAdminClaim(user);
+      const email = user.email || "";
+
+      if (cancelled) return;
+
+      unsubscribeUserDoc = onSnapshot(
         doc(db, "users", uid),
-        (snap) => {
+        (snapshot) => {
           if (cancelled) return;
 
-          const fsRole = snap.data()?.role ?? "user";
-          console.log("[RoleContext] role from Firestore:", fsRole);
+          const data = snapshot.exists() ? snapshot.data() || {} : {};
+          const firestoreRole = data.role || "user";
 
-          let effectiveRole = fsRole;
-
-          //  Fallback: wenn Custom-Claim admin ODER spezielle E-Mail
-          if (isAdminClaim || email === "toskaermelind1@gmail.com") {
-            effectiveRole = "admin";
-          }
-
-          console.log(
-            "[RoleContext] effectiveRole:",
-            effectiveRole,
-            "| email:",
-            email
-          );
+          const effectiveRole = getEffectiveRole({
+            firestoreRole,
+            isAdminClaim,
+            email,
+          });
 
           setRole(effectiveRole);
           setLoading(false);
         },
-        (err) => {
+        (error) => {
           if (cancelled) return;
-          console.error("[RoleContext] onSnapshot error:", err);
 
-          let fallbackRole = "user";
-          if (isAdminClaim || email === "toskaermelind1@gmail.com") {
-            fallbackRole = "admin";
-          }
+          console.error("[RoleContext] Firestore role listener error:", error);
 
-          setRole(fallbackRole);
+          const effectiveRole = getEffectiveRole({
+            firestoreRole: "user",
+            isAdminClaim,
+            email,
+          });
+
+          setRole(effectiveRole);
           setLoading(false);
         }
       );
     };
 
-    setup();
+    setupRoleListener();
 
     return () => {
       cancelled = true;
-      if (unsubFs) unsubFs();
+      if (typeof unsubscribeUserDoc === "function") {
+        unsubscribeUserDoc();
+      }
     };
-  }, [uid]);
+  }, [uid, user, readAdminClaim]);
 
-  // Optional manueller Refresh
-  const refresh = async () => {
-    if (!uid) return;
-    try {
-      const user = auth.currentUser;
-      let isAdminClaim = false;
-      const email = user?.email || "";
+  const refresh = useCallback(async () => {
+    const currentUser = auth.currentUser;
 
-      if (user) {
-        const tokenResult = await user.getIdTokenResult(true);
-        isAdminClaim = !!tokenResult.claims.admin;
-        console.log("[RoleContext.refresh] claims:", tokenResult.claims);
-      }
-
-      const snap = await getDoc(doc(db, "users", uid));
-      const fsRole = snap.data()?.role ?? "user";
-
-      let effectiveRole = fsRole;
-      if (isAdminClaim || email === "toskaermelind1@gmail.com") {
-        effectiveRole = "admin";
-      }
-
-      console.log("[RoleContext.refresh] effectiveRole:", effectiveRole);
-      setRole(effectiveRole);
-    } catch (e) {
-      console.error("[RoleContext] refresh error:", e);
+    if (!currentUser?.uid) {
+      setRole("user");
+      return "user";
     }
-  };
 
-  const setRoleLocal = (r) => setRole(r);
+    try {
+      setLoading(true);
 
-  return (
-    <RoleCtx.Provider value={{ role, loading, refresh, setRoleLocal }}>
-      {children}
-    </RoleCtx.Provider>
+      const isAdminClaim = await readAdminClaim(currentUser);
+      const email = currentUser.email || "";
+
+      const snapshot = await getDoc(doc(db, "users", currentUser.uid));
+      const firestoreRole = snapshot.exists()
+        ? snapshot.data()?.role || "user"
+        : "user";
+
+      const effectiveRole = getEffectiveRole({
+        firestoreRole,
+        isAdminClaim,
+        email,
+      });
+
+      setUser(currentUser);
+      setUid(currentUser.uid);
+      setRole(effectiveRole);
+
+      return effectiveRole;
+    } catch (error) {
+      console.error("[RoleContext] refresh error:", error);
+      setRole("user");
+      return "user";
+    } finally {
+      setLoading(false);
+    }
+  }, [readAdminClaim]);
+
+  const setRoleLocal = useCallback((nextRole) => {
+    setRole(normalizeRole(nextRole));
+  }, []);
+
+  const value = useMemo(
+    () => ({
+      uid,
+      user,
+      role,
+      loading,
+      isAdmin: role === "admin",
+      refresh,
+      setRoleLocal,
+    }),
+    [uid, user, role, loading, refresh, setRoleLocal]
   );
+
+  return <RoleCtx.Provider value={value}>{children}</RoleCtx.Provider>;
 }
 
 export const useRole = () => useContext(RoleCtx);

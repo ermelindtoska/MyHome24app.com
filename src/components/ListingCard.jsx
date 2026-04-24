@@ -10,6 +10,7 @@ import {
   FiArrowUpRight,
 } from "react-icons/fi";
 import FavoriteButton from "./FavoriteButton";
+import { getListingImage } from "../utils/getListingImage";
 
 const FALLBACK_IMAGE = "/images/hero-1.jpg";
 
@@ -26,22 +27,12 @@ const formatPrice = (value, purpose, t) => {
     maximumFractionDigits: 0,
   });
 
-  const isRent =
-    String(purpose || "")
-      .trim()
-      .toLowerCase() === "rent";
+  const isRent = String(purpose || "").trim().toLowerCase() === "rent";
 
   return isRent
     ? `€ ${formatted} ${t("perMonthShort", { defaultValue: "/Monat" })}`
     : `€ ${formatted}`;
 };
-
-const getImage = (listing) =>
-  listing?.imageUrls?.[0] ||
-  listing?.images?.[0] ||
-  listing?.imageUrl ||
-  listing?.image ||
-  FALLBACK_IMAGE;
 
 const getAddressLine = (listing) => {
   const city = listing?.city || "";
@@ -58,14 +49,14 @@ const ListingCard = ({ listing }) => {
 
   if (!listing) return null;
 
-  const image = getImage(listing);
+  const image = getListingImage(listing);
   const title = listing.title || t("untitled", { defaultValue: "Ohne Titel" });
   const addressLine = getAddressLine(listing);
   const price = formatPrice(listing.price, listing.purpose, t);
 
-  const bedrooms = listing.bedrooms ?? listing.beds ?? 0;
+  const bedrooms = listing.bedrooms ?? listing.beds ?? listing.rooms ?? 0;
   const bathrooms = listing.bathrooms ?? listing.baths ?? 0;
-  const size = listing.size ?? listing.area ?? 0;
+  const size = listing.size ?? listing.area ?? listing.livingArea ?? 0;
   const type = listing.type || listing.category || "";
 
   const isFeatured = Boolean(listing.isFeatured || listing.isPremium);
@@ -82,6 +73,8 @@ const ListingCard = ({ listing }) => {
               alt={title}
               className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
               loading="lazy"
+              decoding="async"
+              fetchPriority="low"
               onError={(e) => {
                 e.currentTarget.src = FALLBACK_IMAGE;
               }}
@@ -189,4 +182,12 @@ ListingCard.propTypes = {
   listing: PropTypes.object,
 };
 
-export default ListingCard;
+export default React.memo(ListingCard, (prev, next) => {
+  return (
+    prev.listing?.id === next.listing?.id &&
+    prev.listing?.title === next.listing?.title &&
+    prev.listing?.price === next.listing?.price &&
+    prev.listing?.imageUrl === next.listing?.imageUrl &&
+    prev.listing?.coverImage === next.listing?.coverImage
+  );
+});

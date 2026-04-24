@@ -1,24 +1,29 @@
 // src/roles/CheckAdminStatus.jsx
-import { useEffect } from 'react';
-import { getAuth } from 'firebase/auth';
+import React from "react";
+import { useRole } from "./RoleContext";
 
 const CheckAdminStatus = () => {
-  useEffect(() => {
-    const auth = getAuth();
-    const user = auth.currentUser;
+  const { role, isAdmin, loading } = useRole();
 
-    if (user) {
-      user.getIdTokenResult()
-        .then((idTokenResult) => {
-          console.log('🟦 Is admin?', idTokenResult.claims.admin); // true nëse është admin
-        })
-        .catch((error) => {
-          console.error('❌ Error fetching token:', error);
-        });
-    }
-  }, []);
+  if (loading) {
+    return (
+      <div className="text-xs text-gray-500 dark:text-gray-400">
+        Checking role...
+      </div>
+    );
+  }
 
-  return null; // ose mund të shtosh loader, mesazh, etj
+  return (
+    <div className="fixed bottom-4 right-4 z-50 px-3 py-2 rounded-lg bg-black/80 text-white text-xs shadow-lg">
+      <div>Role: <span className="font-semibold">{role}</span></div>
+      <div>
+        Admin:{" "}
+        <span className={isAdmin ? "text-green-400" : "text-red-400"}>
+          {isAdmin ? "YES" : "NO"}
+        </span>
+      </div>
+    </div>
+  );
 };
 
 export default CheckAdminStatus;

@@ -1,0 +1,39 @@
+{
+  "title": "Nachrichtenzentrale",
+  "subtitle": "Alle Anfragen, Kontakte und Support-Nachrichten an einem Ort.",
+
+  "tabs": {
+    "all": "Alle",
+    "roles": "Rollen",
+    "contact": "Kontakt",
+    "support": "Support",
+    "offers": "Angebote"
+  },
+
+  "status": {
+    "new": "Neu",
+    "open": "Offen",
+    "pending": "Ausstehend",
+    "resolved": "Erledigt"
+  },
+
+  "actions": {
+    "approve": "Genehmigen",
+    "reject": "Ablehnen",
+    "reply": "Antworten",
+    "resolveReply": "Erledigen / Antworten",
+    "resolve": "Erledigen",
+    "viewProfile": "Profil öffnen"
+  },
+
+  "labels": {
+    "from": "Von",
+    "message": "Nachricht",
+    "roleRequest": "Rollenwechsel-Anfrage",
+    "contactRequest": "Kontaktanfrage",
+    "supportRequest": "Support-Anfrage"
+  },
+
+  "empty": "Keine Nachrichten vorhanden.",
+  "loading": "Nachrichten werden geladen…"
+}

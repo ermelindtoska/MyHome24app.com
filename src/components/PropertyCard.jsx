@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -10,6 +10,7 @@ import {
 } from "react-icons/fi";
 import { FaBalanceScale } from "react-icons/fa";
 import FavoriteButton from "./FavoriteButton";
+import { getListingImage } from "../utils/getListingImage";
 
 const FALLBACK_IMG = "/images/hero-1.jpg";
 
@@ -19,17 +20,6 @@ function formatPrice(value) {
   return Number.isNaN(n)
     ? String(value)
     : n.toLocaleString("de-DE", { maximumFractionDigits: 0 });
-}
-
-function firstImage(item) {
-  return (
-    item?.images?.[0] ||
-    item?.imageUrls?.[0] ||
-    item?.imageUrl ||
-    item?.image ||
-    item?.primaryImageUrl ||
-    FALLBACK_IMG
-  );
 }
 
 function safeText(value, fallback = "–") {
@@ -51,23 +41,23 @@ const PropertyCard = ({
 }) => {
   const navigate = useNavigate();
   const { t } = useTranslation(["listing", "favorites"]);
-  const img = firstImage(item);
+  const img = getListingImage(item);
 
-  const handleCardClick = () => {
+  const handleCardClick = useCallback(() => {
     if (typeof onCardClick === "function") {
       onCardClick(item);
       return;
     }
-    navigate(`/listing/${item.id}`);
-  };
 
-  const handleImageError = (e) => {
+    navigate(`/listing/${item.id}`);
+  }, [item, navigate, onCardClick]);
+
+  const handleImageError = useCallback((e) => {
     e.currentTarget.src = FALLBACK_IMG;
-  };
+  }, []);
 
   return (
     <article className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-gray-700 dark:bg-gray-800 dark:shadow-black/20">
-      {/* Bildbereich */}
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100 dark:bg-gray-900">
         <img
           src={img}
@@ -75,6 +65,8 @@ const PropertyCard = ({
           onError={handleImageError}
           onClick={handleCardClick}
           loading="lazy"
+          decoding="async"
+          fetchPriority="low"
           className="h-full w-full cursor-pointer object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
 
@@ -108,7 +100,6 @@ const PropertyCard = ({
         </div>
       </div>
 
-      {/* Inhalt */}
       <div className="p-4">
         <div className="mb-2 flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
@@ -146,7 +137,7 @@ const PropertyCard = ({
           <div className="flex flex-col items-center justify-center text-center">
             <FiMaximize2 className="mb-1 text-sm text-emerald-500" />
             <span className="font-semibold">
-              {item?.size ? `${item.size}` : "–"}
+              {item?.size || item?.livingArea ? item.size || item.livingArea : "–"}
             </span>
             <span>m²</span>
           </div>
@@ -171,6 +162,7 @@ const PropertyCard = ({
 
         <div className="flex flex-wrap items-center justify-between gap-2">
           <button
+            type="button"
             onClick={handleCardClick}
             className="inline-flex items-center justify-center rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
           >
@@ -179,6 +171,7 @@ const PropertyCard = ({
 
           {showCompare && (
             <button
+              type="button"
               onClick={toggleCompare}
               className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition ${
                 isInCompare
@@ -194,7 +187,6 @@ const PropertyCard = ({
           )}
         </div>
 
-        {/* Kommentare */}
         {showComments && (
           <div className="mt-5 border-t border-gray-200 pt-4 dark:border-gray-700">
             <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white">
@@ -206,7 +198,7 @@ const PropertyCard = ({
               {comments?.length > 0 ? (
                 comments.map((c, i) => (
                   <div
-                    key={i}
+                    key={`${item.id}-comment-${i}`}
                     className="rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-700 dark:border-gray-700 dark:bg-gray-900/50 dark:text-gray-300"
                   >
                     <span className="font-semibold text-gray-900 dark:text-white">
@@ -259,6 +251,7 @@ const PropertyCard = ({
               />
 
               <button
+                type="button"
                 onClick={onSubmitComment}
                 className="w-full rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
               >
@@ -285,4 +278,17 @@ PropertyCard.propTypes = {
   toggleCompare: PropTypes.func,
 };
 
-export default PropertyCard;
+export default React.memo(PropertyCard, (prev, next) => {
+  return (
+    prev.item?.id === next.item?.id &&
+    prev.item?.imageUrl === next.item?.imageUrl &&
+    prev.item?.coverImage === next.item?.coverImage &&
+    prev.item?.price === next.item?.price &&
+    prev.item?.title === next.item?.title &&
+    prev.isInCompare === next.isInCompare &&
+    prev.showCompare === next.showCompare &&
+    prev.showComments === next.showComments &&
+    prev.comments?.length === next.comments?.length &&
+    prev.newComment === next.newComment
+  );
+});

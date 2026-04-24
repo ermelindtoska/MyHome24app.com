@@ -3,6 +3,7 @@
   "description": "Beschreibung",
   "features": "Merkmale",
   "location": "Lage",
+  "openImagePreview": "Bild groß öffnen",
   "contactSeller": "Verkäufer kontaktieren",
   "price": "Preis",
   "rooms": "Zimmer",

@@ -1,70 +1,167 @@
 {
   "heroTitle": "Find your perfect home",
-  "agentsSection": {
-    "title": "Meet our agents",
-    "subtitle": "Experienced real estate experts supporting you from the first click to the notary appointment.",
-    "ctaAllAgents": "View all agents",
-    "verifiedBadge": "Verified",
-    "ratingCount": "reviews",
-     "searchLocation": "Location, address or region",
+  "heroTitle2": "Homes for every budget",
+  "heroTitle3": "Find your new home!",
+  "heroSubtitle": "Choose a location or filter by your preferences.",
+  "heroButton": "Explore now",
+  "heroHeadline": "Find your perfect home",
+  "heroSubtext": "Simple search. Reliable providers. Secure transactions.",
+  "title": "Your New Home in Germany",
+  "subtitle": "Find your perfect property – fast and easy.",
+
+  "searchPlaceholder": "Search by city or address...",
+  "searchPlaceholderMobile": "City, address, or keyword...",
+  "searchButton": "Search",
+  "searchLocation": "Search by city or address...",
+  "searchRecent": "Recently searched",
+  "searchSuggestions": "Suggestions",
+  "searchNoResults": "No results found",
+  "searchFilterLabel": "Advanced filters",
+  "searchByCategory": "Search by category",
+  "searchByRegion": "Search by region",
+  "loadingSearchBar": "Search bar is loading...",
+
+  "searchBar": {
+    "buy": "Buy",
+    "rent": "Rent",
+    "searchButton": "Search",
+    "searchPlaceholder": "Search by city or address..."
+  },
+
+  "buy": "Buy",
+  "rent": "Rent",
+  "search": "Search",
+  "clear": "Clear",
+  "propertyType": "Property type",
   "allTypes": "All types",
   "apartment": "Apartment",
   "house": "House",
   "office": "Office",
-  "minPrice": "Min price",
-  "maxPrice": "Max price",
-  "minSize": "Min size",
-  "maxSize": "Max size",
-  "clear": "Clear",
-  "search": "Search",
-  "propertyType": "Property type",
+  "land": "Land",
+  "minPrice": "Min. price",
+  "maxPrice": "Max. price",
+  "minSize": "Min. size",
+  "maxSize": "Max. size",
+  "rooms": "Rooms",
+  "bathrooms": "Bathrooms",
+  "area": "Area",
+  "noTitle": "No title available",
+
   "loadingSuggestions": "Loading suggestions…",
   "noSuggestions": "No suggestions found.",
+
+  "latest": "Latest listings",
+  "latestListings": "Latest listings",
+  "noListings": "There are currently no listings available.",
+  "errorLoadingListings": "Error loading property listings.",
+
+  "latestListingsSection": {
+    "badge": "New properties",
+    "title": "Latest listings",
+    "subtitle": "Discover current property offers recently published on MyHome24App.",
+    "viewAll": "View all listings",
+    "empty": "No listings found.",
+    "error": "There was an error loading the listings."
+  },
+
+  "agentsSection": {
+    "badge": "Agent network",
+    "title": "Meet our agents",
+    "subtitle": "Experienced experts support you with buying, selling or renting – personally, transparently and reliably.",
+    "ctaAllAgents": "View all agents",
+    "error": "The agent list could not be loaded.",
+    "emptyTitle": "No agents published yet.",
+    "emptyText": "As soon as agent profiles are approved, they will automatically appear here.",
+    "unknownName": "Unknown agent",
+    "verifiedBadge": "Verified",
+    "ratingCount": "reviews",
     "noRatings": "No reviews yet",
     "languagesLabel": "Languages:",
     "specialtiesLabel": "Specialties:",
+    "notSpecified": "Not specified",
     "viewProfile": "View profile",
-    "contactCta": "Contact agent",
-    "unknownName": "Unknown agent",
-    "emptyTitle": "No agents published yet.",
-    "emptyText": "As soon as agent profiles are approved, they will automatically appear here.",
-    "error": "Could not load the list of agents."
+    "contactCta": "Contact agent"
   },
-  "errorLoadingListings": "Error loading property listings.",
-  "loadingSearchBar": "Search bar is loading...",
-  "heroTitle2": "Homes for every budget",
+
   "agents": {
+    "title": "Meet our agents",
+    "subtitle": "Experienced experts, ready to help you with your real estate project.",
+    "loading": "Loading agents…",
+    "empty": "No agent profiles are currently published.",
+    "languagesPrefix": "Languages:",
+    "verifiedBadge": "Verified",
+    "viewProfile": "View profile"
+  },
 
-"title": "Meet our agents",
+  "agentsTitle": "Meet our agents",
+  "agentsSubtitle": "Experienced professionals ready to help you.",
+  "agentsSpecialty": "Real estate consultant",
 
-"subtitle": "Experienced experts, ready to help you with your real estate project.",
+  "contactSection": {
+    "badge": "Support & contact",
+    "title": "Do you have questions about MyHome24App?",
+    "text": "Our team is happy to help with questions about property listings, accounts, roles, contact requests or technical issues.",
+    "primaryButton": "Open contact form",
+    "cardTitle": "Fast support",
+    "cardText": "Write to us directly or use the contact form. We will get back to you as soon as possible.",
+    "responseHint": "Usually answered within a short time."
+  },
 
-"loading": "Loading agents…",
+  "contactTitle": "Contact us",
+  "contactText": "Have questions, feedback or need help? Feel free to send us an email.",
 
-"empty": "No agent profiles are currently published.",
+  "testimonials": {
+    "badge": "Experiences",
+    "title": "What users say about MyHome24App",
+    "subtitle": "Real experiences from people who want to search, compare and publish properties more easily.",
+    "defaultRole": "MyHome24App user",
+    "items": [
+      {
+        "name": "Anna Müller",
+        "role": "Buyer",
+        "text": "Fantastic platform! I found my dream home in just a few days."
+      },
+      {
+        "name": "Paul Bauer",
+        "role": "Owner",
+        "text": "Very user-friendly and reliable. I can recommend MyHome24App to everyone."
+      },
+      {
+        "name": "Sara Schmidt",
+        "role": "Tenant",
+        "text": "The search was fast, simple and very helpful. A really great experience."
+      }
+    ]
+  },
 
-"languagesPrefix": "Languages:",
+  "testimonialsTitle": "What our users say",
+  "testimonial1": "I found my dream home through MyHome24App. Just amazing!",
+  "testimonial2": "Fast, easy and reliable. Highly recommended!",
+  "testimonial3": "The platform is super intuitive and I found many good offers.",
 
-"verifiedBadge": "Verified",
-
-"viewProfile": "View profile"
-
-},
-  "heroTitle3": "Find your new home!",
-  "heroSubtitle": "Choose a location or filter by your preferences.",
-  "heroButton": "Explore now",
-  "searchPlaceholder": "Search by city or address...",
   "videoTitle": "Learn more about us",
   "videoSubtitle": "Watch our short video to understand how MyHome24App works.",
   "parallaxText": "Your home is just a click away.",
+
+  "howItWorks": "How it works",
   "howItWorksTitle": "How it works",
+  "howItWorksIntro": "Learn how to buy, rent, or list properties – step-by-step guide.",
   "howStep1": "Search",
   "howStep1Text": "Browse thousands of listings to find your dream property.",
   "howStep2": "Discover",
   "howStep2Text": "Compare properties and save your favorites.",
   "howStep3": "Contact",
   "howStep3Text": "Get in touch directly with the property owner.",
-  "popularAreasTitle": "Popular Areas",
+
+  "popularAreasTitle": "Popular areas",
+  "popularArea1": "Berlin",
+  "popularArea2": "Munich",
+  "popularArea3": "Hamburg",
+  "popularArea4": "Cologne",
+
+  "categories": "Categories",
+  "newConstruction": "New construction",
+
   "specialTitle": "What makes us special?",
   "specialInnovative": "Innovative",
   "specialInnovativeDesc": "We combine modern technology with user-friendliness.",
@@ -72,136 +169,63 @@
   "specialTrustedDesc": "Reliable providers and secure transactions.",
   "specialGrowing": "Growing",
   "specialGrowingDesc": "Already {{count}} users trust us.",
-  "popularArea1": "Berlin",
-  "popularArea2": "Munich",
-  "popularArea3": "Hamburg",
-  "popularArea4": "Cologne",
-  "categories": "Categories",
-  "statsTitle": "Our Platform in Numbers",
-  "statsListings": "Total Listings",
-  "statsUsers": "Registered Users",
-  "statsFeatured": "Featured Listings",
-  "apartment": "Apartment",
-  "house": "House",
-  "office": "Office",
-  "searchButton": "Search",
-  "land": "Land",
-  "latest": "Latest Listings",
-  "whyTitle": "Why MyHome24App?",
-  "whyDesc": "We help you find your perfect home easily.",
-  "why1": "Wide Selection",
-  "why1Desc": "Many properties from all over Germany.",
-  "why2": "Safe & Fast",
-  "why2Desc": "Trusted providers and quick search.",
-  "why3": "User Friendly",
-  "testimonial1": "I found my dream home through MyHome24App. Just amazing!",
-  "testimonial2": "Fast, easy and reliable. Highly recommended!",
-  "testimonial3": "The platform is super intuitive and I found many good offers.",
-  "why3Desc": "Clean and modern design for all devices.",
-  "partnersTitle": "Our Partners",
-  "newsletterTitle": "Stay Informed",
-  "newsletterDesc": "Subscribe to our newsletter for updates, tips, and exclusive offers.",
-  "subscribe": "Subscribe",
-  "careersTitle": "Careers at MyHome24App",
-  "careersDesc": "Join our team and shape the future of the real estate market.",
-  "careersButton": "Apply Now",
-  "agentsTitle": "Meet Our Agents",
-  "agentsSubtitle": "Experienced professionals ready to help you.",
-  "agentsSpecialty": "Real Estate Consultant",
-  "blogTitle": "Guides & Articles",
-  "blogTitle1": "How to Find Your Dream Property",
-  "blogSummary1": "Tips for searching, selecting, and buying the right home.",
-  "blogTitle2": "Easy Renting Guide",
-  "blogSummary2": "Everything landlords need to know – from contracts to taxes.",
-  "readMore": "Read more",
-  "mapTitle": "Interactive Map",
-  "faqTitle": "Frequently Asked Questions",
-  "faqIntro": "Find answers to the most common questions about our platform.",
-  "supportTitle": "Support & Help",
-  "supportIntro": "If you need assistance, please contact our support team. We’re here to help.",
-  "howItWorksIntro": "Learn how to buy, rent, or list properties – step-by-step guide.",
-  "testimonialsTitle": "What our users say",
-  "contactTitle": "Contact Us",
-  "contactText": "Have questions, feedback or need help? Feel free to send us an email.",
-  "newConstruction": "New Construction",
 
-    "searchRecent": "Recently searched",
-  "searchSuggestions": "Suggestions",
-  "searchNoResults": "No results found",
-  "searchFilterLabel": "Advanced Filters",
-  "searchByCategory": "Search by Category",
-  "searchByRegion": "Search by Region",
-  "searchPlaceholderMobile": "City, address, or keyword...",
-
-  
-  "totalListings": "Total Listings",
-  "activeUsers": "Active Users",
-  "featuredHomes": "Featured Listings",
-  "dailyViews": "Daily Views",
-  "monthlyGrowth": "Monthly Growth",
+  "statsTitle": "Our platform in numbers",
+  "statsListings": "Total listings",
+  "statsUsers": "Registered users",
+  "statsFeatured": "Featured listings",
+  "totalListings": "Total listings",
+  "activeUsers": "Active users",
+  "featuredHomes": "Featured listings",
+  "dailyViews": "Daily views",
+  "monthlyGrowth": "Monthly growth",
   "trustedBy": "Trusted by over",
   "clients": "clients",
   "partners": "partners",
-  "ratingAverage": "Average Rating",
+  "ratingAverage": "Average rating",
   "reviews": "Reviews",
 
-  
-  "exploreGermany": "Explore Germany",
-  "exploreCities": "Explore Cities",
-  "mapHeadline": "Interactive Map View",
+  "whyTitle": "Why MyHome24App?",
+  "whyDesc": "We help you find your perfect home easily.",
+  "why1": "Wide selection",
+  "why1Desc": "Many properties from all over Germany.",
+  "why2": "Safe & fast",
+  "why2Desc": "Trusted providers and quick search.",
+  "why3": "User friendly",
+  "why3Desc": "Clean and modern design for all devices.",
+
+  "partnersTitle": "Our partners",
+  "newsletterTitle": "Stay informed",
+  "newsletterDesc": "Subscribe to our newsletter for updates, tips, and exclusive offers.",
+  "newsletterSignup": "Sign up for our newsletter",
+  "subscribe": "Subscribe",
+
+  "careersTitle": "Careers at MyHome24App",
+  "careersDesc": "Join our team and shape the future of the real estate market.",
+  "careersButton": "Apply now",
+
+  "blogTitle": "Guides & articles",
+  "blogTitle1": "How to find your dream property",
+  "blogSummary1": "Tips for searching, selecting, and buying the right home.",
+  "blogTitle2": "Easy renting guide",
+  "blogSummary2": "Everything landlords need to know – from contracts to taxes.",
+  "readMore": "Read more",
+
+  "mapTitle": "Interactive map",
+  "mapHeadline": "Interactive map view",
   "mapCTA": "Click on a city to start your search",
+  "exploreGermany": "Explore Germany",
+  "exploreCities": "Explore cities",
 
-  
-  "faq": "Frequently Asked Questions",
-  "learnMore": "Learn More",
-  "startNow": "Start Now",
-  "downloadApp": "Download our App",
-  "newsletterSignup": "Sign up for our Newsletter",
+  "faq": "Frequently asked questions",
+  "faqTitle": "Frequently asked questions",
+  "faqIntro": "Find answers to the most common questions about our platform.",
+  "supportTitle": "Support & help",
+  "supportIntro": "If you need assistance, please contact our support team. We’re here to help.",
+  "learnMore": "Learn more",
+  "startNow": "Start now",
+  "exploreNow": "Explore now",
+  "downloadApp": "Download our app",
   "termsShort": "Terms",
-  "privacyShort": "Privacy",
-  "noTitle": "No title available",
-  "rooms": "Rooms",
-  "bathrooms": "Bathrooms",
-  "area": "Area",
-  "noListings": "There are currently no listings available.",
- 
-  "latestListings": "Latest Listings",
-    "title": "Your New Home in Germany",
-  "subtitle": "Find your perfect property – fast and easy.",
-  "searchLocation": "Search by city or address...",
-  "allTypes": "All Types",
-
-  "minPrice": "Min. Price",
-  "maxPrice": "Max. Price",
-  "minSize": "Min. Size",
-  "maxSize": "Max. Size",
-  "clear": "Clear",
-  "search": "Search",
-  "exploreNow": "Explore Now",
-  "howItWorks": "How It Works"
-
-
-
-
-
-
-  
-  
-  
+  "privacyShort": "Privacy"
 }
-  
-  
- 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-
-

@@ -17,7 +17,7 @@ import RegisterSuccess from "./pages/RegisterSuccess";
 import ForgotPassword from "./pages/ForgotPassword";
 import AuthAction from "./pages/AuthAction";
 import TranslationTest from "./components/TranslationTest";
-
+import ListingWizardPage from "./pages/ListingWizardPage";
 import LoginRegister from "./components/LoginRegister";
 import EmailActionGate from "./components/EmailActionGate";
 import RoleRedirect from "./pages/RoleRedirect";
@@ -87,7 +87,7 @@ import AgentPublicProfilePage from "./pages/AgentPublicProfilePage";
 
 import BuyPage from "./pages/BuyPage";
 import RentPage from "./pages/RentPage";
-
+import InboxPage from "./pages/InboxPage";
 
 // Guards / Providers
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -106,8 +106,19 @@ import { Toaster } from "sonner";
 import GlobalMeta from "./components/SEO/GlobalMeta";
 
 function AppRoutes() {
-  // (nuk e përdorim, por e mbaj nëse më vonë do logjikë me pathname)
-  useLocation();
+  const location = useLocation();
+
+  const hideFooterRoutes = [
+    "/buy",
+    "/rent",
+    "/map",
+    "/buy/map",
+    "/rent/map",
+    "/explore",
+    "/explore/germany",
+  ];
+
+  const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
@@ -120,6 +131,7 @@ function AppRoutes() {
           <Route path="/" element={<HomePage />} />
           <Route path="/listing/:id" element={<ListingDetails />} />
           <Route path="/edit/:id" element={<EditListingForm />} />
+          <Route path="/inbox" element={<InboxPage />} />
 
           {/* Auth */}
           <Route path="/register" element={<RegisterForm />} />
@@ -291,14 +303,23 @@ function AppRoutes() {
             }
           />
 
-          <Route
-            path="/publish"
-            element={
-              <RequireRole allowedRoles={["owner", "agent", "admin"]}>
-                <PublishProperty />
-              </RequireRole>
-            }
-          />
+<Route
+  path="/listing-wizard"
+  element={
+    <RequireRole allowedRoles={["owner", "agent", "admin"]}>
+      <ListingWizardPage />
+    </RequireRole>
+  }
+/>
+
+<Route
+  path="/publish"
+  element={
+    <RequireRole allowedRoles={["owner", "agent", "admin"]}>
+      <ListingWizardPage />
+    </RequireRole>
+  }
+/>
 
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
@@ -310,7 +331,7 @@ function AppRoutes() {
         </Routes>
       </main>
 
-      <Footer />
+      {!shouldHideFooter && <Footer />}
     </div>
   );
 }

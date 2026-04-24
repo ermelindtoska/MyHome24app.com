@@ -1,26 +1,45 @@
 // src/routes/ProtectedRoute.jsx
-import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-export default function ProtectedRoute({ children, allow = ['user','owner','agent','admin'] }) {
+const ProtectedRoute = ({
+  children,
+  allow = ["user", "owner", "agent", "admin"],
+}) => {
   const { currentUser, role, loading } = useAuth();
   const location = useLocation();
 
-  if (loading) return null; // oder Spinner
+  // ✅ Loading state (profesional)
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-white dark:bg-gray-950">
+        <div className="animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent"></div>
+      </div>
+    );
+  }
 
-  // nicht eingeloggt → zum RoleRedirect, der kümmert sich um Ziel
+  // ❌ Not logged in → redirect with next param
   if (!currentUser) {
     const next = encodeURIComponent(location.pathname + location.search);
     return <Navigate to={`/auth/redirect?next=${next}`} replace />;
   }
 
-  // rolle prüfen
-  const r = (role || 'user').toLowerCase();
-  if (!allow.includes(r)) {
-    // keine Berechtigung → schick auf Start
-    return <Navigate to="/" replace />;
+  // ❌ Role check
+  const userRole = (role || "user").toLowerCase();
+
+  if (!allow.includes(userRole)) {
+    return (
+      <Navigate
+        to="/unauthorized"
+        replace
+        state={{ from: location.pathname }}
+      />
+    );
   }
 
+  // ✅ Access granted
   return children;
-}
+};
+
+export default ProtectedRoute;

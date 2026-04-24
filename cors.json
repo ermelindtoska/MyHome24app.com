@@ -1,1 +1,34 @@
-[{"origin": ["http://localhost:3000", "http://localhost:3001", "http://localhost:3003", "https://www.myhome24app.com"], "method": ["GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"], "responseHeader": ["Authorization", "Content-Type", "x-goog-meta-*", "x-goog-resumable", "Origin"], "maxAgeSeconds": 3600}] 
+[
+  {
+    "origin": [
+      "http://localhost:3000",
+      "http://127.0.0.1:3000",
+      "http://localhost:3001",
+      "http://127.0.0.1:3001",
+      "http://localhost:3002",
+      "http://127.0.0.1:3002",
+      "http://localhost:3003",
+      "http://127.0.0.1:3003",
+      "http://192.168.1.57:3002",
+      "https://myhome24app-a0973.web.app",
+      "https://myhome24app-a0973.firebaseapp.com",
+      "https://www.myhome24app.com",
+      "https://myhome24app.com"
+    ],
+    "method": ["GET", "POST", "PUT", "DELETE", "HEAD", "PATCH", "OPTIONS"],
+    "responseHeader": [
+      "Content-Type",
+      "Authorization",
+      "x-goog-upload-url",
+      "x-goog-upload-status",
+      "x-goog-upload-protocol",
+      "x-goog-upload-command",
+      "x-goog-upload-offset",
+      "x-goog-upload-header-content-length",
+      "x-goog-upload-header-content-type",
+      "x-goog-resumable",
+      "Origin"
+    ],
+    "maxAgeSeconds": 3600
+  }
+]

@@ -1,38 +1,89 @@
 {
   "heroTitle": "Finde dein perfektes Zuhause",
-    "agentsSection": {
+  "heroTitle2": "Wohnungen für jedes Budget",
+  "heroTitle3": "Finden Sie Ihr neues Zuhause!",
+  "heroSubtitle": "Wähle einen Standort oder filtere nach deinem Wunsch.",
+  "heroButton": "Jetzt entdecken",
+  "heroHeadline": "Finde dein perfektes Zuhause",
+  "heroSubtext": "Einfache Suche. Zuverlässige Anbieter. Sichere Transaktionen.",
+  "title": "Ihre neue Heimat in Deutschland",
+  "subtitle": "Finden Sie Ihre perfekte Immobilie – schnell und einfach.",
+
+  "searchPlaceholder": "Nach Stadt oder Adresse suchen...",
+  "searchPlaceholderMobile": "Stadt, Adresse oder Stichwort...",
+  "searchButton": "Suchen",
+  "searchLocation": "Nach Stadt oder Adresse suchen...",
+  "searchRecent": "Kürzlich gesucht",
+  "searchSuggestions": "Vorschläge",
+  "searchNoResults": "Keine Ergebnisse gefunden",
+  "searchFilterLabel": "Erweiterte Filter",
+  "searchByCategory": "Nach Kategorie suchen",
+  "searchByRegion": "Nach Region suchen",
+  "loadingSearchBar": "Suchleiste wird geladen...",
+
+  "searchBar": {
+    "buy": "Kaufen",
+    "rent": "Mieten",
+    "searchButton": "Suchen",
+    "searchPlaceholder": "Nach Stadt oder Adresse suchen..."
+  },
+
+  "buy": "Kaufen",
+  "rent": "Mieten",
+  "search": "Suchen",
+  "clear": "Zurücksetzen",
+  "propertyType": "Immobilientyp",
+  "allTypes": "Alle Typen",
+  "apartment": "Wohnung",
+  "house": "Haus",
+  "office": "Büro",
+  "land": "Grundstück",
+  "minPrice": "Min. Preis",
+  "maxPrice": "Max. Preis",
+  "minSize": "Min. Fläche",
+  "maxSize": "Max. Fläche",
+  "rooms": "Zimmer",
+  "bathrooms": "Badezimmer",
+  "area": "Fläche",
+  "noTitle": "Kein Titel verfügbar",
+
+  "loadingSuggestions": "Vorschläge werden geladen…",
+  "noSuggestions": "Keine Vorschläge gefunden.",
+
+  "latest": "Neueste Anzeigen",
+  "latestListings": "Neueste Anzeigen",
+  "noListings": "Aktuell sind keine Anzeigen verfügbar.",
+  "errorLoadingListings": "Fehler beim Laden der Immobilienanzeigen.",
+
+  "latestListingsSection": {
+    "badge": "Neue Immobilien",
+    "title": "Neueste Anzeigen",
+    "subtitle": "Entdecken Sie aktuelle Immobilienangebote, die zuletzt auf MyHome24App veröffentlicht wurden.",
+    "viewAll": "Alle Anzeigen ansehen",
+    "empty": "Keine Anzeigen gefunden.",
+    "error": "Es gab einen Fehler beim Laden der Anzeigen."
+  },
+
+  "agentsSection": {
+    "badge": "Makler:innen Netzwerk",
     "title": "Treffen Sie unsere Agent:innen",
-    "subtitle": "Erfahrene Expert:innen, die Sie bei Ihrem Immobilienvorhaben begleiten – vom ersten Klick bis zum Notartermin.",
+    "subtitle": "Erfahrene Expert:innen begleiten Sie bei Kauf, Verkauf oder Vermietung – persönlich, transparent und zuverlässig.",
     "ctaAllAgents": "Alle Makler:innen anzeigen",
+    "error": "Die Maklerliste konnte nicht geladen werden.",
+    "emptyTitle": "Noch keine Makler:innen veröffentlicht.",
+    "emptyText": "Sobald Profile von Makler:innen freigeschaltet werden, erscheinen sie automatisch hier.",
+    "unknownName": "Unbekannte:r Makler:in",
     "verifiedBadge": "Verifiziert",
     "ratingCount": "Bewertungen",
     "noRatings": "Noch keine Bewertungen",
     "languagesLabel": "Sprachen:",
     "specialtiesLabel": "Schwerpunkte:",
-      "searchLocation": "Ort, Adresse oder Region",
-  "allTypes": "Alle Typen",
-  "apartment": "Wohnung",
-  "house": "Haus",
-  "office": "Büro",
-  "minPrice": "Min. Preis",
-  "maxPrice": "Max. Preis",
-  "minSize": "Min. Fläche",
-  "maxSize": "Max. Fläche",
-  "clear": "Zurücksetzen",
-  "search": "Suchen",
-  "propertyType": "Immobilientyp",
-  "loadingSuggestions": "Vorschläge werden geladen…",
-  "noSuggestions": "Keine Vorschläge gefunden.",
+    "notSpecified": "Nicht angegeben",
     "viewProfile": "Profil ansehen",
-    "contactCta": "Kontakt aufnehmen",
-    "unknownName": "Unbekannte:r Makler:in",
-    "emptyTitle": "Noch keine Makler:innen veröffentlicht.",
-    "emptyText": "Sobald Profile von Makler:innen freigeschaltet werden, erscheinen sie automatisch hier.",
-    "error": "Die Maklerliste konnte nicht geladen werden."
+    "contactCta": "Kontakt aufnehmen"
   },
-  "errorLoadingListings": "Fehler beim Laden der Immobilienanzeigen.",
-  "loadingSearchBar": "Suchleiste wird geladen...",
-    "agents": {
+
+  "agents": {
     "title": "Treffen Sie unsere Agent:innen",
     "subtitle": "Erfahrene Expert:innen, bereit Ihnen bei Ihrem Immobilienvorhaben zu helfen.",
     "loading": "Agent:innen werden geladen …",
@@ -41,163 +92,140 @@
     "verifiedBadge": "Verifiziert",
     "viewProfile": "Profil ansehen"
   },
-  "heroTitle2": "Wohnungen für jedes Budget",
-  "heroTitle3": "Finden Sie Ihr neues Zuhause!",
-  "heroSubtitle": "Wähle einen Standort oder filtere nach deinem Wunsch.",
+
+  "agentsTitle": "Treffen Sie unsere Agent:innen",
+  "agentsSubtitle": "Erfahrene Expert:innen, bereit Ihnen zu helfen.",
+  "agentsSpecialty": "Immobilienberater:in",
+
+  "contactSection": {
+    "badge": "Support & Kontakt",
+    "title": "Haben Sie Fragen zu MyHome24App?",
+    "text": "Unser Team hilft Ihnen gerne bei Fragen zu Immobilienanzeigen, Konten, Rollen, Kontaktanfragen oder technischen Anliegen.",
+    "primaryButton": "Kontaktformular öffnen",
+    "cardTitle": "Schnelle Unterstützung",
+    "cardText": "Schreiben Sie uns direkt oder nutzen Sie das Kontaktformular. Wir melden uns so schnell wie möglich zurück.",
+    "responseHint": "Antwort in der Regel innerhalb kurzer Zeit."
+  },
+
+  "contactTitle": "Kontaktieren Sie uns",
+  "contactText": "Haben Sie Fragen, Feedback oder brauchen Sie Hilfe? Schreiben Sie uns gerne eine E-Mail.",
+
+  "testimonials": {
+    "badge": "Erfahrungen",
+    "title": "Was Nutzer:innen über MyHome24App sagen",
+    "subtitle": "Echte Erfahrungen von Menschen, die Immobilien einfacher suchen, vergleichen und veröffentlichen möchten.",
+    "defaultRole": "MyHome24App Nutzer:in",
+    "items": [
+      {
+        "name": "Anna Müller",
+        "role": "Käuferin",
+        "text": "Fantastische Plattform! Ich habe mein Traumhaus in nur wenigen Tagen gefunden."
+      },
+      {
+        "name": "Paul Bauer",
+        "role": "Eigentümer",
+        "text": "Sehr benutzerfreundlich und zuverlässig. Ich kann MyHome24App jedem empfehlen."
+      },
+      {
+        "name": "Sara Schmidt",
+        "role": "Mieterin",
+        "text": "Die Suche war schnell, einfach und sehr hilfreich. Eine wirklich tolle Erfahrung."
+      }
+    ]
+  },
+
+  "testimonialsTitle": "Was unsere Nutzer:innen sagen",
+  "testimonial1": "Ich habe mein Traumhaus über MyHome24App gefunden. Einfach genial!",
+  "testimonial2": "Schnell, einfach und zuverlässig. Sehr empfehlenswert!",
+  "testimonial3": "Die Plattform ist super intuitiv und ich habe viele gute Angebote gefunden.",
+
   "videoTitle": "Erfahren Sie mehr über uns",
   "videoSubtitle": "Sehen Sie sich unser kurzes Video an, um zu verstehen, wie MyHome24App funktioniert.",
   "parallaxText": "Dein Zuhause ist nur ein Klick entfernt.",
-  "howItWorksTitle": "So funktionierts",
+
+  "howItWorks": "Wie es funktioniert",
+  "howItWorksTitle": "So funktioniert es",
+  "howItWorksIntro": "Lernen Sie Schritt für Schritt, wie Sie Immobilien kaufen, mieten oder veröffentlichen.",
   "howStep1": "Suchen",
   "howStep1Text": "Durchsuchen Sie tausende Inserate nach Ihrem Traumobjekt.",
   "howStep2": "Entdecken",
   "howStep2Text": "Vergleichen Sie Objekte und speichern Sie Ihre Favoriten.",
   "howStep3": "Kontaktieren",
   "howStep3Text": "Treten Sie direkt mit dem Anbieter in Kontakt.",
+
   "popularAreasTitle": "Beliebte Regionen",
   "popularArea1": "Berlin",
   "popularArea2": "München",
   "popularArea3": "Hamburg",
   "popularArea4": "Köln",
-  "heroButton": "Jetzt entdecken",
-  "searchPlaceholder": "Nach Stadt oder Adresse suchen...",
-  "statsTitle": "Unsere Plattform in Zahlen",
-  "statsListings": "Anzeigen insgesamt",
-  "statsUsers": "Registrierte Nutzer*innen",
-  "statsFeatured": "Empfohlene Inserate",
+
   "categories": "Kategorien",
-  "apartment": "Wohnung",
-  "house": "Haus",
-  "office": "Büro",
-  "land": "Grundstück",
-  "latest": "Neueste Anzeigen",
-  "whyTitle": "Warum MyHome24App?",
+  "newConstruction": "Neubau",
+
   "specialTitle": "Was macht uns besonders?",
   "specialInnovative": "Innovativ",
   "specialInnovativeDesc": "Wir kombinieren moderne Technologie mit Benutzerfreundlichkeit.",
   "specialTrusted": "Vertrauenswürdig",
   "specialTrustedDesc": "Zuverlässige Anbieter und sichere Transaktionen.",
   "specialGrowing": "Wachsend",
-  "specialGrowingDesc": "Bereits {{count}} Nutzer*innen vertrauen uns.",
-  "searchButton": "Suchen",
+  "specialGrowingDesc": "Bereits {{count}} Nutzer:innen vertrauen uns.",
+
+  "statsTitle": "Unsere Plattform in Zahlen",
+  "statsListings": "Anzeigen insgesamt",
+  "statsUsers": "Registrierte Nutzer:innen",
+  "statsFeatured": "Empfohlene Inserate",
+  "totalListings": "Alle Inserate",
+  "activeUsers": "Aktive Nutzer:innen",
+  "featuredHomes": "Empfohlene Immobilien",
+  "dailyViews": "Tägliche Aufrufe",
+  "monthlyGrowth": "Monatliches Wachstum",
+  "trustedBy": "Vertrauenswürdig für über",
+  "clients": "Kund:innen",
+  "partners": "Partner",
+  "ratingAverage": "Durchschnittliche Bewertung",
+  "reviews": "Bewertungen",
+
+  "whyTitle": "Warum MyHome24App?",
   "whyDesc": "Wir helfen dir, dein perfektes Zuhause einfach zu finden.",
   "why1": "Große Auswahl",
   "why1Desc": "Viele Immobilien aus ganz Deutschland.",
   "why2": "Sicher & Schnell",
   "why2Desc": "Vertrauenswürdige Anbieter und schnelle Suche.",
   "why3": "Benutzerfreundlich",
-  "testimonial1": "Ich habe mein Traumhaus über MyHome24App gefunden. Einfach genial!",
-  "testimonialsTitle": "Was unsere Nutzer sagen",
-  "contactTitle": "Kontaktieren Sie uns",
-  "contactText": "Haben Sie Fragen, Feedback oder brauchen Sie Hilfe? Schreiben Sie uns gerne eine E-Mail:",
-  "testimonial2": "Schnell, einfach und zuverlässig. Sehr empfehlenswert!",
-  "testimonial3": "Die Plattform ist super intuitiv und ich habe viele gute Angebote gefunden.",
   "why3Desc": "Einfaches und modernes Design für alle Geräte.",
-    "partnersTitle": "Unsere Partner",
+
+  "partnersTitle": "Unsere Partner",
   "newsletterTitle": "Bleiben Sie informiert",
   "newsletterDesc": "Abonnieren Sie unseren Newsletter für Updates, Tipps und exklusive Angebote.",
+  "newsletterSignup": "Für unseren Newsletter anmelden",
   "subscribe": "Abonnieren",
+
   "careersTitle": "Karriere bei MyHome24App",
   "careersDesc": "Werden Sie Teil unseres Teams und gestalten Sie die Zukunft des Immobilienmarkts mit.",
   "careersButton": "Jetzt bewerben",
-  "agentsTitle": "Treffen Sie unsere Agent*innen",
-  "agentsSubtitle": "Erfahrene Expert*innen, bereit Ihnen zu helfen.",
-  "agentsSpecialty": "Immobilienberater*in",
+
   "blogTitle": "Ratgeber & Artikel",
   "blogTitle1": "So finden Sie Ihre Traumimmobilie",
   "blogSummary1": "Tipps zur Suche, Auswahl und zum Kauf Ihrer perfekten Immobilie.",
   "blogTitle2": "Vermieten leicht gemacht",
-  "blogSummary2": "Alles, was Vermieter*innen wissen müssen – von Verträgen bis Steuern.",
+  "blogSummary2": "Alles, was Vermieter:innen wissen müssen – von Verträgen bis Steuern.",
   "readMore": "Mehr erfahren",
+
   "mapTitle": "Interaktive Karte",
-  "newConstruction": "Neubau",
-    "heroHeadline": "Finde dein perfektes Zuhause",
-  "heroSubtext": "Einfache Suche. Zuverlässige Anbieter. Sichere Transaktionen.",
-  
-  "search": "Suchen",
-  "rent": "Mieten",
-  "buy": "Kaufen",
-
-  
-  "searchRecent": "Kürzlich gesucht",
-  "searchSuggestions": "Vorschläge",
-  "searchNoResults": "Keine Ergebnisse gefunden",
-  "searchFilterLabel": "Erweiterte Filter",
-  "searchByCategory": "Nach Kategorie suchen",
-  "searchByRegion": "Nach Region suchen",
-  "searchPlaceholderMobile": "Stadt, Adresse oder Stichwort...",
-
-  
-  "totalListings": "Alle Inserate",
-  "activeUsers": "Aktive Nutzer*innen",
-  "featuredHomes": "Empfohlene Immobilien",
-  "dailyViews": "Tägliche Aufrufe",
-  "monthlyGrowth": "Monatliches Wachstum",
-  "trustedBy": "Vertrauenswürdig für über",
-  "clients": "Kund*innen",
-  "partners": "Partner",
-  "ratingAverage": "Durchschnittliche Bewertung",
-  "reviews": "Bewertungen",
-
- 
-  "exploreGermany": "Deutschland erkunden",
-  "exploreCities": "Städte erkunden",
   "mapHeadline": "Interaktive Kartenansicht",
   "mapCTA": "Klicken Sie auf eine Stadt, um Ihre Suche zu starten",
+  "exploreGermany": "Deutschland erkunden",
+  "exploreCities": "Städte erkunden",
 
   "faq": "Häufig gestellte Fragen",
+  "faqTitle": "Häufig gestellte Fragen",
+  "faqIntro": "Hier finden Sie Antworten auf die häufigsten Fragen zu unserer Plattform.",
+  "supportTitle": "Support & Hilfe",
+  "supportIntro": "Wenn Sie Unterstützung benötigen, kontaktieren Sie bitte unser Support-Team. Wir helfen Ihnen gerne weiter.",
   "learnMore": "Mehr erfahren",
   "startNow": "Jetzt starten",
-  "downloadApp": "Unsere App herunterladen",
-  "newsletterSignup": "Für unseren Newsletter anmelden",
-  "termsShort": "AGB",
-  "privacyShort": "Datenschutz",
-
-  
- 
-  "noTitle": "Kein Titel verfügbar",
-  "rooms": "Zimmer",
-  "bathrooms": "Badezimmer",
-  "area": "Fläche",
-
-  "latestListings": "Neueste Anzeigen",
-    "title": "Ihre neue Heimat in Deutschland",
-  "subtitle": "Finden Sie Ihre perfekte Immobilie – schnell und einfach.",
-  "searchLocation": "Nach Stadt oder Adresse suchen…",
-  "allTypes": "Alle Typen",
-
-  "minPrice": "Min. Preis",
-  "maxPrice": "Max. Preis",
-  "minSize": "Min. Größe",
-  "maxSize": "Max. Größe",
-  "clear": "Löschen",
- 
   "exploreNow": "Jetzt erkunden",
-  "howItWorks": "Wie es funktioniert"
-
-
-
-  
-
-  
-  
-
-
-  
-
-
-
-
-
-
-
-  
-
-  
-  
- 
-  
-  
- 
-  
+  "downloadApp": "Unsere App herunterladen",
+  "termsShort": "AGB",
+  "privacyShort": "Datenschutz"
 }

@@ -1,0 +1,39 @@
+{
+  "title": "Message Center",
+  "subtitle": "All requests, contacts and support messages in one place.",
+
+  "tabs": {
+    "all": "All",
+    "roles": "Roles",
+    "contact": "Contact",
+    "support": "Support",
+    "offers": "Offers"
+  },
+
+  "status": {
+    "new": "New",
+    "open": "Open",
+    "pending": "Pending",
+    "resolved": "Resolved"
+  },
+
+  "actions": {
+    "approve": "Approve",
+    "reject": "Reject",
+    "resolveReply": "Resolve / Reply",
+    "reply": "Reply",
+    "resolve": "Resolve",
+    "viewProfile": "View profile"
+  },
+
+  "labels": {
+    "from": "From",
+    "message": "Message",
+    "roleRequest": "Role upgrade request",
+    "contactRequest": "Contact request",
+    "supportRequest": "Support request"
+  },
+
+  "empty": "No messages found.",
+  "loading": "Loading messages…"
+}

@@ -20,7 +20,7 @@ const Navbar = () => {
   const { t, i18n } = useTranslation("navbar");
   const { isDark, toggleTheme } = useContext(ThemeContext);
 
-  const [openMenu, setOpenMenu] = useState(null); // "L-0", "R-1"
+  const [openMenu, setOpenMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
 
@@ -36,7 +36,6 @@ const Navbar = () => {
   const { role, setRoleLocal } = useRole();
   const effectiveRole = role || "user";
 
-  // --- BODY LOCK (mobile) ---
   useEffect(() => {
     const body = document.body;
     const prev = {
@@ -70,26 +69,25 @@ const Navbar = () => {
     }
   }, [mobileOpen]);
 
-  // close menus on route change
   useEffect(() => {
     setOpenMenu(null);
     setAccountOpen(false);
     setMobileOpen(false);
   }, [location.pathname, location.search]);
 
-  // close account on outside click
   useEffect(() => {
     if (!accountOpen) return;
+
     const onDown = (e) => {
       if (accountRef.current && !accountRef.current.contains(e.target)) {
         setAccountOpen(false);
       }
     };
+
     document.addEventListener("mousedown", onDown);
     return () => document.removeEventListener("mousedown", onDown);
   }, [accountOpen]);
 
-  // cleanup hover timer
   useEffect(() => {
     return () => {
       if (hoverTimer.current) clearTimeout(hoverTimer.current);
@@ -135,6 +133,7 @@ const Navbar = () => {
     }
 
     const uid = currentUser.uid;
+
     try {
       await Promise.all([
         setDoc(
@@ -176,7 +175,6 @@ const Navbar = () => {
     }
   };
 
-  // ✅ MENUS (Zillow style: Titel ist Button -> Dropdown; Navigation nur via Items)
   const leftMenus = useMemo(
     () => [
       {
@@ -200,10 +198,7 @@ const Navbar = () => {
       {
         title: t("mortgage"),
         items: [
-          {
-            label: t("overview", { defaultValue: "Übersicht" }),
-            to: "/mortgage",
-          },
+          { label: t("overview", { defaultValue: "Übersicht" }), to: "/mortgage" },
           { label: t("calculator"), to: "/mortgage/calculator" },
           { label: t("bankPartners"), to: "/mortgage/partners" },
           {
@@ -249,9 +244,22 @@ const Navbar = () => {
         items: [
           { label: t("support"), to: "/support" },
           { label: t("howItWorks"), to: "/how-it-works" },
-          { label: t("contactGeneral", { defaultValue: "Kontakt" }), to: "/contact" },
-          { label: t("contactFinancing", { defaultValue: "Kontakt: Finanzierung" }), to: "/contact?topic=financing" },
-          { label: t("contactPartnerFinance", { defaultValue: "Kontakt: Partner-Finance" }), to: "/contact?topic=partner-finance" },
+          {
+            label: t("contactGeneral", { defaultValue: "Kontakt" }),
+            to: "/contact",
+          },
+          {
+            label: t("contactFinancing", {
+              defaultValue: "Kontakt: Finanzierung",
+            }),
+            to: "/contact?topic=financing",
+          },
+          {
+            label: t("contactPartnerFinance", {
+              defaultValue: "Kontakt: Partner-Finance",
+            }),
+            to: "/contact?topic=partner-finance",
+          },
         ],
       },
     ],
@@ -268,7 +276,6 @@ const Navbar = () => {
         onMouseEnter={() => openNow(menuKey)}
         onMouseLeave={closeWithDelay}
       >
-        {/* ✅ Titel ist Button (kein Link!) */}
         <button
           type="button"
           onClick={(e) => {
@@ -286,7 +293,7 @@ const Navbar = () => {
 
         {isOpen && (
           <div
-           className={`absolute top-full ${align}-0 mt-2 w-64 dropdown-menu z-50`}
+            className={`absolute top-full ${align}-0 mt-2 w-64 dropdown-menu z-50`}
             onMouseEnter={() => openNow(menuKey)}
             onMouseLeave={closeWithDelay}
           >
@@ -295,7 +302,6 @@ const Navbar = () => {
                 key={`${menuKey}-${idx}`}
                 to={item.to}
                 onClick={(e) => {
-                  // ✅ verhindert „Springen“/Bubbling auf Parent (typisch für falsche Routen)
                   e.stopPropagation();
                   setOpenMenu(null);
                 }}
@@ -311,17 +317,24 @@ const Navbar = () => {
   };
 
   const roleText =
-    ({ user: t("user"), owner: t("owner"), agent: t("agent"), admin: t("admin", { defaultValue: "Admin" }) }[
-      effectiveRole
-    ]) || effectiveRole;
+    {
+      user: t("user", { defaultValue: "Benutzer:in" }),
+      owner: t("owner", { defaultValue: "Eigentümer:in" }),
+      agent: t("agent", { defaultValue: "Makler:in" }),
+      admin: t("admin", { defaultValue: "Admin" }),
+    }[effectiveRole] || effectiveRole;
 
   return (
     <header className="fixed md:sticky top-0 left-0 right-0 z-[10000] bg-white/80 dark:bg-gray-900/90 backdrop-blur-md shadow">
-      {/* DESKTOP */}
       <nav className="hidden md:flex justify-between items-center px-6 py-4 w-full">
         <div className="flex gap-10 text-sm font-medium text-gray-900 dark:text-gray-100">
           {leftMenus.map((menu, idx) => (
-            <Dropdown key={`L-${idx}`} menu={menu} menuKey={`L-${idx}`} align="left" />
+            <Dropdown
+              key={`L-${idx}`}
+              menu={menu}
+              menuKey={`L-${idx}`}
+              align="left"
+            />
           ))}
         </div>
 
@@ -334,20 +347,23 @@ const Navbar = () => {
 
         <div className="flex items-center gap-6 text-sm font-medium text-gray-900 dark:text-gray-100">
           {rightMenus.map((menu, idx) => (
-            <Dropdown key={`R-${idx}`} menu={menu} menuKey={`R-${idx}`} align="right" />
+            <Dropdown
+              key={`R-${idx}`}
+              menu={menu}
+              menuKey={`R-${idx}`}
+              align="right"
+            />
           ))}
 
           {!loadingAuth && !currentUser ? (
             <div className="flex items-center gap-2">
               <Link
                 to="/login"
-                className="px-3 py-1.5 rounded-full text-sm font-medium
-           bg-black/5 hover:bg-black/10
-           dark:bg-white/10 dark:hover:bg-white/20
-           text-gray-900 dark:text-gray-100"
+                className="px-3 py-1.5 rounded-full text-sm font-medium bg-black/5 hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/20 text-gray-900 dark:text-gray-100"
               >
                 {t("login", { defaultValue: "Anmelden" })}
               </Link>
+
               <Link
                 to="/register"
                 className="px-3 py-1.5 rounded-full text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white"
@@ -374,6 +390,7 @@ const Navbar = () => {
                   alt="avatar"
                   className="h-8 w-8 rounded-full object-cover"
                 />
+
                 <div className="hidden lg:flex flex-col items-start leading-4">
                   <span className="text-xs text-gray-500 dark:text-gray-400">
                     {t("role", { defaultValue: "Rolle" })}: {roleText}
@@ -413,6 +430,19 @@ const Navbar = () => {
                       {t("myProperties", { defaultValue: "Meine Immobilien" })}
                     </Link>
 
+                    {/* Nachrichten für ALLE eingeloggten Nutzer:innen */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAccountOpen(false);
+                        go("/inbox");
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm font-semibold text-blue-600 hover:bg-blue-50 dark:text-blue-300 dark:hover:bg-blue-900/30"
+                    >
+                      {t("inbox", { defaultValue: "Inbox / Nachrichten" })}
+                    </button>
+
+                    {/* Admin-Dashboard NUR für Admin */}
                     {effectiveRole === "admin" && (
                       <button
                         type="button"
@@ -422,7 +452,9 @@ const Navbar = () => {
                         }}
                         className="w-full text-left px-4 py-2 text-sm font-semibold text-yellow-600 hover:bg-yellow-50 dark:text-yellow-300 dark:hover:bg-yellow-900/30"
                       >
-                        {t("adminDashboard", { defaultValue: "Admin-Dashboard" })}
+                        {t("adminDashboard", {
+                          defaultValue: "Admin-Dashboard",
+                        })}
                       </button>
                     )}
 
@@ -441,18 +473,21 @@ const Navbar = () => {
                     <p className="px-4 pt-2 pb-1 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
                       {t("switchRole", { defaultValue: "Rolle wechseln" })}
                     </p>
+
                     <button
                       onClick={() => handleChangeRole("user")}
                       className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
                     >
                       {t("user", { defaultValue: "Benutzer:in" })}
                     </button>
+
                     <button
                       onClick={() => handleChangeRole("owner")}
                       className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
                     >
                       {t("owner", { defaultValue: "Eigentümer:in" })}
                     </button>
+
                     <button
                       onClick={() => handleChangeRole("agent")}
                       className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200"
@@ -486,11 +521,11 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* MOBILE BAR */}
       <nav className="flex md:hidden justify-between items-center px-4 py-3 w-full">
         <Link to="/" className="flex items-center gap-2 focus:outline-none">
           <img src={logo} alt="Logo" className="h-10 w-auto" />
         </Link>
+
         <button
           onClick={() => setMobileOpen(true)}
           className="text-gray-800 dark:text-gray-100 text-2xl"
@@ -500,7 +535,6 @@ const Navbar = () => {
         </button>
       </nav>
 
-      {/* MOBILE MENU */}
       {mobileOpen && (
         <MobileMenu
           onClose={() => setMobileOpen(false)}

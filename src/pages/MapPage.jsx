@@ -14,10 +14,15 @@ import ListingSidebar from "../components/ListingSidebar";
 import ListingDetailsModal from "../components/ListingDetailsModal";
 import SiteMeta from "../components/SEO/SiteMeta";
 import { useTranslation } from "react-i18next";
-
 import { useSearchState } from "../state/useSearchState";
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
+
+const GERMANY_CENTER = {
+  latitude: 51.1657,
+  longitude: 10.4515,
+  zoom: 5.7,
+};
 
 async function geocodeDE(queryText) {
   if (!queryText || !MAPBOX_TOKEN) return null;
@@ -95,10 +100,10 @@ const normalizeListing = (docSnap) => {
     bedrooms: data.bedrooms ?? data.rooms ?? null,
     rooms: data.rooms ?? null,
     bathrooms: data.bathrooms ?? null,
-    size: data.size ?? data.area ?? null,
+    size: data.size ?? data.area ?? data.livingArea ?? null,
     createdAt: data.createdAt ?? null,
     status: data.status || "active",
-    isPremium: !!data.isPremium,
+    isPremium: Boolean(data.isPremium),
   };
 };
 
@@ -120,16 +125,14 @@ const MapPage = ({ purpose = "all" }) => {
     if (typeof store?.setPurpose === "function") {
       store.setPurpose(purpose || "all");
     }
-    if (typeof store?.resetFilters === "function") {
-      store.resetFilters();
-    }
+
     if (typeof store?.setActiveId === "function") {
       store.setActiveId(null);
     }
 
     setSelectedListing(null);
-    setVisibleListings([]);
-  }, [purpose]); // bewusst nur purpose
+    setMobileOpen(false);
+  }, [purpose]);
 
   useEffect(() => {
     let isMounted = true;
@@ -155,11 +158,13 @@ const MapPage = ({ purpose = "all" }) => {
           store.setListings(filteredByPurpose);
         }
 
-        const needFix = filteredByPurpose.filter(
-          (item) =>
-            (item.latitude == null || item.longitude == null) &&
-            (item.address || item.city)
-        );
+        const needFix = filteredByPurpose
+          .filter(
+            (item) =>
+              (item.latitude == null || item.longitude == null) &&
+              (item.address || item.city)
+          )
+          .slice(0, 5);
 
         for (const item of needFix) {
           const searchText = item.address
@@ -187,11 +192,7 @@ const MapPage = ({ purpose = "all" }) => {
               setAllListings((prev) =>
                 prev.map((x) =>
                   x.id === item.id
-                    ? {
-                        ...x,
-                        latitude: coords.lat,
-                        longitude: coords.lng,
-                      }
+                    ? { ...x, latitude: coords.lat, longitude: coords.lng }
                     : x
                 )
               );
@@ -199,11 +200,7 @@ const MapPage = ({ purpose = "all" }) => {
               setVisibleListings((prev) =>
                 prev.map((x) =>
                   x.id === item.id
-                    ? {
-                        ...x,
-                        latitude: coords.lat,
-                        longitude: coords.lng,
-                      }
+                    ? { ...x, latitude: coords.lat, longitude: coords.lng }
                     : x
                 )
               );
@@ -212,13 +209,15 @@ const MapPage = ({ purpose = "all" }) => {
             }
           }
 
-          await new Promise((resolve) => setTimeout(resolve, 350));
+          await new Promise((resolve) => setTimeout(resolve, 300));
         }
       } catch (error) {
         console.error("[MapPage] Firestore error:", error);
+
         if (isMounted) {
           setAllListings([]);
           setVisibleListings([]);
+
           if (typeof store?.setListings === "function") {
             store.setListings([]);
           }
@@ -233,7 +232,7 @@ const MapPage = ({ purpose = "all" }) => {
     return () => {
       isMounted = false;
     };
-  }, [purpose]); // bewusst nur purpose
+  }, [purpose]);
 
   const listingsForMap = useMemo(() => {
     return allListings.filter(
@@ -263,16 +262,15 @@ const MapPage = ({ purpose = "all" }) => {
   });
 
   const handleVisibleChange = useCallback((items) => {
-    setVisibleListings(Array.isArray(items) ? items : []);
-  }, []);
-
-  const handleOpenMobileList = useCallback(() => {
-    setMobileOpen(true);
+    if (Array.isArray(items)) {
+      setVisibleListings(items);
+    }
   }, []);
 
   const handleSelectListing = useCallback(
     (listing) => {
       setSelectedListing(listing);
+
       if (listing?.id && typeof store?.setActiveId === "function") {
         store.setActiveId(listing.id);
       }
@@ -282,6 +280,7 @@ const MapPage = ({ purpose = "all" }) => {
 
   const handleCloseModal = useCallback(() => {
     setSelectedListing(null);
+
     if (typeof store?.setActiveId === "function") {
       store.setActiveId(null);
     }
@@ -297,7 +296,7 @@ const MapPage = ({ purpose = "all" }) => {
   }, [t]);
 
   return (
-    <div className="relative z-0 h-[calc(100vh-80px)] w-full">
+    <div className="relative z-0 h-[calc(100vh-72px)] w-full overflow-hidden bg-white dark:bg-slate-950">
       <SiteMeta
         title={metaTitle}
         description={metaDescription}
@@ -308,14 +307,14 @@ const MapPage = ({ purpose = "all" }) => {
         lang={i18n.language?.slice(0, 2) || "de"}
       />
 
-      <div className="grid h-full w-full grid-cols-1 md:grid-cols-[430px_1fr] xl:grid-cols-[500px_1fr]">
+      <div className="grid h-full w-full grid-cols-1 md:grid-cols-[520px_1fr] xl:grid-cols-[620px_1fr]">
         {hasMapbox && (
-          <aside className="hidden h-full md:flex md:flex-col border-r ui-border surface">
-            <div className="sticky top-0 z-20 border-b ui-border bg-[rgba(var(--bg),0.94)] backdrop-blur px-4 py-3">
+          <aside className="hidden min-h-0 border-r border-slate-200 bg-white md:flex md:flex-col dark:border-slate-800 dark:bg-slate-950">
+            <div className="shrink-0 border-b border-slate-200 bg-white/95 px-4 py-3 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
               <div className="flex flex-col gap-3">
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-sm font-semibold text-[rgb(var(--fg))]">
+                    <p className="text-sm font-semibold text-slate-900 dark:text-white">
                       {loading
                         ? t("loadingResults", {
                             ns: "map",
@@ -326,7 +325,8 @@ const MapPage = ({ purpose = "all" }) => {
                             defaultValue: "Ergebnisse",
                           })}`}
                     </p>
-                    <p className="text-xs ui-muted">
+
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
                       {t("mapSidebarHint", {
                         ns: "map",
                         defaultValue:
@@ -336,8 +336,9 @@ const MapPage = ({ purpose = "all" }) => {
                   </div>
 
                   <button
+                    type="button"
                     onClick={handleSaveSearch}
-                    className="inline-flex items-center rounded-full border ui-border px-3 py-1.5 text-xs font-semibold text-[rgb(var(--primary))] hover:bg-black/5 dark:hover:bg-white/5 transition"
+                    className="inline-flex items-center rounded-full border border-slate-200 px-3 py-1.5 text-xs font-semibold text-blue-600 transition hover:bg-blue-50 dark:border-slate-700 dark:text-blue-300 dark:hover:bg-slate-900"
                   >
                     💾{" "}
                     {t("saveSearch", {
@@ -348,7 +349,7 @@ const MapPage = ({ purpose = "all" }) => {
                 </div>
 
                 <div className="flex items-center justify-between gap-3">
-                  <div className="text-xs ui-muted">
+                  <div className="text-xs text-slate-500 dark:text-slate-400">
                     {t("sortBy", {
                       ns: "filterBar",
                       defaultValue: "Sortieren nach",
@@ -361,7 +362,7 @@ const MapPage = ({ purpose = "all" }) => {
                       typeof store?.setSort === "function" &&
                       store.setSort(e.target.value)
                     }
-                    className="min-w-[180px] rounded-xl border ui-border bg-[rgb(var(--card))] px-3 py-2 text-sm text-[rgb(var(--card-fg))] focus:outline-none focus:ring-2 focus:ring-[rgb(var(--ring))]"
+                    className="min-w-[180px] rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
                   >
                     <option value="">
                       {t("default", {
@@ -372,13 +373,13 @@ const MapPage = ({ purpose = "all" }) => {
                     <option value="priceAsc">
                       {t("priceAsc", {
                         ns: "filterBar",
-                        defaultValue: "Preis ⬆",
+                        defaultValue: "Preis aufsteigend",
                       })}
                     </option>
                     <option value="priceDesc">
                       {t("priceDesc", {
                         ns: "filterBar",
-                        defaultValue: "Preis ⬇",
+                        defaultValue: "Preis absteigend",
                       })}
                     </option>
                     <option value="newest">
@@ -392,7 +393,7 @@ const MapPage = ({ purpose = "all" }) => {
               </div>
             </div>
 
-            <div className="min-h-0 flex-1 overflow-y-auto">
+           <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 pb-4">
               <ListingSidebar
                 listings={visibleListings}
                 onClickItem={handleSelectListing}
@@ -401,13 +402,18 @@ const MapPage = ({ purpose = "all" }) => {
           </aside>
         )}
 
-        <main className="relative h-full w-full overflow-hidden">
+        <main className="relative min-h-0 w-full overflow-hidden">
           {hasMapbox ? (
             <MapWithMarkers
               listings={listingsForMap}
               onListingSelect={handleSelectListing}
               onVisibleChange={handleVisibleChange}
-              onRequestOpenMobileList={handleOpenMobileList}
+              onRequestOpenMobileList={() => setMobileOpen(true)}
+              initialViewState={GERMANY_CENTER}
+              defaultCenter={[GERMANY_CENTER.longitude, GERMANY_CENTER.latitude]}
+              defaultZoom={GERMANY_CENTER.zoom}
+              minZoom={4}
+              maxZoom={18}
             />
           ) : (
             <GermanyMapLeaflet />
@@ -422,18 +428,19 @@ const MapPage = ({ purpose = "all" }) => {
             onClick={() => setMobileOpen(false)}
           />
 
-          <div className="absolute bottom-0 left-0 right-0 max-h-[80vh] rounded-t-3xl border-t ui-border bg-[rgb(var(--bg))] shadow-2xl">
+          <div className="absolute bottom-0 left-0 right-0 max-h-[80vh] rounded-t-3xl border-t border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-950">
             <div className="flex justify-center pt-2">
               <div className="h-1.5 w-14 rounded-full bg-black/15 dark:bg-white/15" />
             </div>
 
-            <div className="flex items-center justify-between border-b ui-border px-4 py-3">
+            <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-800">
               <div>
-                <p className="text-sm font-semibold">
+                <p className="text-sm font-semibold text-slate-900 dark:text-white">
                   {t("results", { ns: "map", defaultValue: "Ergebnisse" })} (
                   {visibleListings.length})
                 </p>
-                <p className="text-xs ui-muted">
+
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   {t("mobileListHint", {
                     ns: "map",
                     defaultValue: "Tippe auf ein Listing für Details.",
@@ -442,6 +449,7 @@ const MapPage = ({ purpose = "all" }) => {
               </div>
 
               <button
+                type="button"
                 onClick={() => setMobileOpen(false)}
                 className="flex h-9 w-9 items-center justify-center rounded-full text-2xl leading-none hover:bg-black/5 dark:hover:bg-white/5"
                 aria-label="Close"
@@ -450,7 +458,7 @@ const MapPage = ({ purpose = "all" }) => {
               </button>
             </div>
 
-            <div className="max-h-[calc(80vh-70px)] overflow-y-auto">
+            <div className="max-h-[calc(80vh-70px)] overflow-y-auto overscroll-contain">
               <ListingSidebar
                 listings={visibleListings}
                 onClickItem={(listing) => {
@@ -466,8 +474,9 @@ const MapPage = ({ purpose = "all" }) => {
       {hasMapbox && !mobileOpen && (
         <div className="pointer-events-none fixed bottom-4 left-1/2 z-30 -translate-x-1/2 md:hidden">
           <button
-            onClick={handleOpenMobileList}
-            className="pointer-events-auto inline-flex items-center rounded-full bg-[rgb(var(--primary))] px-5 py-3 text-sm font-semibold text-white shadow-xl"
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            className="pointer-events-auto inline-flex items-center rounded-full bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-xl"
           >
             {t("openList", {
               ns: "map",

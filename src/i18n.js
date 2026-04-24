@@ -68,6 +68,8 @@ import financePartnerDashboardDE from "./locales/de/financePartnerDashboard.json
 import publicListingsDE from './locales/de/publicListings.json';
 import searchPageDE from './locales/de/searchPage.json';
 import termsDE from "./locales/de/terms.json";
+import publishDE from "./locales/de/publish.json";
+import inboxDE from "./locales/de/inbox.json";
 
 // === EN English
 import homeEN from './locales/en/home.json';
@@ -136,6 +138,8 @@ import financePartnerDashboardEN from "./locales/en/financePartnerDashboard.json
 import publicListingsEN from './locales/en/publicListings.json';
 import searchPageEN from './locales/en/searchPage.json';
 import termsEN from "./locales/en/terms.json";
+import publishEN from "./locales/en/publish.json";
+import inboxEN from "./locales/en/inbox.json";
 
 const resources = {
   de: {
@@ -204,6 +208,8 @@ const resources = {
     publicListings: publicListingsDE,
     searchPage: searchPageDE,
     terms: termsDE,
+    publish: publishDE,
+    inbox: inboxDE,
      agentPublicProfile: agentPublicProfileDe
   },
   en: {
@@ -272,6 +278,8 @@ const resources = {
     publicListings: publicListingsEN,
     searchPage: searchPageEN,
    terms: termsEN,
+   publish: publishEN,
+   inbox: inboxEN,
     agentPublicProfile: agentPublicProfileEn
   }
 };
@@ -295,7 +303,7 @@ i18n
       'support', 'howItWorks', 'userDashboard', 'listingDetails', 'filterBar', 'listingForm',
       'buy', 'rent', 'mortgage', 'findAgent', 'impressum', 'states', 'cities', 'districts',
       'streets', 'neighbourhoods', 'filterSidebar', 'unauthorized', 'upgradeRequest', 'meta', 'profile', 'mortgageCalculator', 
-      'agentBecome', 'offer', 'searchPage', 'publicListings', 'adminDashboard', 'terms','agentDashboard', 'agentProfile', 'agentPublicProfile', 'mortgageRequest', 'financePartnerDashboard'
+      'agentBecome', 'offer', 'publish', 'inbox','searchPage', 'publicListings', 'adminDashboard', 'terms','agentDashboard', 'agentProfile', 'agentPublicProfile', 'mortgageRequest', 'financePartnerDashboard'
     ],
     defaultNS: 'home',
     interpolation: {
