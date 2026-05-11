@@ -16,39 +16,57 @@ const DE_BOUNDS = [
 const DE_CENTER = [10.4515, 51.1657];
 const DE_ZOOM = 5.6;
 
-const debounce = (fn, ms) => {
-  let t;
+function debounce(fn, ms) {
+  let timer;
   return (...args) => {
-    clearTimeout(t);
-    t = setTimeout(() => fn(...args), ms);
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), ms);
   };
-};
+}
 
-const isValidDEPoint = (lng, lat) => {
+function isValidDEPoint(lng, lat) {
   if (!Number.isFinite(lng) || !Number.isFinite(lat)) return false;
+
   return (
     lng >= DE_BOUNDS[0][0] &&
     lng <= DE_BOUNDS[1][0] &&
     lat >= DE_BOUNDS[0][1] &&
     lat <= DE_BOUNDS[1][1]
   );
-};
+}
 
-const getListingsBounds = (items = []) => {
-  const valid = items.filter((it) =>
-    isValidDEPoint(Number(it.longitude), Number(it.latitude))
+function getListingsBounds(items = []) {
+  const valid = items.filter((item) =>
+    isValidDEPoint(Number(item.longitude), Number(item.latitude))
   );
 
   if (!valid.length) return null;
 
   const bounds = new mapboxgl.LngLatBounds();
 
-  valid.forEach((it) => {
-    bounds.extend([Number(it.longitude), Number(it.latitude)]);
+  valid.forEach((item) => {
+    bounds.extend([Number(item.longitude), Number(item.latitude)]);
   });
 
   return bounds;
-};
+}
+
+function buildGeoJson(items = []) {
+  return {
+    type: "FeatureCollection",
+    features: items.map((item) => ({
+      type: "Feature",
+      properties: {
+        id: String(item.id),
+        price: Number(item.price ?? 0),
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [Number(item.longitude), Number(item.latitude)],
+      },
+    })),
+  };
+}
 
 const MapWithMarkers = ({
   listings = [],
@@ -62,17 +80,20 @@ const MapWithMarkers = ({
   const mapRef = useRef(null);
   const firstAutoFitDoneRef = useRef(false);
   const prevFitSignatureRef = useRef("");
+  const lastVisibleSignatureRef = useRef("");
+
+  const onListingSelectRef = useRef(onListingSelect);
+  const onVisibleChangeRef = useRef(onVisibleChange);
+  const filteredListingsRef = useRef([]);
 
   const store = useSearchState();
   const filters = store?.filters || {};
   const sortBy = store?.sortBy || "";
   const searchInArea = !!store?.searchInArea;
-  const bounds = store?.bounds || null;
 
-  const onListingSelectRef = useRef(onListingSelect);
-  const onVisibleChangeRef = useRef(onVisibleChange);
-  const filteredListingsRef = useRef([]);
-  const searchInAreaRef = useRef(searchInArea);
+  const [search, setSearch] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [suggestionsLoading, setSuggestionsLoading] = useState(false);
 
   useEffect(() => {
     onListingSelectRef.current = onListingSelect;
@@ -82,61 +103,46 @@ const MapWithMarkers = ({
     onVisibleChangeRef.current = onVisibleChange;
   }, [onVisibleChange]);
 
-  useEffect(() => {
-    searchInAreaRef.current = searchInArea;
-  }, [searchInArea]);
-
   const filteredListings = useMemo(() => {
-    let arr = (listings || [])
-      .map((it) => {
-        const lat = Number(it.latitude);
-        const lng = Number(it.longitude);
+    let result = (Array.isArray(listings) ? listings : [])
+      .map((item) => {
+        const lat = Number(item.latitude);
+        const lng = Number(item.longitude);
 
         return {
-          ...it,
+          ...item,
           latitude: lat,
           longitude: lng,
         };
       })
-      .filter((it) => isValidDEPoint(it.longitude, it.latitude));
+      .filter((item) => isValidDEPoint(item.longitude, item.latitude));
 
-    const cityQ = String(filters?.city || "")
-      .trim()
-      .toLowerCase();
+    const cityQuery = String(filters?.city || "").trim().toLowerCase();
 
-    if (cityQ) {
-      arr = arr.filter((it) =>
-        String(it.city || "").toLowerCase().includes(cityQ)
+    if (cityQuery) {
+      result = result.filter((item) =>
+        String(item.city || "").toLowerCase().includes(cityQuery)
       );
     }
 
     const type = String(filters?.type || "").trim();
+
     if (type) {
-      arr = arr.filter((it) => String(it.type || "") === type);
+      result = result.filter((item) => String(item.type || "") === type);
     }
 
     const min = filters?.priceMin ? Number(filters.priceMin) : null;
     const max = filters?.priceMax ? Number(filters.priceMax) : null;
 
     if (min != null && Number.isFinite(min)) {
-      arr = arr.filter((it) => Number(it.price ?? 0) >= min);
+      result = result.filter((item) => Number(item.price ?? 0) >= min);
     }
 
     if (max != null && Number.isFinite(max)) {
-      arr = arr.filter((it) => Number(it.price ?? 0) <= max);
+      result = result.filter((item) => Number(item.price ?? 0) <= max);
     }
 
-    if (searchInArea && bounds) {
-      arr = arr.filter(
-        (it) =>
-          it.longitude >= bounds.w &&
-          it.longitude <= bounds.e &&
-          it.latitude >= bounds.s &&
-          it.latitude <= bounds.n
-      );
-    }
-
-    const sorted = [...arr];
+    const sorted = [...result];
 
     if (sortBy === "priceAsc") {
       sorted.sort((a, b) => Number(a.price ?? 0) - Number(b.price ?? 0));
@@ -153,7 +159,7 @@ const MapWithMarkers = ({
     }
 
     return sorted;
-  }, [listings, filters, sortBy, searchInArea, bounds]);
+  }, [listings, filters, sortBy]);
 
   useEffect(() => {
     filteredListingsRef.current = filteredListings;
@@ -161,39 +167,40 @@ const MapWithMarkers = ({
 
   const fitSignature = useMemo(() => {
     return filteredListings
-      .map((it) => `${it.id}:${it.longitude}:${it.latitude}`)
+      .map((item) => `${item.id}:${item.longitude}:${item.latitude}`)
       .join("|");
   }, [filteredListings]);
 
-  const geojson = useMemo(
-    () => ({
-      type: "FeatureCollection",
-      features: filteredListings.map((it) => ({
-        type: "Feature",
-        properties: {
-          id: String(it.id),
-          price: Number(it.price ?? 0),
-        },
-        geometry: {
-          type: "Point",
-          coordinates: [Number(it.longitude), Number(it.latitude)],
-        },
-      })),
-    }),
-    [filteredListings]
+  const geojson = useMemo(() => buildGeoJson(filteredListings), [filteredListings]);
+
+  const reportVisible = useMemo(
+    () =>
+      debounce((map) => {
+        if (!map || map._removed) return;
+
+        const currentListings = filteredListingsRef.current || [];
+        let visible = currentListings;
+
+        if (searchInArea) {
+          const b = map.getBounds();
+
+          visible = currentListings.filter(
+            (item) =>
+              item.longitude >= b.getWest() &&
+              item.longitude <= b.getEast() &&
+              item.latitude >= b.getSouth() &&
+              item.latitude <= b.getNorth()
+          );
+        }
+
+        const signature = visible.map((item) => item.id).join("|");
+        if (signature === lastVisibleSignatureRef.current) return;
+
+        lastVisibleSignatureRef.current = signature;
+        onVisibleChangeRef.current?.(visible);
+      }, 180),
+    [searchInArea]
   );
-
-  const syncBoundsToStore = (map) => {
-    if (typeof store?.setBounds !== "function") return;
-
-    const b = map.getBounds();
-    store.setBounds({
-      w: b.getWest(),
-      e: b.getEast(),
-      s: b.getSouth(),
-      n: b.getNorth(),
-    });
-  };
 
   const fitMapToCurrentListings = (map, options = {}) => {
     if (!map || map._removed) return;
@@ -204,27 +211,27 @@ const MapWithMarkers = ({
     if (!boundsObj) {
       map.fitBounds(DE_BOUNDS, {
         padding: 60,
-        duration: options.duration ?? 500,
+        duration: options.duration ?? 350,
         maxZoom: 7,
       });
       return;
     }
 
-    // Wenn nur ein Objekt da ist -> gezielt drauf zoomen
     if (currentListings.length === 1) {
-      const one = currentListings[0];
+      const item = currentListings[0];
+
       map.flyTo({
-        center: [Number(one.longitude), Number(one.latitude)],
-        zoom: 12.5,
-        duration: options.duration ?? 650,
+        center: [Number(item.longitude), Number(item.latitude)],
+        zoom: 12,
+        duration: options.duration ?? 350,
       });
       return;
     }
 
     map.fitBounds(boundsObj, {
       padding: options.padding ?? 70,
-      duration: options.duration ?? 650,
-      maxZoom: options.maxZoom ?? 12,
+      duration: options.duration ?? 350,
+      maxZoom: options.maxZoom ?? 11,
     });
   };
 
@@ -302,29 +309,6 @@ const MapWithMarkers = ({
     }
   };
 
-  const reportVisible = (map) => {
-    if (!map || map._removed) return;
-
-    const currentListings = filteredListingsRef.current || [];
-
-    if (!searchInAreaRef.current) {
-      onVisibleChangeRef.current?.(currentListings);
-      return;
-    }
-
-    const b = map.getBounds();
-
-    const visible = currentListings.filter(
-      (it) =>
-        it.longitude >= b.getWest() &&
-        it.longitude <= b.getEast() &&
-        it.latitude >= b.getSouth() &&
-        it.latitude <= b.getNorth()
-    );
-
-    onVisibleChangeRef.current?.(visible);
-  };
-
   useEffect(() => {
     if (!mapEl.current) return;
     if (mapRef.current) return;
@@ -335,39 +319,40 @@ const MapWithMarkers = ({
       center: DE_CENTER,
       zoom: DE_ZOOM,
       attributionControl: false,
+      maxBounds: DE_BOUNDS,
     });
 
-    map.setMaxBounds(DE_BOUNDS);
     mapRef.current = map;
 
     map.addControl(
       new mapboxgl.NavigationControl({ showCompass: false }),
       "bottom-right"
     );
+
     map.addControl(
       new mapboxgl.AttributionControl({ compact: true }),
       "bottom-left"
     );
 
-    let t1 = null;
-    let t2 = null;
+    let resizeTimer1 = null;
+    let resizeTimer2 = null;
 
     const safeResize = () => {
-      const m = mapRef.current;
-      if (!m || m._removed) return;
+      const currentMap = mapRef.current;
+      if (!currentMap || currentMap._removed) return;
+
       try {
-        m.resize();
+        currentMap.resize();
       } catch {}
     };
 
-    const onMoveEnd = debounce(() => {
-      const m = mapRef.current;
-      if (!m || m._removed) return;
-      if (!m.isStyleLoaded?.()) return;
+    const onMoveEnd = () => {
+      const currentMap = mapRef.current;
+      if (!currentMap || currentMap._removed) return;
+      if (!currentMap.isStyleLoaded?.()) return;
 
-      syncBoundsToStore(m);
-      reportVisible(m);
-    }, 120);
+      reportVisible(currentMap);
+    };
 
     const onLoad = () => {
       map.jumpTo({
@@ -375,55 +360,58 @@ const MapWithMarkers = ({
         zoom: DE_ZOOM,
       });
 
-      t1 = setTimeout(safeResize, 120);
-      t2 = setTimeout(safeResize, 350);
+      resizeTimer1 = setTimeout(safeResize, 120);
+      resizeTimer2 = setTimeout(safeResize, 350);
 
-      syncBoundsToStore(map);
       ensureSourceAndLayers(map);
 
-      // Initial sauber auf Listings fitten
-      fitMapToCurrentListings(map, {
-        duration: 0,
-        padding: 70,
-        maxZoom: 11.5,
-      });
+      if (!firstAutoFitDoneRef.current) {
+        fitMapToCurrentListings(map, {
+          duration: 0,
+          padding: 70,
+          maxZoom: 11,
+        });
 
-      firstAutoFitDoneRef.current = true;
+        firstAutoFitDoneRef.current = true;
+      }
 
       reportVisible(map);
 
       map.on("moveend", onMoveEnd);
 
-      map.on("click", "mh24-clusters", (e) => {
-        const feats = map.queryRenderedFeatures(e.point, {
+      map.on("click", "mh24-clusters", (event) => {
+        const features = map.queryRenderedFeatures(event.point, {
           layers: ["mh24-clusters"],
         });
 
-        const clusterId = feats?.[0]?.properties?.cluster_id;
+        const clusterId = features?.[0]?.properties?.cluster_id;
         const source = map.getSource("mh24-listings");
 
-        if (!source || clusterId == null || !feats?.[0]) return;
+        if (!source || clusterId == null || !features?.[0]) return;
 
-        source.getClusterExpansionZoom(clusterId, (err, zoom) => {
-          if (err) return;
+        source.getClusterExpansionZoom(clusterId, (error, zoom) => {
+          if (error) return;
+
           map.easeTo({
-            center: feats[0].geometry.coordinates,
+            center: features[0].geometry.coordinates,
             zoom,
+            duration: 350,
           });
         });
       });
 
-      map.on("click", "mh24-point", (e) => {
-        const feature = e.features?.[0];
+      map.on("click", "mh24-point", (event) => {
+        const feature = event.features?.[0];
         const id = feature?.properties?.id;
+
         if (!id) return;
 
-        const full = (filteredListingsRef.current || []).find(
-          (x) => String(x.id) === String(id)
+        const fullListing = (filteredListingsRef.current || []).find(
+          (item) => String(item.id) === String(id)
         );
 
-        if (full) {
-          onListingSelectRef.current?.(full);
+        if (fullListing) {
+          onListingSelectRef.current?.(fullListing);
         }
       });
 
@@ -447,17 +435,12 @@ const MapWithMarkers = ({
     map.on("load", onLoad);
 
     return () => {
-      try {
-        if (t1) clearTimeout(t1);
-        if (t2) clearTimeout(t2);
-      } catch {}
+      if (resizeTimer1) clearTimeout(resizeTimer1);
+      if (resizeTimer2) clearTimeout(resizeTimer2);
 
       try {
         map.off("load", onLoad);
         map.off("moveend", onMoveEnd);
-      } catch {}
-
-      try {
         map.remove();
       } catch {}
 
@@ -473,21 +456,19 @@ const MapWithMarkers = ({
       ensureSourceAndLayers(map);
       reportVisible(map);
 
-      // Auto-fit nur wenn Such-in-Ausschnitt NICHT aktiv ist,
-      // damit der User die Karte frei bewegen kann
-      if (!searchInArea && fitSignature !== prevFitSignatureRef.current) {
+      if (fitSignature !== prevFitSignatureRef.current) {
         prevFitSignatureRef.current = fitSignature;
 
         if (filteredListings.length > 0) {
           fitMapToCurrentListings(map, {
-            duration: firstAutoFitDoneRef.current ? 500 : 0,
+            duration: firstAutoFitDoneRef.current ? 250 : 0,
             padding: 70,
-            maxZoom: 11.5,
+            maxZoom: 11,
           });
         } else {
           map.fitBounds(DE_BOUNDS, {
             padding: 60,
-            duration: 450,
+            duration: 250,
             maxZoom: 7,
           });
         }
@@ -499,29 +480,43 @@ const MapWithMarkers = ({
     } else {
       map.once("load", applyUpdate);
     }
-  }, [geojson, searchInArea, fitSignature, filteredListings.length]);
+  }, [geojson, fitSignature, filteredListings.length, reportVisible]);
 
-  const [search, setSearch] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+  const fetchSuggestions = useMemo(
+    () =>
+      debounce(async (queryText) => {
+        const clean = String(queryText || "").trim();
 
-  const fetchSuggestions = async (queryText) => {
-    if (!queryText || queryText.length < 2) {
-      setSuggestions([]);
-      return;
-    }
+        if (clean.length < 2) {
+          setSuggestions([]);
+          setSuggestionsLoading(false);
+          return;
+        }
 
-    try {
-      const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-          queryText
-        )}&countrycodes=de&addressdetails=1&limit=6`
-      );
+        try {
+          setSuggestionsLoading(true);
 
-      const data = await res.json();
-      setSuggestions(Array.isArray(data) ? data : []);
-    } catch {
-      setSuggestions([]);
-    }
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+              clean
+            )}&countrycodes=de&addressdetails=1&limit=5`
+          );
+
+          const data = await response.json();
+          setSuggestions(Array.isArray(data) ? data : []);
+        } catch {
+          setSuggestions([]);
+        } finally {
+          setSuggestionsLoading(false);
+        }
+      }, 500),
+    []
+  );
+
+  const handleSearchChange = (event) => {
+    const value = event.target.value;
+    setSearch(value);
+    fetchSuggestions(value);
   };
 
   const handleSuggestionClick = (item) => {
@@ -539,7 +534,18 @@ const MapWithMarkers = ({
     map.flyTo({
       center: [lng, lat],
       zoom: 12,
-      duration: 650,
+      duration: 400,
+    });
+  };
+
+  const resetToGermany = () => {
+    const map = mapRef.current;
+    if (!map || map._removed) return;
+
+    map.fitBounds(DE_BOUNDS, {
+      padding: 60,
+      duration: 300,
+      maxZoom: 7,
     });
   };
 
@@ -555,25 +561,32 @@ const MapWithMarkers = ({
                 defaultValue: "Adresse, Stadt…",
               })}
               value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                fetchSuggestions(e.target.value);
-              }}
-              className="h-10 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-900 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+              onChange={handleSearchChange}
+              className="h-10 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
             />
 
-            {suggestions.length > 0 && (
+            {(suggestions.length > 0 || suggestionsLoading) && (
               <div className="absolute left-0 right-0 z-50 mt-2 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-700 dark:bg-slate-950">
-                {suggestions.map((item, idx) => (
-                  <button
-                    key={`${item.place_id || idx}`}
-                    type="button"
-                    onClick={() => handleSuggestionClick(item)}
-                    className="w-full px-3 py-2 text-left text-sm text-slate-900 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800"
-                  >
-                    {item.display_name}
-                  </button>
-                ))}
+                {suggestionsLoading && (
+                  <div className="px-3 py-2 text-sm text-slate-500 dark:text-slate-400">
+                    {t("loadingSuggestions", {
+                      ns: "filterBar",
+                      defaultValue: "Vorschläge werden geladen…",
+                    })}
+                  </div>
+                )}
+
+                {!suggestionsLoading &&
+                  suggestions.map((item, index) => (
+                    <button
+                      key={`${item.place_id || index}`}
+                      type="button"
+                      onClick={() => handleSuggestionClick(item)}
+                      className="w-full px-3 py-2 text-left text-sm text-slate-900 hover:bg-slate-100 dark:text-slate-100 dark:hover:bg-slate-800"
+                    >
+                      {item.display_name}
+                    </button>
+                  ))}
               </div>
             )}
           </div>
@@ -584,9 +597,9 @@ const MapWithMarkers = ({
             <input
               type="checkbox"
               checked={!!searchInArea}
-              onChange={(e) =>
+              onChange={(event) =>
                 typeof store?.setSearchInArea === "function" &&
-                store.setSearchInArea(e.target.checked)
+                store.setSearchInArea(event.target.checked)
               }
             />
             {t("searchInArea", {
@@ -597,16 +610,7 @@ const MapWithMarkers = ({
 
           <button
             type="button"
-            onClick={() => {
-              const map = mapRef.current;
-              if (!map || map._removed) return;
-
-              map.fitBounds(DE_BOUNDS, {
-                padding: 60,
-                duration: 450,
-                maxZoom: 7,
-              });
-            }}
+            onClick={resetToGermany}
             className="h-10 rounded-full border border-slate-200 bg-white/95 px-4 text-sm font-semibold text-slate-900 dark:border-slate-700 dark:bg-slate-950/70 dark:text-slate-100"
           >
             {t("resetGermany", {
@@ -624,6 +628,7 @@ const MapWithMarkers = ({
           </div>
 
           <button
+            type="button"
             onClick={() => onRequestOpenMobileList?.()}
             className="h-10 rounded-xl bg-blue-600 px-3 text-sm text-white md:hidden"
           >

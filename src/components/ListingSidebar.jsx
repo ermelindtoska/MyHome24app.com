@@ -1,23 +1,21 @@
-import React, { memo, useMemo, useCallback } from "react";
+// src/components/ListingSidebar.jsx
+import React, { memo, useMemo, useCallback, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import FavoriteButton from "./FavoriteButton";
 import { useTranslation } from "react-i18next";
-import {
-  FiShare2,
-  FiMapPin,
-  FiHome,
-  FiCheckCircle,
-} from "react-icons/fi";
+import { FiShare2, FiMapPin, FiHome, FiCheckCircle } from "react-icons/fi";
 
 const FALLBACK_IMG = "/images/hero-1.jpg";
+const MOBILE_BATCH = 8;
+const DESKTOP_BATCH = 30;
 
-function toNumber(v) {
-  const n = Number(v);
+function toNumber(value) {
+  const n = Number(value);
   return Number.isFinite(n) ? n : null;
 }
 
-function formatPrice(v) {
-  const n = toNumber(v);
+function formatPrice(value) {
+  const n = toNumber(value);
   if (n == null) return "–";
   return n.toLocaleString("de-DE", { maximumFractionDigits: 0 });
 }
@@ -44,12 +42,13 @@ function formatAddress(item) {
 
 function isNewish(item) {
   const sec = item?.createdAt?.seconds;
+
   if (sec) {
-    const ageMs = Date.now() - sec * 1000;
-    return ageMs <= 1000 * 60 * 60 * 24 * 14;
+    return Date.now() - sec * 1000 <= 1000 * 60 * 60 * 24 * 14;
   }
 
   const d = item?.createdAt ? new Date(item.createdAt) : null;
+
   if (d && !Number.isNaN(d.getTime())) {
     return Date.now() - d.getTime() <= 1000 * 60 * 60 * 24 * 14;
   }
@@ -116,9 +115,7 @@ const ListingCard = memo(function ListingCard({ item, onClickItem, onHover }) {
   const isNew = isNewish(item);
 
   const price = formatPrice(item?.price);
-  const purpose = (item?.purpose || item?.intent || "")
-    .toString()
-    .toLowerCase();
+  const purpose = (item?.purpose || item?.intent || "").toString().toLowerCase();
 
   const rentSuffix =
     purpose === "rent" || item?.isRent
@@ -129,13 +126,12 @@ const ListingCard = memo(function ListingCard({ item, onClickItem, onHover }) {
   const baths = item?.bathrooms ?? "–";
   const size = item?.size ? `${item.size} m²` : "– m²";
   const type = item?.type || item?.category || "";
-
   const verified = Boolean(item?.verified);
   const openHouse = item?.openHouseText || item?.openHouse || "";
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
       onClickItem?.(item);
     }
   };
@@ -149,7 +145,7 @@ const ListingCard = memo(function ListingCard({ item, onClickItem, onHover }) {
       className="
         group cursor-pointer overflow-hidden rounded-3xl
         border border-gray-200 bg-white text-gray-900 shadow-sm transition
-        hover:-translate-y-0.5 hover:shadow-xl
+        md:hover:-translate-y-0.5 md:hover:shadow-xl
         dark:border-slate-800 dark:bg-slate-950 dark:text-gray-100
         focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500
       "
@@ -157,16 +153,20 @@ const ListingCard = memo(function ListingCard({ item, onClickItem, onHover }) {
       tabIndex={0}
       aria-label={item?.title || "Listing"}
     >
-      {/* IMAGE */}
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100 dark:bg-slate-900">
         <img
           src={img}
           alt={item?.title || item?.city || "Listing"}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+          className="h-full w-full object-cover transition-transform duration-300 md:group-hover:scale-[1.02]"
           loading="lazy"
+          decoding="async"
+          fetchPriority="low"
+          draggable={false}
+          onError={(event) => {
+            event.currentTarget.src = FALLBACK_IMG;
+          }}
         />
 
-        {/* Top badges */}
         <div className="absolute left-2.5 top-2.5 flex flex-wrap gap-2">
           {badge && (
             <span className="rounded-full bg-black/75 px-2.5 py-1 text-[11px] font-semibold text-white">
@@ -188,24 +188,19 @@ const ListingCard = memo(function ListingCard({ item, onClickItem, onHover }) {
           )}
         </div>
 
-        {/* Actions */}
         <div className="absolute right-2.5 top-2.5 flex items-center gap-2">
           <button
             type="button"
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={(event) => {
+              event.stopPropagation();
               shareListing(item, t);
             }}
             className="
               grid h-9 w-9 place-items-center rounded-full border
-              border-white/70 bg-white/95 text-gray-800 shadow-sm transition hover:scale-[1.03]
+              border-white/70 bg-white/95 text-gray-800 shadow-sm
               dark:border-slate-700 dark:bg-slate-900/95 dark:text-gray-100
             "
             aria-label={t("share", {
-              ns: "listingDetails",
-              defaultValue: "Teilen",
-            })}
-            title={t("share", {
               ns: "listingDetails",
               defaultValue: "Teilen",
             })}
@@ -215,13 +210,12 @@ const ListingCard = memo(function ListingCard({ item, onClickItem, onHover }) {
 
           <div
             className="grid h-9 w-9 place-items-center rounded-full border border-white/70 bg-white/95 shadow-sm dark:border-slate-700 dark:bg-slate-900/95"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(event) => event.stopPropagation()}
           >
             <FavoriteButton listingId={item?.id} />
           </div>
         </div>
 
-        {/* Price badge */}
         <div className="absolute bottom-2.5 left-2.5 rounded-2xl bg-slate-950/85 px-3 py-2 text-sm font-bold text-white shadow-lg backdrop-blur">
           € {price}
           <span className="ml-1 text-xs font-medium text-white/80">
@@ -229,7 +223,6 @@ const ListingCard = memo(function ListingCard({ item, onClickItem, onHover }) {
           </span>
         </div>
 
-        {/* Open house */}
         {openHouse ? (
           <div className="absolute bottom-2.5 right-2.5 rounded-xl bg-white/95 px-2.5 py-1 text-[11px] font-medium text-slate-800 shadow dark:bg-slate-900/95 dark:text-slate-100">
             {openHouse}
@@ -237,7 +230,6 @@ const ListingCard = memo(function ListingCard({ item, onClickItem, onHover }) {
         ) : null}
       </div>
 
-      {/* CONTENT */}
       <div className="p-4">
         <h3 className="line-clamp-1 text-[15px] font-bold leading-5 text-slate-900 dark:text-white">
           {item?.title || "—"}
@@ -264,13 +256,13 @@ const ListingCard = memo(function ListingCard({ item, onClickItem, onHover }) {
         </div>
 
         <div className="mt-3 flex items-center justify-between gap-2">
-          <div className="inline-flex items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400">
-            <FiMapPin size={12} />
+          <div className="inline-flex min-w-0 items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400">
+            <FiMapPin size={12} className="shrink-0" />
             <span className="truncate">{item?.city || "—"}</span>
           </div>
 
           {type ? (
-            <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 px-2.5 py-1 text-[11px] font-medium text-slate-500 dark:border-slate-700 dark:text-slate-400">
+            <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-slate-200 px-2.5 py-1 text-[11px] font-medium text-slate-500 dark:border-slate-700 dark:text-slate-400">
               <FiHome size={11} />
               {type}
             </span>
@@ -295,16 +287,40 @@ const ListingCard = memo(function ListingCard({ item, onClickItem, onHover }) {
 
 const ListingSidebar = ({ listings = [], onClickItem, onHoverItem }) => {
   const { t } = useTranslation(["map"]);
+  const [visibleCount, setVisibleCount] = useState(MOBILE_BATCH);
 
-  const safe = useMemo(
-    () => (Array.isArray(listings) ? listings : []),
-    [listings]
-  );
+  const safeListings = useMemo(() => {
+    return Array.isArray(listings) ? listings.filter(Boolean) : [];
+  }, [listings]);
+
+  useEffect(() => {
+    const isDesktop =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(min-width: 768px)").matches;
+
+    setVisibleCount(isDesktop ? DESKTOP_BATCH : MOBILE_BATCH);
+  }, [safeListings.length]);
+
+  const visibleListings = useMemo(() => {
+    return safeListings.slice(0, visibleCount);
+  }, [safeListings, visibleCount]);
+
+  const hasMore = visibleCount < safeListings.length;
 
   const handleClick = useCallback((item) => onClickItem?.(item), [onClickItem]);
   const handleHover = useCallback((item) => onHoverItem?.(item), [onHoverItem]);
 
-  if (safe.length === 0) {
+  const handleLoadMore = () => {
+    const isDesktop =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(min-width: 768px)").matches;
+
+    setVisibleCount((prev) => prev + (isDesktop ? DESKTOP_BATCH : MOBILE_BATCH));
+  };
+
+  if (safeListings.length === 0) {
     return (
       <div className="flex h-full flex-col items-center justify-center p-6 text-center">
         <div className="text-lg font-semibold text-gray-900 dark:text-gray-100">
@@ -313,6 +329,7 @@ const ListingSidebar = ({ listings = [], onClickItem, onHoverItem }) => {
             defaultValue: "Keine Ergebnisse",
           })}
         </div>
+
         <div className="mt-1 max-w-sm text-sm text-gray-500 dark:text-gray-400">
           {t("noResultsDesc", {
             ns: "map",
@@ -325,10 +342,9 @@ const ListingSidebar = ({ listings = [], onClickItem, onHoverItem }) => {
   }
 
   return (
-    <div className="h-full overflow-y-auto">
-      {/* 1 auf klein, 2 auf mittel, 3 auf groß */}
+    <div className="h-full overflow-y-auto overscroll-contain">
       <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 2xl:grid-cols-3">
-        {safe.map((item) => (
+        {visibleListings.map((item) => (
           <ListingCard
             key={item.id}
             item={item}
@@ -337,6 +353,22 @@ const ListingSidebar = ({ listings = [], onClickItem, onHoverItem }) => {
           />
         ))}
       </div>
+
+      {hasMore && (
+        <div className="px-4 pb-6 pt-1">
+          <button
+            type="button"
+            onClick={handleLoadMore}
+            className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-blue-700 shadow-sm hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-950 dark:text-blue-300 dark:hover:bg-slate-900"
+          >
+            {t("loadMore", {
+              ns: "map",
+              defaultValue: "Mehr laden",
+            })}{" "}
+            ({visibleListings.length}/{safeListings.length})
+          </button>
+        </div>
+      )}
     </div>
   );
 };
@@ -353,4 +385,4 @@ ListingCard.propTypes = {
   onHover: PropTypes.func,
 };
 
-export default ListingSidebar;
+export default memo(ListingSidebar);

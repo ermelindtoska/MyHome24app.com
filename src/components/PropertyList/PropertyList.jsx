@@ -1,4 +1,5 @@
-import React from "react";
+// src/components/PropertyList/PropertyList.jsx
+import React, { memo, useMemo } from "react";
 import PropertyCard from "../PropertyCard/PropertyCard";
 import { useTranslation } from "react-i18next";
 import { FiHome } from "react-icons/fi";
@@ -6,7 +7,11 @@ import { FiHome } from "react-icons/fi";
 const PropertyList = ({ listings = [], onCardClick }) => {
   const { t } = useTranslation("property");
 
-  if (!Array.isArray(listings) || listings.length === 0) {
+  const safeListings = useMemo(() => {
+    return Array.isArray(listings) ? listings.filter(Boolean) : [];
+  }, [listings]);
+
+  if (safeListings.length === 0) {
     return (
       <div className="rounded-3xl border border-dashed border-gray-300 bg-white p-8 text-center shadow-sm dark:border-slate-700 dark:bg-slate-950">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-300">
@@ -18,9 +23,7 @@ const PropertyList = ({ listings = [], onCardClick }) => {
         </h3>
 
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-          {t("noListings", {
-            defaultValue: "Keine Anzeigen.",
-          })}
+          {t("noListings", { defaultValue: "Keine Anzeigen." })}
         </p>
       </div>
     );
@@ -33,20 +36,22 @@ const PropertyList = ({ listings = [], onCardClick }) => {
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
             {t("title", { defaultValue: "Immobilien" })}
           </h2>
+
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
             {t("resultsCount", {
               defaultValue: "{{count}} Anzeigen gefunden",
-              count: listings.length,
+              count: safeListings.length,
             })}
           </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-        {listings.map((listing, index) => (
+        {safeListings.map((listing, index) => (
           <PropertyCard
             key={listing?.id || listing?.listingId || listing?.docId || `listing-${index}`}
             listing={listing}
+            item={listing}
             onCardClick={onCardClick}
           />
         ))}
@@ -55,4 +60,4 @@ const PropertyList = ({ listings = [], onCardClick }) => {
   );
 };
 
-export default PropertyList;
+export default memo(PropertyList);

@@ -1,10 +1,9 @@
 // src/components/PropertyCard/PropertyCard.jsx
-import React, { useMemo } from "react";
+import React, { memo, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getListingImage } from "../../utils/getListingImage";
 import FavoriteButton from "../FavoriteButton";
-
 import {
   FaBed,
   FaBath,
@@ -14,40 +13,55 @@ import {
 
 const FALLBACK_IMG = "/images/hero-1.jpg";
 
-const PropertyCard = ({ listing, onCardClick }) => {
-  const { t } = useTranslation(["home", "listing"]);
+function formatPrice(price) {
+  if (price == null || price === "") return "—";
 
-  const listingId = listing?.id || listing?.listingId || listing?.docId || "";
+  const n = Number(price);
+  if (Number.isFinite(n)) {
+    return `€ ${n.toLocaleString("de-DE", { maximumFractionDigits: 0 })}`;
+  }
+
+  return `€ ${price}`;
+}
+
+function getListingId(listing) {
+  return listing?.id || listing?.listingId || listing?.docId || "";
+}
+
+const PropertyCard = ({ listing, item, onCardClick }) => {
+  const { t } = useTranslation(["home", "listing"]);
+  const data = listing || item || {};
+
+  const listingId = getListingId(data);
 
   const primaryImage = useMemo(() => {
     try {
-      return getListingImage(listing) || FALLBACK_IMG;
+      return getListingImage(data) || FALLBACK_IMG;
     } catch {
       return FALLBACK_IMG;
     }
-  }, [listing]);
+  }, [data]);
 
   const title =
-    listing?.title ||
-    listing?.headline ||
+    data?.title ||
+    data?.headline ||
     t("listing:labels.noTitle", { defaultValue: "Ohne Titel" });
 
-  const purpose = listing?.purpose || listing?.typeOfUse || "buy";
-  const propertyType = listing?.propertyType || listing?.type || "house";
+  const purpose = data?.purpose || data?.typeOfUse || "buy";
+  const propertyType = data?.propertyType || data?.type || "house";
 
-  const price = listing?.price ?? listing?.priceEuro ?? null;
+  const price = data?.price ?? data?.priceEuro ?? null;
 
-  const city = listing?.city || "";
-  const postalCode = listing?.postalCode || listing?.zip || "";
-  const addressLine =
-    listing?.address || listing?.street || listing?.fullAddress || "";
+  const city = data?.city || "";
+  const postalCode = data?.postalCode || data?.zip || "";
+  const addressLine = data?.address || data?.street || data?.fullAddress || "";
 
-  const bedrooms = listing?.bedrooms ?? listing?.rooms ?? null;
-  const bathrooms = listing?.bathrooms ?? listing?.baths ?? null;
-  const size = listing?.size ?? listing?.area ?? listing?.livingSpace ?? null;
+  const bedrooms = data?.bedrooms ?? data?.rooms ?? null;
+  const bathrooms = data?.bathrooms ?? data?.baths ?? null;
+  const size = data?.size ?? data?.area ?? data?.livingSpace ?? null;
 
-  const yearBuilt = listing?.yearBuilt ?? listing?.buildYear ?? null;
-  const status = listing?.status || "active";
+  const yearBuilt = data?.yearBuilt ?? data?.buildYear ?? null;
+  const status = data?.status || "active";
 
   const purposeLabel =
     purpose === "rent"
@@ -63,26 +77,26 @@ const PropertyCard = ({ listing, onCardClick }) => {
       ? t("listing:labels.office", { defaultValue: "Büro" })
       : t("listing:labels.property", { defaultValue: "Immobilie" });
 
-  const formattedPrice =
-    price != null
-      ? `€ ${typeof price === "number" ? price.toLocaleString("de-DE") : price}`
-      : "—";
+  const formattedPrice = formatPrice(price);
 
   const addressText =
-    [addressLine, postalCode ? `${postalCode}` : "", city]
-      .filter(Boolean)
-      .join(", ") || "—";
+    [addressLine, postalCode, city].filter(Boolean).join(", ") || "—";
 
   const cardInner = (
     <>
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden bg-slate-100 dark:bg-slate-900">
         <img
           src={primaryImage}
           alt={title}
-          className="h-56 w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+          className="h-56 w-full object-cover transition duration-300 group-hover:scale-[1.02]"
           loading="lazy"
+          decoding="async"
+          fetchPriority="low"
+          draggable={false}
           onError={(e) => {
-            e.currentTarget.src = FALLBACK_IMG;
+            if (e.currentTarget.src !== window.location.origin + FALLBACK_IMG) {
+              e.currentTarget.src = FALLBACK_IMG;
+            }
           }}
         />
 
@@ -96,16 +110,17 @@ const PropertyCard = ({ listing, onCardClick }) => {
           </span>
         </div>
 
-        <div className="absolute right-3 top-3">
-          {listingId ? (
-            <div
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow dark:bg-slate-950/90"
-              onClick={(e) => e.stopPropagation()}
-            >
+        {listingId && (
+          <div
+            className="absolute right-3 top-3 z-10"
+            onClick={(e) => e.preventDefault()}
+            onMouseDown={(e) => e.stopPropagation()}
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow dark:bg-slate-950/90">
               <FavoriteButton listingId={listingId} />
             </div>
-          ) : null}
-        </div>
+          </div>
+        )}
 
         {price != null && (
           <div className="absolute bottom-3 left-3 rounded-2xl bg-slate-950/85 px-3 py-2 text-sm font-bold text-white backdrop-blur">
@@ -142,18 +157,18 @@ const PropertyCard = ({ listing, onCardClick }) => {
         </div>
 
         <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-          {yearBuilt && (
+          {yearBuilt ? (
             <span className="rounded-full border border-slate-200 px-2.5 py-1 dark:border-slate-700">
               {t("listing:labels.yearBuilt", { defaultValue: "Baujahr" })}:{" "}
               {yearBuilt}
             </span>
-          )}
+          ) : null}
 
-          {status && (
+          {status ? (
             <span className="rounded-full border border-slate-200 px-2.5 py-1 capitalize dark:border-slate-700">
               {status}
             </span>
-          )}
+          ) : null}
         </div>
 
         <div className="mt-5">
@@ -169,8 +184,8 @@ const PropertyCard = ({ listing, onCardClick }) => {
     return (
       <button
         type="button"
-        onClick={() => onCardClick(listing)}
-        className="group flex h-full w-full flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white text-left shadow-sm transition hover:-translate-y-1 hover:shadow-2xl dark:border-slate-800 dark:bg-slate-950"
+        onClick={() => onCardClick(data)}
+        className="group flex h-full w-full flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-xl dark:border-slate-800 dark:bg-slate-950"
       >
         {cardInner}
       </button>
@@ -178,12 +193,12 @@ const PropertyCard = ({ listing, onCardClick }) => {
   }
 
   return (
-    <div className="group flex h-full flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-2xl dark:border-slate-800 dark:bg-slate-950">
+    <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-xl dark:border-slate-800 dark:bg-slate-950">
       <Link to={`/listing/${listingId}`} className="flex h-full flex-col">
         {cardInner}
       </Link>
-    </div>
+    </article>
   );
 };
 
-export default PropertyCard;
+export default memo(PropertyCard);

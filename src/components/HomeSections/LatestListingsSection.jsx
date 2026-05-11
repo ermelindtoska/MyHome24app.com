@@ -1,3 +1,4 @@
+// src/components/HomeSections/LatestListingsSection.jsx
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -11,57 +12,60 @@ import { db } from "../../firebase";
 import PropertyList from "../PropertyList/PropertyList";
 import { FaExclamationTriangle, FaHome } from "react-icons/fa";
 
+const LISTINGS_LIMIT = 6;
+
+const normalizeListing = (docSnap) => {
+  const data = docSnap.data() || {};
+
+  return {
+    id: docSnap.id,
+    ...data,
+    images: Array.isArray(data.images) ? data.images : [],
+    imageUrls: Array.isArray(data.imageUrls) ? data.imageUrls : [],
+    imageUrl: typeof data.imageUrl === "string" ? data.imageUrl : "",
+    coverImage: typeof data.coverImage === "string" ? data.coverImage : "",
+  };
+};
+
 const LatestListingsSection = () => {
   const { t } = useTranslation("home");
 
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     let active = true;
 
     const fetchListings = async () => {
-      setLoading(true);
-
       try {
-        const q = query(
+        setLoading(true);
+        setError("");
+
+        const listingsQuery = query(
           collection(db, "listings"),
           orderBy("createdAt", "desc"),
-          firestoreLimit(6)
+          firestoreLimit(LISTINGS_LIMIT)
         );
 
-        const snapshot = await getDocs(q);
+        const snapshot = await getDocs(listingsQuery);
 
         if (!active) return;
 
-        const listingsData = snapshot.docs.map((docSnap) => {
-          const data = docSnap.data() || {};
-
-          return {
-            id: docSnap.id,
-            ...data,
-            images: Array.isArray(data.images) ? data.images : [],
-            imageUrls: Array.isArray(data.imageUrls) ? data.imageUrls : [],
-          };
-        });
-
-        setListings(listingsData);
-        setError(null);
+        setListings(snapshot.docs.map(normalizeListing));
       } catch (err) {
         console.error("[LatestListingsSection] Fehler beim Laden:", err);
 
         if (!active) return;
 
+        setListings([]);
         setError(
           t("latestListingsSection.error", {
             defaultValue: "Es gab einen Fehler beim Laden der Anzeigen.",
           })
         );
       } finally {
-        if (active) {
-          setLoading(false);
-        }
+        if (active) setLoading(false);
       }
     };
 
@@ -73,9 +77,9 @@ const LatestListingsSection = () => {
   }, [t]);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50 px-4 py-20 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-      <div className="absolute left-10 top-10 h-40 w-40 rounded-full bg-blue-200/30 blur-3xl dark:bg-blue-700/20" />
-      <div className="absolute bottom-10 right-10 h-48 w-48 rounded-full bg-sky-200/40 blur-3xl dark:bg-sky-700/20" />
+    <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50 px-4 py-16 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 md:py-20">
+      <div className="pointer-events-none absolute left-10 top-10 h-40 w-40 rounded-full bg-blue-200/30 blur-3xl dark:bg-blue-700/20" />
+      <div className="pointer-events-none absolute bottom-10 right-10 h-48 w-48 rounded-full bg-sky-200/40 blur-3xl dark:bg-sky-700/20" />
 
       <div className="relative mx-auto max-w-6xl">
         <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -112,21 +116,7 @@ const LatestListingsSection = () => {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 6 }).map((_, index) => (
-              <div
-                key={index}
-                className="h-[360px] animate-pulse rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900"
-              >
-                <div className="h-48 rounded-t-3xl bg-slate-200 dark:bg-slate-800" />
-                <div className="space-y-3 p-5">
-                  <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-slate-800" />
-                  <div className="h-4 w-1/2 rounded bg-slate-200 dark:bg-slate-800" />
-                  <div className="h-10 rounded bg-slate-200 dark:bg-slate-800" />
-                </div>
-              </div>
-            ))}
-          </div>
+          <LatestListingsSkeleton />
         ) : error ? (
           <div className="mt-6 flex flex-col items-center justify-center rounded-3xl border border-red-200 bg-red-50 px-6 py-10 text-center text-red-700 dark:border-red-900/40 dark:bg-red-950/30 dark:text-red-300">
             <FaExclamationTriangle className="mb-3 text-3xl" />
@@ -147,5 +137,25 @@ const LatestListingsSection = () => {
     </section>
   );
 };
+
+function LatestListingsSkeleton() {
+  return (
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {Array.from({ length: LISTINGS_LIMIT }).map((_, index) => (
+        <div
+          key={index}
+          className="h-[360px] animate-pulse rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900"
+        >
+          <div className="h-48 rounded-t-3xl bg-slate-200 dark:bg-slate-800" />
+          <div className="space-y-3 p-5">
+            <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-slate-800" />
+            <div className="h-4 w-1/2 rounded bg-slate-200 dark:bg-slate-800" />
+            <div className="h-10 rounded bg-slate-200 dark:bg-slate-800" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default React.memo(LatestListingsSection);

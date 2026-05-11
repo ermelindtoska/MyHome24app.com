@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import {
   collection,
   getDocs,
-  doc,
-  setDoc,
-  GeoPoint,
+  limit as firestoreLimit,
+  orderBy,
+  query,
 } from "firebase/firestore";
 import { db } from "../firebase";
 
@@ -17,39 +17,13 @@ import { useTranslation } from "react-i18next";
 import { useSearchState } from "../state/useSearchState";
 
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
+const LISTINGS_LIMIT = 80;
 
 const GERMANY_CENTER = {
   latitude: 51.1657,
   longitude: 10.4515,
   zoom: 5.7,
 };
-
-async function geocodeDE(queryText) {
-  if (!queryText || !MAPBOX_TOKEN) return null;
-
-  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-    queryText
-  )}.json?access_token=${MAPBOX_TOKEN}&limit=1&country=DE`;
-
-  try {
-    const res = await fetch(url);
-    if (!res.ok) return null;
-
-    const data = await res.json();
-    const center = data?.features?.[0]?.center;
-
-    if (Array.isArray(center) && center.length === 2) {
-      const [lng, lat] = center;
-      if (Number.isFinite(lat) && Number.isFinite(lng)) {
-        return { lat, lng };
-      }
-    }
-  } catch (error) {
-    console.error("[MapPage] geocode error:", error);
-  }
-
-  return null;
-}
 
 const normalizePurpose = (value) =>
   (value || "").toString().trim().toLowerCase();
@@ -97,6 +71,8 @@ const normalizeListing = (docSnap) => {
       : data.imageUrl
       ? [data.imageUrl]
       : [],
+    imageUrls: Array.isArray(data.imageUrls) ? data.imageUrls : [],
+    imageUrl: typeof data.imageUrl === "string" ? data.imageUrl : "",
     bedrooms: data.bedrooms ?? data.rooms ?? null,
     rooms: data.rooms ?? null,
     bathrooms: data.bathrooms ?? null,
@@ -110,6 +86,7 @@ const normalizeListing = (docSnap) => {
 const MapPage = ({ purpose = "all" }) => {
   const { t, i18n } = useTranslation(["map", "filterBar", "listing"]);
   const store = useSearchState();
+  const storeRef = useRef(store);
 
   const sortBy = store?.sortBy || "";
 
@@ -122,12 +99,18 @@ const MapPage = ({ purpose = "all" }) => {
   const hasMapbox = Boolean(MAPBOX_TOKEN);
 
   useEffect(() => {
-    if (typeof store?.setPurpose === "function") {
-      store.setPurpose(purpose || "all");
+    storeRef.current = store;
+  }, [store]);
+
+  useEffect(() => {
+    const currentStore = storeRef.current;
+
+    if (typeof currentStore?.setPurpose === "function") {
+      currentStore.setPurpose(purpose || "all");
     }
 
-    if (typeof store?.setActiveId === "function") {
-      store.setActiveId(null);
+    if (typeof currentStore?.setActiveId === "function") {
+      currentStore.setActiveId(null);
     }
 
     setSelectedListing(null);
@@ -141,7 +124,13 @@ const MapPage = ({ purpose = "all" }) => {
       setLoading(true);
 
       try {
-        const snap = await getDocs(collection(db, "listings"));
+        const listingsQuery = query(
+          collection(db, "listings"),
+          orderBy("createdAt", "desc"),
+          firestoreLimit(LISTINGS_LIMIT)
+        );
+
+        const snap = await getDocs(listingsQuery);
         const normalized = snap.docs.map(normalizeListing);
 
         const filteredByPurpose =
@@ -154,62 +143,9 @@ const MapPage = ({ purpose = "all" }) => {
         setAllListings(filteredByPurpose);
         setVisibleListings(filteredByPurpose);
 
-        if (typeof store?.setListings === "function") {
-          store.setListings(filteredByPurpose);
-        }
-
-        const needFix = filteredByPurpose
-          .filter(
-            (item) =>
-              (item.latitude == null || item.longitude == null) &&
-              (item.address || item.city)
-          )
-          .slice(0, 5);
-
-        for (const item of needFix) {
-          const searchText = item.address
-            ? `${item.address}, ${item.city || ""}, Deutschland`
-            : `${item.city}, Deutschland`;
-
-          const coords = await geocodeDE(searchText);
-
-          if (coords) {
-            try {
-              await setDoc(
-                doc(db, "listings", item.id),
-                {
-                  lat: coords.lat,
-                  lng: coords.lng,
-                  latitude: coords.lat,
-                  longitude: coords.lng,
-                  geopt: new GeoPoint(coords.lat, coords.lng),
-                },
-                { merge: true }
-              );
-
-              if (!isMounted) return;
-
-              setAllListings((prev) =>
-                prev.map((x) =>
-                  x.id === item.id
-                    ? { ...x, latitude: coords.lat, longitude: coords.lng }
-                    : x
-                )
-              );
-
-              setVisibleListings((prev) =>
-                prev.map((x) =>
-                  x.id === item.id
-                    ? { ...x, latitude: coords.lat, longitude: coords.lng }
-                    : x
-                )
-              );
-            } catch (error) {
-              console.warn("[MapPage] setDoc coords failed:", error);
-            }
-          }
-
-          await new Promise((resolve) => setTimeout(resolve, 300));
+        const currentStore = storeRef.current;
+        if (typeof currentStore?.setListings === "function") {
+          currentStore.setListings(filteredByPurpose);
         }
       } catch (error) {
         console.error("[MapPage] Firestore error:", error);
@@ -218,8 +154,9 @@ const MapPage = ({ purpose = "all" }) => {
           setAllListings([]);
           setVisibleListings([]);
 
-          if (typeof store?.setListings === "function") {
-            store.setListings([]);
+          const currentStore = storeRef.current;
+          if (typeof currentStore?.setListings === "function") {
+            currentStore.setListings([]);
           }
         }
       } finally {
@@ -238,7 +175,11 @@ const MapPage = ({ purpose = "all" }) => {
     return allListings.filter(
       (item) =>
         typeof item.latitude === "number" &&
-        typeof item.longitude === "number"
+        typeof item.longitude === "number" &&
+        item.latitude >= 47 &&
+        item.latitude <= 56 &&
+        item.longitude >= 5 &&
+        item.longitude <= 16
     );
   }, [allListings]);
 
@@ -262,29 +203,27 @@ const MapPage = ({ purpose = "all" }) => {
   });
 
   const handleVisibleChange = useCallback((items) => {
-    if (Array.isArray(items)) {
-      setVisibleListings(items);
-    }
+    if (!Array.isArray(items)) return;
+    setVisibleListings(items);
   }, []);
 
-  const handleSelectListing = useCallback(
-    (listing) => {
-      setSelectedListing(listing);
+  const handleSelectListing = useCallback((listing) => {
+    setSelectedListing(listing);
 
-      if (listing?.id && typeof store?.setActiveId === "function") {
-        store.setActiveId(listing.id);
-      }
-    },
-    [store]
-  );
+    const currentStore = storeRef.current;
+    if (listing?.id && typeof currentStore?.setActiveId === "function") {
+      currentStore.setActiveId(listing.id);
+    }
+  }, []);
 
   const handleCloseModal = useCallback(() => {
     setSelectedListing(null);
 
-    if (typeof store?.setActiveId === "function") {
-      store.setActiveId(null);
+    const currentStore = storeRef.current;
+    if (typeof currentStore?.setActiveId === "function") {
+      currentStore.setActiveId(null);
     }
-  }, [store]);
+  }, []);
 
   const handleSaveSearch = useCallback(() => {
     alert(
@@ -307,7 +246,7 @@ const MapPage = ({ purpose = "all" }) => {
         lang={i18n.language?.slice(0, 2) || "de"}
       />
 
-      <div className="grid h-full w-full grid-cols-1 md:grid-cols-[520px_1fr] xl:grid-cols-[620px_1fr]">
+      <div className="grid h-full w-full grid-cols-1 md:grid-cols-[500px_1fr] xl:grid-cols-[580px_1fr]">
         {hasMapbox && (
           <aside className="hidden min-h-0 border-r border-slate-200 bg-white md:flex md:flex-col dark:border-slate-800 dark:bg-slate-950">
             <div className="shrink-0 border-b border-slate-200 bg-white/95 px-4 py-3 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
@@ -358,10 +297,12 @@ const MapPage = ({ purpose = "all" }) => {
 
                   <select
                     value={sortBy}
-                    onChange={(e) =>
-                      typeof store?.setSort === "function" &&
-                      store.setSort(e.target.value)
-                    }
+                    onChange={(e) => {
+                      const currentStore = storeRef.current;
+                      if (typeof currentStore?.setSort === "function") {
+                        currentStore.setSort(e.target.value);
+                      }
+                    }}
                     className="min-w-[180px] rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
                   >
                     <option value="">
@@ -393,7 +334,7 @@ const MapPage = ({ purpose = "all" }) => {
               </div>
             </div>
 
-           <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 pb-4">
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 pb-4">
               <ListingSidebar
                 listings={visibleListings}
                 onClickItem={handleSelectListing}
